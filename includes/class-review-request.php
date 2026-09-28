@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Nestform_Review_Request {
 
-	const REVIEW_URL = 'https://wordpress.org/support/plugin/nestform/reviews/#new-post';
+	const REVIEW_URL = 'https://wordpress.org/support/plugin/thimbleform/reviews/#new-post';
 
 	const DISMISSED_META = 'nestform_review_notice_dismissed';
 
@@ -143,7 +143,7 @@ class Nestform_Review_Request {
 	 * @return array<int|string, string>
 	 */
 	public static function plugin_row_meta( $links, $file ) {
-		if ( plugin_basename( NESTFORM_PATH . 'nestform.php' ) !== $file || ! self::is_enabled() ) {
+		if ( plugin_basename( NESTFORM_FILE ) !== $file || ! self::is_enabled() ) {
 			return $links;
 		}
 

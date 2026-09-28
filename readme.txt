@@ -44,7 +44,7 @@ Thimbleform is a form builder for lead capture and feedback.
 
 == Installation ==
 
-1. Upload the plugin to `/wp-content/plugins/nestform/` or install from the WordPress plugins screen.
+1. Upload the plugin to `/wp-content/plugins/thimbleform/` or install from the WordPress plugins screen.
 2. Activate **Thimbleform** through the **Plugins** menu.
 3. Open **Thimbleform** in the admin menu to create your first form.
 4. Embed with the Gutenberg block or shortcode `[thimbleform id="123"]`.
@@ -157,6 +157,7 @@ The phone country picker uses self-hosted SVG flags from [flag-icons](https://gi
 == Changelog ==
 
 = 2.3.2 =
+* Public name is Thimbleform. The plugin directory slug is `thimbleform`.
 * Entries hub: optional All / Forms / Jobs kind filters via `nestform_entries_kind_filters` and `nestform_entries_hub_query_args` (form_ids / exclude_form_ids).
 * Sharper dashboard charts (no forced canvas stretch on retina).
 * Clearer description and screenshots of the free plugin.

@@ -6,8 +6,8 @@ Not a Contact Form 7 clone — a focused product around:
 
 **Forms · Quizzes · Surveys · Leads · Analytics**
 
-**Path:** `wp-content/plugins/nestform/`  
-**Main file:** `nestform.php`  
+**Path:** `wp-content/plugins/thimbleform/`  
+**Main file:** `thimbleform.php`  
 **Version:** 2.2.1  
 **Pro add-on:** `wp-content/plugins/nestform-pro/` (sold separately on [thimbleform.app](https://thimbleform.app))  
 **Source:** [github.com/NestForm/nestform-free](https://github.com/NestForm/nestform-free)

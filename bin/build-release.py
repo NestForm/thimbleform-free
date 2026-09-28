@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Build a WordPress.org distribution zip for Nestform.
+Build a WordPress.org distribution zip for Thimbleform.
 
 Usage (from plugin root):
   python bin/build-release.py
-  python bin/build-release.py --out ../nestform-2.2.1.zip
+  python bin/build-release.py --out ../thimbleform-2.3.2.zip
 """
 
 from __future__ import annotations
@@ -85,12 +85,16 @@ def is_excluded(rel_posix: str, patterns: list[str]) -> bool:
     return excluded
 
 
+def main_plugin_file(plugin_root: Path) -> str:
+    return "thimbleform.php"
+
+
 def read_version(plugin_root: Path) -> str:
-    main_file = plugin_root / "nestform.php"
+    main_file = plugin_root / main_plugin_file(plugin_root)
     text = main_file.read_text(encoding="utf-8")
     match = re.search(r"^\s*\*\s*Version:\s*(.+?)\s*$", text, re.MULTILINE)
     if not match:
-        raise RuntimeError("Could not read Version from nestform.php")
+        raise RuntimeError(f"Could not read Version from {main_file.name}")
     return match.group(1).strip()
 
 
@@ -109,7 +113,7 @@ def collect_files(plugin_root: Path, patterns: list[str]) -> list[Path]:
 def build_zip(plugin_root: Path, output: Path) -> None:
     patterns = read_distignore(plugin_root)
     files = collect_files(plugin_root, patterns)
-    slug = plugin_root.name
+    slug = "thimbleform"
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.exists():
         output.unlink()
@@ -139,17 +143,18 @@ def verify_zip(output: Path, slug: str) -> None:
         names = archive.namelist()
         if not names:
             raise RuntimeError("Zip is empty")
-        if not any(name == f"{slug}/nestform.php" for name in names):
-            raise RuntimeError("Missing nestform/nestform.php in archive")
+        main = f"{slug}/thimbleform.php"
+        if main not in names:
+            raise RuntimeError(f"Missing {main} in archive")
         bad = [name for name in names if "\\" in name]
         if bad:
             raise RuntimeError(f"Backslashes in zip paths: {bad[:3]}")
-        archive.read(f"{slug}/nestform.php")
-    print("Verify:  OK (nestform/nestform.php present, UTF-8 paths)")
+        archive.read(main)
+    print(f"Verify:  OK ({slug}/thimbleform.php present, UTF-8 paths)")
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Build Nestform release zip")
+    parser = argparse.ArgumentParser(description="Build Thimbleform release zip")
     parser.add_argument(
         "--root",
         default=str(Path(__file__).resolve().parents[1]),
@@ -158,13 +163,13 @@ def main() -> int:
     parser.add_argument(
         "--out",
         default="",
-        help="Output zip path (default: ../nestform-{version}.zip)",
+        help="Output zip path (default: ../thimbleform-{version}.zip)",
     )
     args = parser.parse_args()
 
     plugin_root = Path(args.root).resolve()
     version = read_version(plugin_root)
-    slug = plugin_root.name
+    slug = "thimbleform"
     output = (
         Path(args.out).resolve()
         if args.out

@@ -7,7 +7,7 @@
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Thimbleform
- * Text Domain: nestform
+ * Text Domain: thimbleform
  * Domain Path: /languages
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -24,12 +24,13 @@ if ( defined( 'NESTFORM_VERSION' ) ) {
 }
 
 define( 'NESTFORM_VERSION', '2.3.2' );
+define( 'NESTFORM_FILE', __FILE__ );
 define( 'NESTFORM_PATH', trailingslashit( dirname( __FILE__ ) ) );
 define( 'NESTFORM_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 
 require_once NESTFORM_PATH . 'includes/uninstall-cleanup.php';
 
-register_uninstall_hook( NESTFORM_PATH . 'nestform.php', 'nestform_uninstall_cleanup' );
+register_uninstall_hook( NESTFORM_FILE, 'nestform_uninstall_cleanup' );
 
 /**
  * Activation: install custom tables and schedule cleanup.
