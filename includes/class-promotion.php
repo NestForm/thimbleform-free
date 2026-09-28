@@ -11,13 +11,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Nestform_Promotion {
 
-	const PAGE_SLUG = 'nestform-pro';
+	const PAGE_SLUG = 'thimbleform-pro';
 
 	const STORE_URL = 'https://checkout.freemius.com/product/37981/plan/63282/licenses/1/?billing_cycle=monthly&pricing_id=84761';
 
 	const DOCS_URL = 'https://thimbleform.app/docs';
 
-	const DISMISSED_META = 'nestform_pro_notice_dismissed';
+	const DISMISSED_META = 'thimbleform_pro_notice_dismissed';
 
 	const EXPORT_COUNT_OPTION = 'nestform_export_count';
 
@@ -41,7 +41,7 @@ class Nestform_Promotion {
 	 * @return bool
 	 */
 	public static function is_pro_installed() {
-		return defined( 'NESTFORM_PRO_VERSION' );
+		return defined( 'THIMBLEFORM_PRO_VERSION' );
 	}
 
 	/**
@@ -204,10 +204,10 @@ class Nestform_Promotion {
 					<?php Nestform_Upgrade::render_plan_cards( $plans ); ?>
 				<?php endif; ?>
 
-				<div class="nestform-admin__surface nestform-pro-compare-card">
-					<h3 class="nestform-pro-compare-card__title"><?php esc_html_e( 'Where the line falls', 'nestform' ); ?></h3>
-					<p class="nestform-pro-compare-card__lead"><?php esc_html_e( 'The same jobs, side by side. If the free column already covers what you do, you do not need Pro.', 'nestform' ); ?></p>
-					<table class="nestform-pro-compare widefat striped">
+				<div class="nestform-admin__surface thimbleform-pro-compare-card">
+					<h3 class="thimbleform-pro-compare-card__title"><?php esc_html_e( 'Where the line falls', 'nestform' ); ?></h3>
+					<p class="thimbleform-pro-compare-card__lead"><?php esc_html_e( 'The same jobs, side by side. If the free column already covers what you do, you do not need Pro.', 'nestform' ); ?></p>
+					<table class="thimbleform-pro-compare widefat striped">
 						<thead>
 							<tr>
 								<th scope="col"><?php esc_html_e( 'The job', 'nestform' ); ?></th>
@@ -227,25 +227,25 @@ class Nestform_Promotion {
 					</table>
 				</div>
 
-				<div class="nestform-admin__surface nestform-pro-faq-card">
-					<h3 class="nestform-pro-faq-card__title"><?php esc_html_e( 'Before you decide', 'nestform' ); ?></h3>
-					<dl class="nestform-pro-faq">
+				<div class="nestform-admin__surface thimbleform-pro-faq-card">
+					<h3 class="thimbleform-pro-faq-card__title"><?php esc_html_e( 'Before you decide', 'nestform' ); ?></h3>
+					<dl class="thimbleform-pro-faq">
 						<?php foreach ( self::questions() as $question => $answer ) : ?>
 							<dt><?php echo esc_html( $question ); ?></dt>
 							<dd><?php echo esc_html( $answer ); ?></dd>
 						<?php endforeach; ?>
 					</dl>
-					<p class="nestform-pro-faq-card__more">
+					<p class="thimbleform-pro-faq-card__more">
 						<a href="<?php echo esc_url( self::DOCS_URL ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Pro documentation', 'nestform' ); ?></a>
 					</p>
 				</div>
 
-				<div class="nestform-admin__surface nestform-pro-bought-card">
-					<h3 class="nestform-pro-bought-card__title"><?php esc_html_e( 'Already bought it?', 'nestform' ); ?></h3>
+				<div class="nestform-admin__surface thimbleform-pro-bought-card">
+					<h3 class="thimbleform-pro-bought-card__title"><?php esc_html_e( 'Already bought it?', 'nestform' ); ?></h3>
 					<p><?php esc_html_e( 'Install Thimbleform Pro under Plugins → Add Plugin → Upload Plugin, activate it, then open Thimbleform → Account (or Thimbleform → License) to activate your Freemius license. Keep Thimbleform (free) active — Pro is an add-on, not a replacement.', 'nestform' ); ?></p>
 				</div>
 
-				<p class="nestform-upgrade__trust nestform-pro-note">
+				<p class="nestform-upgrade__trust thimbleform-pro-note">
 					<?php esc_html_e( 'Thimbleform Pro is sold via Freemius checkout. Links open in a new tab; the free plugin does not phone home.', 'nestform' ); ?>
 				</p>
 			</div>
@@ -291,23 +291,23 @@ class Nestform_Promotion {
 			: self::url();
 		// Compact banner is default for contextual upsells (Integrations / Fields / Mail).
 		$compact = ! array_key_exists( 'compact', $args ) || ! empty( $args['compact'] );
-		$class   = $compact ? 'nestform-pro-teaser nestform-pro-teaser--compact' : 'nestform-pro-teaser';
+		$class   = $compact ? 'thimbleform-pro-teaser thimbleform-pro-teaser--compact' : 'thimbleform-pro-teaser';
 		?>
 		<div class="<?php echo esc_attr( $class ); ?>" aria-label="<?php echo esc_attr( $title ); ?>">
-			<div class="nestform-pro-teaser__body">
+			<div class="thimbleform-pro-teaser__body">
 				<p class="nestform-app__pro-kicker">
 					<?php echo nestform_admin_icon_html( 'pro' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<?php esc_html_e( 'Thimbleform Pro', 'nestform' ); ?>
 				</p>
-				<p class="nestform-pro-teaser__title"><?php echo esc_html( $title ); ?></p>
+				<p class="thimbleform-pro-teaser__title"><?php echo esc_html( $title ); ?></p>
 				<?php if ( '' !== trim( $copy ) ) : ?>
-					<p class="nestform-pro-teaser__copy"><?php echo esc_html( $copy ); ?></p>
+					<p class="thimbleform-pro-teaser__copy"><?php echo esc_html( $copy ); ?></p>
 				<?php endif; ?>
 				<?php if ( ! $compact ) : ?>
-					<p class="nestform-pro-teaser__note"><?php esc_html_e( 'This is a separate add-on. It is not included or locked inside the free plugin.', 'nestform' ); ?></p>
+					<p class="thimbleform-pro-teaser__note"><?php esc_html_e( 'This is a separate add-on. It is not included or locked inside the free plugin.', 'nestform' ); ?></p>
 				<?php endif; ?>
 			</div>
-			<a class="nestform-pro-cta nestform-pro-teaser__cta" href="<?php echo esc_url( $url ); ?>">
+			<a class="thimbleform-pro-cta thimbleform-pro-teaser__cta" href="<?php echo esc_url( $url ); ?>">
 				<?php echo esc_html( $cta ); ?>
 			</a>
 		</div>
@@ -474,11 +474,11 @@ class Nestform_Promotion {
 			'nestform_dismiss_pro_notice'
 		);
 		?>
-		<div class="notice notice-info nestform-pro-notice">
+		<div class="notice notice-info thimbleform-pro-notice">
 			<p><?php echo esc_html( self::notice_message( $signal ) ); ?></p>
-			<p class="nestform-pro-notice__actions">
+			<p class="thimbleform-pro-notice__actions">
 				<a href="<?php echo esc_url( self::url() ); ?>"><?php esc_html_e( 'See what Pro adds', 'nestform' ); ?></a>
-				<a class="nestform-pro-notice__dismiss" href="<?php echo esc_url( $dismiss ); ?>"><?php esc_html_e( 'Don\'t show this again', 'nestform' ); ?></a>
+				<a class="thimbleform-pro-notice__dismiss" href="<?php echo esc_url( $dismiss ); ?>"><?php esc_html_e( 'Don\'t show this again', 'nestform' ); ?></a>
 			</p>
 		</div>
 		<?php
@@ -527,7 +527,7 @@ class Nestform_Promotion {
 			$new['nestform-create'] = '<a href="' . esc_url( admin_url( 'post-new.php?post_type=' . Nestform_Post_Type::POST_TYPE ) ) . '">' . esc_html__( 'Create a form', 'nestform' ) . '</a>';
 		}
 		if ( self::should_promote() ) {
-			$new['nestform-pro'] = '<a href="' . esc_url( self::url() ) . '">' . esc_html__( 'Get Pro', 'nestform' ) . '</a>';
+			$new['thimbleform-pro'] = '<a href="' . esc_url( self::url() ) . '">' . esc_html__( 'Get Pro', 'nestform' ) . '</a>';
 		}
 		return array_merge( $new, $links );
 	}

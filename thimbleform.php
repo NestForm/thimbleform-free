@@ -424,11 +424,11 @@ function nestform_render_app_open( $current ) {
 		);
 	}
 
-	if ( $can_manage_opts && class_exists( 'Nestform_Pro_License' ) ) {
+	if ( $can_manage_opts && class_exists( 'Thimbleform_Pro_License' ) ) {
 		$items[] = array(
 			'id'    => 'license',
 			'label' => __( 'License', 'nestform' ),
-			'url'   => Nestform_Pro_License::url(),
+			'url'   => Thimbleform_Pro_License::url(),
 			'icon'  => 'license',
 			'group' => 'account',
 		);
@@ -602,11 +602,11 @@ function nestform_admin_current_view() {
 		'nestform-settings'      => 'settings',
 		'nestform-integrations'  => 'integrations',
 		'nestform-developers'    => 'developers',
-		'nestform-pro'               => 'pro',
+		'thimbleform-pro'               => 'pro',
 		'nestform-upgrade'           => 'pro',
 		'nestform-account'           => 'license',
 		'nestform-forms-account'     => 'license',
-		'nestform-pro-license'       => 'license',
+		'thimbleform-pro-license'       => 'license',
 		'nestform-recruiting'        => 'recruiting',
 	);
 	if ( isset( $map[ $page ] ) ) {

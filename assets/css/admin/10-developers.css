@@ -301,7 +301,7 @@ body.nestform-docs-screen .wrap.nestform-docs {
     padding: var(--nestform-space-2) var(--nestform-space-4);
     border-radius: var(--nestform-radius-sm);
     border: 1px solid var(--nestform-accent-line);
-    background: var(--nestform-pro-soft);
+    background: var(--thimbleform-pro-soft);
     font-size: 13px;
     line-height: var(--nestform-line-height);
     color: var(--nestform-accent-dark);
@@ -314,7 +314,7 @@ body.nestform-docs-screen .wrap.nestform-docs {
     margin: 0 0 var(--nestform-space-4);
     padding: var(--nestform-space-2) var(--nestform-space-4);
     border-radius: var(--nestform-radius-sm);
-    border: 1px solid var(--nestform-pro-gold);
+    border: 1px solid var(--thimbleform-pro-gold);
     background: var(--nestform-warn-soft);
     font-size: 13px;
     line-height: var(--nestform-line-height);
@@ -393,7 +393,7 @@ body.nestform-docs-screen .wrap.nestform-docs {
 
 .nestform-docs__plan--popular {
     border-color: var(--nestform-accent-line);
-    background: var(--nestform-pro-soft);
+    background: var(--thimbleform-pro-soft);
     box-shadow: 0 0 0 1px var(--nestform-accent-line);
 }
 

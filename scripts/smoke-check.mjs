@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const proRoot = path.resolve(root, '..', 'nestform-pro');
+const proRoot = path.resolve(root, '..', 'thimbleform-pro');
 
 const fails = [];
 const passes = [];
@@ -104,9 +104,9 @@ if (!php) {
 	ok(`PHP: ${php}`);
 	phpLintTree(php, path.join(root, 'includes'), 'nestform/includes');
 	if (fs.existsSync(path.join(proRoot, 'includes'))) {
-		phpLintTree(php, path.join(proRoot, 'includes'), 'nestform-pro/includes');
+		phpLintTree(php, path.join(proRoot, 'includes'), 'thimbleform-pro/includes');
 	} else {
-		fail('nestform-pro/includes missing');
+		fail('thimbleform-pro/includes missing');
 	}
 }
 

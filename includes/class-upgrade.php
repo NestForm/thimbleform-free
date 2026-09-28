@@ -32,8 +32,8 @@ class Nestform_Upgrade {
 			wp_safe_redirect( Nestform_Promotion::url() );
 			exit;
 		}
-		if ( 'nestform-forms-account' === $page && class_exists( 'Nestform_Pro_License' ) ) {
-			wp_safe_redirect( Nestform_Pro_License::url() );
+		if ( 'nestform-forms-account' === $page && class_exists( 'Thimbleform_Pro_License' ) ) {
+			wp_safe_redirect( Thimbleform_Pro_License::url() );
 			exit;
 		}
 	}
@@ -44,7 +44,7 @@ class Nestform_Upgrade {
 	 * @return bool
 	 */
 	public static function is_pro() {
-		if ( class_exists( 'Nestform_Pro_License' ) && Nestform_Pro_License::is_valid() ) {
+		if ( class_exists( 'Thimbleform_Pro_License' ) && Thimbleform_Pro_License::is_valid() ) {
 			return true;
 		}
 		return (bool) apply_filters( 'nestform_is_pro', false );
@@ -322,7 +322,7 @@ class Nestform_Upgrade {
 		if ( 'agency' === $plan ) {
 			$url = apply_filters( 'nestform_agency_checkout_url', $url, $plan, $billing );
 		} else {
-			$url = apply_filters( 'nestform_pro_checkout_url', $url, $plan, $billing );
+			$url = apply_filters( 'thimbleform_pro_checkout_url', $url, $plan, $billing );
 		}
 
 		return esc_url_raw( (string) $url );
@@ -354,7 +354,7 @@ class Nestform_Upgrade {
 	 * @return string
 	 */
 	public static function pill_html() {
-		return '<span class="nestform-pro-pill">'
+		return '<span class="thimbleform-pro-pill">'
 			. nestform_admin_icon_html( 'pro' )
 			. esc_html__( 'PRO', 'nestform' )
 			. '</span>';
@@ -383,7 +383,7 @@ class Nestform_Upgrade {
 		<a class="nestform-app__pro" href="<?php echo esc_url( Nestform_Promotion::url() ); ?>">
 			<span class="nestform-app__pro-kicker"><?php echo nestform_admin_icon_html( 'pro' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG ?> <?php esc_html_e( 'Thimbleform Pro', 'nestform' ); ?></span>
 			<span class="nestform-app__pro-copy"><?php esc_html_e( 'Quizzes, multi-step flows, PDF, Stripe, HubSpot, and optional Recruiting.', 'nestform' ); ?></span>
-			<span class="nestform-pro-cta nestform-app__pro-cta"><?php esc_html_e( 'Learn more', 'nestform' ); ?></span>
+			<span class="thimbleform-pro-cta nestform-app__pro-cta"><?php esc_html_e( 'Learn more', 'nestform' ); ?></span>
 		</a>
 		<?php
 	}
@@ -446,7 +446,7 @@ class Nestform_Upgrade {
 						<?php
 						$checkout_plan = sanitize_key( (string) $plan['checkout_plan'] );
 						$cta_class     = 'pro' === $checkout_plan
-							? 'nestform-pro-cta nestform-upgrade__cta'
+							? 'thimbleform-pro-cta nestform-upgrade__cta'
 							: 'nestform-btn nestform-btn--outline nestform-upgrade__cta nestform-upgrade__cta--agency';
 						?>
 						<a

@@ -49,7 +49,7 @@
     body.nestform-admin-screen.nestform-theme-dark div.updated:not(.inline):not(.hidden),
     body.nestform-admin-screen.nestform-theme-dark div.error:not(.inline):not(.hidden) {
         border-color: var(--nestform-accent-line) !important;
-        background: var(--nestform-pro-soft) !important;
+        background: var(--thimbleform-pro-soft) !important;
         color: var(--nestform-ink) !important;
         box-shadow: var(--nestform-shadow-md) !important;
     }

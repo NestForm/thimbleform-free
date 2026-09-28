@@ -682,8 +682,8 @@ body.nestform-admin-screen
 
 .nestform-dash__kpi--pro {
     position: relative;
-    background: var(--nestform-pro-bg);
-    background-image: var(--nestform-pro-image);
+    background: var(--thimbleform-pro-bg);
+    background-image: var(--thimbleform-pro-image);
     border-color: transparent;
     text-decoration: none;
     color: var(--nestform-on-accent);
@@ -694,8 +694,8 @@ body.nestform-admin-screen
 .nestform-dash__kpi--pro:focus {
     color: var(--nestform-on-accent);
     border-color: transparent;
-    background: var(--nestform-pro-bg);
-    background-image: var(--nestform-pro-image);
+    background: var(--thimbleform-pro-bg);
+    background-image: var(--thimbleform-pro-image);
     filter: brightness(1.08);
     border-radius: var(--dash-radius);
     box-shadow: none;
@@ -758,8 +758,8 @@ body.nestform-admin-screen
     padding: var(--nestform-space-2) var(--nestform-space-4);
     border: 1px solid var(--nestform-accent-line);
     border-radius: 999px;
-    background: var(--nestform-pro-soft);
-    color: var(--nestform-pro);
+    background: var(--thimbleform-pro-soft);
+    color: var(--thimbleform-pro);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.02em;
@@ -768,7 +768,7 @@ body.nestform-admin-screen
 .nestform-upgrade__badge svg {
     width: 14px;
     height: 14px;
-    color: var(--nestform-pro-gold);
+    color: var(--thimbleform-pro-gold);
 }
 
 .nestform-upgrade__title {
@@ -819,8 +819,8 @@ body.nestform-admin-screen
 }
 
 .nestform-upgrade__bill.is-active {
-    background: var(--nestform-pro-bg);
-    background-image: var(--nestform-pro-image);
+    background: var(--thimbleform-pro-bg);
+    background-image: var(--thimbleform-pro-image);
     color: var(--nestform-on-accent);
 }
 
@@ -858,8 +858,8 @@ body.nestform-admin-screen
 .nestform-upgrade__plan--pro {
     color: var(--nestform-on-accent);
     border-color: transparent;
-    background: var(--nestform-pro-bg);
-    background-image: var(--nestform-pro-image);
+    background: var(--thimbleform-pro-bg);
+    background-image: var(--thimbleform-pro-image);
     box-shadow:
         0 14px 36px rgba(30, 58, 138, 0.28),
         inset 0 1px 0 rgba(255, 255, 255, 0.12);
@@ -955,7 +955,7 @@ body.nestform-admin-screen
 }
 
 .nestform-upgrade__list li,
-.nestform-pro-modal__list li {
+.thimbleform-pro-modal__list li {
     position: relative;
     margin: 0 0 var(--nestform-space-2);
     padding-left: var(--nestform-space-6);
@@ -965,7 +965,7 @@ body.nestform-admin-screen
 }
 
 .nestform-upgrade__list li::before,
-.nestform-pro-modal__list li::before {
+.thimbleform-pro-modal__list li::before {
     content: "";
     position: absolute;
     left: 0;
@@ -973,14 +973,14 @@ body.nestform-admin-screen
     width: 16px;
     height: 16px;
     border-radius: 999px;
-    background: var(--nestform-pro-soft);
+    background: var(--thimbleform-pro-soft);
     color: var(--nestform-accent);
     -webkit-mask: none;
     mask: none;
 }
 
 .nestform-upgrade__list li::after,
-.nestform-pro-modal__list li::after {
+.thimbleform-pro-modal__list li::after {
     content: "";
     position: absolute;
     left: 4px;
@@ -996,12 +996,12 @@ body.nestform-admin-screen
 }
 
 .nestform-upgrade__plan--pro .nestform-upgrade__list li::before,
-.nestform-pro-modal__list li::before {
+.thimbleform-pro-modal__list li::before {
     background: rgba(255, 255, 255, 0.14);
 }
 
 .nestform-upgrade__plan--pro .nestform-upgrade__list li::after,
-.nestform-pro-modal__list li::after {
+.thimbleform-pro-modal__list li::after {
     color: #93c5fd;
 }
 
@@ -1022,7 +1022,7 @@ body.nestform-admin-screen
     border: 1px solid transparent;
     border-radius: var(--nestform-radius);
     background: var(--nestform-surface);
-    color: var(--nestform-pro);
+    color: var(--thimbleform-pro);
     font-size: 14px;
     box-shadow: 0 8px 20px rgba(15, 23, 42, 0.16);
 }
@@ -1031,7 +1031,7 @@ body.nestform-admin-screen
 .nestform-upgrade__cta:focus {
     background: var(--nestform-surface);
     border-color: var(--nestform-hover-border);
-    color: var(--nestform-pro);
+    color: var(--thimbleform-pro);
     box-shadow: var(--nestform-shadow);
 }
 
@@ -1202,8 +1202,8 @@ body.nestform-app-screen .wrap.nestform-license {
     padding: var(--nestform-space-2) var(--nestform-space-4);
     border: 1px solid var(--nestform-accent-line);
     border-radius: 999px;
-    background: var(--nestform-pro-soft);
-    color: var(--nestform-pro);
+    background: var(--thimbleform-pro-soft);
+    color: var(--thimbleform-pro);
     font-size: 12px;
     font-weight: 700;
 }
@@ -1211,7 +1211,7 @@ body.nestform-app-screen .wrap.nestform-license {
 .nestform-license__badge svg {
     width: 14px;
     height: 14px;
-    color: var(--nestform-pro-gold);
+    color: var(--thimbleform-pro-gold);
 }
 
 .nestform-license__title {
@@ -1362,8 +1362,8 @@ body.nestform-app-screen .wrap.nestform-license {
     padding: var(--nestform-space-4);
     border-radius: 16px;
     border: 1px solid transparent;
-    background: var(--nestform-pro-bg);
-    background-image: var(--nestform-pro-image);
+    background: var(--thimbleform-pro-bg);
+    background-image: var(--thimbleform-pro-image);
     color: var(--nestform-on-accent);
     box-shadow:
         0 14px 36px rgba(30, 58, 138, 0.24),
@@ -1394,7 +1394,7 @@ body.nestform-app-screen .wrap.nestform-license {
     margin: 0 0 var(--nestform-space-2);
     border: 1px solid transparent;
     background: var(--nestform-surface);
-    color: var(--nestform-pro);
+    color: var(--thimbleform-pro);
     margin-top: auto;
     transition: var(--nestform-transition);
 }
@@ -1403,7 +1403,7 @@ body.nestform-app-screen .wrap.nestform-license {
 .nestform-license__aside-cta:focus {
     background: var(--nestform-surface);
     border-color: var(--nestform-hover-border);
-    color: var(--nestform-pro);
+    color: var(--thimbleform-pro);
     box-shadow: var(--nestform-shadow);
 }
 
@@ -1487,7 +1487,7 @@ body.nestform-app-screen .wrap.nestform-license {
 
 .nestform-dash__metric.is-active,
 button.nestform-dash__metric:hover {
-    background: var(--nestform-pro-soft);
+    background: var(--thimbleform-pro-soft);
     color: var(--nestform-accent-dark);
 }
 
@@ -1499,17 +1499,17 @@ button.nestform-dash__metric:hover {
 
 .nestform-dash__metric.is-locked:hover,
 .nestform-dash__metric[aria-disabled="true"]:hover {
-    background: var(--nestform-pro-soft);
+    background: var(--thimbleform-pro-soft);
     color: var(--nestform-accent-dark);
 }
 
 .nestform-entries__stat--pro {
     text-decoration: none;
-    background: var(--nestform-pro-bg);
-    background-image: var(--nestform-pro-image);
+    background: var(--thimbleform-pro-bg);
+    background-image: var(--thimbleform-pro-image);
     border-color: transparent;
     color: var(--nestform-on-accent);
-    box-shadow: 0 8px 20px var(--nestform-pro-glow);
+    box-shadow: 0 8px 20px var(--thimbleform-pro-glow);
 }
 
 .nestform-entries__stat--pro .nestform-entries__stat-value,
@@ -1517,11 +1517,11 @@ button.nestform-dash__metric:hover {
     color: var(--nestform-on-accent);
 }
 
-.nestform-pro-modal[hidden] {
+.thimbleform-pro-modal[hidden] {
     display: none !important;
 }
 
-.nestform-pro-modal {
+.thimbleform-pro-modal {
     position: fixed;
     inset: 0;
     z-index: 100010;
@@ -1531,7 +1531,7 @@ button.nestform-dash__metric:hover {
     padding: var(--nestform-space-6);
 }
 
-.nestform-pro-modal__backdrop {
+.thimbleform-pro-modal__backdrop {
     position: absolute;
     inset: 0;
     border: 0;
@@ -1539,20 +1539,20 @@ button.nestform-dash__metric:hover {
     cursor: pointer;
 }
 
-.nestform-pro-modal__card {
+.thimbleform-pro-modal__card {
     position: relative;
     z-index: 1;
     width: min(420px, 100%);
     padding: var(--nestform-space-6);
     border-radius: 16px;
-    background: var(--nestform-pro-bg);
-    background-image: var(--nestform-pro-image);
+    background: var(--thimbleform-pro-bg);
+    background-image: var(--thimbleform-pro-image);
     color: var(--nestform-on-accent);
     box-shadow: 0 16px 48px rgba(17, 24, 39, 0.35);
     box-sizing: border-box;
 }
 
-.nestform-pro-modal__head {
+.thimbleform-pro-modal__head {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1560,20 +1560,20 @@ button.nestform-dash__metric:hover {
     margin: 0 0 var(--nestform-space-2);
 }
 
-.nestform-pro-modal__title {
+.thimbleform-pro-modal__title {
     margin: 0;
     font-size: 18px;
     letter-spacing: -0.03em;
     color: var(--nestform-on-accent);
 }
 
-.nestform-pro-modal__text {
+.thimbleform-pro-modal__text {
     margin: 0 0 var(--nestform-space-4);
     color: var(--nestform-on-accent-muted);
     font-size: 13px;
 }
 
-.nestform-pro-modal__viz {
+.thimbleform-pro-modal__viz {
     display: flex;
     align-items: center;
     gap: var(--nestform-space-2);
@@ -1582,24 +1582,24 @@ button.nestform-dash__metric:hover {
     font-weight: 700;
 }
 
-.nestform-pro-modal__viz-bar {
+.thimbleform-pro-modal__viz-bar {
     flex: 1;
     height: 3px;
     border-radius: 999px;
     background: rgba(96, 165, 250, 0.7);
 }
 
-.nestform-pro-modal__list {
+.thimbleform-pro-modal__list {
     margin: 0 0 var(--nestform-space-4);
     padding: 0;
     list-style: none;
 }
 
-.nestform-pro-modal__cta {
+.thimbleform-pro-modal__cta {
     width: 100%;
 }
 
-.nestform-pro-modal__dismiss {
+.thimbleform-pro-modal__dismiss {
     display: block;
     width: 100%;
     margin-top: var(--nestform-space-2);

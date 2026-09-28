@@ -330,7 +330,7 @@
 		state.canvas = state.wrap.querySelector('[data-nestform-chart-canvas]');
 
 		var free = parseJson(state.wrap.querySelector('[data-nestform-chart]'));
-		var pro = parseJson(state.wrap.querySelector('[data-nestform-pro-chart]'));
+		var pro = parseJson(state.wrap.querySelector('[data-thimbleform-pro-chart]'));
 		if (pro && typeof pro === 'object') {
 			state.series = pro;
 			state.active = 'submissions';

@@ -342,13 +342,13 @@
     margin: var(--nestform-space-2) var(--nestform-space-2) 0;
     font-size: 12px;
     font-weight: 600;
-    color: var(--nestform-pro-mid);
+    color: var(--thimbleform-pro-mid);
     text-decoration: none;
 }
 
 .nestform-add-menu__pro-link:hover,
 .nestform-add-menu__pro-link:focus {
-    color: var(--nestform-pro);
+    color: var(--thimbleform-pro);
     text-decoration: underline;
 }
 

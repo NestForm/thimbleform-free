@@ -83,9 +83,9 @@ class Nestform_Features {
 	 * @return bool
 	 */
 	private static function registration_allowed() {
-		return defined( 'NESTFORM_PRO_VERSION' )
-			|| class_exists( 'Nestform_Pro_License' )
-			|| class_exists( 'Nestform_Pro' );
+		return defined( 'THIMBLEFORM_PRO_VERSION' )
+			|| class_exists( 'Thimbleform_Pro_License' )
+			|| class_exists( 'Thimbleform_Pro' );
 	}
 
 	/**

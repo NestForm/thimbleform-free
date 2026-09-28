@@ -17,8 +17,8 @@
         --nestform-border-strong: #d4d4dc;
         --nestform-muted: #6b6b80;
         --nestform-faint: #6b6b80;
-        --nestform-pro-soft: #eff6ff;
-        --nestform-pro-glow: rgba(29, 78, 216, 0.2);
+        --thimbleform-pro-soft: #eff6ff;
+        --thimbleform-pro-glow: rgba(29, 78, 216, 0.2);
         --nestform-navy: #01123e;
         --nestform-navy-alt: #02194c;
         --nestform-ink: var(--nestform-navy);

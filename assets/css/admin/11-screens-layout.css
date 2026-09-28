@@ -902,8 +902,8 @@ body.wp-core-ui.nestform-admin-screen
 
 .nestform-dash__answer-bars-item:nth-child(3)
     .nestform-dash__answer-bars-swatch {
-    background: var(--nestform-pro);
-    box-shadow: 0 0 0 3px var(--nestform-pro-soft);
+    background: var(--thimbleform-pro);
+    box-shadow: 0 0 0 3px var(--thimbleform-pro-soft);
 }
 
 .nestform-dash__answer-bars-item:nth-child(4)
@@ -949,7 +949,7 @@ body.wp-core-ui.nestform-admin-screen
 }
 
 .nestform-dash__answer-bars-item:nth-child(3) .nestform-dash__answer-bars-fill {
-    background: var(--nestform-pro);
+    background: var(--thimbleform-pro);
 }
 
 .nestform-dash__answer-bars-item:nth-child(4) .nestform-dash__answer-bars-fill {

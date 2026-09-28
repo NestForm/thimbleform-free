@@ -22,8 +22,8 @@
         --nestform-border-strong: #3a4256;
         --nestform-muted: #9aa3b5;
         --nestform-faint: #8b93a5;
-        --nestform-pro-soft: rgba(59, 130, 246, 0.14);
-        --nestform-pro-glow: rgba(59, 130, 246, 0.28);
+        --thimbleform-pro-soft: rgba(59, 130, 246, 0.14);
+        --thimbleform-pro-glow: rgba(59, 130, 246, 0.28);
         --nestform-on-accent-muted: rgba(255, 255, 255, 0.88);
         --nestform-navy: #eef0f5;
         --nestform-navy-alt: #dfe3ec;
@@ -67,8 +67,8 @@ body.nestform-admin-screen.nestform-theme-dark {
     --nestform-border-strong: #3a4256;
     --nestform-muted: #9aa3b5;
     --nestform-faint: #8b93a5;
-    --nestform-pro-soft: rgba(59, 130, 246, 0.14);
-    --nestform-pro-glow: rgba(59, 130, 246, 0.28);
+    --thimbleform-pro-soft: rgba(59, 130, 246, 0.14);
+    --thimbleform-pro-glow: rgba(59, 130, 246, 0.28);
     --nestform-on-accent-muted: rgba(255, 255, 255, 0.88);
     --nestform-navy: #eef0f5;
     --nestform-navy-alt: #dfe3ec;

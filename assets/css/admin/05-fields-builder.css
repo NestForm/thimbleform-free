@@ -267,7 +267,7 @@
 
 .nestform-card[data-field-type="url"] .nestform-card__badge,
 .nestform-card[data-field-type="file"] .nestform-card__badge {
-    background: var(--nestform-pro-soft);
+    background: var(--thimbleform-pro-soft);
     color: var(--nestform-accent-dark);
 }
 

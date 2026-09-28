@@ -109,7 +109,7 @@
   },
   {
     "file": "docs/license.png",
-    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-pro-license",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=thimbleform-pro-license",
     "target": ".nestform-app",
     "status": "captured"
   },

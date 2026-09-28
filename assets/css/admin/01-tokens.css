@@ -37,13 +37,13 @@
     --nestform-muted: #6b6b80;
     /* Secondary copy / placeholders — keep ≥4.5:1 on white (was #a0a0b4 ≈2.6:1). */
     --nestform-faint: #6b6b80;
-    --nestform-pro: #1e3a8a;
-    --nestform-pro-mid: #2563eb;
-    --nestform-pro-soft: #eff6ff;
-    --nestform-pro-glow: rgba(29, 78, 216, 0.2);
-    --nestform-pro-gold: #f0c14b;
-    --nestform-pro-bg: #132a5c;
-    --nestform-pro-image:
+    --thimbleform-pro: #1e3a8a;
+    --thimbleform-pro-mid: #2563eb;
+    --thimbleform-pro-soft: #eff6ff;
+    --thimbleform-pro-glow: rgba(29, 78, 216, 0.2);
+    --thimbleform-pro-gold: #f0c14b;
+    --thimbleform-pro-bg: #132a5c;
+    --thimbleform-pro-image:
         radial-gradient(
             90% 70% at 100% 0%,
             rgba(96, 165, 250, 0.38),

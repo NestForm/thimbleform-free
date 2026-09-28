@@ -619,8 +619,8 @@ a.nestform-dash__kpi--link:focus {
 
 .nestform-dash__chart-wrap[data-nestform-chart-metric="conversion"]
     .nestform-dash__legend-swatch {
-    background: var(--nestform-pro);
-    box-shadow: 0 0 0 3px var(--nestform-pro-soft);
+    background: var(--thimbleform-pro);
+    box-shadow: 0 0 0 3px var(--thimbleform-pro-soft);
 }
 
 .nestform-dash__legend-stat {
@@ -737,7 +737,7 @@ a.nestform-dash__kpi--link:focus {
 }
 
 .nestform-dash__rank-item:nth-child(3) .nestform-dash__rank-fill {
-    background: var(--nestform-pro);
+    background: var(--thimbleform-pro);
 }
 
 .nestform-dash__rank-item:nth-child(4) .nestform-dash__rank-fill {

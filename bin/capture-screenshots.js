@@ -39,7 +39,7 @@ const CHROME_CSS = `
   .notice,
   .update-nag,
   .nestform-app__pro,
-  .nestform-pro-teaser,
+  .thimbleform-pro-teaser,
   .nestform-review-request { display: none !important; visibility: hidden !important; }
   html.wp-toolbar,
   html,
@@ -209,7 +209,7 @@ const documentationShots = [
   },
   {
     file: 'docs/license.png',
-    url: admin('edit.php?post_type=nestform&page=nestform-pro-license'),
+    url: admin('edit.php?post_type=nestform&page=thimbleform-pro-license'),
     target: '.nestform-app',
   },
   {

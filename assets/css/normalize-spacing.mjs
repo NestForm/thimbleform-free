@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const pluginRoot = path.resolve(__dirname, '../..');
-const proRoot = path.resolve(pluginRoot, '../nestform-pro');
+const proRoot = path.resolve(pluginRoot, '../thimbleform-pro');
 
 const SPACING_PROPS =
 	/^(?<indent>\s*)(?<prop>padding(?:-(?:top|right|bottom|left))?|margin(?:-(?:top|right|bottom|left))?|gap|row-gap|column-gap)\s*:\s*(?<value>[^;]+);(?<suffix>\s*(?:\/\*.*?\*\/)?\s*)$/;

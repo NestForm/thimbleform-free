@@ -2219,7 +2219,7 @@
 				return;
 			}
 			var target = event.target;
-			if (target && target.closest && target.closest('.media-modal, .nestform-pro-modal')) {
+			if (target && target.closest && target.closest('.media-modal, .thimbleform-pro-modal')) {
 				return;
 			}
 			event.preventDefault();

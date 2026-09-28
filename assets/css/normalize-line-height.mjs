@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const pluginRoot = path.resolve(__dirname, '../..');
-const proRoot = path.resolve(pluginRoot, '../nestform-pro');
+const proRoot = path.resolve(pluginRoot, '../thimbleform-pro');
 
 const LINE_HEIGHT_RE = /(?<![a-z0-9-])line-height\s*:\s*(?<value>[^;]+);/g;
 

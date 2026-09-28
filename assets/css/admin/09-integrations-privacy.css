@@ -124,7 +124,7 @@ body.nestform-settings-screen
     .nestform-backup-import__file.nestform-admin__input:focus {
     border-color: var(--nestform-border-strong, #c5c9d4);
     outline: none;
-    box-shadow: 0 0 0 3px var(--nestform-accent-soft, var(--nestform-pro-soft));
+    box-shadow: 0 0 0 3px var(--nestform-accent-soft, var(--thimbleform-pro-soft));
 }
 
 body.wp-core-ui.nestform-settings-screen
@@ -282,7 +282,7 @@ body.nestform-settings-screen
 
 .nestform-settings__qty:focus-within {
     border-color: var(--nestform-border-strong, #c5c9d4);
-    box-shadow: 0 0 0 3px var(--nestform-accent-soft, var(--nestform-pro-soft));
+    box-shadow: 0 0 0 3px var(--nestform-accent-soft, var(--thimbleform-pro-soft));
 }
 
 body.wp-core-ui.nestform-settings-screen

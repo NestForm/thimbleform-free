@@ -2302,8 +2302,8 @@ class Nestform_Form_Config {
 	 */
 	public static function payment_currency_options() {
 		$codes = array( 'USD', 'EUR', 'GBP', 'RUB', 'CAD', 'AUD', 'CHF', 'JPY', 'PLN', 'SEK', 'NOK', 'DKK', 'CZK', 'UAH', 'BRL', 'MXN', 'INR', 'SGD', 'HKD', 'NZD' );
-		if ( class_exists( 'Nestform_Pro_Payments' ) && is_callable( array( 'Nestform_Pro_Payments', 'currencies' ) ) ) {
-			$codes = Nestform_Pro_Payments::currencies();
+		if ( class_exists( 'Thimbleform_Pro_Payments' ) && is_callable( array( 'Thimbleform_Pro_Payments', 'currencies' ) ) ) {
+			$codes = Thimbleform_Pro_Payments::currencies();
 		}
 		return array_values( array_unique( array_map( 'strtoupper', (array) $codes ) ) );
 	}
