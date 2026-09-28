@@ -1740,27 +1740,27 @@ body.thimbleform-admin-screen.post-type-thimbleform .thimbleform-admin {
 
 /* Self-contained live preview — no front.css / WP input chrome. */
 .thimbleform-live-preview {
-    --nest-form-accent: #2563eb;
-    --nest-form-accent-text: #fff;
-    --nest-form-text: #01123e;
-    --nest-form-muted: #64748b;
-    --nest-form-surface: #fff;
-    --nest-form-input-bg: #fff;
-    --nest-form-border: #cbd5e1;
-    --nest-form-font-size: 1rem;
-    --nest-form-label-size: 0.875rem;
-    --nest-form-help-size: 0.8125rem;
-    --nest-form-gap: 1rem;
-    --nest-form-radius: 0.5rem;
-    --nest-form-control-pad: 0.75rem 1rem;
-    --nest-form-control-min-h: 2.75rem;
-    --nest-form-btn-pad: 0.65rem 1.25rem;
+    --thimbleform-accent: #2563eb;
+    --thimbleform-accent-text: #fff;
+    --thimbleform-text: #01123e;
+    --thimbleform-muted: #64748b;
+    --thimbleform-surface: #fff;
+    --thimbleform-input-bg: #fff;
+    --thimbleform-border: #cbd5e1;
+    --thimbleform-font-size: 1rem;
+    --thimbleform-label-size: 0.875rem;
+    --thimbleform-help-size: 0.8125rem;
+    --thimbleform-gap: 1rem;
+    --thimbleform-radius: 0.5rem;
+    --thimbleform-control-pad: 0.75rem 1rem;
+    --thimbleform-control-min-h: 2.75rem;
+    --thimbleform-btn-pad: 0.65rem 1.25rem;
     pointer-events: none;
     max-width: 100%;
     min-width: 0;
     box-sizing: border-box;
-    color: var(--nest-form-text);
-    font-size: var(--nest-form-font-size);
+    color: var(--thimbleform-text);
+    font-size: var(--thimbleform-font-size);
     line-height: var(--thimbleform-line-height);
     overflow: hidden;
 }
@@ -1779,7 +1779,7 @@ body.thimbleform-admin-screen.post-type-thimbleform .thimbleform-admin {
     display: block;
     height: 6px;
     border-radius: 999px;
-    background: color-mix(in srgb, var(--nest-form-border) 80%, #fff);
+    background: color-mix(in srgb, var(--thimbleform-border) 80%, #fff);
     overflow: hidden;
 }
 
@@ -1788,13 +1788,13 @@ body.thimbleform-admin-screen.post-type-thimbleform .thimbleform-admin {
     width: 62%;
     height: 100%;
     border-radius: inherit;
-    background: var(--nest-form-accent);
+    background: var(--thimbleform-accent);
 }
 
 .thimbleform-live-preview__fields {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--nest-form-gap);
+    gap: var(--thimbleform-gap);
     min-width: 0;
 }
 
@@ -1812,39 +1812,39 @@ body.thimbleform-admin-screen.post-type-thimbleform .thimbleform-admin {
 .thimbleform-live-preview__field--custom {
     flex: 0 0 auto;
     width: calc(
-        var(--nest-form-field-basis, 50%) -
-            (var(--nest-form-gap) * (1 - var(--nest-form-field-ratio, 0.5)))
+        var(--thimbleform-field-basis, 50%) -
+            (var(--thimbleform-gap) * (1 - var(--thimbleform-field-ratio, 0.5)))
     );
     max-width: 100%;
 }
 
 .thimbleform-live-preview__field--half {
-    --nest-form-field-basis: 50%;
-    --nest-form-field-ratio: 0.5;
+    --thimbleform-field-basis: 50%;
+    --thimbleform-field-ratio: 0.5;
 }
 
 .thimbleform-live-preview__field--third {
-    --nest-form-field-basis: 33.333%;
-    --nest-form-field-ratio: 0.33333;
+    --thimbleform-field-basis: 33.333%;
+    --thimbleform-field-ratio: 0.33333;
 }
 
 .thimbleform-live-preview__field--two-thirds {
-    --nest-form-field-basis: 66.667%;
-    --nest-form-field-ratio: 0.66667;
+    --thimbleform-field-basis: 66.667%;
+    --thimbleform-field-ratio: 0.66667;
 }
 
 .thimbleform-live-preview__field--quarter {
-    --nest-form-field-basis: 25%;
-    --nest-form-field-ratio: 0.25;
+    --thimbleform-field-basis: 25%;
+    --thimbleform-field-ratio: 0.25;
 }
 
 .thimbleform-live-preview__label {
     display: block;
     margin: 0 0 var(--thimbleform-space-1);
-    font-size: var(--nest-form-label-size);
+    font-size: var(--thimbleform-label-size);
     font-weight: 600;
     line-height: var(--thimbleform-line-height);
-    color: var(--nest-form-text);
+    color: var(--thimbleform-text);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1855,13 +1855,13 @@ body.thimbleform-admin-screen.post-type-thimbleform .thimbleform-admin {
     width: 100%;
     max-width: 100%;
     min-width: 0;
-    min-height: var(--nest-form-control-min-h);
-    padding: var(--nest-form-control-pad);
-    border: 1px solid var(--nest-form-border);
-    border-radius: var(--nest-form-radius);
-    background: var(--nest-form-input-bg);
-    color: var(--nest-form-muted);
-    font-size: var(--nest-form-font-size);
+    min-height: var(--thimbleform-control-min-h);
+    padding: var(--thimbleform-control-pad);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
+    background: var(--thimbleform-input-bg);
+    color: var(--thimbleform-muted);
+    font-size: var(--thimbleform-font-size);
     line-height: var(--thimbleform-line-height);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1879,13 +1879,13 @@ body.thimbleform-admin-screen.post-type-thimbleform .thimbleform-admin {
 .thimbleform-live-preview__hint {
     display: block;
     margin-top: var(--thimbleform-space-1);
-    font-size: var(--nest-form-help-size);
-    color: var(--nest-form-muted);
+    font-size: var(--thimbleform-help-size);
+    color: var(--thimbleform-muted);
 }
 
 .thimbleform-live-preview__actions {
     display: flex;
-    margin-top: var(--nest-form-gap);
+    margin-top: var(--thimbleform-gap);
 }
 
 .thimbleform-live-preview__btn {
@@ -1893,13 +1893,13 @@ body.thimbleform-admin-screen.post-type-thimbleform .thimbleform-admin {
     align-items: center;
     justify-content: center;
     max-width: 100%;
-    min-height: var(--nest-form-control-min-h);
-    padding: var(--nest-form-btn-pad);
-    border: 1px solid var(--nest-form-accent);
-    border-radius: var(--nest-form-radius);
-    background: var(--nest-form-accent);
-    color: var(--nest-form-accent-text);
-    font-size: var(--nest-form-font-size);
+    min-height: var(--thimbleform-control-min-h);
+    padding: var(--thimbleform-btn-pad);
+    border: 1px solid var(--thimbleform-accent);
+    border-radius: var(--thimbleform-radius);
+    background: var(--thimbleform-accent);
+    color: var(--thimbleform-accent-text);
+    font-size: var(--thimbleform-font-size);
     font-weight: 600;
     line-height: var(--thimbleform-line-height);
     overflow: hidden;
@@ -1909,42 +1909,42 @@ body.thimbleform-admin-screen.post-type-thimbleform .thimbleform-admin {
 
 .thimbleform-live-preview--btn-outline .thimbleform-live-preview__btn {
     background: transparent;
-    color: var(--nest-form-accent);
+    color: var(--thimbleform-accent);
 }
 
 .thimbleform-live-preview--btn-soft .thimbleform-live-preview__btn {
-    background: color-mix(in srgb, var(--nest-form-accent) 14%, #fff);
+    background: color-mix(in srgb, var(--thimbleform-accent) 14%, #fff);
     border-color: transparent;
-    color: var(--nest-form-accent);
+    color: var(--thimbleform-accent);
 }
 
 .thimbleform-live-preview--skin-soft {
     padding: 1rem 1rem 1rem;
-    background: var(--nest-form-surface);
+    background: var(--thimbleform-surface);
     border-radius: 16px;
     box-shadow: 0 1px 0
-        color-mix(in srgb, var(--nest-form-border) 70%, transparent);
+        color-mix(in srgb, var(--thimbleform-border) 70%, transparent);
 }
 
 .thimbleform-live-preview--skin-soft .thimbleform-live-preview__control {
     border-color: transparent;
     background: color-mix(
         in srgb,
-        var(--nest-form-border) 52%,
-        var(--nest-form-input-bg)
+        var(--thimbleform-border) 52%,
+        var(--thimbleform-input-bg)
     );
     color: color-mix(
         in srgb,
-        var(--nest-form-muted) 70%,
-        var(--nest-form-text)
+        var(--thimbleform-muted) 70%,
+        var(--thimbleform-text)
     );
 }
 
 .thimbleform-live-preview--skin-soft .thimbleform-live-preview__bar {
     background: color-mix(
         in srgb,
-        var(--nest-form-border) 40%,
-        var(--nest-form-input-bg)
+        var(--thimbleform-border) 40%,
+        var(--thimbleform-input-bg)
     );
 }
 
@@ -1952,15 +1952,15 @@ body.thimbleform-admin-screen.post-type-thimbleform .thimbleform-admin {
     padding-left: 0.15rem;
     padding-right: 0.15rem;
     border: 0;
-    border-bottom: 2px solid var(--nest-form-border);
+    border-bottom: 2px solid var(--thimbleform-border);
     border-radius: 0;
     background: transparent;
 }
 
 .thimbleform-live-preview--skin-card {
     padding: 1rem;
-    background: var(--nest-form-surface);
-    border: 1px solid var(--nest-form-border);
+    background: var(--thimbleform-surface);
+    border: 1px solid var(--thimbleform-border);
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
 }

@@ -157,14 +157,14 @@ class Thimbleform_Phone {
 	 * @param string $class Class on wrapper.
 	 * @return string
 	 */
-	public static function flag_html( $iso, $class = 'nest-form-phone__flag' ) {
+	public static function flag_html( $iso, $class = 'thimbleform-phone__flag' ) {
 		$url = self::flag_url( $iso );
 		if ( '' === $url ) {
 			return '';
 		}
-		$attr = 'nest-form-phone__flag' === $class ? ' data-thimbleform-phone-flag' : '';
+		$attr = 'thimbleform-phone__flag' === $class ? ' data-thimbleform-phone-flag' : '';
 		return sprintf(
-			'<span class="%1$s"%2$s><img class="nest-form-phone__flag-img" src="%3$s" alt="" width="20" height="15" loading="lazy" decoding="async" /></span>',
+			'<span class="%1$s"%2$s><img class="thimbleform-phone__flag-img" src="%3$s" alt="" width="20" height="15" loading="lazy" decoding="async" /></span>',
 			esc_attr( $class ),
 			$attr,
 			esc_url( $url )
@@ -319,13 +319,13 @@ class Thimbleform_Phone {
 		$e164    = $split['e164'];
 		$national = $split['national'];
 
-		echo '<div class="nest-form-phone" data-thimbleform-phone data-iso="' . esc_attr( $iso ) . '" data-dial="' . esc_attr( $dial ) . '">';
-		echo '<button type="button" class="nest-form-phone__cc" data-thimbleform-phone-toggle aria-expanded="false" aria-haspopup="listbox">';
-		echo self::flag_html( $iso, 'nest-form-phone__flag' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo '<span class="nest-form-phone__dial" data-thimbleform-phone-dial>+' . esc_html( $dial ) . '</span>';
+		echo '<div class="thimbleform-phone" data-thimbleform-phone data-iso="' . esc_attr( $iso ) . '" data-dial="' . esc_attr( $dial ) . '">';
+		echo '<button type="button" class="thimbleform-phone__cc" data-thimbleform-phone-toggle aria-expanded="false" aria-haspopup="listbox">';
+		echo self::flag_html( $iso, 'thimbleform-phone__flag' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<span class="thimbleform-phone__dial" data-thimbleform-phone-dial>+' . esc_html( $dial ) . '</span>';
 		echo '</button>';
 		printf(
-			'<input type="tel" class="input nest-form__input nest-form-phone__national" name="%1$s" id="%2$s" value="%3$s" placeholder="%4$s" autocomplete="tel-national" inputmode="tel"%5$s data-thimbleform-phone-national />',
+			'<input type="tel" class="input thimbleform__input thimbleform-phone__national" name="%1$s" id="%2$s" value="%3$s" placeholder="%4$s" autocomplete="tel-national" inputmode="tel"%5$s data-thimbleform-phone-national />',
 			esc_attr( $name . '__national' ),
 			esc_attr( $id ),
 			esc_attr( $national ),
@@ -333,7 +333,7 @@ class Thimbleform_Phone {
 			$req ? ' required' : ''
 		);
 		printf(
-			'<input type="hidden" class="nest-form-phone__value" name="%1$s" value="%2$s" data-thimbleform-phone-value />',
+			'<input type="hidden" class="thimbleform-phone__value" name="%1$s" value="%2$s" data-thimbleform-phone-value />',
 			esc_attr( $name ),
 			esc_attr( $e164 )
 		);
@@ -342,9 +342,9 @@ class Thimbleform_Phone {
 			esc_attr( $name . '__iso' ),
 			esc_attr( $iso )
 		);
-		echo '<div class="nest-form-phone__panel" data-thimbleform-phone-panel hidden>';
-		echo '<input type="search" class="nest-form-phone__search" data-thimbleform-phone-search placeholder="' . esc_attr__( 'Search country', 'thimbleform' ) . '" autocomplete="off" />';
-		echo '<ul class="nest-form-phone__list" role="listbox">';
+		echo '<div class="thimbleform-phone__panel" data-thimbleform-phone-panel hidden>';
+		echo '<input type="search" class="thimbleform-phone__search" data-thimbleform-phone-search placeholder="' . esc_attr__( 'Search country', 'thimbleform' ) . '" autocomplete="off" />';
+		echo '<ul class="thimbleform-phone__list" role="listbox">';
 		$preferred = self::preferred_isos();
 		$pref_map  = array_flip( $preferred );
 		$pref_rows = array();
@@ -364,7 +364,7 @@ class Thimbleform_Phone {
 			self::render_country_option( $row, $iso );
 		}
 		if ( array() !== $pref_rows && array() !== $rest_rows ) {
-			echo '<li class="nest-form-phone__sep" aria-hidden="true"></li>';
+			echo '<li class="thimbleform-phone__sep" aria-hidden="true"></li>';
 		}
 		foreach ( $rest_rows as $row ) {
 			self::render_country_option( $row, $iso );
@@ -379,16 +379,16 @@ class Thimbleform_Phone {
 	private static function render_country_option( array $row, $iso ) {
 		$active = $row['iso'] === $iso ? ' is-active' : '';
 		printf(
-			'<li><button type="button" class="nest-form-phone__opt%1$s" data-iso="%2$s" data-dial="%3$s" data-flag="%4$s" data-search="%5$s">',
+			'<li><button type="button" class="thimbleform-phone__opt%1$s" data-iso="%2$s" data-dial="%3$s" data-flag="%4$s" data-search="%5$s">',
 			esc_attr( $active ),
 			esc_attr( $row['iso'] ),
 			esc_attr( $row['dial'] ),
 			esc_url( self::flag_url( $row['iso'] ) ),
 			esc_attr( strtolower( $row['iso'] . ' ' . $row['name'] . ' +' . $row['dial'] ) )
 		);
-		echo self::flag_html( $row['iso'], 'nest-form-phone__opt-flag' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo '<span class="nest-form-phone__opt-name">' . esc_html( $row['name'] ) . '</span>';
-		echo '<span class="nest-form-phone__opt-dial">+' . esc_html( $row['dial'] ) . '</span>';
+		echo self::flag_html( $row['iso'], 'thimbleform-phone__opt-flag' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<span class="thimbleform-phone__opt-name">' . esc_html( $row['name'] ) . '</span>';
+		echo '<span class="thimbleform-phone__opt-dial">+' . esc_html( $row['dial'] ) . '</span>';
 		echo '</button></li>';
 	}
 }

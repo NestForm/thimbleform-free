@@ -363,12 +363,12 @@ class Thimbleform_Form_Config {
 		return trim(
 			'
 /* Hooks (auto-scoped to this form) */
-.nest-form__label { letter-spacing: 0.02em; }
-.nest-form__input { font-size: 1rem; }
-.nest-form__submit { text-transform: uppercase; }
-.nest-form__field--email .nest-form__input { /* email field */ }
-.nest-form__progress-fill { /* steps bar */ }
-.nest-form-select__trigger { /* custom select */ }
+.thimbleform__label { letter-spacing: 0.02em; }
+.thimbleform__input { font-size: 1rem; }
+.thimbleform__submit { text-transform: uppercase; }
+.thimbleform__field--email .thimbleform__input { /* email field */ }
+.thimbleform__progress-fill { /* steps bar */ }
+.thimbleform-select__trigger { /* custom select */ }
 '
 		);
 	}
@@ -399,11 +399,12 @@ class Thimbleform_Form_Config {
 	 * Prefix selectors with a form scope so rules do not leak.
 	 *
 	 * @param string $css   Custom CSS.
-	 * @param string $scope Selector like #nest-form-12-1.
+	 * @param string $scope Selector like #thimbleform-12-1.
 	 * @return string
 	 */
 	public static function scope_custom_css( $css, $scope ) {
 		$css   = self::sanitize_custom_css( $css );
+		$css   = str_replace( 'nest-form', 'thimbleform', $css );
 		$scope = trim( (string) $scope );
 		if ( $css === '' || $scope === '' ) {
 			return '';
@@ -520,11 +521,11 @@ class Thimbleform_Form_Config {
 				$fixed[] = $part;
 				continue;
 			}
-			if ( '.nest-form' === $part ) {
+			if ( '.thimbleform' === $part ) {
 				$fixed[] = $scope;
 				continue;
 			}
-			if ( preg_match( '/^\.nest-form([\.\[:#\s].*)$/', $part, $m ) ) {
+			if ( preg_match( '/^\.thimbleform([\.\[:#\s].*)$/', $part, $m ) ) {
 				$fixed[] = $scope . $m[1];
 				continue;
 			}
@@ -541,13 +542,13 @@ class Thimbleform_Form_Config {
 	 */
 	public static function style_inline_css( array $settings ) {
 		$map = array(
-			'style_accent'      => '--nest-form-accent',
-			'style_accent_text' => '--nest-form-accent-text',
-			'style_text'        => '--nest-form-text',
-			'style_muted'       => '--nest-form-muted',
-			'style_surface'     => '--nest-form-surface',
-			'style_input_bg'    => '--nest-form-input-bg',
-			'style_border'      => '--nest-form-border',
+			'style_accent'      => '--thimbleform-accent',
+			'style_accent_text' => '--thimbleform-accent-text',
+			'style_text'        => '--thimbleform-text',
+			'style_muted'       => '--thimbleform-muted',
+			'style_surface'     => '--thimbleform-surface',
+			'style_input_bg'    => '--thimbleform-input-bg',
+			'style_border'      => '--thimbleform-border',
 		);
 		$parts = array();
 		foreach ( $map as $key => $var ) {
@@ -583,9 +584,9 @@ class Thimbleform_Form_Config {
 		if ( ! isset( $font_map[ $font ] ) ) {
 			$font = 'md';
 		}
-		$parts[] = '--nest-form-font-size:' . $font_map[ $font ]['base'];
-		$parts[] = '--nest-form-label-size:' . $font_map[ $font ]['label'];
-		$parts[] = '--nest-form-help-size:' . $font_map[ $font ]['help'];
+		$parts[] = '--thimbleform-font-size:' . $font_map[ $font ]['base'];
+		$parts[] = '--thimbleform-label-size:' . $font_map[ $font ]['label'];
+		$parts[] = '--thimbleform-help-size:' . $font_map[ $font ]['help'];
 
 		$gap = isset( $settings['style_gap'] ) ? sanitize_key( (string) $settings['style_gap'] ) : 'md';
 		$gap_map = array(
@@ -596,7 +597,7 @@ class Thimbleform_Form_Config {
 		if ( ! isset( $gap_map[ $gap ] ) ) {
 			$gap = 'md';
 		}
-		$parts[] = '--nest-form-gap:' . $gap_map[ $gap ];
+		$parts[] = '--thimbleform-gap:' . $gap_map[ $gap ];
 
 		$radius = isset( $settings['style_radius'] ) ? sanitize_key( (string) $settings['style_radius'] ) : 'md';
 		$radius_map = array(
@@ -609,7 +610,7 @@ class Thimbleform_Form_Config {
 		// Theme skin keeps theme chrome; only inject skin-specific tokens for plugin skins.
 		if ( 'theme' !== $skin ) {
 			if ( isset( $radius_map[ $radius ] ) ) {
-				$parts[] = '--nest-form-radius:' . $radius_map[ $radius ];
+				$parts[] = '--thimbleform-radius:' . $radius_map[ $radius ];
 			}
 
 			$density = isset( $settings['style_density'] ) ? sanitize_key( (string) $settings['style_density'] ) : 'md';
@@ -633,9 +634,9 @@ class Thimbleform_Form_Config {
 			if ( ! isset( $density_map[ $density ] ) ) {
 				$density = 'md';
 			}
-			$parts[] = '--nest-form-control-pad:' . $density_map[ $density ]['pad'];
-			$parts[] = '--nest-form-control-min-h:' . $density_map[ $density ]['min_h'];
-			$parts[] = '--nest-form-btn-pad:' . $density_map[ $density ]['btn'];
+			$parts[] = '--thimbleform-control-pad:' . $density_map[ $density ]['pad'];
+			$parts[] = '--thimbleform-control-min-h:' . $density_map[ $density ]['min_h'];
+			$parts[] = '--thimbleform-btn-pad:' . $density_map[ $density ]['btn'];
 		}
 
 		/**
@@ -660,7 +661,7 @@ class Thimbleform_Form_Config {
 		if ( ! isset( $skins[ $skin ] ) ) {
 			$skin = 'theme';
 		}
-		$classes = array( 'nest-form--skin-' . $skin );
+		$classes = array( 'thimbleform--skin-' . $skin );
 
 		// Button / radius modifiers only for plugin skins (avoids mixing with theme chrome).
 		if ( 'theme' !== $skin ) {
@@ -668,11 +669,11 @@ class Thimbleform_Form_Config {
 			if ( ! isset( self::style_button_options()[ $button ] ) ) {
 				$button = 'solid';
 			}
-			$classes[] = 'nest-form--btn-' . $button;
+			$classes[] = 'thimbleform--btn-' . $button;
 
 			$radius = isset( $settings['style_radius'] ) ? sanitize_key( (string) $settings['style_radius'] ) : 'md';
 			if ( isset( self::style_radius_options()[ $radius ] ) ) {
-				$classes[] = 'nest-form--radius-' . $radius;
+				$classes[] = 'thimbleform--radius-' . $radius;
 			}
 		}
 
@@ -2217,7 +2218,7 @@ class Thimbleform_Form_Config {
 
 		if ( isset( $ratios[ $width ] ) ) {
 			$style = sprintf(
-				'--nest-form-field-basis:%1$s;--nest-form-field-ratio:%2$s;',
+				'--thimbleform-field-basis:%1$s;--thimbleform-field-ratio:%2$s;',
 				$ratios[ $width ][0],
 				(string) $ratios[ $width ][1]
 			);
@@ -2225,7 +2226,7 @@ class Thimbleform_Form_Config {
 			$pct   = $pack['width_custom'];
 			$ratio = round( $pct / 100, 5 );
 			$style = sprintf(
-				'--nest-form-field-basis:%1$d%%;--nest-form-field-ratio:%2$s;',
+				'--thimbleform-field-basis:%1$d%%;--thimbleform-field-ratio:%2$s;',
 				$pct,
 				(string) $ratio
 			);

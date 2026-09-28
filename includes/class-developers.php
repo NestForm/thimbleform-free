@@ -203,7 +203,7 @@ class Thimbleform_Developers {
 				<div class="thimbleform-admin__panel-head">
 					<div>
 						<h2 class="thimbleform-admin__panel-title"><?php esc_html_e( 'JavaScript events', 'thimbleform' ); ?></h2>
-						<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'CustomEvents bubble from the <form data-nest-form> element. detail always includes form and formId. List also exposed as window.thimbleformEvents.', 'thimbleform' ); ?></p>
+						<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'CustomEvents bubble from the <form data-thimbleform> element. detail always includes form and formId. List also exposed as window.thimbleformEvents.', 'thimbleform' ); ?></p>
 					</div>
 				</div>
 				<ul class="thimbleform-developers__list thimbleform-developers__list--js">

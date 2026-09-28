@@ -645,10 +645,10 @@
 .thimbleform-card__preview-stage {
     padding: var(--thimbleform-space-4);
     /* Front-form canvas: keep appearance surface, not admin surface. */
-    border: 1px solid var(--nest-form-border, var(--thimbleform-border));
+    border: 1px solid var(--thimbleform-border, var(--thimbleform-border));
     border-radius: var(--thimbleform-radius);
-    background: var(--nest-form-surface, #ffffff);
-    color: var(--nest-form-text, var(--thimbleform-ink));
+    background: var(--thimbleform-surface, #ffffff);
+    color: var(--thimbleform-text, var(--thimbleform-ink));
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
 }
 
@@ -677,15 +677,15 @@
     gap: var(--thimbleform-space-2);
     min-height: 28px;
     font-size: 13px;
-    color: var(--nest-form-text, var(--thimbleform-ink));
+    color: var(--thimbleform-text, var(--thimbleform-ink));
 }
 
 .thimbleform-card__preview-choice-mark {
     flex: 0 0 auto;
     width: 14px;
     height: 14px;
-    border: 1px solid var(--nest-form-border, var(--thimbleform-border-strong));
-    background: var(--nest-form-input-bg, #fff);
+    border: 1px solid var(--thimbleform-border, var(--thimbleform-border-strong));
+    background: var(--thimbleform-input-bg, #fff);
 }
 
 .thimbleform-card__preview-choice-mark--radio {
@@ -897,7 +897,7 @@
     font-size: 1.15rem;
     font-weight: 700;
     line-height: var(--thimbleform-line-height);
-    color: var(--nest-form-text, var(--thimbleform-ink));
+    color: var(--thimbleform-text, var(--thimbleform-ink));
 }
 
 .thimbleform-card__preview-heading--h3 {
@@ -912,7 +912,7 @@
     margin: 0;
     font-size: 13px;
     line-height: var(--thimbleform-line-height);
-    color: var(--nest-form-muted, var(--thimbleform-muted));
+    color: var(--thimbleform-muted, var(--thimbleform-muted));
     white-space: pre-wrap;
 }
 

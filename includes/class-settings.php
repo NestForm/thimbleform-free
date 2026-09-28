@@ -259,7 +259,7 @@ class Thimbleform_Settings {
 			return '';
 		}
 		return sprintf(
-			'<p class="nest-form__credit"><a href="%1$s" rel="noopener noreferrer">%2$s</a></p>',
+			'<p class="thimbleform__credit"><a href="%1$s" rel="noopener noreferrer">%2$s</a></p>',
 			esc_url( self::SITE_URL ),
 			esc_html__( 'Powered by Thimbleform', 'thimbleform' )
 		);

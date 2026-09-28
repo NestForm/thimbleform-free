@@ -1,7 +1,7 @@
 /**
  * Thimbleform front: custom select + AJAX submit + CustomEvents.
  *
- * Events (bubble from <form data-nest-form>, cancelable where noted):
+ * Events (bubble from <form data-thimbleform>, cancelable where noted):
  * - thimbleform:ready
  * - thimbleform:before-submit       (cancelable  --  before client validation)
  * - thimbleform:validation-error
@@ -34,30 +34,30 @@
 		form.setAttribute('aria-busy', busy ? 'true' : 'false');
 
 		var i18n = (window.thimbleform && window.thimbleform.i18n) || {};
-		var submit = form.querySelector('.nest-form__submit');
+		var submit = form.querySelector('.thimbleform__submit');
 		if (submit) {
 			submit.disabled = busy;
 			submit.setAttribute('aria-busy', busy ? 'true' : 'false');
 			if (busy) {
-				if (!submit.getAttribute('data-nest-form-label-idle')) {
+				if (!submit.getAttribute('data-thimbleform-label-idle')) {
 					submit.setAttribute(
-						'data-nest-form-label-idle',
+						'data-thimbleform-label-idle',
 						submit.getAttribute('aria-label') || ''
 					);
 				}
 				submit.setAttribute('aria-label', i18n.submitting || 'Sending…');
 			} else {
-				var idle = submit.getAttribute('data-nest-form-label-idle');
+				var idle = submit.getAttribute('data-thimbleform-label-idle');
 				if (idle) {
 					submit.setAttribute('aria-label', idle);
 				} else {
 					submit.removeAttribute('aria-label');
 				}
-				submit.removeAttribute('data-nest-form-label-idle');
+				submit.removeAttribute('data-thimbleform-label-idle');
 			}
 		}
 
-		form.querySelectorAll('.nest-form__next, .nest-form__prev').forEach(function (btn) {
+		form.querySelectorAll('.thimbleform__next, .thimbleform__prev').forEach(function (btn) {
 			btn.disabled = busy;
 		});
 	}
@@ -133,13 +133,13 @@
 	}
 
 	function setFieldInvalid(wrap, on) {
-		wrap.classList.toggle('nest-form__field--invalid', on);
-		wrap.querySelectorAll('.input, .textarea, .select, .nest-form__input, .nest-form-select__trigger').forEach(function (el) {
+		wrap.classList.toggle('thimbleform__field--invalid', on);
+		wrap.querySelectorAll('.input, .textarea, .select, .thimbleform__input, .thimbleform-select__trigger').forEach(function (el) {
 			el.setAttribute('aria-invalid', on ? 'true' : 'false');
-			if (el.classList.contains('textarea') || el.classList.contains('nest-form__textarea')) {
+			if (el.classList.contains('textarea') || el.classList.contains('thimbleform__textarea')) {
 				el.classList.toggle('textarea--error', on);
 				el.classList.toggle('input--error', on);
-			} else if (el.classList.contains('select') || el.classList.contains('nest-form-select__trigger')) {
+			} else if (el.classList.contains('select') || el.classList.contains('thimbleform-select__trigger')) {
 				el.classList.toggle('select--error', on);
 				el.classList.toggle('input--error', on);
 			} else {
@@ -151,7 +151,7 @@
 	function clearErrors(form) {
 		form.querySelectorAll('[data-field-name]').forEach(function (wrap) {
 			setFieldInvalid(wrap, false);
-			var err = wrap.querySelector('[data-nest-form-error]');
+			var err = wrap.querySelector('[data-thimbleform-error]');
 			var errId = err ? err.id : '';
 			if (err) {
 				err.hidden = true;
@@ -173,11 +173,11 @@
 				return;
 			}
 			setFieldInvalid(wrap, true);
-			var err = wrap.querySelector('[data-nest-form-error]');
+			var err = wrap.querySelector('[data-thimbleform-error]');
 			if (err) {
 				err.hidden = false;
 				err.textContent = errors[name];
-				wrap.querySelectorAll('.nest-form__input, .nest-form__textarea, .nest-form__checkbox, .nest-form-select__trigger').forEach(function (el) {
+				wrap.querySelectorAll('.thimbleform__input, .thimbleform__textarea, .thimbleform__checkbox, .thimbleform-select__trigger').forEach(function (el) {
 					if (err.id) {
 						el.setAttribute('aria-describedby', err.id);
 					}
@@ -185,9 +185,9 @@
 			}
 			if (!first) {
 				first =
-					wrap.querySelector('[data-nest-form-select-trigger]') ||
+					wrap.querySelector('[data-thimbleform-select-trigger]') ||
 					wrap.querySelector(
-						'.nest-form__input, .nest-form__textarea, .nest-form-select__native, .nest-form__checkbox'
+						'.thimbleform__input, .thimbleform__textarea, .thimbleform-select__native, .thimbleform__checkbox'
 					);
 			}
 		});
@@ -197,15 +197,15 @@
 	}
 
 	function setStatus(form, message, type) {
-		var status = form.querySelector('[data-nest-form-status]');
+		var status = form.querySelector('[data-thimbleform-status]');
 		if (!status) {
 			return;
 		}
 		status.hidden = !message;
 		status.textContent = message || '';
-		status.classList.remove('nest-form__status--success', 'nest-form__status--error');
+		status.classList.remove('thimbleform__status--success', 'thimbleform__status--error');
 		if (type) {
-			status.classList.add('nest-form__status--' + type);
+			status.classList.add('thimbleform__status--' + type);
 		}
 		if (type === 'error') {
 			status.setAttribute('role', 'alert');
@@ -223,14 +223,14 @@
 	}
 
 	function clearSuccessUi(form) {
-		form.classList.remove('nest-form--success-replace');
-		var result = form.querySelector('[data-nest-form-result]');
+		form.classList.remove('thimbleform--success-replace');
+		var result = form.querySelector('[data-thimbleform-result]');
 		if (result) {
 			result.hidden = true;
 			result.textContent = '';
-			result.classList.remove('nest-form__result--success');
+			result.classList.remove('thimbleform__result--success');
 		}
-		var modal = form.querySelector('[data-nest-form-success-modal]');
+		var modal = form.querySelector('[data-thimbleform-success-modal]');
 		if (modal) {
 			modal.remove();
 		}
@@ -242,12 +242,12 @@
 
 		if (mode === 'replace') {
 			setStatus(form, '', '');
-			form.classList.add('nest-form--success-replace');
-			var result = form.querySelector('[data-nest-form-result]');
+			form.classList.add('thimbleform--success-replace');
+			var result = form.querySelector('[data-thimbleform-result]');
 			if (result) {
 				result.hidden = false;
 				result.textContent = message || '';
-				result.classList.add('nest-form__result--success');
+				result.classList.add('thimbleform__result--success');
 				result.setAttribute('role', 'status');
 				result.setAttribute('tabindex', '-1');
 				if (typeof result.focus === 'function') {
@@ -263,26 +263,26 @@
 			setStatus(form, '', '');
 			var i18n = (window.thimbleform && window.thimbleform.i18n) || {};
 			var overlay = document.createElement('div');
-			overlay.className = 'nest-form-success-modal';
-			overlay.setAttribute('data-nest-form-success-modal', '');
+			overlay.className = 'thimbleform-success-modal';
+			overlay.setAttribute('data-thimbleform-success-modal', '');
 			overlay.setAttribute('role', 'dialog');
 			overlay.setAttribute('aria-modal', 'true');
 			overlay.setAttribute('aria-label', i18n.successTitle || 'Thank you');
 
 			var dialog = document.createElement('div');
-			dialog.className = 'nest-form-success-modal__dialog';
+			dialog.className = 'thimbleform-success-modal__dialog';
 
 			var title = document.createElement('p');
-			title.className = 'nest-form-success-modal__title';
+			title.className = 'thimbleform-success-modal__title';
 			title.textContent = i18n.successTitle || 'Thank you';
 
 			var body = document.createElement('p');
-			body.className = 'nest-form-success-modal__body';
+			body.className = 'thimbleform-success-modal__body';
 			body.textContent = message || '';
 
 			var closeBtn = document.createElement('button');
 			closeBtn.type = 'button';
-			closeBtn.className = 'button button--primary nest-form-success-modal__close';
+			closeBtn.className = 'button button--primary thimbleform-success-modal__close';
 			closeBtn.textContent = i18n.close || 'Close';
 
 			function closeModal() {
@@ -345,10 +345,10 @@
 		var stepOnly = opts.step != null ? String(opts.step) : null;
 		var errors = {};
 		form.querySelectorAll('[data-field-name]').forEach(function (wrap) {
-			if (wrap.hasAttribute('data-nest-form-layout')) {
+			if (wrap.hasAttribute('data-thimbleform-layout')) {
 				return;
 			}
-			if (wrap.classList.contains('nest-form__field--condition-hidden')) {
+			if (wrap.classList.contains('thimbleform__field--condition-hidden')) {
 				return;
 			}
 			/* Stripe Payment Element fills the intent after clientHints — validate in thimbleformEnsurePayments. */
@@ -366,16 +366,16 @@
 				}
 			}
 
-			var custom = wrap.querySelector('[data-nest-form-select]');
+			var custom = wrap.querySelector('[data-thimbleform-select]');
 			if (custom) {
-				var native = custom.querySelector('[data-nest-form-select-native]');
+				var native = custom.querySelector('[data-thimbleform-select-native]');
 				if (native && native.required && !String(native.value || '').trim()) {
 					errors[name] = formMsg(form, 'required', 'This field is required.');
 				}
 				return;
 			}
 
-			var choices = wrap.querySelector('[data-nest-form-choices]');
+			var choices = wrap.querySelector('[data-thimbleform-choices]');
 			if (choices) {
 				if (choices.getAttribute('data-required') === '1') {
 					var anyChecked = !!choices.querySelector('input:checked');
@@ -387,7 +387,7 @@
 			}
 
 			var input = wrap.querySelector(
-				'.nest-form__input, .nest-form__textarea, .nest-form__checkbox, .nest-form__file, .nest-form__range'
+				'.thimbleform__input, .thimbleform__textarea, .thimbleform__checkbox, .thimbleform__file, .thimbleform__range'
 			);
 			if (!input || input.tagName === 'BUTTON') {
 				return;
@@ -461,7 +461,7 @@
 		}
 
 		var input = wrap.querySelector(
-			'.nest-form__input, .nest-form__textarea, .nest-form__range, input, textarea'
+			'.thimbleform__input, .thimbleform__textarea, .thimbleform__range, input, textarea'
 		);
 		if (!input) {
 			return '';
@@ -505,7 +505,7 @@
 				el.required = !!enabled;
 			}
 		});
-		var choices = wrap.querySelector('[data-nest-form-choices]');
+		var choices = wrap.querySelector('[data-thimbleform-choices]');
 		if (choices && choices.hasAttribute('data-required')) {
 			if (!choices.hasAttribute('data-thimbleform-was-req-flag')) {
 				choices.setAttribute('data-thimbleform-was-req-flag', choices.getAttribute('data-required') || '0');
@@ -517,7 +517,7 @@
 	function applyConditions(form) {
 		form.querySelectorAll('[data-condition-field]').forEach(function (wrap) {
 			var show = conditionPasses(wrap, form);
-			wrap.classList.toggle('nest-form__field--condition-hidden', !show);
+			wrap.classList.toggle('thimbleform__field--condition-hidden', !show);
 			wrap.setAttribute('aria-hidden', show ? 'false' : 'true');
 			setConditionRequired(wrap, show);
 		});
@@ -624,8 +624,8 @@
 			return;
 		}
 		root.classList.remove('is-open');
-		var trigger = root.querySelector('[data-nest-form-select-trigger]');
-		var list = root.querySelector('[data-nest-form-select-list]');
+		var trigger = root.querySelector('[data-thimbleform-select-trigger]');
+		var list = root.querySelector('[data-thimbleform-select-list]');
 		if (trigger) {
 			trigger.setAttribute('aria-expanded', 'false');
 			trigger.removeAttribute('aria-activedescendant');
@@ -633,13 +633,13 @@
 		if (list) {
 			list.hidden = true;
 		}
-		root.querySelectorAll('.nest-form-select__option.is-active').forEach(function (opt) {
+		root.querySelectorAll('.thimbleform-select__option.is-active').forEach(function (opt) {
 			opt.classList.remove('is-active');
 		});
 	}
 
 	function closeAll(except) {
-		document.querySelectorAll('[data-nest-form-select].is-open').forEach(function (root) {
+		document.querySelectorAll('[data-thimbleform-select].is-open').forEach(function (root) {
 			if (root !== except) {
 				closeSelect(root);
 			}
@@ -647,9 +647,9 @@
 	}
 
 	function syncFromNative(root) {
-		var native = root.querySelector('[data-nest-form-select-native]');
-		var valueEl = root.querySelector('[data-nest-form-select-value]');
-		var list = root.querySelector('[data-nest-form-select-list]');
+		var native = root.querySelector('[data-thimbleform-select-native]');
+		var valueEl = root.querySelector('[data-thimbleform-select-value]');
+		var list = root.querySelector('[data-thimbleform-select-list]');
 		if (!native || !valueEl) {
 			return;
 		}
@@ -682,7 +682,7 @@
 	}
 
 	function setValue(root, value, focusTrigger) {
-		var native = root.querySelector('[data-nest-form-select-native]');
+		var native = root.querySelector('[data-thimbleform-select-native]');
 		if (!native) {
 			return;
 		}
@@ -692,12 +692,12 @@
 		syncFromNative(root);
 		closeSelect(root);
 		if (focusTrigger) {
-			var trigger = root.querySelector('[data-nest-form-select-trigger]');
+			var trigger = root.querySelector('[data-thimbleform-select-trigger]');
 			if (trigger) {
 				trigger.focus();
 			}
 		}
-		var form = root.closest('[data-nest-form]');
+		var form = root.closest('[data-thimbleform]');
 		if (form && previous !== value) {
 			var wrap = root.closest('[data-field-name]');
 			emit(form, 'thimbleform:select-change', {
@@ -711,8 +711,8 @@
 
 	function openSelect(root) {
 		closeAll(root);
-		var trigger = root.querySelector('[data-nest-form-select-trigger]');
-		var list = root.querySelector('[data-nest-form-select-list]');
+		var trigger = root.querySelector('[data-thimbleform-select-trigger]');
+		var list = root.querySelector('[data-thimbleform-select-list]');
 		if (!trigger || !list) {
 			return;
 		}
@@ -734,8 +734,8 @@
 	}
 
 	function moveActive(root, delta) {
-		var list = root.querySelector('[data-nest-form-select-list]');
-		var trigger = root.querySelector('[data-nest-form-select-trigger]');
+		var list = root.querySelector('[data-thimbleform-select-list]');
+		var trigger = root.querySelector('[data-thimbleform-select-trigger]');
 		if (!list) {
 			return;
 		}
@@ -769,9 +769,9 @@
 		root.dataset.liteFormSelectReady = '1';
 		syncFromNative(root);
 
-		var trigger = root.querySelector('[data-nest-form-select-trigger]');
-		var list = root.querySelector('[data-nest-form-select-list]');
-		var native = root.querySelector('[data-nest-form-select-native]');
+		var trigger = root.querySelector('[data-thimbleform-select-trigger]');
+		var list = root.querySelector('[data-thimbleform-select-list]');
+		var native = root.querySelector('[data-thimbleform-select-native]');
 		if (!trigger || !list || !native) {
 			return;
 		}
@@ -840,7 +840,7 @@
 	}
 
 	function initAllSelects(scope) {
-		(scope || document).querySelectorAll('[data-nest-form-select]').forEach(initSelect);
+		(scope || document).querySelectorAll('[data-thimbleform-select]').forEach(initSelect);
 	}
 
 	function closePhonePanels(except) {
@@ -904,10 +904,10 @@
 			root.setAttribute('data-iso', iso);
 			root.setAttribute('data-dial', dial);
 			if (flagEl) {
-				var img = flagEl.querySelector('.nest-form-phone__flag-img');
+				var img = flagEl.querySelector('.thimbleform-phone__flag-img');
 				if (!img && flagUrl) {
 					img = document.createElement('img');
-					img.className = 'nest-form-phone__flag-img';
+					img.className = 'thimbleform-phone__flag-img';
 					img.width = 20;
 					img.height = 15;
 					img.alt = '';
@@ -921,7 +921,7 @@
 			if (dialEl) {
 				dialEl.textContent = '+' + dial;
 			}
-			root.querySelectorAll('.nest-form-phone__opt').forEach(function (btn) {
+			root.querySelectorAll('.thimbleform-phone__opt').forEach(function (btn) {
 				btn.classList.toggle('is-active', btn.getAttribute('data-iso') === iso);
 			});
 			syncPhone(root);
@@ -937,7 +937,7 @@
 				root.classList.toggle('is-open', open);
 				if (open && search) {
 					search.value = '';
-					root.querySelectorAll('.nest-form-phone__opt').forEach(function (btn) {
+					root.querySelectorAll('.thimbleform-phone__opt').forEach(function (btn) {
 						btn.parentElement.hidden = false;
 					});
 					search.focus();
@@ -945,7 +945,7 @@
 			});
 		}
 
-		root.querySelectorAll('.nest-form-phone__opt').forEach(function (btn) {
+		root.querySelectorAll('.thimbleform-phone__opt').forEach(function (btn) {
 			btn.addEventListener('click', function () {
 				setCountry(
 					btn.getAttribute('data-iso') || '',
@@ -967,7 +967,7 @@
 			});
 			search.addEventListener('input', function () {
 				var q = String(search.value || '').toLowerCase().trim();
-				root.querySelectorAll('.nest-form-phone__opt').forEach(function (btn) {
+				root.querySelectorAll('.thimbleform-phone__opt').forEach(function (btn) {
 					var hay = btn.getAttribute('data-search') || '';
 					var li = btn.parentElement;
 					if (li) {
@@ -995,19 +995,19 @@
 
 	function ensureCaptchaToken(form) {
 		return new Promise(function (resolve, reject) {
-			var box = form.querySelector('[data-nest-form-captcha]');
+			var box = form.querySelector('[data-thimbleform-captcha]');
 			if (!box) {
 				resolve();
 				return;
 			}
 
 			var provider =
-				(box.getAttribute('data-nest-form-captcha') || '') ||
+				(box.getAttribute('data-thimbleform-captcha') || '') ||
 				(window.thimbleformCaptcha && window.thimbleformCaptcha.provider) ||
 				'';
 
 			if (provider === 'recaptcha_v3') {
-				var input = form.querySelector('[data-nest-form-captcha-token]');
+				var input = form.querySelector('[data-thimbleform-captcha-token]');
 				var cfg = window.thimbleformCaptcha || {};
 				if (!input) {
 					reject(new Error('Captcha token field missing'));
@@ -1047,7 +1047,7 @@
 	}
 
 	function onSubmit(event) {
-		var form = event.target.closest('[data-nest-form]');
+		var form = event.target.closest('[data-thimbleform]');
 		if (!form) {
 			return;
 		}
@@ -1063,11 +1063,11 @@
 		setStatus(form, '', '');
 
 		// On multi-step, Enter / implicit submit acts like Next until the last step (Pro).
-		if (form.hasAttribute('data-nest-form-steps') && window.thimbleformSteps) {
+		if (form.hasAttribute('data-thimbleform-steps') && window.thimbleformSteps) {
 			var steps = window.thimbleformSteps.getSteps(form);
 			var index = window.thimbleformSteps.getStepIndex(form);
 			if (index < steps.length - 1) {
-				var nextBtn = form.querySelector('[data-nest-form-next]');
+				var nextBtn = form.querySelector('[data-thimbleform-next]');
 				if (nextBtn && !nextBtn.hidden) {
 					nextBtn.click();
 				}
@@ -1094,7 +1094,7 @@
 		if (Object.keys(hints).length) {
 			showFieldErrors(form, hints);
 			// Jump to first errored step if multi-step (Pro).
-			if (form.hasAttribute('data-nest-form-steps') && window.thimbleformSteps) {
+			if (form.hasAttribute('data-thimbleform-steps') && window.thimbleformSteps) {
 				var firstName = Object.keys(hints)[0];
 				var wrap = form.querySelector('[data-field-name="' + firstName + '"]');
 				if (wrap) {
@@ -1175,12 +1175,12 @@
 						data: data,
 					});
 					form.reset();
-					form.querySelectorAll('[data-nest-form-select]').forEach(syncFromNative);
-					var token = form.querySelector('[data-nest-form-captcha-token]');
+					form.querySelectorAll('[data-thimbleform-select]').forEach(syncFromNative);
+					var token = form.querySelector('[data-thimbleform-captcha-token]');
 					if (token) {
 						token.value = '';
 					}
-					if (form.hasAttribute('data-nest-form-steps') && window.thimbleformSteps) {
+					if (form.hasAttribute('data-thimbleform-steps') && window.thimbleformSteps) {
 						window.thimbleformSteps.setStepIndex(form, 0, { reason: 'success', force: true });
 					}
 					// Quiz/pro may render a rich result panel; otherwise show thank-you UI.
@@ -1221,7 +1221,7 @@
 				}
 
 				showFieldErrors(form, data.errors || {});
-				if (form.hasAttribute('data-nest-form-steps') && data.errors && window.thimbleformSteps) {
+				if (form.hasAttribute('data-thimbleform-steps') && data.errors && window.thimbleformSteps) {
 					var errName = Object.keys(data.errors)[0];
 					var errWrap = form.querySelector('[data-field-name="' + errName + '"]');
 					if (errWrap) {
@@ -1259,7 +1259,7 @@
 	document.addEventListener(
 		'click',
 		function (event) {
-			var link = event.target.closest('.nest-form__check a');
+			var link = event.target.closest('.thimbleform__check a');
 			if (link) {
 				// Prevent label from toggling checkbox when opening a policy link.
 				event.stopPropagation();
@@ -1269,7 +1269,7 @@
 	);
 
 	document.addEventListener('click', function (event) {
-		if (!event.target.closest('[data-nest-form-select]')) {
+		if (!event.target.closest('[data-thimbleform-select]')) {
 			closeAll();
 		}
 		if (!event.target.closest('[data-thimbleform-phone]')) {
@@ -1279,13 +1279,13 @@
 
 	document.addEventListener('reset', function (event) {
 		var form = event.target;
-		if (!form || !form.matches || !form.matches('[data-nest-form]')) {
+		if (!form || !form.matches || !form.matches('[data-thimbleform]')) {
 			return;
 		}
 		window.setTimeout(function () {
-			form.querySelectorAll('[data-nest-form-select]').forEach(syncFromNative);
+			form.querySelectorAll('[data-thimbleform-select]').forEach(syncFromNative);
 			form.querySelectorAll('[data-thimbleform-phone]').forEach(syncPhone);
-			if (form.hasAttribute('data-nest-form-steps') && window.thimbleformSteps) {
+			if (form.hasAttribute('data-thimbleform-steps') && window.thimbleformSteps) {
 				window.thimbleformSteps.setStepIndex(form, 0, { reason: 'reset', force: true });
 			}
 			emit(form, 'thimbleform:reset', {});
@@ -1296,16 +1296,16 @@
 		if (!wrap) {
 			return;
 		}
-		var other = wrap.querySelector('[data-nest-form-other]');
+		var other = wrap.querySelector('[data-thimbleform-other]');
 		if (!other) {
 			return;
 		}
 		var on = false;
-		var native = wrap.querySelector('[data-nest-form-select-native]');
+		var native = wrap.querySelector('[data-thimbleform-select-native]');
 		if (native) {
 			on = native.value === '__other';
 		} else {
-			var checked = wrap.querySelectorAll('input[data-nest-form-other-trigger]:checked, input[value="__other"]:checked');
+			var checked = wrap.querySelectorAll('input[data-thimbleform-other-trigger]:checked, input[value="__other"]:checked');
 			on = checked.length > 0;
 		}
 		other.hidden = !on;
@@ -1315,7 +1315,7 @@
 	}
 
 	function initOtherFields(root) {
-		(root || document).querySelectorAll('[data-nest-form-allow-other]').forEach(function (wrap) {
+		(root || document).querySelectorAll('[data-thimbleform-allow-other]').forEach(function (wrap) {
 			var scope = wrap.closest('[data-field-name]') || wrap;
 			syncOtherField(scope);
 			wrap.addEventListener('change', function () {
@@ -1323,7 +1323,7 @@
 			});
 		});
 		document.addEventListener('thimbleform:select-change', function (event) {
-			var form = event.target && event.target.closest ? event.target.closest('[data-nest-form]') : null;
+			var form = event.target && event.target.closest ? event.target.closest('[data-thimbleform]') : null;
 			if (!form) {
 				return;
 			}
@@ -1335,7 +1335,7 @@
 		initAllSelects(document);
 		initAllPhones(document);
 		initOtherFields(document);
-		document.querySelectorAll('[data-nest-form]').forEach(function (form) {
+		document.querySelectorAll('[data-thimbleform]').forEach(function (form) {
 			initConditions(form);
 			if (typeof window.thimbleformInitProFront === 'function') {
 				window.thimbleformInitProFront(form);

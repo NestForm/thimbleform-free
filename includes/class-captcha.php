@@ -148,7 +148,7 @@ class Thimbleform_Captcha {
 
 		ob_start();
 		if ( 'recaptcha_v3' === $provider ) {
-			echo '<input type="hidden" name="g-recaptcha-response" value="" data-nest-form-captcha-token />';
+			echo '<input type="hidden" name="g-recaptcha-response" value="" data-thimbleform-captcha-token />';
 		} elseif ( 'turnstile' === $provider ) {
 			printf(
 				'<div class="cf-turnstile" data-sitekey="%s"></div>',

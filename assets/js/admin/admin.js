@@ -279,38 +279,38 @@
 			var density = settingValue('style_density') || 'md';
 
 			var vars = {
-				'--nest-form-accent': colorValue('style_accent'),
-				'--nest-form-accent-text': colorValue('style_accent_text'),
-				'--nest-form-text': colorValue('style_text'),
-				'--nest-form-muted': colorValue('style_muted'),
-				'--nest-form-surface': colorValue('style_surface'),
-				'--nest-form-input-bg': colorValue('style_input_bg'),
-				'--nest-form-border': colorValue('style_border'),
+				'--thimbleform-accent': colorValue('style_accent'),
+				'--thimbleform-accent-text': colorValue('style_accent_text'),
+				'--thimbleform-text': colorValue('style_text'),
+				'--thimbleform-muted': colorValue('style_muted'),
+				'--thimbleform-surface': colorValue('style_surface'),
+				'--thimbleform-input-bg': colorValue('style_input_bg'),
+				'--thimbleform-border': colorValue('style_border'),
 			};
 
 			if (!fontMap[font]) {
 				font = 'md';
 			}
-			vars['--nest-form-font-size'] = fontMap[font].base;
-			vars['--nest-form-label-size'] = fontMap[font].label;
-			vars['--nest-form-help-size'] = fontMap[font].help;
+			vars['--thimbleform-font-size'] = fontMap[font].base;
+			vars['--thimbleform-label-size'] = fontMap[font].label;
+			vars['--thimbleform-help-size'] = fontMap[font].help;
 
 			if (!gapMap[gap]) {
 				gap = 'md';
 			}
-			vars['--nest-form-gap'] = gapMap[gap];
+			vars['--thimbleform-gap'] = gapMap[gap];
 
 			if (!radiusMap[radius]) {
 				radius = 'md';
 			}
-			vars['--nest-form-radius'] = radiusMap[radius];
+			vars['--thimbleform-radius'] = radiusMap[radius];
 
 			if (!densityMap[density]) {
 				density = 'md';
 			}
-			vars['--nest-form-control-pad'] = densityMap[density].pad;
-			vars['--nest-form-control-min-h'] = densityMap[density].min_h;
-			vars['--nest-form-btn-pad'] = densityMap[density].btn;
+			vars['--thimbleform-control-pad'] = densityMap[density].pad;
+			vars['--thimbleform-control-min-h'] = densityMap[density].min_h;
+			vars['--thimbleform-btn-pad'] = densityMap[density].btn;
 
 			var styleParts = [];
 			Object.keys(vars).forEach(function (key) {
@@ -1630,17 +1630,17 @@
 		var widthStyle = '';
 		if (widthVal === 'half') {
 			widthClass = 'half';
-			widthStyle = '--nest-form-field-basis:50%;--nest-form-field-ratio:0.5';
+			widthStyle = '--thimbleform-field-basis:50%;--thimbleform-field-ratio:0.5';
 		} else if (widthVal === 'third') {
 			widthClass = 'third';
-			widthStyle = '--nest-form-field-basis:33.333%;--nest-form-field-ratio:0.33333';
+			widthStyle = '--thimbleform-field-basis:33.333%;--thimbleform-field-ratio:0.33333';
 		} else if (widthVal === 'two_thirds') {
 			widthClass = 'two-thirds';
 			widthStyle =
-				'--nest-form-field-basis:66.667%;--nest-form-field-ratio:0.66667';
+				'--thimbleform-field-basis:66.667%;--thimbleform-field-ratio:0.66667';
 		} else if (widthVal === 'quarter') {
 			widthClass = 'quarter';
-			widthStyle = '--nest-form-field-basis:25%;--nest-form-field-ratio:0.25';
+			widthStyle = '--thimbleform-field-basis:25%;--thimbleform-field-ratio:0.25';
 		} else if (widthVal === 'custom') {
 			widthClass = 'custom';
 			var customW = card.querySelector('[data-thimbleform-width-custom]');
@@ -1649,9 +1649,9 @@
 				customPct = 50;
 			}
 			widthStyle =
-				'--nest-form-field-basis:' +
+				'--thimbleform-field-basis:' +
 				customPct +
-				'%;--nest-form-field-ratio:' +
+				'%;--thimbleform-field-ratio:' +
 				String(Math.round((customPct / 100) * 1e5) / 1e5);
 		}
 		var field = document.createElement('div');
