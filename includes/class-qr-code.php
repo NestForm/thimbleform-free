@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Offline SVG QR encoder (byte mode, ECC M, versions 1-10).
  *
- * @package Nestform
+ * @package Thimbleform
  */
 class Nestform_Qr_Code {
 

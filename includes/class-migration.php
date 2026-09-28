@@ -1,8 +1,8 @@
 <?php
 /**
- * One-time DB migration from Vite Forms / LiteForms identifiers to Nestform.
+ * One-time DB migration from Vite Forms / LiteForms identifiers to Thimbleform.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -2,7 +2,7 @@
 /**
  * Integrations (Forms → Integrations). Captcha, Stripe, HubSpot, and future connectors.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -47,11 +47,11 @@ class Nestform_Integrations {
 			),
 			'stripe'  => array(
 				'label' => __( 'Stripe', 'nestform' ),
-				'desc'  => __( 'Card payments via the Nestform Pro add-on. Setup appears when Pro is licensed.', 'nestform' ),
+				'desc'  => __( 'Card payments via the Thimbleform Pro add-on. Setup appears when Pro is licensed.', 'nestform' ),
 			),
 			'hubspot' => array(
 				'label' => __( 'HubSpot', 'nestform' ),
-				'desc'  => __( 'CRM contact sync via the Nestform Pro add-on. Setup appears when Pro is licensed.', 'nestform' ),
+				'desc'  => __( 'CRM contact sync via the Thimbleform Pro add-on. Setup appears when Pro is licensed.', 'nestform' ),
 			),
 			'more'    => array(
 				'label' => __( 'More', 'nestform' ),
@@ -239,7 +239,7 @@ class Nestform_Integrations {
 										value="1"
 										<?php checked( $enabled ); ?>
 									/>
-									<span><?php esc_html_e( 'Allow captcha on Nestform forms', 'nestform' ); ?></span>
+									<span><?php esc_html_e( 'Allow captcha on Thimbleform forms', 'nestform' ); ?></span>
 								</label>
 								<p class="description"><?php esc_html_e( 'Each form still needs “Enable captcha on this form” under Spam & privacy.', 'nestform' ); ?></p>
 							</fieldset>
@@ -380,8 +380,8 @@ class Nestform_Integrations {
 				Nestform_Promotion::render_feature_teaser(
 					array(
 						'title' => __( 'Stripe payments', 'nestform' ),
-						'copy'  => __( 'Card payments and Payment fields ship with the Nestform Pro add-on.', 'nestform' ),
-						'cta'   => __( 'See Nestform Pro', 'nestform' ),
+						'copy'  => __( 'Card payments and Payment fields ship with the Thimbleform Pro add-on.', 'nestform' ),
+						'cta'   => __( 'See Thimbleform Pro', 'nestform' ),
 					)
 				);
 			}
@@ -406,7 +406,7 @@ class Nestform_Integrations {
 					<div>
 						<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Stripe', 'nestform' ); ?></h3>
 						<p class="nestform-admin__panel-desc">
-							<?php esc_html_e( 'Accept card payments on Nestform Pro payment fields. Keys stay on this site — Nestform never sees card numbers.', 'nestform' ); ?>
+							<?php esc_html_e( 'Accept card payments on Thimbleform Pro payment fields. Keys stay on this site — Thimbleform never sees card numbers.', 'nestform' ); ?>
 						</p>
 					</div>
 					<?php if ( $stripe_ready ) : ?>
@@ -428,7 +428,7 @@ class Nestform_Integrations {
 									value="1"
 									<?php checked( $stripe_enabled ); ?>
 								/>
-								<span><?php esc_html_e( 'Allow Stripe payments on Nestform forms', 'nestform' ); ?></span>
+								<span><?php esc_html_e( 'Allow Stripe payments on Thimbleform forms', 'nestform' ); ?></span>
 							</label>
 							<p class="description"><?php esc_html_e( 'Master switch. Each form still needs “Enable Stripe payments”, and a Payment field on the form.', 'nestform' ); ?></p>
 						</td>
@@ -513,8 +513,8 @@ class Nestform_Integrations {
 				Nestform_Promotion::render_feature_teaser(
 					array(
 						'title' => __( 'HubSpot contact sync', 'nestform' ),
-						'copy'  => __( 'Create or update HubSpot contacts from submissions with Nestform Pro.', 'nestform' ),
-						'cta'   => __( 'See Nestform Pro', 'nestform' ),
+						'copy'  => __( 'Create or update HubSpot contacts from submissions with Thimbleform Pro.', 'nestform' ),
+						'cta'   => __( 'See Thimbleform Pro', 'nestform' ),
 					)
 				);
 			}
@@ -556,7 +556,7 @@ class Nestform_Integrations {
 									value="1"
 									<?php checked( $hubspot_enabled ); ?>
 								/>
-								<span><?php esc_html_e( 'Allow HubSpot contact sync on Nestform forms', 'nestform' ); ?></span>
+								<span><?php esc_html_e( 'Allow HubSpot contact sync on Thimbleform forms', 'nestform' ); ?></span>
 							</label>
 							<p class="description"><?php esc_html_e( 'Master switch. Each form still needs “Enable HubSpot” and field mapping.', 'nestform' ); ?></p>
 						</td>

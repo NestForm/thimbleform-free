@@ -1,4 +1,4 @@
-# Nestform
+# Thimbleform
 
 Build **forms, quizzes and surveys** for WordPress that convert.
 
@@ -9,7 +9,7 @@ Not a Contact Form 7 clone — a focused product around:
 **Path:** `wp-content/plugins/nestform/`  
 **Main file:** `nestform.php`  
 **Version:** 2.2.1  
-**Pro add-on:** `wp-content/plugins/nestform-pro/` (sold separately on [nestform.app](https://nestform.app))  
+**Pro add-on:** `wp-content/plugins/nestform-pro/` (sold separately on [thimbleform.app](https://thimbleform.app))  
 **Source:** [github.com/NestForm/nestform-free](https://github.com/NestForm/nestform-free)
 
 WordPress.org listing copy lives in `readme.txt`.
@@ -26,7 +26,7 @@ Free = strong lead capture. Pro = interactive conversion flows.
 
 ## Free vs Pro
 
-| Free | Pro (Nestform Pro + valid license) |
+| Free | Pro (Thimbleform Pro + valid license) |
 |------|-------------------------------------|
 | Unlimited forms | Multi-step + branch rules |
 | Basic/layout fields, file uploads, conditionals | Quizzes & surveys (scoring, bands, timer, attempts, share) |
@@ -37,9 +37,9 @@ Free = strong lead capture. Pro = interactive conversion flows.
 | Light / dark admin, Developers screen | Calculated fields, repeaters |
 | Stripe keys in Integrations | Stripe Payment field on forms |
 
-Capabilities are registered only by **nestform-pro** after a valid license from nestform.app. Filtering `nestform_is_pro` alone does not unlock gated runtime.
+Capabilities are registered only by **nestform-pro** after a valid license from thimbleform.app. Filtering `nestform_is_pro` alone does not unlock gated runtime.
 
-Checkout on nestform.app → install **nestform-pro** → activate the key under **Forms → License**.
+Checkout on thimbleform.app → install **nestform-pro** → activate the key under **Forms → License**.
 
 ## Features
 

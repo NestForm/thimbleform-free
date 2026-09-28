@@ -412,7 +412,7 @@ body.wp-core-ui.nestform-entries-screen.edit-php
     white-space: nowrap;
 }
 
-/* Entries list table — Nestform tokens (override WP widefat/striped) */
+/* Entries list table — Thimbleform tokens (override WP widefat/striped) */
 body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table,
 .nestform-entries-screen.edit-php .wp-list-table {
     width: 100%;

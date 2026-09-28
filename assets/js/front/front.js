@@ -1,5 +1,5 @@
 /**
- * Nestform front: custom select + AJAX submit + CustomEvents.
+ * Thimbleform front: custom select + AJAX submit + CustomEvents.
  *
  * Events (bubble from <form data-nest-form>, cancelable where noted):
  * - nestform:ready

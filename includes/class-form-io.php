@@ -2,7 +2,7 @@
 /**
  * Form JSON export / import (local → production).
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -111,7 +111,7 @@ class Nestform_Form_IO {
 			return array(
 				'ok'      => false,
 				'form_id' => 0,
-				'message' => __( 'Not a Nestform export file.', 'nestform' ),
+				'message' => __( 'Not a Thimbleform export file.', 'nestform' ),
 			);
 		}
 
@@ -246,12 +246,12 @@ class Nestform_Form_IO {
 		}
 
 		$messages = array(
-			'nofile'  => __( 'Choose a Nestform JSON file to import.', 'nestform' ),
+			'nofile'  => __( 'Choose a Thimbleform JSON file to import.', 'nestform' ),
 			'upload'  => __( 'Upload failed. Try again.', 'nestform' ),
 			'size'    => __( 'File is too large (max 2 MB).', 'nestform' ),
 			'empty'   => __( 'The file is empty.', 'nestform' ),
 			'json'    => __( 'Could not parse JSON.', 'nestform' ),
-			'invalid' => __( 'This file is not a valid Nestform export.', 'nestform' ),
+			'invalid' => __( 'This file is not a valid Thimbleform export.', 'nestform' ),
 		);
 		$msg = isset( $messages[ $code ] ) ? $messages[ $code ] : __( 'Import failed.', 'nestform' );
 		echo '<div class="notice notice-error is-dismissible"><p>' . esc_html( $msg ) . '</p></div>';
@@ -268,7 +268,7 @@ class Nestform_Form_IO {
 		if ( ! current_user_can( 'publish_posts' ) ) {
 			return '';
 		}
-		$label = $label !== '' ? (string) $label : __( 'Nestform JSON', 'nestform' );
+		$label = $label !== '' ? (string) $label : __( 'Thimbleform JSON', 'nestform' );
 		$class = trim( 'nestform-btn nestform-btn--ghost nestform-hub__import-label ' . (string) $class );
 		ob_start();
 		?>

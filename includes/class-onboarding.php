@@ -2,7 +2,7 @@
 /**
  * First-run redirect after activation + Plugins row helpers.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,7 +20,7 @@ class Nestform_Onboarding {
 	}
 
 	/**
-	 * Record that the activator should land on Nestform next.
+	 * Record that the activator should land on Thimbleform next.
 	 */
 	public static function schedule_redirect() {
 		$user_id = get_current_user_id();

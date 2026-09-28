@@ -2,7 +2,7 @@
 /**
  * Front renderer + shortcode.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -35,7 +35,7 @@ class Nestform_Renderer {
 		$form_id = Nestform_Form_Config::resolve_form_id( $atts );
 		if ( $form_id <= 0 ) {
 			if ( current_user_can( 'edit_posts' ) ) {
-				return '<p class="nest-form nest-form--missing">' . esc_html__( 'Nestform: form not found.', 'nestform' ) . '</p>';
+				return '<p class="nest-form nest-form--missing">' . esc_html__( 'Thimbleform: form not found.', 'nestform' ) . '</p>';
 			}
 			return '';
 		}

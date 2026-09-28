@@ -2,7 +2,7 @@
 /**
  * CSV / XLSX export for form entries.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

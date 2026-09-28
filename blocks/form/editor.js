@@ -90,7 +90,7 @@
 						Placeholder,
 						{
 							icon: 'feedback',
-							label: i18n.placeholderLabel || 'Nestform',
+							label: i18n.placeholderLabel || 'Thimbleform',
 							instructions: i18n.placeholderHelp || 'Choose which form to insert.',
 						},
 						FormSelect(formId, props.setAttributes)
@@ -105,7 +105,7 @@
 					el(
 						PanelBody,
 						{
-							title: i18n.panelTitle || 'Nestform',
+							title: i18n.panelTitle || 'Thimbleform',
 							initialOpen: true,
 						},
 						FormSelect(formId, props.setAttributes),

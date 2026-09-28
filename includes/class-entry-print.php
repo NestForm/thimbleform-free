@@ -4,7 +4,7 @@
  *
  * Renders one entry as a standalone page (no WP admin chrome) for Print / Save as PDF.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

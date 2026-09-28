@@ -2,7 +2,7 @@
 /**
  * Elementor widget integration.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -31,7 +31,7 @@ class Nestform_Elementor {
 			}
 
 			public function get_title() {
-				return __( 'Nestform', 'nestform' );
+				return __( 'Thimbleform', 'nestform' );
 			}
 
 			public function get_icon() {
@@ -74,7 +74,7 @@ class Nestform_Elementor {
 
 				if ( $form_id <= 0 || ! class_exists( 'Nestform_Renderer' ) ) {
 					if ( current_user_can( 'edit_posts' ) ) {
-						echo '<div class="nestform-elementor-placeholder">' . esc_html__( 'Select a Nestform in the widget settings.', 'nestform' ) . '</div>';
+						echo '<div class="nestform-elementor-placeholder">' . esc_html__( 'Select a Thimbleform in the widget settings.', 'nestform' ) . '</div>';
 					}
 					return;
 				}

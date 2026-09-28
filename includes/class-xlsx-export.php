@@ -4,7 +4,7 @@
  *
  * Generates a valid .xlsx file without external dependencies.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

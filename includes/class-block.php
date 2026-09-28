@@ -2,7 +2,7 @@
 /**
  * Gutenberg block: nestform/form.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -38,7 +38,7 @@ class Nestform_Block {
 			$categories,
 			array(
 				'slug'  => $slug,
-				'title' => __( 'Nestform', 'nestform' ),
+				'title' => __( 'Thimbleform', 'nestform' ),
 				'icon'  => 'feedback',
 			)
 		);
@@ -85,8 +85,8 @@ class Nestform_Block {
 			self::BLOCK_NAME,
 			array(
 				'api_version'     => 2,
-				'title'           => __( 'Nestform', 'nestform' ),
-				'description'     => __( 'Insert a Nestform form by selecting it from the list.', 'nestform' ),
+				'title'           => __( 'Thimbleform', 'nestform' ),
+				'description'     => __( 'Insert a Thimbleform form by selecting it from the list.', 'nestform' ),
 				'category'        => 'nestform',
 				'icon'            => 'feedback',
 				'keywords'        => array( 'form', 'contact', 'lead', 'nestform' ),
@@ -110,7 +110,7 @@ class Nestform_Block {
 
 		if ( ! $result && defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-			error_log( 'Nestform: failed to register block nestform/form' );
+			error_log( 'Thimbleform: failed to register block nestform/form' );
 		}
 
 		register_block_type(
@@ -118,7 +118,7 @@ class Nestform_Block {
 			array(
 				'api_version'     => 2,
 				'title'           => __( 'LiteForm (legacy)', 'nestform' ),
-				'description'     => __( 'Legacy block name — use Nestform instead.', 'nestform' ),
+				'description'     => __( 'Legacy block name — use Thimbleform instead.', 'nestform' ),
 				'category'        => 'nestform',
 				'icon'            => 'feedback',
 				'attributes'      => array(
@@ -142,7 +142,7 @@ class Nestform_Block {
 			array(
 				'api_version'     => 2,
 				'title'           => __( 'Vite Form (legacy)', 'nestform' ),
-				'description'     => __( 'Legacy block name — use Nestform instead.', 'nestform' ),
+				'description'     => __( 'Legacy block name — use Thimbleform instead.', 'nestform' ),
 				'category'        => 'nestform',
 				'icon'            => 'feedback',
 				'attributes'      => array(
@@ -173,7 +173,7 @@ class Nestform_Block {
 		$form_id = isset( $attributes['formId'] ) ? (int) $attributes['formId'] : 0;
 		if ( $form_id <= 0 || ! class_exists( 'Nestform_Renderer' ) ) {
 			if ( current_user_can( 'edit_posts' ) ) {
-				return '<p class="nestform-block nestform-block--empty">' . esc_html__( 'Select a Nestform in the block settings.', 'nestform' ) . '</p>';
+				return '<p class="nestform-block nestform-block--empty">' . esc_html__( 'Select a Thimbleform in the block settings.', 'nestform' ) . '</p>';
 			}
 			return '';
 		}
@@ -237,10 +237,10 @@ class Nestform_Block {
 				'i18n'  => array(
 					'selectForm'       => __( 'Select a form...', 'nestform' ),
 					'formLabel'        => __( 'Form', 'nestform' ),
-					'panelTitle'       => __( 'Nestform', 'nestform' ),
+					'panelTitle'       => __( 'Thimbleform', 'nestform' ),
 					'noForms'          => __( 'No forms yet. Create one under Forms in the admin menu.', 'nestform' ),
 					'previewHint'      => __( 'The live form renders on the front end.', 'nestform' ),
-					'placeholderLabel' => __( 'Nestform', 'nestform' ),
+					'placeholderLabel' => __( 'Thimbleform', 'nestform' ),
 					'placeholderHelp'  => __( 'Choose which form to insert.', 'nestform' ),
 					/* translators: %d: Form ID. */
 					'formFallback'     => __( 'Form #%d', 'nestform' ),

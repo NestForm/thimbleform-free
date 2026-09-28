@@ -1,4 +1,4 @@
-Nestform bundled fonts — SIL Open Font License 1.1
+Thimbleform bundled fonts — SIL Open Font License 1.1
 
 Plus Jakarta Sans
 Copyright 2020 The Plus Jakarta Sans Project Authors
@@ -12,4 +12,4 @@ Both families are licensed under the SIL Open Font License, Version 1.1.
 Full license text: https://scripts.sil.org/OFL
 
 The font files are self-hosted under assets/fonts/ and loaded only in
-Nestform admin screens (no third-party CDN).
+Thimbleform admin screens (no third-party CDN).

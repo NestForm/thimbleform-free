@@ -2,7 +2,7 @@
 /**
  * Aggregates form entries into per-field summaries.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

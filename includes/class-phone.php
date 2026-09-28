@@ -2,7 +2,7 @@
 /**
  * Phone country codes + E.164 helpers.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -2,7 +2,7 @@
   {
     "file": "screenshot-1.png",
     "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-dashboard",
-    "target": ".nestform-dash",
+    "target": ".nestform-app",
     "status": "captured"
   },
   {
@@ -20,13 +20,25 @@
   {
     "file": "screenshot-4.png",
     "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-entries",
-    "target": ".nestform-entries, #wpbody-content",
+    "target": ".nestform-app",
     "status": "captured"
   },
   {
     "file": "screenshot-5.png",
     "url": "https://wordpress-custom.local/#support",
     "target": "[data-block=\"nestform-support\"], .nestform-support",
+    "status": "captured"
+  },
+  {
+    "file": "screenshot-6.png",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-integrations",
+    "target": ".nestform-app, #wpbody-content",
+    "status": "captured"
+  },
+  {
+    "file": "screenshot-7.png",
+    "url": "https://wordpress-custom.local/wp-admin/post.php?post=756&action=edit",
+    "target": "[data-nestform-admin]",
     "status": "captured"
   },
   {
@@ -56,15 +68,14 @@
   {
     "file": "docs/entries-inbox.png",
     "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-entries",
-    "target": ".nestform-entries, #wpbody-content",
+    "target": ".nestform-app",
     "status": "captured"
   },
   {
     "file": "docs/export-controls.png",
     "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform_entry&nestform_form_id=556",
-    "target": ".nestform-app__main",
-    "status": "skipped",
-    "error": "Missing control: .nestform-export-menu__toggle"
+    "target": ".nestform-export-menu__panel",
+    "status": "captured"
   },
   {
     "file": "docs/mail-settings.png",
@@ -75,13 +86,13 @@
   {
     "file": "docs/security-settings.png",
     "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-settings&section=security",
-    "target": ".nestform-settings__main",
+    "target": ".nestform-app",
     "status": "captured"
   },
   {
     "file": "docs/captcha-integrations.png",
     "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-integrations&section=captcha",
-    "target": ".nestform-settings__main, .nestform-captcha-integ",
+    "target": ".nestform-app",
     "status": "captured"
   },
   {
@@ -93,16 +104,14 @@
   {
     "file": "docs/dashboard.png",
     "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-dashboard",
-    "target": ".nestform-dash",
-    "status": "skipped",
-    "error": "Missing screenshot target: .nestform-dash"
+    "target": ".nestform-app",
+    "status": "captured"
   },
   {
     "file": "docs/license.png",
     "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-pro-license",
-    "target": ".nestform-license__shell, .nestform-app__main",
-    "status": "skipped",
-    "error": "Missing screenshot target: .nestform-license__shell, .nestform-app__main"
+    "target": ".nestform-app",
+    "status": "captured"
   },
   {
     "file": "docs/multi-step-branching.png",
@@ -155,7 +164,7 @@
   {
     "file": "docs/recruiting.png",
     "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-recruiting",
-    "target": "[data-nestform-hr-charts], .nestform-hr-dash, #wpbody-content",
+    "target": ".nestform-app",
     "status": "captured"
   }
 ]

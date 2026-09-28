@@ -2,7 +2,7 @@
 /**
  * Plugin-wide settings (Forms → Settings).
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,7 +14,7 @@ class Nestform_Settings {
 	const OPTION    = 'nestform_settings';
 	const PAGE_SLUG = 'nestform-settings';
 
-	const SITE_URL = 'https://nestform.app/';
+	const SITE_URL = 'https://thimbleform.app/';
 
 	public static function init() {
 		add_action( 'admin_init', array( __CLASS__, 'register' ) );
@@ -204,7 +204,7 @@ class Nestform_Settings {
 		}
 
 		/**
-		 * Filter plugin-wide Nestform settings.
+		 * Filter plugin-wide Thimbleform settings.
 		 *
 		 * @param array<string, mixed> $out Settings.
 		 */
@@ -261,7 +261,7 @@ class Nestform_Settings {
 		return sprintf(
 			'<p class="nest-form__credit"><a href="%1$s" rel="noopener noreferrer">%2$s</a></p>',
 			esc_url( self::SITE_URL ),
-			esc_html__( 'Powered by Nestform', 'nestform' )
+			esc_html__( 'Powered by Thimbleform', 'nestform' )
 		);
 	}
 
@@ -418,7 +418,7 @@ class Nestform_Settings {
 	}
 
 	/**
-	 * Whether to wipe Nestform data on uninstall.
+	 * Whether to wipe Thimbleform data on uninstall.
 	 *
 	 * @return bool
 	 */
@@ -463,7 +463,7 @@ class Nestform_Settings {
 			),
 			'security' => array(
 				'label' => __( 'Security', 'nestform' ),
-				'desc'  => __( 'Site-wide spam protection for every Nestform form.', 'nestform' ),
+				'desc'  => __( 'Site-wide spam protection for every Thimbleform form.', 'nestform' ),
 			),
 			'privacy' => array(
 				'label' => __( 'Privacy & data', 'nestform' ),
@@ -650,7 +650,7 @@ class Nestform_Settings {
 	}
 
 	/**
-	 * Copy keys from theme Auth captcha once, if Nestform has none yet.
+	 * Copy keys from theme Auth captcha once, if Thimbleform has none yet.
 	 */
 	public static function maybe_import_theme_captcha() {
 		if ( false !== get_option( self::OPTION, false ) ) {
@@ -711,12 +711,12 @@ class Nestform_Settings {
 			}
 			$body = sprintf(
 				/* translators: %s: site name */
-				__( "This is a test email from Nestform on %s.\n\nIf you received it, wp_mail() is working on this site.", 'nestform' ),
+				__( "This is a test email from Thimbleform on %s.\n\nIf you received it, wp_mail() is working on this site.", 'nestform' ),
 				get_bloginfo( 'name' )
 			);
 			$sent = class_exists( 'Nestform_Email_Log' )
-				? Nestform_Email_Log::send( 'test', $to, __( 'Nestform test email', 'nestform' ), $body, $headers )
-				: wp_mail( $to, __( 'Nestform test email', 'nestform' ), $body, $headers );
+				? Nestform_Email_Log::send( 'test', $to, __( 'Thimbleform test email', 'nestform' ), $body, $headers )
+				: wp_mail( $to, __( 'Thimbleform test email', 'nestform' ), $body, $headers );
 		}
 
 		wp_safe_redirect(
@@ -1006,7 +1006,7 @@ class Nestform_Settings {
 								<div class="nestform-admin__panel-head">
 									<div>
 										<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Rate limiting', 'nestform' ); ?></h3>
-										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Caps how often one IP can submit any Nestform form.', 'nestform' ); ?></p>
+										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Caps how often one IP can submit any Thimbleform form.', 'nestform' ); ?></p>
 									</div>
 								</div>
 								<table class="form-table nestform-settings__table" role="presentation">
@@ -1183,7 +1183,7 @@ class Nestform_Settings {
 								<div class="nestform-admin__panel-head">
 									<div>
 										<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Uninstall', 'nestform' ); ?></h3>
-										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Control what happens when Nestform is removed.', 'nestform' ); ?></p>
+										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Control what happens when Thimbleform is removed.', 'nestform' ); ?></p>
 									</div>
 								</div>
 								<table class="form-table nestform-settings__table" role="presentation">
@@ -1215,9 +1215,9 @@ class Nestform_Settings {
 											<label class="nestform-admin__check" for="nestform_credit_enabled">
 												<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[credit_enabled]" value="0" />
 												<input type="checkbox" id="nestform_credit_enabled" name="<?php echo esc_attr( $opt ); ?>[credit_enabled]" value="1" <?php checked( (string) $s['credit_enabled'], '1' ); ?> />
-												<span><?php esc_html_e( 'Show a small “Powered by Nestform” link under forms', 'nestform' ); ?></span>
+												<span><?php esc_html_e( 'Show a small “Powered by Thimbleform” link under forms', 'nestform' ); ?></span>
 											</label>
-											<p class="description"><?php esc_html_e( 'Off by default. No tracking parameters — a plain link to nestform.app.', 'nestform' ); ?></p>
+											<p class="description"><?php esc_html_e( 'Off by default. No tracking parameters — a plain link to thimbleform.app.', 'nestform' ); ?></p>
 										</td>
 									</tr>
 								</table>
@@ -1248,7 +1248,7 @@ class Nestform_Settings {
 											<label class="nestform-admin__check" for="nestform_review_requests_enabled">
 												<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[review_requests_enabled]" value="0" />
 												<input type="checkbox" id="nestform_review_requests_enabled" name="<?php echo esc_attr( $opt ); ?>[review_requests_enabled]" value="1" <?php checked( (string) $s['review_requests_enabled'], '1' ); ?> />
-												<span><?php esc_html_e( 'Show WordPress.org review prompts on Nestform screens', 'nestform' ); ?></span>
+												<span><?php esc_html_e( 'Show WordPress.org review prompts on Thimbleform screens', 'nestform' ); ?></span>
 											</label>
 											<p class="description"><?php esc_html_e( 'After enough real entries are collected, administrators may see a one-time notice with Not now and Don\'t ask again options. Never shown site-wide.', 'nestform' ); ?></p>
 										</td>
@@ -1393,7 +1393,7 @@ class Nestform_Settings {
 			<div class="nestform-admin__panel-head">
 				<div>
 					<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Delivery log', 'nestform' ); ?></h3>
-					<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Recipient, subject, and status for each Nestform mail attempt. Message bodies are never stored.', 'nestform' ); ?></p>
+					<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Recipient, subject, and status for each Thimbleform mail attempt. Message bodies are never stored.', 'nestform' ); ?></p>
 				</div>
 			</div>
 

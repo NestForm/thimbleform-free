@@ -1,7 +1,8 @@
 /**
- * Capture reproducible Nestform Free + Pro screenshots.
+ * Capture reproducible Thimbleform Free + Pro screenshots.
  *
  * Credentials via env: NF_USER, NF_PASS
+ * Or a Playwright cookie JSON file: NF_COOKIE_FILE
  * Optional: NF_BASE, NF_OUT, NF_COPY_OUT, NF_BUILDER_ID, NF_PRO_FORM_ID
  */
 const { chromium } = require('playwright');
@@ -11,6 +12,7 @@ const path = require('path');
 const BASE = process.env.NF_BASE || 'https://wordpress-custom.local';
 const USER = process.env.NF_USER;
 const PASS = process.env.NF_PASS;
+const COOKIE_FILE = process.env.NF_COOKIE_FILE || '';
 const OUT = process.env.NF_OUT || path.join(__dirname, '..', 'assets');
 const COPY_OUT = process.env.NF_COPY_OUT || '';
 const BUILDER_ID = process.env.NF_BUILDER_ID || '556';
@@ -22,8 +24,8 @@ const SHOT_FILTER = new Set(
     .filter(Boolean),
 );
 
-if (!USER || !PASS) {
-  console.error('NF_USER and NF_PASS required');
+if ((!USER || !PASS) && !COOKIE_FILE) {
+  console.error('NF_USER and NF_PASS, or NF_COOKIE_FILE, required');
   process.exit(1);
 }
 
@@ -98,7 +100,7 @@ const overviewShots = [
   {
     file: 'screenshot-1.png',
     url: admin('edit.php?post_type=nestform&page=nestform-dashboard'),
-    target: '.nestform-dash',
+    target: '.nestform-app',
   },
   {
     file: 'screenshot-2.png',
@@ -113,13 +115,23 @@ const overviewShots = [
   {
     file: 'screenshot-4.png',
     url: admin('edit.php?post_type=nestform&page=nestform-entries'),
-    target: '.nestform-entries, #wpbody-content',
+    target: '.nestform-app',
   },
   {
     file: 'screenshot-5.png',
     url: `${BASE}/#support`,
     target: '[data-block="nestform-support"], .nestform-support',
     front: true,
+  },
+  {
+    file: 'screenshot-6.png',
+    url: admin('edit.php?post_type=nestform&page=nestform-integrations'),
+    target: '.nestform-app, #wpbody-content',
+  },
+  {
+    file: 'screenshot-7.png',
+    url: builder(PRO_FORM_ID),
+    target: '[data-nestform-admin]',
   },
 ];
 
@@ -157,13 +169,16 @@ const documentationShots = [
   {
     file: 'docs/entries-inbox.png',
     url: admin('edit.php?post_type=nestform&page=nestform-entries'),
-    target: '.nestform-entries, #wpbody-content',
+    target: '.nestform-app',
   },
   {
     file: 'docs/export-controls.png',
     url: admin(`edit.php?post_type=nestform_entry&nestform_form_id=${BUILDER_ID}`),
-    target: '.nestform-app__main',
-    prepare: async (page) => click(page, '.nestform-export-menu__toggle'),
+    target: '.nestform-export-menu__panel',
+    prepare: async (page) => {
+      await click(page, '.nestform-export-menu__toggle');
+      await page.locator('.nestform-export-menu__panel').first().waitFor({ state: 'visible', timeout: 5000 });
+    },
   },
   {
     file: 'docs/mail-settings.png',
@@ -174,12 +189,12 @@ const documentationShots = [
   {
     file: 'docs/security-settings.png',
     url: admin('edit.php?post_type=nestform&page=nestform-settings&section=security'),
-    target: '.nestform-settings__main',
+    target: '.nestform-app',
   },
   {
     file: 'docs/captcha-integrations.png',
     url: admin('edit.php?post_type=nestform&page=nestform-integrations&section=captcha'),
-    target: '.nestform-settings__main, .nestform-captcha-integ',
+    target: '.nestform-app',
   },
   {
     file: 'docs/webhooks.png',
@@ -190,12 +205,12 @@ const documentationShots = [
   {
     file: 'docs/dashboard.png',
     url: admin('edit.php?post_type=nestform&page=nestform-dashboard'),
-    target: '.nestform-dash',
+    target: '.nestform-app',
   },
   {
     file: 'docs/license.png',
     url: admin('edit.php?post_type=nestform&page=nestform-pro-license'),
-    target: '.nestform-license__shell, .nestform-app__main',
+    target: '.nestform-app',
   },
   {
     file: 'docs/multi-step-branching.png',
@@ -261,7 +276,7 @@ const documentationShots = [
   {
     file: 'docs/recruiting.png',
     url: admin('edit.php?post_type=nestform&page=nestform-recruiting'),
-    target: '[data-nestform-hr-charts], .nestform-hr-dash, #wpbody-content',
+    target: '.nestform-app',
   },
 ];
 
@@ -399,23 +414,30 @@ async function captureTarget(page, shot, targetPath) {
     channel: 'chrome',
   });
   const context = await browser.newContext({
-    viewport: { width: 1440, height: 900 },
+    viewport: { width: 1440, height: 920 },
+    deviceScaleFactor: 2,
     ignoreHTTPSErrors: true,
   });
   const page = await context.newPage();
 
-  await page.goto(`${BASE}/login/`, { waitUntil: 'networkidle', timeout: 90000 });
-  const userSelector = (await page.locator('#auth-log').count()) ? '#auth-log' : '#user_login';
-  const passSelector = (await page.locator('#auth-pwd').count()) ? '#auth-pwd' : '#user_pass';
-  const submitSelector = (await page.locator('button.auth__submit, button[type="submit"]').count())
-    ? 'button.auth__submit, button[type="submit"]'
-    : '#wp-submit';
-  await page.fill(userSelector, USER);
-  await page.fill(passSelector, PASS);
-  await Promise.all([
-    page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 60000 }),
-    page.click(submitSelector),
-  ]);
+  if (COOKIE_FILE) {
+    const cookies = JSON.parse(fs.readFileSync(COOKIE_FILE, 'utf8'));
+    await context.addCookies(cookies);
+    await page.goto(admin('edit.php?post_type=nestform'), { waitUntil: 'domcontentloaded', timeout: 90000 });
+  } else {
+    await page.goto(`${BASE}/login/`, { waitUntil: 'networkidle', timeout: 90000 });
+    const userSelector = (await page.locator('#auth-log').count()) ? '#auth-log' : '#user_login';
+    const passSelector = (await page.locator('#auth-pwd').count()) ? '#auth-pwd' : '#user_pass';
+    const submitSelector = (await page.locator('button.auth__submit, button[type="submit"]').count())
+      ? 'button.auth__submit, button[type="submit"]'
+      : '#wp-submit';
+    await page.fill(userSelector, USER);
+    await page.fill(passSelector, PASS);
+    await Promise.all([
+      page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 60000 }),
+      page.click(submitSelector),
+    ]);
+  }
 
   if (page.url().includes('/login') || page.url().includes('wp-login.php')) {
     throw new Error(`Login failed: ${page.url()}`);

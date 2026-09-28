@@ -2,7 +2,7 @@
 /**
  * AJAX submit: validate, store, wp_mail.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -134,9 +134,9 @@ class Nestform_Submit {
 
 		/**
 		 * Captcha / bot checks before field validation.
-		 * When Nestform captcha is enabled for the form, verification is always
+		 * When Thimbleform captcha is enabled for the form, verification is always
 		 * enforced here — a late filter returning true cannot bypass it.
-		 * Custom captcha providers use nestform_verify_captcha when Nestform captcha is off.
+		 * Custom captcha providers use nestform_verify_captcha when Thimbleform captcha is off.
 		 *
 		 * @param true|WP_Error $result Verification result.
 		 * @param int           $form_id Form ID.
@@ -145,7 +145,7 @@ class Nestform_Submit {
 		if ( class_exists( 'Nestform_Captcha' ) && Nestform_Captcha::enabled_for_form( $form_id ) ) {
 			$captcha = Nestform_Captcha::verify();
 			if ( ! is_wp_error( $captcha ) ) {
-				// Allow additional restrictions only (cannot skip Nestform verify).
+				// Allow additional restrictions only (cannot skip Thimbleform verify).
 				$extra = apply_filters( 'nestform_verify_captcha', true, $form_id, $messages );
 				if ( is_wp_error( $extra ) ) {
 					$captcha = $extra;

@@ -2,7 +2,7 @@
 /**
  * Admin meta boxes for form builder.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -436,8 +436,8 @@ class Nestform_Admin_UI {
 					Nestform_Promotion::render_feature_teaser(
 						array(
 							'title'   => __( 'Multi-step forms', 'nestform' ),
-							'copy'    => __( 'Split long forms into wizard steps with optional branch rules. Available in the Nestform Pro add-on.', 'nestform' ),
-							'cta'     => __( 'See Nestform Pro', 'nestform' ),
+							'copy'    => __( 'Split long forms into wizard steps with optional branch rules. Available in the Thimbleform Pro add-on.', 'nestform' ),
+							'cta'     => __( 'See Thimbleform Pro', 'nestform' ),
 							'compact' => true,
 						)
 					);
@@ -556,14 +556,14 @@ class Nestform_Admin_UI {
 											);
 											?>
 											<div class="nestform-add-menu__group nestform-add-menu__group--teaser">
-												<span class="nestform-add-menu__group-label"><?php esc_html_e( 'Also in Nestform Pro', 'nestform' ); ?></span>
+												<span class="nestform-add-menu__group-label"><?php esc_html_e( 'Also in Thimbleform Pro', 'nestform' ); ?></span>
 												<div class="nestform-add-menu__list">
 													<?php foreach ( $pro_teaser_labels as $pro_label ) : ?>
 														<span class="nestform-add-menu__item nestform-add-menu__item--teaser"><?php echo esc_html( (string) $pro_label ); ?></span>
 													<?php endforeach; ?>
 												</div>
 												<a class="nestform-add-menu__pro-link" href="<?php echo esc_url( Nestform_Promotion::url() ); ?>">
-													<?php esc_html_e( 'See Nestform Pro', 'nestform' ); ?>
+													<?php esc_html_e( 'See Thimbleform Pro', 'nestform' ); ?>
 												</a>
 											</div>
 										<?php endif; ?>
@@ -956,8 +956,8 @@ class Nestform_Admin_UI {
 									Nestform_Promotion::render_feature_teaser(
 										array(
 											'title'   => __( 'HTML email & PDF', 'nestform' ),
-											'copy'    => __( 'Design HTML notifications with a logo and attach a PDF of each submission. Available in the Nestform Pro add-on.', 'nestform' ),
-											'cta'     => __( 'See Nestform Pro', 'nestform' ),
+											'copy'    => __( 'Design HTML notifications with a logo and attach a PDF of each submission. Available in the Thimbleform Pro add-on.', 'nestform' ),
+											'cta'     => __( 'See Thimbleform Pro', 'nestform' ),
 											'compact' => true,
 										)
 									);
@@ -969,8 +969,8 @@ class Nestform_Admin_UI {
 									Nestform_Promotion::render_feature_teaser(
 										array(
 											'title'   => __( 'PDF attachments', 'nestform' ),
-											'copy'    => __( 'Attach a PDF of each submission to the notification email. Available in Nestform Pro.', 'nestform' ),
-											'cta'     => __( 'See Nestform Pro', 'nestform' ),
+											'copy'    => __( 'Attach a PDF of each submission to the notification email. Available in Thimbleform Pro.', 'nestform' ),
+											'cta'     => __( 'See Thimbleform Pro', 'nestform' ),
 											'compact' => true,
 										)
 									);
@@ -1285,7 +1285,7 @@ class Nestform_Admin_UI {
 							} elseif ( $stripe_ready ) {
 								esc_html_e( 'Stripe keys ready — enable payments on this form.', 'nestform' );
 							} else {
-								esc_html_e( 'Stripe card payments via Nestform Pro Payment fields.', 'nestform' );
+								esc_html_e( 'Stripe card payments via Thimbleform Pro Payment fields.', 'nestform' );
 							}
 							?>
 						</p>
@@ -1361,7 +1361,7 @@ class Nestform_Admin_UI {
 						</div>
 						<div class="nestform-admin__note<?php echo $hubspot_ready ? '' : ' nestform-admin__note--warn'; ?>">
 							<strong><?php esc_html_e( 'How it works', 'nestform' ); ?></strong>
-							<p><?php esc_html_e( '1) Save a HubSpot Private App token under Forms → Integrations. 2) Enable sync here and map Email (and optional name/phone/company). 3) Nestform Pro creates or updates the contact after a successful submit.', 'nestform' ); ?></p>
+							<p><?php esc_html_e( '1) Save a HubSpot Private App token under Forms → Integrations. 2) Enable sync here and map Email (and optional name/phone/company). 3) Thimbleform Pro creates or updates the contact after a successful submit.', 'nestform' ); ?></p>
 							<?php if ( $integrations_hubspot_url ) : ?>
 								<p><a href="<?php echo esc_url( $integrations_hubspot_url ); ?>"><?php esc_html_e( 'Open Integrations → HubSpot', 'nestform' ); ?></a></p>
 							<?php endif; ?>
@@ -2028,7 +2028,7 @@ class Nestform_Admin_UI {
 								</div>
 							</div>
 							<p class="nestform-appearance__live-note" data-nestform-live-theme-note <?php echo 'theme' === $current_skin ? '' : 'hidden'; ?>>
-								<?php esc_html_e( 'Theme skin keeps your site chrome on the front. Preview still shows Nestform colors, size, and spacing.', 'nestform' ); ?>
+								<?php esc_html_e( 'Theme skin keeps your site chrome on the front. Preview still shows Thimbleform colors, size, and spacing.', 'nestform' ); ?>
 							</p>
 						</div>
 					</aside>
@@ -2900,7 +2900,7 @@ class Nestform_Admin_UI {
 							<?php nestform_admin_icon( 'copy' ); ?>
 						</button>
 					</div>
-					<p class="description"><?php esc_html_e( 'Or pick this form in the Gutenberg Nestform block or an ACF Form field.', 'nestform' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Or pick this form in the Gutenberg Thimbleform block or an ACF Form field.', 'nestform' ); ?></p>
 					<?php if ( $qr_svg !== '' ) : ?>
 						<div class="nestform-embed__qr"><?php echo $qr_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- generated SVG ?></div>
 					<?php endif; ?>

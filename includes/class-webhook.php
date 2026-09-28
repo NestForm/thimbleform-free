@@ -1,8 +1,8 @@
 <?php
 /**
- * Outbound webhooks on successful submit (Nestform Free).
+ * Outbound webhooks on successful submit (Thimbleform Free).
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -77,7 +77,7 @@ class Nestform_Webhook {
 
 		$headers = array(
 			'Content-Type' => 'application/json; charset=utf-8',
-			'User-Agent'   => 'Nestform/' . ( defined( 'NESTFORM_VERSION' ) ? NESTFORM_VERSION : '1' ),
+			'User-Agent'   => 'Thimbleform/' . ( defined( 'NESTFORM_VERSION' ) ? NESTFORM_VERSION : '1' ),
 		);
 
 		$secret = isset( $endpoint['secret'] ) ? (string) $endpoint['secret'] : '';

@@ -2,7 +2,7 @@
 /**
  * Uninstall cleanup when delete_data_on_uninstall is enabled.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Wipe Nestform data when the user opted in via settings.
+ * Wipe Thimbleform data when the user opted in via settings.
  *
  * @return void
  */

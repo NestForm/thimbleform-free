@@ -2,7 +2,7 @@
 /**
  * Site-wide spam / content checks for submissions.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

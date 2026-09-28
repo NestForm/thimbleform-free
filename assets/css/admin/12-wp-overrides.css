@@ -1,4 +1,4 @@
-/* ---- Nestform app chrome: hide WP chrome on all plugin screens ---- */
+/* ---- Thimbleform app chrome: hide WP chrome on all plugin screens ---- */
 body.nestform-app-screen {
     --nestform-admin-bar-h: 0px;
     background: var(--nestform-canvas);

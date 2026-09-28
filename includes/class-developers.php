@@ -2,7 +2,7 @@
 /**
  * Developer hooks reference (Forms → Developers).
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,7 +28,7 @@ class Nestform_Developers {
 		if ( self::PAGE_SLUG !== $page ) {
 			return;
 		}
-		wp_safe_redirect( 'https://nestform.app/docs' );
+		wp_safe_redirect( 'https://thimbleform.app/docs' );
 		exit;
 	}
 
@@ -164,7 +164,7 @@ class Nestform_Developers {
 	}
 
 	/**
-	 * Pro-only filters (apply_filters runs only with licensed Nestform Pro).
+	 * Pro-only filters (apply_filters runs only with licensed Thimbleform Pro).
 	 *
 	 * @return array<string, string>
 	 */
@@ -269,7 +269,7 @@ class Nestform_Developers {
 								<?php esc_html_e( 'Pro actions', 'nestform' ); ?>
 								<span class="nestform-developers__badge nestform-developers__badge--pro"><?php esc_html_e( 'Pro', 'nestform' ); ?></span>
 							</h2>
-							<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Available with licensed Nestform Pro. Without Pro these actions do not fire.', 'nestform' ); ?></p>
+							<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Available with licensed Thimbleform Pro. Without Pro these actions do not fire.', 'nestform' ); ?></p>
 						</div>
 					</div>
 					<ul class="nestform-developers__list">
@@ -289,7 +289,7 @@ class Nestform_Developers {
 								<?php esc_html_e( 'Pro filters', 'nestform' ); ?>
 								<span class="nestform-developers__badge nestform-developers__badge--pro"><?php esc_html_e( 'Pro', 'nestform' ); ?></span>
 							</h2>
-							<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Available with licensed Nestform Pro. Without Pro these filters are not applied — callbacks never run.', 'nestform' ); ?></p>
+							<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Available with licensed Thimbleform Pro. Without Pro these filters are not applied — callbacks never run.', 'nestform' ); ?></p>
 						</div>
 					</div>
 					<ul class="nestform-developers__list">
@@ -313,7 +313,7 @@ class Nestform_Developers {
 						</div>
 					</div>
 					<pre class="nestform-developers__code" tabindex="0"><code>add_action( 'nestform_submitted', function( $form_id, $data, $entry_id ) {
-	error_log( sprintf( 'Nestform #%d entry #%d', $form_id, $entry_id ) );
+	error_log( sprintf( 'Thimbleform #%d entry #%d', $form_id, $entry_id ) );
 }, 10, 3 );</code></pre>
 				</section>
 

@@ -5,7 +5,7 @@
  * Stores an HMAC of the client IP (not the address) so repeat clients group
  * together without creating personal data that needs a privacy exporter.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

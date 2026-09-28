@@ -2,7 +2,7 @@
 /**
  * Pro promotion surfaces (free plugin only — does not gate features).
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,7 +15,7 @@ class Nestform_Promotion {
 
 	const STORE_URL = 'https://checkout.freemius.com/product/37981/plan/63282/licenses/1/?billing_cycle=monthly&pricing_id=84761';
 
-	const DOCS_URL = 'https://nestform.app/docs';
+	const DOCS_URL = 'https://thimbleform.app/docs';
 
 	const DISMISSED_META = 'nestform_pro_notice_dismissed';
 
@@ -126,10 +126,10 @@ class Nestform_Promotion {
 	 */
 	private static function questions() {
 		return array(
-			__( 'Does anything I have now change?', 'nestform' ) => __( 'No. Pro is a separate add-on: it extends the screens you already use. Your forms, entries, and settings stay as they are. Nestform (free) must stay active — Pro builds on it.', 'nestform' ),
-			__( 'Do I need a license key for the free plugin?', 'nestform' ) => __( 'No. There is no sign-up and no key in the free plugin. Licensing belongs only to Nestform Pro (Freemius) after purchase.', 'nestform' ),
+			__( 'Does anything I have now change?', 'nestform' ) => __( 'No. Pro is a separate add-on: it extends the screens you already use. Your forms, entries, and settings stay as they are. Thimbleform (free) must stay active — Pro builds on it.', 'nestform' ),
+			__( 'Do I need a license key for the free plugin?', 'nestform' ) => __( 'No. There is no sign-up and no key in the free plugin. Licensing belongs only to Thimbleform Pro (Freemius) after purchase.', 'nestform' ),
 			__( 'What happens if I stop paying?', 'nestform' ) => __( 'Your data is never deleted. Pro features stop applying until you activate again — then they return without rebuilding forms.', 'nestform' ),
-			__( 'How do I activate Pro?', 'nestform' ) => __( 'Buy via Freemius checkout, install the nestform-pro add-on, then activate under Nestform → Account (or Nestform → License).', 'nestform' ),
+			__( 'How do I activate Pro?', 'nestform' ) => __( 'Buy via Freemius checkout, install the nestform-pro add-on, then activate under Thimbleform → Account (or Thimbleform → License).', 'nestform' ),
 			__( 'Is Agency a different product?', 'nestform' ) => __( 'No. Agency includes the same Pro features, including optional Recruiting. The license covers up to 5 sites instead of 1.', 'nestform' ),
 		);
 	}
@@ -156,7 +156,7 @@ class Nestform_Promotion {
 		}
 		add_submenu_page(
 			'edit.php?post_type=' . Nestform_Post_Type::POST_TYPE,
-			__( 'Nestform Pro', 'nestform' ),
+			__( 'Thimbleform Pro', 'nestform' ),
 			__( 'Pro', 'nestform' ),
 			'edit_posts',
 			self::PAGE_SLUG,
@@ -177,8 +177,8 @@ class Nestform_Promotion {
 			<?php
 			nestform_render_page_head(
 				array(
-					'title'        => __( 'Nestform Pro', 'nestform' ),
-					'description'  => __( 'Everything in Nestform is free and unlimited. Pro adds multi-step forms, quizzes, payments, and optional Recruiting. Agency is that same set on up to 5 sites.', 'nestform' ),
+					'title'        => __( 'Thimbleform Pro', 'nestform' ),
+					'description'  => __( 'Everything in Thimbleform is free and unlimited. Pro adds multi-step forms, quizzes, payments, and optional Recruiting. Agency is that same set on up to 5 sites.', 'nestform' ),
 					'icon'         => 'pro',
 					'actions_html' => '<a class="nestform-btn nestform-btn--primary" href="' . esc_url( $store ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'View plans (Freemius)', 'nestform' ) . '</a>',
 				)
@@ -188,10 +188,10 @@ class Nestform_Promotion {
 				<header class="nestform-upgrade__head">
 					<span class="nestform-upgrade__badge">
 						<?php echo nestform_admin_icon_html( 'pro' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-						<?php esc_html_e( 'Nestform Pro', 'nestform' ); ?>
+						<?php esc_html_e( 'Thimbleform Pro', 'nestform' ); ?>
 					</span>
 					<h2 class="nestform-upgrade__title"><?php esc_html_e( 'Forms, quizzes & surveys that convert', 'nestform' ); ?></h2>
-					<p class="nestform-upgrade__lead"><?php esc_html_e( 'Purchase via Freemius checkout, install the nestform-pro add-on, then activate under Nestform → Account. Agency is the same feature set on up to 5 sites.', 'nestform' ); ?></p>
+					<p class="nestform-upgrade__lead"><?php esc_html_e( 'Purchase via Freemius checkout, install the nestform-pro add-on, then activate under Thimbleform → Account. Agency is the same feature set on up to 5 sites.', 'nestform' ); ?></p>
 					<div class="nestform-upgrade__billing" data-nestform-billing>
 						<button type="button" class="nestform-upgrade__bill is-active" data-plan="monthly"><?php esc_html_e( 'Monthly', 'nestform' ); ?></button>
 						<button type="button" class="nestform-upgrade__bill" data-plan="yearly"><?php esc_html_e( 'Yearly', 'nestform' ); ?></button>
@@ -211,7 +211,7 @@ class Nestform_Promotion {
 						<thead>
 							<tr>
 								<th scope="col"><?php esc_html_e( 'The job', 'nestform' ); ?></th>
-								<th scope="col"><?php esc_html_e( 'Nestform, free', 'nestform' ); ?></th>
+								<th scope="col"><?php esc_html_e( 'Thimbleform, free', 'nestform' ); ?></th>
 								<th scope="col"><?php esc_html_e( 'What Pro adds', 'nestform' ); ?></th>
 							</tr>
 						</thead>
@@ -219,7 +219,7 @@ class Nestform_Promotion {
 							<?php foreach ( self::comparison() as $row ) : ?>
 								<tr>
 									<th scope="row"><?php echo esc_html( $row['job'] ); ?></th>
-									<td data-label="<?php esc_attr_e( 'Nestform, free', 'nestform' ); ?>"><?php echo esc_html( $row['free'] ); ?></td>
+									<td data-label="<?php esc_attr_e( 'Thimbleform, free', 'nestform' ); ?>"><?php echo esc_html( $row['free'] ); ?></td>
 									<td data-label="<?php esc_attr_e( 'What Pro adds', 'nestform' ); ?>"><?php echo esc_html( $row['pro'] ); ?></td>
 								</tr>
 							<?php endforeach; ?>
@@ -242,11 +242,11 @@ class Nestform_Promotion {
 
 				<div class="nestform-admin__surface nestform-pro-bought-card">
 					<h3 class="nestform-pro-bought-card__title"><?php esc_html_e( 'Already bought it?', 'nestform' ); ?></h3>
-					<p><?php esc_html_e( 'Install nestform-pro under Plugins → Add Plugin → Upload Plugin, activate it, then open Nestform → Account (or Nestform → License) to activate your Freemius license. Keep Nestform (free) active — Pro is an add-on, not a replacement.', 'nestform' ); ?></p>
+					<p><?php esc_html_e( 'Install nestform-pro under Plugins → Add Plugin → Upload Plugin, activate it, then open Thimbleform → Account (or Thimbleform → License) to activate your Freemius license. Keep Thimbleform (free) active — Pro is an add-on, not a replacement.', 'nestform' ); ?></p>
 				</div>
 
 				<p class="nestform-upgrade__trust nestform-pro-note">
-					<?php esc_html_e( 'Nestform Pro is sold via Freemius checkout. Links open in a new tab; the free plugin does not phone home.', 'nestform' ); ?>
+					<?php esc_html_e( 'Thimbleform Pro is sold via Freemius checkout. Links open in a new tab; the free plugin does not phone home.', 'nestform' ); ?>
 				</p>
 			</div>
 		</div>
@@ -261,10 +261,10 @@ class Nestform_Promotion {
 			return;
 		}
 		?>
-		<div class="nestform-admin__surface nestform-settings__pro-card" aria-label="<?php esc_attr_e( 'Nestform Pro', 'nestform' ); ?>">
+		<div class="nestform-admin__surface nestform-settings__pro-card" aria-label="<?php esc_attr_e( 'Thimbleform Pro', 'nestform' ); ?>">
 			<p class="nestform-settings__pro-kicker">
 				<?php echo nestform_admin_icon_html( 'pro' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-				<?php esc_html_e( 'Nestform Pro', 'nestform' ); ?>
+				<?php esc_html_e( 'Thimbleform Pro', 'nestform' ); ?>
 			</p>
 			<p class="nestform-settings__pro-copy"><?php echo esc_html( self::summary() ); ?></p>
 			<a class="nestform-btn nestform-btn--outline nestform-settings__pro-link" href="<?php echo esc_url( self::url() ); ?>">
@@ -283,9 +283,9 @@ class Nestform_Promotion {
 		if ( ! self::should_promote() ) {
 			return;
 		}
-		$title = isset( $args['title'] ) ? (string) $args['title'] : __( 'Nestform Pro', 'nestform' );
+		$title = isset( $args['title'] ) ? (string) $args['title'] : __( 'Thimbleform Pro', 'nestform' );
 		$copy  = array_key_exists( 'copy', $args ) ? (string) $args['copy'] : self::summary();
-		$cta   = isset( $args['cta'] ) ? (string) $args['cta'] : __( 'See Nestform Pro', 'nestform' );
+		$cta   = isset( $args['cta'] ) ? (string) $args['cta'] : __( 'See Thimbleform Pro', 'nestform' );
 		$url   = isset( $args['url'] ) && is_string( $args['url'] ) && '' !== $args['url']
 			? (string) $args['url']
 			: self::url();
@@ -297,7 +297,7 @@ class Nestform_Promotion {
 			<div class="nestform-pro-teaser__body">
 				<p class="nestform-app__pro-kicker">
 					<?php echo nestform_admin_icon_html( 'pro' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-					<?php esc_html_e( 'Nestform Pro', 'nestform' ); ?>
+					<?php esc_html_e( 'Thimbleform Pro', 'nestform' ); ?>
 				</p>
 				<p class="nestform-pro-teaser__title"><?php echo esc_html( $title ); ?></p>
 				<?php if ( '' !== trim( $copy ) ) : ?>
@@ -418,15 +418,15 @@ class Nestform_Promotion {
 	private static function notice_message( $signal ) {
 		switch ( $signal ) {
 			case 'long_form':
-				return __( 'One of your forms is getting long. Nestform Pro adds multi-step flows and branch rules so visitors only see what applies to them. Everything you have now stays free.', 'nestform' );
+				return __( 'One of your forms is getting long. Thimbleform Pro adds multi-step flows and branch rules so visitors only see what applies to them. Everything you have now stays free.', 'nestform' );
 			case 'quiz':
-				return __( 'Your forms look like quizzes or surveys. Nestform Pro adds scoring, result bands, timers, and shareable outcomes. Everything you have now stays free.', 'nestform' );
+				return __( 'Your forms look like quizzes or surveys. Thimbleform Pro adds scoring, result bands, timers, and shareable outcomes. Everything you have now stays free.', 'nestform' );
 			case 'exports':
-				return __( 'You have exported entries by hand a few times. Nestform Pro adds automations and HubSpot sync so answers can flow to your stack without CSV downloads. Everything you have now stays free.', 'nestform' );
+				return __( 'You have exported entries by hand a few times. Thimbleform Pro adds automations and HubSpot sync so answers can flow to your stack without CSV downloads. Everything you have now stays free.', 'nestform' );
 			case 'analytics':
-				return __( 'You are collecting a steady stream of entries. Nestform Pro adds conversion metrics and lead insights on top of your dashboard. Everything you have now stays free.', 'nestform' );
+				return __( 'You are collecting a steady stream of entries. Thimbleform Pro adds conversion metrics and lead insights on top of your dashboard. Everything you have now stays free.', 'nestform' );
 			default:
-				return __( 'Need multi-step forms or quizzes? Nestform Pro is a separate add-on sold via Freemius. Everything you have now stays free.', 'nestform' );
+				return __( 'Need multi-step forms or quizzes? Thimbleform Pro is a separate add-on sold via Freemius. Everything you have now stays free.', 'nestform' );
 		}
 	}
 
@@ -510,7 +510,7 @@ class Nestform_Promotion {
 			'<span class="nestform-footer-note">%s</span>',
 			sprintf(
 				/* translators: 1: one line naming Pro features. 2: link to Pro page. */
-				esc_html__( 'Nestform is free and unlimited. Pro is a paid add-on: %1$s %2$s', 'nestform' ),
+				esc_html__( 'Thimbleform is free and unlimited. Pro is a paid add-on: %1$s %2$s', 'nestform' ),
 				esc_html( self::summary() ),
 				'<a href="' . esc_url( self::url() ) . '">' . esc_html__( 'See what Pro adds', 'nestform' ) . '</a>'
 			)

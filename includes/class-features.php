@@ -4,7 +4,7 @@
  *
  * Free ships core forms. Pro registers capabilities after a valid license in nestform-pro.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -62,7 +62,7 @@ class Nestform_Features {
 	}
 
 	/**
-	 * Register a capability (called from Nestform Pro after license validation).
+	 * Register a capability (called from Thimbleform Pro after license validation).
 	 *
 	 * @param string $feature Feature key.
 	 */

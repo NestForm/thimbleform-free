@@ -2,7 +2,7 @@
 /**
  * CPT: nestform_entry (submissions).
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -352,7 +352,7 @@ class Nestform_Submissions {
 	}
 
 	/**
-	 * Nestform page head above the WP entries list.
+	 * Thimbleform page head above the WP entries list.
 	 */
 	public static function list_page_head() {
 		if ( ! self::is_entries_list_screen() ) {
@@ -396,7 +396,7 @@ class Nestform_Submissions {
 	}
 
 	/**
-	 * Nestform page head above a single entry view.
+	 * Thimbleform page head above a single entry view.
 	 */
 	public static function entry_page_head() {
 		if ( ! self::is_entry_edit_screen() ) {
@@ -477,7 +477,7 @@ class Nestform_Submissions {
 	}
 
 	/**
-	 * Replace WP All/Mine/Published views with Nestform status filters.
+	 * Replace WP All/Mine/Published views with Thimbleform status filters.
 	 *
 	 * @param array<string, string> $views Views.
 	 * @return array<string, string>
@@ -2309,7 +2309,7 @@ class Nestform_Submissions {
 			$name = ! empty( $value['name'] ) ? (string) $value['name'] : basename( (string) $value['url'] );
 			return $name;
 		}
-		/* Payment payloads from Nestform Pro (even if type metadata is missing). */
+		/* Payment payloads from Thimbleform Pro (even if type metadata is missing). */
 		if ( is_array( $value ) && isset( $value['intent_id'], $value['amount'], $value['currency'] ) ) {
 			$line = sprintf(
 				/* translators: 1: amount, 2: currency */

@@ -1,8 +1,8 @@
 <?php
 /**
- * Import forms from Contact Form 7 and WPForms into Nestform drafts.
+ * Import forms from Contact Form 7 and WPForms into Thimbleform drafts.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -285,7 +285,7 @@ class Nestform_Importer {
 			}
 		}
 		if ( $count < 1 ) {
-			throw new Exception( esc_html__(  'No Nestform-compatible questions were found in that form.', 'nestform' ) );
+			throw new Exception( esc_html__(  'No Thimbleform-compatible questions were found in that form.', 'nestform' ) );
 		}
 
 		$title = isset( $definition['title'] ) ? sanitize_text_field( (string) $definition['title'] ) : '';
@@ -441,7 +441,7 @@ class Nestform_Importer {
 			if ( ! isset( $type_map[ $tag ] ) ) {
 				$notes[] = sprintf(
 					/* translators: 1: field label, 2: CF7 tag type */
-					__( 'Skipped “%1$s” (%2$s) — no Nestform equivalent.', 'nestform' ),
+					__( 'Skipped “%1$s” (%2$s) — no Thimbleform equivalent.', 'nestform' ),
 					$label,
 					$tag
 				);
@@ -677,7 +677,7 @@ class Nestform_Importer {
 			if ( ! isset( $type_map[ $type ] ) ) {
 				$notes[] = sprintf(
 					/* translators: 1: field label, 2: WPForms type */
-					__( 'Skipped “%1$s” (%2$s) — no Nestform equivalent.', 'nestform' ),
+					__( 'Skipped “%1$s” (%2$s) — no Thimbleform equivalent.', 'nestform' ),
 					$label ? $label : __( 'Untitled', 'nestform' ),
 					$type
 				);

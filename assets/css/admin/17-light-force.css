@@ -1,5 +1,5 @@
 /**
- * Nestform admin — force light tokens when OS is dark but user chose Light.
+ * Thimbleform admin — force light tokens when OS is dark but user chose Light.
  */
 
 @media (prefers-color-scheme: dark) {

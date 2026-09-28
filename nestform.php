@@ -1,18 +1,18 @@
 <?php
 /**
- * Plugin Name: Nestform
- * Plugin URI: https://nestform.app
+ * Plugin Name: Thimbleform
+ * Plugin URI: https://thimbleform.app
  * Description: Build lead and contact forms with an entries inbox, email alerts, spam protection, and webhooks.
  * Version: 2.3.2
  * Requires at least: 6.0
  * Requires PHP: 7.4
- * Author: Nestform
+ * Author: Thimbleform
  * Text Domain: nestform
  * Domain Path: /languages
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -63,7 +63,7 @@ function nestform_logo_url() {
 }
 
 /**
- * Style deps for Nestform admin.css.
+ * Style deps for Thimbleform admin.css.
  *
  * @return array<int, string>
  */
@@ -317,7 +317,7 @@ function nestform_admin_icon_html( $name, $variant = '' ) {
 		'chevron'      => '<svg ' . $a . '><path d="m9 18 6-6-6-6"/></svg>',
 		'download'     => '<svg ' . $a . '><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>',
 		/*
-		 * Nestform Pro mark: nested form cards + spark (product DNA).
+		 * Thimbleform Pro mark: nested form cards + spark (product DNA).
 		 * `crown` kept as alias for older call sites.
 		 */
 		'pro'          => '<svg class="nestform-icon-pro" ' . $a . '><rect x="8" y="3" width="12.5" height="14.5" rx="2.25"/><rect x="3.5" y="7.5" width="12.5" height="14.5" rx="2.25"/><path d="M19.2 2.2l.5 1.25 1.25.5-1.25.5-.5 1.25-.5-1.25-1.25-.5 1.25-.5z" fill="currentColor" stroke="none"/></svg>',
@@ -343,7 +343,7 @@ function nestform_admin_icon( $name ) {
 }
 
 /**
- * Open Nestform app shell (sidebar + main).
+ * Open Thimbleform app shell (sidebar + main).
  *
  * @param string $current Active nav: dashboard|forms|entries|settings|integrations|developers|upgrade|license|editor.
  */
@@ -434,7 +434,7 @@ function nestform_render_app_open( $current ) {
 	}
 
 	/**
-	 * Filter Nestform app sidebar nav items.
+	 * Filter Thimbleform app sidebar nav items.
 	 *
 	 * Empty `url` hides the item. Match WordPress submenu capabilities.
 	 *
@@ -466,16 +466,16 @@ function nestform_render_app_open( $current ) {
 				<img
 					class="nestform-app__logo"
 					src="<?php echo esc_url( nestform_logo_url() ); ?>"
-					alt="<?php esc_attr_e( 'Nestform', 'nestform' ); ?>"
+					alt="<?php esc_attr_e( 'Thimbleform', 'nestform' ); ?>"
 					width="48"
 					height="48"
 				/>
 				<div class="nestform-app__brand-copy">
-					<div class="nestform-app__name">Nest<span class="nestform-app__name-accent">form</span></div>
+					<div class="nestform-app__name">Thimble<span class="nestform-app__name-accent">form</span></div>
 					<div class="nestform-app__ver">v<?php echo esc_html( NESTFORM_VERSION ); ?></div>
 				</div>
 			</div>
-			<nav class="nestform-app__nav" aria-label="<?php esc_attr_e( 'Nestform', 'nestform' ); ?>">
+			<nav class="nestform-app__nav" aria-label="<?php esc_attr_e( 'Thimbleform', 'nestform' ); ?>">
 				<?php
 				$group_i = 0;
 				foreach ( $nav_groups as $group_id => $group_items ) :
@@ -577,14 +577,14 @@ function nestform_render_app_open( $current ) {
 }
 
 /**
- * Close Nestform app shell.
+ * Close Thimbleform app shell.
  */
 function nestform_render_app_close() {
 	echo '</div></div>';
 }
 
 /**
- * Current Nestform admin view, or empty outside the plugin UI.
+ * Current Thimbleform admin view, or empty outside the plugin UI.
  *
  * @return string dashboard|forms|entries|settings|integrations|developers|upgrade|license|editor|
  */
@@ -626,7 +626,7 @@ function nestform_admin_current_view() {
 
 /**
  * Pin notices to the bottom before first paint (avoids WP default flash).
- * Hide core update nags on Nestform screens only.
+ * Hide core update nags on Thimbleform screens only.
  */
 function nestform_admin_notice_boot_css() {
 	if ( '' === nestform_admin_current_view() ) {
@@ -891,7 +891,7 @@ add_action(
 		Nestform_Elementor::init();
 
 		/**
-		 * Fires after Nestform Free is loaded. Pro registers features here.
+		 * Fires after Thimbleform Free is loaded. Pro registers features here.
 		 */
 		do_action( 'nestform_loaded' );
 	},
@@ -956,7 +956,7 @@ add_action(
 			array(
 				'isPro'     => class_exists( 'Nestform_Upgrade' ) ? Nestform_Upgrade::is_pro() : false,
 				'url'       => class_exists( 'Nestform_Promotion' ) ? Nestform_Promotion::url() : '',
-				'storeUrl'  => class_exists( 'Nestform_Promotion' ) ? Nestform_Promotion::store_url() : 'https://nestform.app/pro',
+				'storeUrl'  => class_exists( 'Nestform_Promotion' ) ? Nestform_Promotion::store_url() : 'https://thimbleform.app/pro',
 				'features'  => $features,
 				'i18n'      => array(
 					'sidebar'         => array(

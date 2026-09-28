@@ -974,7 +974,7 @@ body.nestform-admin-screen .wp-header-end {
     display: none;
 }
 
-/* Core update nags clutter Nestform chrome — keep them on other admin screens. */
+/* Core update nags clutter Thimbleform chrome — keep them on other admin screens. */
 body.nestform-admin-screen .update-nag,
 body.nestform-admin-screen div.notice.update-nag,
 body.nestform-editor-app .update-nag,

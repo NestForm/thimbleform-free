@@ -2,7 +2,7 @@
 /**
  * Role capabilities for managing forms and viewing entries.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -2,7 +2,7 @@
 /**
  * Backward compatibility for Vite Forms and LiteForms identifiers.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

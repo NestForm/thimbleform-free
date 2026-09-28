@@ -2,7 +2,7 @@
 /**
  * Security helpers: rate limits, redirects, private uploads.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -255,7 +255,7 @@ class Nestform_Security {
 	}
 
 	/**
-	 * Serve a private Nestform upload.
+	 * Serve a private Thimbleform upload.
 	 */
 	public static function serve_file() {
 		$attach_id = isset( $_GET['aid'] ) ? (int) $_GET['aid'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -313,7 +313,7 @@ class Nestform_Security {
 	}
 
 	/**
-	 * Hide Nestform private attachments from the Media Library picker.
+	 * Hide Thimbleform private attachments from the Media Library picker.
 	 *
 	 * @param array<string, mixed> $args Query args.
 	 * @return array<string, mixed>

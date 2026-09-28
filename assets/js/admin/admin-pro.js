@@ -1,5 +1,5 @@
 /**
- * Nestform app shell helpers (sidebar collapse, Pro promotion).
+ * Thimbleform app shell helpers (sidebar collapse, Pro promotion).
  */
 (function () {
 	'use strict';

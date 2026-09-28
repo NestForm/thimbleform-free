@@ -1,8 +1,8 @@
 <?php
 /**
- * Captcha for Nestform (reCAPTCHA, Turnstile, hCaptcha).
+ * Captcha for Thimbleform (reCAPTCHA, Turnstile, hCaptcha).
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -294,7 +294,7 @@ class Nestform_Captcha {
 				'provider'       => '',
 				'provider_label' => '',
 				'url'            => '',
-				'message'        => __( 'Nestform settings are not loaded.', 'nestform' ),
+				'message'        => __( 'Thimbleform settings are not loaded.', 'nestform' ),
 			);
 		}
 

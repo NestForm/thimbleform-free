@@ -1,5 +1,5 @@
 /**
- * Nestform admin: step groups, DnD, quick-add, duplicate.
+ * Thimbleform admin: step groups, DnD, quick-add, duplicate.
  */
 (function () {
 	'use strict';

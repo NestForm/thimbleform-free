@@ -2,7 +2,7 @@
 /**
  * WordPress privacy tools integration (export / erase personal data).
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,7 +25,7 @@ class Nestform_Privacy {
 	 */
 	public static function register_exporter( $exporters ) {
 		$exporters['nestform'] = array(
-			'exporter_friendly_name' => __( 'Nestform entries', 'nestform' ),
+			'exporter_friendly_name' => __( 'Thimbleform entries', 'nestform' ),
 			'callback'               => array( __CLASS__, 'export' ),
 		);
 
@@ -38,7 +38,7 @@ class Nestform_Privacy {
 	 */
 	public static function register_eraser( $erasers ) {
 		$erasers['nestform'] = array(
-			'eraser_friendly_name' => __( 'Nestform entries', 'nestform' ),
+			'eraser_friendly_name' => __( 'Thimbleform entries', 'nestform' ),
 			'callback'             => array( __CLASS__, 'erase' ),
 		);
 
@@ -167,14 +167,14 @@ class Nestform_Privacy {
 
 		$content =
 			'<p class="privacy-policy-tutorial">' .
-			esc_html__( 'Suggested text for sites that collect form entries with Nestform. Edit it to match the forms you run.', 'nestform' ) .
+			esc_html__( 'Suggested text for sites that collect form entries with Thimbleform. Edit it to match the forms you run.', 'nestform' ) .
 			'</p><p>' .
 			esc_html__( 'When you submit a form on this site, your answers are stored in this site\'s database. Depending on the form, this may include your name, email address, phone number, and anything else the form asks for.', 'nestform' ) .
 			'</p><p>' .
 			esc_html__( 'Stored entries are visible to site administrators. You can request a copy of entries linked to your email address, or ask for them to be deleted, using the contact details in this policy.', 'nestform' ) .
 			'</p>';
 
-		wp_add_privacy_policy_content( 'Nestform', $content );
+		wp_add_privacy_policy_content( 'Thimbleform', $content );
 	}
 
 	/**

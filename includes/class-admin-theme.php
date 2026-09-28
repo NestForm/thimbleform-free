@@ -1,8 +1,8 @@
 <?php
 /**
- * Per-user Nestform admin theme (light / dark / system).
+ * Per-user Thimbleform admin theme (light / dark / system).
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -144,7 +144,7 @@ class Nestform_Admin_Theme {
 				<div class="nestform-admin__panel-head">
 					<div>
 						<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Admin appearance', 'nestform' ); ?></h3>
-						<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Choose how the Nestform admin looks for your account. WordPress menu and toolbar stay unchanged.', 'nestform' ); ?></p>
+						<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Choose how the Thimbleform admin looks for your account. WordPress menu and toolbar stay unchanged.', 'nestform' ); ?></p>
 					</div>
 				</div>
 				<fieldset class="nestform-settings__theme-fieldset">

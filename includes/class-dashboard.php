@@ -2,7 +2,7 @@
 /**
  * Forms analytics dashboard.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

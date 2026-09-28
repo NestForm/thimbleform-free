@@ -3,10 +3,10 @@
   "apiVersion": 3,
   "name": "nestform/form",
   "version": "1.0.1",
-  "title": "Nestform",
+  "title": "Thimbleform",
   "category": "nestform",
   "icon": "feedback",
-  "description": "Insert a Nestform form by selecting it from the list.",
+  "description": "Insert a Thimbleform form by selecting it from the list.",
   "keywords": ["form", "contact", "lead", "nestform"],
   "textdomain": "nestform",
   "attributes": {

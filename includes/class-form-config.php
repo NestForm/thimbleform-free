@@ -2,7 +2,7 @@
 /**
  * Form config helpers (defaults, get/save meta).
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -1658,7 +1658,7 @@ class Nestform_Form_Config {
 		}
 
 		/**
-		 * Filter active steps for branch-aware multi-step forms (Nestform Pro).
+		 * Filter active steps for branch-aware multi-step forms (Thimbleform Pro).
 		 *
 		 * @param array<int, int>                  $steps    Default empty — Pro supplies path.
 		 * @param array<int, array<string, mixed>> $fields   Fields.
@@ -1741,7 +1741,7 @@ class Nestform_Form_Config {
 	 */
 	public static function parse_branch_rules( $raw ) {
 		/**
-		 * Filter parsed branch rules (Nestform Pro).
+		 * Filter parsed branch rules (Thimbleform Pro).
 		 *
 		 * @param array<int, array<string, mixed>> $rules Default empty.
 		 * @param string                           $raw   Raw textarea.

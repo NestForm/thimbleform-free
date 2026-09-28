@@ -1,5 +1,5 @@
 /**
- * Nestform dashboard Chart.js (Free + Pro series).
+ * Thimbleform dashboard Chart.js (Free + Pro series).
  */
 (function () {
 	'use strict';

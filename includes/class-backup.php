@@ -1,11 +1,11 @@
 <?php
 /**
- * Site-wide Nestform backup / restore (forms + plugin settings).
+ * Site-wide Thimbleform backup / restore (forms + plugin settings).
  *
  * Entries are not included — use CSV export per form. Spam and email logs are
  * operational journals and are also left out.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -102,14 +102,14 @@ class Nestform_Backup {
 		);
 
 		if ( empty( $_FILES['nestform_backup']['tmp_name'] ) || ! is_uploaded_file( $_FILES['nestform_backup']['tmp_name'] ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
-			$result['message'] = __( 'Choose a Nestform backup JSON file.', 'nestform' );
+			$result['message'] = __( 'Choose a Thimbleform backup JSON file.', 'nestform' );
 			self::redirect_with_result( $result );
 		}
 
 		$raw = file_get_contents( $_FILES['nestform_backup']['tmp_name'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
 		$data = json_decode( (string) $raw, true );
 		if ( ! is_array( $data ) || ( $data['format'] ?? '' ) !== self::FORMAT ) {
-			$result['message'] = __( 'Not a Nestform backup file.', 'nestform' );
+			$result['message'] = __( 'Not a Thimbleform backup file.', 'nestform' );
 			self::redirect_with_result( $result );
 		}
 
@@ -201,7 +201,7 @@ class Nestform_Backup {
 			<div class="nestform-admin__panel-head">
 				<div>
 					<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Backup & restore', 'nestform' ); ?></h3>
-					<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Download all forms and Nestform settings as JSON. Entries are not included — export those as CSV per form.', 'nestform' ); ?></p>
+					<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Download all forms and Thimbleform settings as JSON. Entries are not included — export those as CSV per form.', 'nestform' ); ?></p>
 				</div>
 			</div>
 			<p class="nestform-backup-import__export">

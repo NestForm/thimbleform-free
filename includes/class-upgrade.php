@@ -1,8 +1,8 @@
 <?php
 /**
- * Nestform Pro upgrade surface (upsell UI; capabilities come from Nestform Pro).
+ * Thimbleform Pro upgrade surface (upsell UI; capabilities come from Thimbleform Pro).
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -84,7 +84,7 @@ class Nestform_Upgrade {
 		);
 
 		/**
-		 * Filter the Nestform plan catalog (Upgrade, upsells).
+		 * Filter the Thimbleform plan catalog (Upgrade, upsells).
 		 *
 		 * @param array<string, array<string, mixed>> $plans Plan definitions.
 		 */
@@ -101,7 +101,7 @@ class Nestform_Upgrade {
 					'price_unit_yearly'  => __( '/ year', 'nestform' ),
 					'billed_yearly'      => '',
 					'features'           => $free_features,
-					'foot'               => __( 'Included with Nestform', 'nestform' ),
+					'foot'               => __( 'Included with Thimbleform', 'nestform' ),
 					'popular'            => false,
 					'checkout_plan'      => '',
 				),
@@ -286,7 +286,7 @@ class Nestform_Upgrade {
 	}
 
 	/**
-	 * Public checkout / buy URL for Nestform Pro.
+	 * Public checkout / buy URL for Thimbleform Pro.
 	 *
 	 * @param string $plan Optional plan key (pro|agency).
 	 * @return string
@@ -381,7 +381,7 @@ class Nestform_Upgrade {
 		}
 		?>
 		<a class="nestform-app__pro" href="<?php echo esc_url( Nestform_Promotion::url() ); ?>">
-			<span class="nestform-app__pro-kicker"><?php echo nestform_admin_icon_html( 'pro' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG ?> <?php esc_html_e( 'Nestform Pro', 'nestform' ); ?></span>
+			<span class="nestform-app__pro-kicker"><?php echo nestform_admin_icon_html( 'pro' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG ?> <?php esc_html_e( 'Thimbleform Pro', 'nestform' ); ?></span>
 			<span class="nestform-app__pro-copy"><?php esc_html_e( 'Quizzes, multi-step flows, PDF, Stripe, HubSpot, and optional Recruiting.', 'nestform' ); ?></span>
 			<span class="nestform-pro-cta nestform-app__pro-cta"><?php esc_html_e( 'Learn more', 'nestform' ); ?></span>
 		</a>

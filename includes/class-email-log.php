@@ -2,7 +2,7 @@
 /**
  * Email delivery log (thin record of wp_mail outcomes — never stores the body).
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -298,7 +298,7 @@ class Nestform_Email_Log {
 				echo esc_html(
 					sprintf(
 						/* translators: 1: recipient, 2: error */
-						__( 'Nestform could not send mail to %1$s: %2$s', 'nestform' ),
+						__( 'Thimbleform could not send mail to %1$s: %2$s', 'nestform' ),
 						(string) $failure->recipient,
 						(string) $failure->error
 					)

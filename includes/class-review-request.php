@@ -2,7 +2,7 @@
 /**
  * WordPress.org review prompt (free plugin only — gates nothing).
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,7 +36,7 @@ class Nestform_Review_Request {
 		}
 
 		/**
-		 * Filters whether Nestform asks for a WordPress.org review.
+		 * Filters whether Thimbleform asks for a WordPress.org review.
 		 *
 		 * @param bool $show Whether review prompts are allowed.
 		 */
@@ -82,7 +82,7 @@ class Nestform_Review_Request {
 		?>
 		<div class="notice notice-info nestform-review-notice">
 			<p>
-				<?php esc_html_e( 'You have been collecting entries with Nestform for a while. If it has been useful, would you write a short review on WordPress.org? It helps other site owners find the plugin.', 'nestform' ); ?>
+				<?php esc_html_e( 'You have been collecting entries with Thimbleform for a while. If it has been useful, would you write a short review on WordPress.org? It helps other site owners find the plugin.', 'nestform' ); ?>
 			</p>
 			<p class="nestform-review-notice__actions">
 				<a href="<?php echo esc_url( self::response_url( 'review' ) ); ?>" target="_blank" rel="noopener noreferrer">
@@ -150,7 +150,7 @@ class Nestform_Review_Request {
 		$links[] = sprintf(
 			'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
 			esc_url( self::REVIEW_URL ),
-			esc_html__( 'Rate Nestform', 'nestform' )
+			esc_html__( 'Rate Thimbleform', 'nestform' )
 		);
 
 		return $links;

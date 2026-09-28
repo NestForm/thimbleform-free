@@ -2,7 +2,7 @@
 /**
  * Starter form templates.
  *
- * @package Nestform
+ * @package Thimbleform
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -170,7 +170,7 @@ class Nestform_Templates {
 							'name'     => 'q2',
 							'label'    => 'Best place for forms?',
 							'required' => true,
-							'options'  => "Nestform|10\nSpreadsheets|0\nSticky notes|0",
+							'options'  => "Thimbleform|10\nSpreadsheets|0\nSticky notes|0",
 							'step'     => 2,
 						),
 						array(

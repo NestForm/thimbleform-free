@@ -623,7 +623,7 @@ body.nestform-admin-screen.post-type-nestform
 
 /*
  * WP core paints a square outline / 2px radius on :focus.
- * Re-assert Nestform corners on every control that looks like a button.
+ * Re-assert Thimbleform corners on every control that looks like a button.
  */
 body.wp-core-ui.nestform-admin-screen
     :is(

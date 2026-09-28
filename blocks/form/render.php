@@ -2,7 +2,7 @@
 /**
  * Dynamic render for nestform/form block.
  *
- * @package Nestform
+ * @package Thimbleform
  *
  * @var array    $attributes Block attributes.
  * @var string   $content    Block content.
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $nestform_form_id = isset( $attributes['formId'] ) ? (int) $attributes['formId'] : 0;
 if ( $nestform_form_id <= 0 || ! class_exists( 'Nestform_Renderer' ) ) {
 	if ( current_user_can( 'edit_posts' ) ) {
-		echo '<p class="nestform-block nestform-block--empty">' . esc_html__( 'Select a Nestform in the block settings.', 'nestform' ) . '</p>';
+		echo '<p class="nestform-block nestform-block--empty">' . esc_html__( 'Select a Thimbleform in the block settings.', 'nestform' ) . '</p>';
 	}
 	return;
 }
