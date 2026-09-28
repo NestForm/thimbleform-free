@@ -33,7 +33,7 @@ Thimbleform is a form builder for lead capture and feedback.
 
 * Honeypot, time trap, rate limit, optional Akismet
 * Google reCAPTCHA v2/v3 via **Thimbleform → Integrations**
-* Gutenberg block and shortcode `[nestform id="123"]`
+* Gutenberg block and shortcode `[thimbleform id="123"]`
 
 **Admin**
 
@@ -47,7 +47,7 @@ Thimbleform is a form builder for lead capture and feedback.
 1. Upload the plugin to `/wp-content/plugins/nestform/` or install from the WordPress plugins screen.
 2. Activate **Thimbleform** through the **Plugins** menu.
 3. Open **Thimbleform** in the admin menu to create your first form.
-4. Embed with the Gutenberg block or shortcode `[nestform id="123"]`.
+4. Embed with the Gutenberg block or shortcode `[thimbleform id="123"]`.
 5. Documentation and hooks: [thimbleform.app/docs](https://thimbleform.app/docs).
 
 For Pro features, install the `nestform-pro` add-on from Freemius checkout / your purchase email, then activate the license under **Thimbleform → Account** or **Thimbleform → License**.

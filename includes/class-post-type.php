@@ -536,7 +536,7 @@ class Nestform_Post_Type {
 						$entry_url = $new > 0
 							? Nestform_Submissions::list_url( (int) $form->ID, Nestform_Submissions::STATUS_NEW )
 							: Nestform_Submissions::list_url( (int) $form->ID );
-						$shortcode = '[nestform id="' . (int) $form->ID . '"]';
+						$shortcode = '[thimbleform id="' . (int) $form->ID . '"]';
 						$item_class = 'nestform-hub__row' . ( $new > 0 ? ' nestform-hub__row--has-new' : '' );
 						$status_mod = ( 'publish' === $form->post_status ) ? 'ok' : 'draft';
 						$last_label = $last_ts > 0

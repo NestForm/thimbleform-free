@@ -83,7 +83,7 @@
 						el(
 							'code',
 							{ className: 'nestform-block-editor__code' },
-							'[nestform id="' + formId + '"]'
+							'[thimbleform id="' + formId + '"]'
 						)
 					)
 				: el(

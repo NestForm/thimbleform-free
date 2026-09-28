@@ -15,6 +15,7 @@ class Nestform_Renderer {
 	private static $assets_queued = false;
 
 	public static function init() {
+		add_shortcode( 'thimbleform', array( __CLASS__, 'shortcode' ) );
 		add_shortcode( 'nestform', array( __CLASS__, 'shortcode' ) );
 	}
 
@@ -29,7 +30,7 @@ class Nestform_Renderer {
 				'slug' => '',
 			),
 			$atts,
-			'nestform'
+			'thimbleform'
 		);
 
 		$form_id = Nestform_Form_Config::resolve_form_id( $atts );

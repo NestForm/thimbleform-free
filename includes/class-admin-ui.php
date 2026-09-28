@@ -2818,8 +2818,8 @@ class Nestform_Admin_UI {
 	public static function render_shortcode_box( $post ) {
 		$id      = (int) $post->ID;
 		$slug    = $post->post_name ? $post->post_name : 'your-slug';
-		$id_sc   = '[nestform id="' . $id . '"]';
-		$slug_sc = '[nestform slug="' . $slug . '"]';
+		$id_sc   = '[thimbleform id="' . $id . '"]';
+		$slug_sc = '[thimbleform slug="' . $slug . '"]';
 		$status  = get_post_status( $post );
 		$status_labels = array(
 			'publish'    => __( 'Published', 'nestform' ),
@@ -3050,18 +3050,21 @@ class Nestform_Admin_UI {
 			return false;
 		}
 
-		$needles = array(
-			'[nestform id="' . $form_id . '"]',
-			"[nestform id='" . $form_id . "']",
-			'[nestform id=' . $form_id . ']',
-		);
+		$needles = array();
+		foreach ( array( 'thimbleform', 'nestform' ) as $tag ) {
+			$needles[] = '[' . $tag . ' id="' . $form_id . '"]';
+			$needles[] = '[' . $tag . " id='" . $form_id . "']";
+			$needles[] = '[' . $tag . ' id=' . $form_id . ']';
+		}
 
 		$form = get_post( $form_id );
 		if ( $form && $form->post_name !== '' ) {
 			$slug = $form->post_name;
-			$needles[] = '[nestform slug="' . $slug . '"]';
-			$needles[] = "[nestform slug='" . $slug . "']";
-			$needles[] = '[nestform slug=' . $slug . ']';
+			foreach ( array( 'thimbleform', 'nestform' ) as $tag ) {
+				$needles[] = '[' . $tag . ' slug="' . $slug . '"]';
+				$needles[] = '[' . $tag . " slug='" . $slug . "']";
+				$needles[] = '[' . $tag . ' slug=' . $slug . ']';
+			}
 		}
 
 		foreach ( $needles as $needle ) {
