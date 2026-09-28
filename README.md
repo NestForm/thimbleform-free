@@ -37,13 +37,13 @@ Free = strong lead capture. Pro = interactive conversion flows.
 | Light / dark admin, Developers screen | Calculated fields, repeaters |
 | Stripe keys in Integrations | Stripe Payment field on forms |
 
-Capabilities are registered only by **Thimbleform Pro** after a valid license from thimbleform.app. Filtering `nestform_is_pro` alone does not unlock gated runtime.
+Capabilities are registered only by **Thimbleform Pro** after a valid license from thimbleform.app. Filtering `thimbleform_is_pro` alone does not unlock gated runtime.
 
 Checkout on thimbleform.app → install **Thimbleform Pro** → activate the key under **Forms → License**.
 
 ## Features
 
-- Multiple forms as CPT `nestform` (fields, messages, mail, settings in post meta)
+- Multiple forms as CPT `thimbleform` (fields, messages, mail, settings in post meta)
 - Admin builder: DnD, quick-add, **Undo**, **Preview** drawer, templates on empty Add New
 - **Duplicate form** + starter templates
 - Layout blocks: Heading, Image, HTML
@@ -57,7 +57,7 @@ Checkout on thimbleform.app → install **Thimbleform Pro** → activate the key
 - Plugin Settings: email defaults, entry date format, uninstall cleanup, admin theme
 - Form JSON import / export; import from Contact Form 7 and WPForms
 - Message packs EN/RU, a11y on steps/errors
-- Hooks: `nestform_loaded`, `nestform_submitted`, `nestform_mail_sent`, `nestform_webhook_payload`, …
+- Hooks: `thimbleform_loaded`, `thimbleform_submitted`, `thimbleform_mail_sent`, `thimbleform_webhook_payload`, …
 
 ## Validation (built-in)
 

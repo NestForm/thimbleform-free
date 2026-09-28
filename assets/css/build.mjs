@@ -68,7 +68,7 @@ function bundleAdmin() {
 	const files = readSortedCss(adminDir);
 	const header =
 		'/**\n' +
-		' * Nestform admin — bundled + minified from assets/css/admin/*.css\n' +
+		' * Thimbleform admin — bundled + minified from assets/css/admin/*.css\n' +
 		' * Do not edit directly. Run: npm run build:css\n' +
 		' */\n';
 
@@ -102,7 +102,7 @@ function bundleFront() {
 
 	const header =
 		'/**\n' +
-		' * Nestform front — bundled + minified from assets/css/front/forms.css\n' +
+		' * Thimbleform front — bundled + minified from assets/css/front/forms.css\n' +
 		' * Do not edit directly. Run: npm run build:css\n' +
 		' */\n';
 

@@ -1,111 +1,111 @@
 /**
  * Thimbleform admin — dark theme (semantic tokens).
- * Auto: OS prefers-color-scheme. Manual: .nestform-theme-light / .nestform-theme-dark.
+ * Auto: OS prefers-color-scheme. Manual: .thimbleform-theme-light / .thimbleform-theme-dark.
  */
 
 @media (prefers-color-scheme: dark) {
-    body.nestform-admin-screen:not(.nestform-theme-light):not(.nestform-theme-dark) {
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light):not(.thimbleform-theme-dark) {
         color-scheme: dark;
-        --nestform-accent-soft: rgba(59, 130, 246, 0.16);
-        --nestform-accent-line: rgba(96, 165, 250, 0.38);
-        --nestform-violet-soft: rgba(129, 140, 248, 0.16);
-        --nestform-violet-line: rgba(165, 180, 252, 0.42);
-        --nestform-surface: #161921;
-        --nestform-canvas: #0d0f14;
-        --nestform-shell: #0d0f14;
-        --nestform-paper: #161921;
-        --nestform-soft: #1c2030;
-        --nestform-raised: #222836;
-        --nestform-hover: var(--nestform-accent-soft);
-        --nestform-hover-border: var(--nestform-accent-line);
-        --nestform-border: #2a3040;
-        --nestform-border-strong: #3a4256;
-        --nestform-muted: #9aa3b5;
-        --nestform-faint: #8b93a5;
+        --thimbleform-accent-soft: rgba(59, 130, 246, 0.16);
+        --thimbleform-accent-line: rgba(96, 165, 250, 0.38);
+        --thimbleform-violet-soft: rgba(129, 140, 248, 0.16);
+        --thimbleform-violet-line: rgba(165, 180, 252, 0.42);
+        --thimbleform-surface: #161921;
+        --thimbleform-canvas: #0d0f14;
+        --thimbleform-shell: #0d0f14;
+        --thimbleform-paper: #161921;
+        --thimbleform-soft: #1c2030;
+        --thimbleform-raised: #222836;
+        --thimbleform-hover: var(--thimbleform-accent-soft);
+        --thimbleform-hover-border: var(--thimbleform-accent-line);
+        --thimbleform-border: #2a3040;
+        --thimbleform-border-strong: #3a4256;
+        --thimbleform-muted: #9aa3b5;
+        --thimbleform-faint: #8b93a5;
         --thimbleform-pro-soft: rgba(59, 130, 246, 0.14);
         --thimbleform-pro-glow: rgba(59, 130, 246, 0.28);
-        --nestform-on-accent-muted: rgba(255, 255, 255, 0.88);
-        --nestform-navy: #eef0f5;
-        --nestform-navy-alt: #dfe3ec;
-        --nestform-ink: #eef0f5;
-        --nestform-ink-alt: #dfe3ec;
-        --nestform-ok: #3ecfb8;
-        --nestform-ok-soft: #1a302c;
-        --nestform-ok-border: rgba(62, 207, 184, 0.34);
-        --nestform-warn: #93c5fd;
-        --nestform-warn-soft: #1c2838;
-        --nestform-warn-border: rgba(147, 197, 253, 0.38);
-        --nestform-danger: #e87a8c;
-        --nestform-danger-soft: #2c1f24;
-        --nestform-danger-border: rgba(232, 122, 140, 0.34);
-        --nestform-shadow: 0 1px 4px rgba(0, 0, 0, 0.38);
-        --nestform-shadow-md:
+        --thimbleform-on-accent-muted: rgba(255, 255, 255, 0.88);
+        --thimbleform-navy: #eef0f5;
+        --thimbleform-navy-alt: #dfe3ec;
+        --thimbleform-ink: #eef0f5;
+        --thimbleform-ink-alt: #dfe3ec;
+        --thimbleform-ok: #3ecfb8;
+        --thimbleform-ok-soft: #1a302c;
+        --thimbleform-ok-border: rgba(62, 207, 184, 0.34);
+        --thimbleform-warn: #93c5fd;
+        --thimbleform-warn-soft: #1c2838;
+        --thimbleform-warn-border: rgba(147, 197, 253, 0.38);
+        --thimbleform-danger: #e87a8c;
+        --thimbleform-danger-soft: #2c1f24;
+        --thimbleform-danger-border: rgba(232, 122, 140, 0.34);
+        --thimbleform-shadow: 0 1px 4px rgba(0, 0, 0, 0.38);
+        --thimbleform-shadow-md:
             0 4px 24px rgba(0, 0, 0, 0.48), 0 1px 4px rgba(0, 0, 0, 0.28);
-        --nestform-chevron-right: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12L10 8L6 4' stroke='%23A8B2C2' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-        --nestform-chevron-down: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%23A8B2C2' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-        --nestform-chevron-up: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10L8 6L12 10' stroke='%23A8B2C2' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-        --nestform-chevron-down-accent: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%2360a5fa' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-        --nestform-chevron-up-accent: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10L8 6L12 10' stroke='%2360a5fa' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        --thimbleform-chevron-right: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12L10 8L6 4' stroke='%23A8B2C2' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        --thimbleform-chevron-down: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%23A8B2C2' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        --thimbleform-chevron-up: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10L8 6L12 10' stroke='%23A8B2C2' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        --thimbleform-chevron-down-accent: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%2360a5fa' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        --thimbleform-chevron-up-accent: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10L8 6L12 10' stroke='%2360a5fa' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     }
 }
 
-body.nestform-admin-screen.nestform-theme-dark {
+body.thimbleform-admin-screen.thimbleform-theme-dark {
     color-scheme: dark;
-    --nestform-accent-soft: rgba(59, 130, 246, 0.16);
-    --nestform-accent-line: rgba(96, 165, 250, 0.38);
-    --nestform-violet-soft: rgba(129, 140, 248, 0.16);
-    --nestform-violet-line: rgba(165, 180, 252, 0.42);
-    --nestform-surface: #161921;
-    --nestform-canvas: #0d0f14;
-    --nestform-shell: #0d0f14;
-    --nestform-paper: #161921;
-    --nestform-soft: #1c2030;
-    --nestform-raised: #222836;
-    --nestform-hover: var(--nestform-accent-soft);
-    --nestform-hover-border: var(--nestform-accent-line);
-    --nestform-border: #2a3040;
-    --nestform-border-strong: #3a4256;
-    --nestform-muted: #9aa3b5;
-    --nestform-faint: #8b93a5;
+    --thimbleform-accent-soft: rgba(59, 130, 246, 0.16);
+    --thimbleform-accent-line: rgba(96, 165, 250, 0.38);
+    --thimbleform-violet-soft: rgba(129, 140, 248, 0.16);
+    --thimbleform-violet-line: rgba(165, 180, 252, 0.42);
+    --thimbleform-surface: #161921;
+    --thimbleform-canvas: #0d0f14;
+    --thimbleform-shell: #0d0f14;
+    --thimbleform-paper: #161921;
+    --thimbleform-soft: #1c2030;
+    --thimbleform-raised: #222836;
+    --thimbleform-hover: var(--thimbleform-accent-soft);
+    --thimbleform-hover-border: var(--thimbleform-accent-line);
+    --thimbleform-border: #2a3040;
+    --thimbleform-border-strong: #3a4256;
+    --thimbleform-muted: #9aa3b5;
+    --thimbleform-faint: #8b93a5;
     --thimbleform-pro-soft: rgba(59, 130, 246, 0.14);
     --thimbleform-pro-glow: rgba(59, 130, 246, 0.28);
-    --nestform-on-accent-muted: rgba(255, 255, 255, 0.88);
-    --nestform-navy: #eef0f5;
-    --nestform-navy-alt: #dfe3ec;
-    --nestform-ink: #eef0f5;
-    --nestform-ink-alt: #dfe3ec;
-    --nestform-ok: #3ecfb8;
-    --nestform-ok-soft: #1a302c;
-    --nestform-ok-border: rgba(62, 207, 184, 0.34);
-    --nestform-warn: #93c5fd;
-    --nestform-warn-soft: #1c2838;
-    --nestform-warn-border: rgba(147, 197, 253, 0.38);
-    --nestform-danger: #e87a8c;
-    --nestform-danger-soft: #2c1f24;
-    --nestform-danger-border: rgba(232, 122, 140, 0.34);
-    --nestform-shadow: 0 1px 4px rgba(0, 0, 0, 0.38);
-    --nestform-shadow-md:
+    --thimbleform-on-accent-muted: rgba(255, 255, 255, 0.88);
+    --thimbleform-navy: #eef0f5;
+    --thimbleform-navy-alt: #dfe3ec;
+    --thimbleform-ink: #eef0f5;
+    --thimbleform-ink-alt: #dfe3ec;
+    --thimbleform-ok: #3ecfb8;
+    --thimbleform-ok-soft: #1a302c;
+    --thimbleform-ok-border: rgba(62, 207, 184, 0.34);
+    --thimbleform-warn: #93c5fd;
+    --thimbleform-warn-soft: #1c2838;
+    --thimbleform-warn-border: rgba(147, 197, 253, 0.38);
+    --thimbleform-danger: #e87a8c;
+    --thimbleform-danger-soft: #2c1f24;
+    --thimbleform-danger-border: rgba(232, 122, 140, 0.34);
+    --thimbleform-shadow: 0 1px 4px rgba(0, 0, 0, 0.38);
+    --thimbleform-shadow-md:
         0 4px 24px rgba(0, 0, 0, 0.48), 0 1px 4px rgba(0, 0, 0, 0.28);
-    --nestform-chevron-right: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12L10 8L6 4' stroke='%23A8B2C2' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    --nestform-chevron-down: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%23A8B2C2' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    --nestform-chevron-up: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10L8 6L12 10' stroke='%23A8B2C2' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    --nestform-chevron-down-accent: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%2360a5fa' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    --nestform-chevron-up-accent: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10L8 6L12 10' stroke='%2360a5fa' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --thimbleform-chevron-right: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12L10 8L6 4' stroke='%23A8B2C2' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --thimbleform-chevron-down: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%23A8B2C2' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --thimbleform-chevron-up: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10L8 6L12 10' stroke='%23A8B2C2' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --thimbleform-chevron-down-accent: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%2360a5fa' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --thimbleform-chevron-up-accent: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10L8 6L12 10' stroke='%2360a5fa' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 @media (prefers-color-scheme: dark) {
-    body.nestform-admin-screen:not(.nestform-theme-light) #wpcontent,
-    body.nestform-admin-screen.nestform-theme-dark #wpcontent {
-        background: var(--nestform-canvas);
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) #wpcontent,
+    body.thimbleform-admin-screen.thimbleform-theme-dark #wpcontent {
+        background: var(--thimbleform-canvas);
     }
 
-    body.nestform-admin-screen:not(.nestform-theme-light) #wpbody,
-    body.nestform-admin-screen.nestform-theme-dark #wpbody {
-        background: var(--nestform-canvas);
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) #wpbody,
+    body.thimbleform-admin-screen.thimbleform-theme-dark #wpbody {
+        background: var(--thimbleform-canvas);
     }
 }
 
-body.nestform-admin-screen.nestform-theme-dark #wpcontent,
-body.nestform-admin-screen.nestform-theme-dark #wpbody {
-    background: var(--nestform-canvas);
+body.thimbleform-admin-screen.thimbleform-theme-dark #wpcontent,
+body.thimbleform-admin-screen.thimbleform-theme-dark #wpbody {
+    background: var(--thimbleform-canvas);
 }

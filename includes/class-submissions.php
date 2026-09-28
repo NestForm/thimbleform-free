@@ -1,6 +1,6 @@
 <?php
 /**
- * CPT: nestform_entry (submissions).
+ * CPT: thimbleform_entry (submissions).
  *
  * @package Thimbleform
  */
@@ -9,21 +9,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Submissions {
+class Thimbleform_Submissions {
 
-	const POST_TYPE = 'nestform_entry';
-	const META_FORM = '_nestform_form_id';
-	const META_DATA = '_nestform_payload';
-	const META_IP   = '_nestform_ip';
-	const META_STATUS = '_nestform_status';
-	const META_STARRED = '_nestform_starred';
-	const META_NOTES   = '_nestform_notes';
-	const PAGE_SLUG = 'nestform-entries';
+	const POST_TYPE = 'thimbleform_entry';
+	const META_FORM = '_thimbleform_form_id';
+	const META_DATA = '_thimbleform_payload';
+	const META_IP   = '_thimbleform_ip';
+	const META_STATUS = '_thimbleform_status';
+	const META_STARRED = '_thimbleform_starred';
+	const META_NOTES   = '_thimbleform_notes';
+	const PAGE_SLUG = 'thimbleform-entries';
 	const STATUS_NEW  = 'new';
 	const STATUS_READ = 'read';
 	const STATUS_SPAM = 'spam';
 
-	const RETENTION_CRON = 'nestform_cleanup_entries';
+	const RETENTION_CRON = 'thimbleform_cleanup_entries';
 
 	public static function init() {
 		add_action( 'init', array( __CLASS__, 'register' ) );
@@ -52,9 +52,9 @@ class Nestform_Submissions {
 		add_action( 'admin_notices', array( __CLASS__, 'list_page_head' ), 1 );
 		add_action( 'admin_notices', array( __CLASS__, 'entry_page_head' ), 1 );
 		add_filter( 'views_edit-' . self::POST_TYPE, array( __CLASS__, 'list_views' ) );
-		add_action( 'admin_post_nestform_set_entry_status', array( __CLASS__, 'handle_set_status' ) );
-		add_action( 'admin_post_nestform_toggle_entry_star', array( __CLASS__, 'handle_toggle_star' ) );
-		add_action( 'admin_post_nestform_save_entry_notes', array( __CLASS__, 'handle_save_notes' ) );
+		add_action( 'admin_post_thimbleform_set_entry_status', array( __CLASS__, 'handle_set_status' ) );
+		add_action( 'admin_post_thimbleform_toggle_entry_star', array( __CLASS__, 'handle_toggle_star' ) );
+		add_action( 'admin_post_thimbleform_save_entry_notes', array( __CLASS__, 'handle_save_notes' ) );
 		add_filter( 'post_updated_messages', array( __CLASS__, 'updated_messages' ) );
 		add_filter( 'bulk_post_updated_messages', array( __CLASS__, 'bulk_updated_messages' ), 10, 2 );
 		add_action( self::RETENTION_CRON, array( __CLASS__, 'cleanup_old_entries' ) );
@@ -74,10 +74,10 @@ class Nestform_Submissions {
 	 * @return int Days to keep entries (0 = forever).
 	 */
 	public static function retention_days() {
-		if ( ! class_exists( 'Nestform_Settings' ) ) {
+		if ( ! class_exists( 'Thimbleform_Settings' ) ) {
 			return 0;
 		}
-		$s = Nestform_Settings::get();
+		$s = Thimbleform_Settings::get();
 		return max( 0, (int) ( $s['entry_retention_days'] ?? 0 ) );
 	}
 
@@ -123,7 +123,7 @@ class Nestform_Submissions {
 				 *
 				 * @param int $entry_id Entry ID.
 				 */
-				do_action( 'nestform_entry_before_retention_delete', $entry_id );
+				do_action( 'thimbleform_entry_before_retention_delete', $entry_id );
 				wp_delete_post( $entry_id, true );
 			}
 		} while ( count( $ids ) === $batch );
@@ -134,14 +134,14 @@ class Nestform_Submissions {
 	 */
 	public static function status_labels() {
 		return array(
-			self::STATUS_NEW  => __( 'New', 'nestform' ),
-			self::STATUS_READ => __( 'Read', 'nestform' ),
-			self::STATUS_SPAM => __( 'Spam', 'nestform' ),
+			self::STATUS_NEW  => __( 'New', 'thimbleform' ),
+			self::STATUS_READ => __( 'Read', 'thimbleform' ),
+			self::STATUS_SPAM => __( 'Spam', 'thimbleform' ),
 		);
 	}
 
 	/**
-	 * Badge modifier for hub/dashboard chips (`nestform-badge--{mod}`).
+	 * Badge modifier for hub/dashboard chips (`thimbleform-badge--{mod}`).
 	 *
 	 * @param string $status new|read|spam.
 	 * @return string new|read|danger
@@ -188,15 +188,15 @@ class Nestform_Submissions {
 			self::POST_TYPE,
 			array(
 				'labels'              => array(
-					'name'               => __( 'Entries', 'nestform' ),
-					'singular_name'      => __( 'Entry', 'nestform' ),
-					'edit_item'          => __( 'View Entry', 'nestform' ),
-					'search_items'       => __( 'Search Entries', 'nestform' ),
-					'not_found'          => __( 'No entries found for this form.', 'nestform' ),
-					'not_found_in_trash' => __( 'No entries found in Trash.', 'nestform' ),
-					'menu_name'          => __( 'Entries', 'nestform' ),
-					'item_updated'       => __( 'Entry updated.', 'nestform' ),
-					'item_trashed'       => __( 'Entry moved to the Trash.', 'nestform' ),
+					'name'               => __( 'Entries', 'thimbleform' ),
+					'singular_name'      => __( 'Entry', 'thimbleform' ),
+					'edit_item'          => __( 'View Entry', 'thimbleform' ),
+					'search_items'       => __( 'Search Entries', 'thimbleform' ),
+					'not_found'          => __( 'No entries found for this form.', 'thimbleform' ),
+					'not_found_in_trash' => __( 'No entries found in Trash.', 'thimbleform' ),
+					'menu_name'          => __( 'Entries', 'thimbleform' ),
+					'item_updated'       => __( 'Entry updated.', 'thimbleform' ),
+					'item_trashed'       => __( 'Entry moved to the Trash.', 'thimbleform' ),
 				),
 				'public'              => false,
 				'show_ui'             => true,
@@ -225,16 +225,16 @@ class Nestform_Submissions {
 	public static function updated_messages( $messages ) {
 		$messages[ self::POST_TYPE ] = array(
 			0  => '',
-			1  => __( 'Entry updated.', 'nestform' ),
-			2  => __( 'Custom field updated.', 'nestform' ),
-			3  => __( 'Custom field deleted.', 'nestform' ),
-			4  => __( 'Entry updated.', 'nestform' ),
+			1  => __( 'Entry updated.', 'thimbleform' ),
+			2  => __( 'Custom field updated.', 'thimbleform' ),
+			3  => __( 'Custom field deleted.', 'thimbleform' ),
+			4  => __( 'Entry updated.', 'thimbleform' ),
 			5  => false,
-			6  => __( 'Entry published.', 'nestform' ),
-			7  => __( 'Entry saved.', 'nestform' ),
-			8  => __( 'Entry submitted.', 'nestform' ),
-			9  => __( 'Entry scheduled.', 'nestform' ),
-			10 => __( 'Entry draft saved.', 'nestform' ),
+			6  => __( 'Entry published.', 'thimbleform' ),
+			7  => __( 'Entry saved.', 'thimbleform' ),
+			8  => __( 'Entry submitted.', 'thimbleform' ),
+			9  => __( 'Entry scheduled.', 'thimbleform' ),
+			10 => __( 'Entry draft saved.', 'thimbleform' ),
 		);
 
 		return $messages;
@@ -255,20 +255,20 @@ class Nestform_Submissions {
 		$untrashed = isset( $bulk_counts['untrashed'] ) ? (int) $bulk_counts['untrashed'] : 0;
 
 		/* translators: %s: Number of entries. */
-		$updated_msg = _n( '%s entry updated.', '%s entries updated.', $updated, 'nestform' );
+		$updated_msg = _n( '%s entry updated.', '%s entries updated.', $updated, 'thimbleform' );
 		/* translators: %s: Number of entries. */
-		$locked_msg = _n( '%s entry not updated, somebody is editing it.', '%s entries not updated, somebody is editing them.', $locked, 'nestform' );
+		$locked_msg = _n( '%s entry not updated, somebody is editing it.', '%s entries not updated, somebody is editing them.', $locked, 'thimbleform' );
 		/* translators: %s: Number of entries. */
-		$deleted_msg = _n( '%s entry permanently deleted.', '%s entries permanently deleted.', $deleted, 'nestform' );
+		$deleted_msg = _n( '%s entry permanently deleted.', '%s entries permanently deleted.', $deleted, 'thimbleform' );
 		/* translators: %s: Number of entries. */
-		$trashed_msg = _n( '%s entry moved to the Trash.', '%s entries moved to the Trash.', $trashed, 'nestform' );
+		$trashed_msg = _n( '%s entry moved to the Trash.', '%s entries moved to the Trash.', $trashed, 'thimbleform' );
 		/* translators: %s: Number of entries. */
-		$untrashed_msg = _n( '%s entry restored from the Trash.', '%s entries restored from the Trash.', $untrashed, 'nestform' );
+		$untrashed_msg = _n( '%s entry restored from the Trash.', '%s entries restored from the Trash.', $untrashed, 'thimbleform' );
 
 		$bulk_messages[ self::POST_TYPE ] = array(
 			'updated'   => $updated_msg,
 			'locked'    => ( 1 === $locked )
-				? __( '1 entry not updated, somebody is editing it.', 'nestform' )
+				? __( '1 entry not updated, somebody is editing it.', 'thimbleform' )
 				: $locked_msg,
 			'deleted'   => $deleted_msg,
 			'trashed'   => $trashed_msg,
@@ -280,9 +280,9 @@ class Nestform_Submissions {
 
 	public static function menu_under_forms() {
 		add_submenu_page(
-			'edit.php?post_type=' . Nestform_Post_Type::POST_TYPE,
-			__( 'Entries', 'nestform' ),
-			__( 'Entries', 'nestform' ),
+			'edit.php?post_type=' . Thimbleform_Post_Type::POST_TYPE,
+			__( 'Entries', 'thimbleform' ),
+			__( 'Entries', 'thimbleform' ),
 			'edit_posts',
 			self::PAGE_SLUG,
 			array( __CLASS__, 'render_hub' )
@@ -296,10 +296,10 @@ class Nestform_Submissions {
 		if ( ! isset( $_GET['post_type'] ) || self::POST_TYPE !== $_GET['post_type'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return;
 		}
-		$form_id = isset( $_GET['nestform_form_id'] ) ? (int) $_GET['nestform_form_id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$form_id = isset( $_GET['thimbleform_form_id'] ) ? (int) $_GET['thimbleform_form_id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( $form_id > 0 ) {
 			if ( ! self::user_can_manage_form_entries( $form_id ) ) {
-				wp_die( esc_html__( 'You do not have permission to view entries for this form.', 'nestform' ) );
+				wp_die( esc_html__( 'You do not have permission to view entries for this form.', 'thimbleform' ) );
 			}
 			return;
 		}
@@ -332,7 +332,7 @@ class Nestform_Submissions {
 	}
 
 	/**
-	 * Whether current admin request is the nestform_entry list table.
+	 * Whether current admin request is the thimbleform_entry list table.
 	 *
 	 * @return bool
 	 */
@@ -342,7 +342,7 @@ class Nestform_Submissions {
 	}
 
 	/**
-	 * Whether current admin request is a single nestform_entry edit screen.
+	 * Whether current admin request is a single thimbleform_entry edit screen.
 	 *
 	 * @return bool
 	 */
@@ -359,36 +359,36 @@ class Nestform_Submissions {
 			return;
 		}
 
-		$form_id = isset( $_GET['nestform_form_id'] ) ? (int) $_GET['nestform_form_id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$form_id = isset( $_GET['thimbleform_form_id'] ) ? (int) $_GET['thimbleform_form_id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$form    = $form_id > 0 ? get_post( $form_id ) : null;
 		$title   = ( $form && $form->post_title !== '' )
 			? $form->post_title
-			: __( 'Entries', 'nestform' );
+			: __( 'Entries', 'thimbleform' );
 
-		$actions  = '<a class="nestform-btn nestform-btn--outline" href="' . esc_url( self::hub_url() ) . '">';
-		$actions .= nestform_admin_icon_html( 'back' ) . ' ' . esc_html__( 'All entries', 'nestform' );
+		$actions  = '<a class="thimbleform-btn thimbleform-btn--outline" href="' . esc_url( self::hub_url() ) . '">';
+		$actions .= thimbleform_admin_icon_html( 'back' ) . ' ' . esc_html__( 'All entries', 'thimbleform' );
 		$actions .= '</a>';
 		if ( $form_id > 0 ) {
 			$edit_form = get_edit_post_link( $form_id, 'raw' );
 			if ( $edit_form ) {
-				$actions .= ' <a class="nestform-btn nestform-btn--outline" href="' . esc_url( $edit_form ) . '">';
-				$actions .= nestform_admin_icon_html( 'forms' ) . ' ' . esc_html__( 'Edit form', 'nestform' );
+				$actions .= ' <a class="thimbleform-btn thimbleform-btn--outline" href="' . esc_url( $edit_form ) . '">';
+				$actions .= thimbleform_admin_icon_html( 'forms' ) . ' ' . esc_html__( 'Edit form', 'thimbleform' );
 				$actions .= '</a>';
 			}
 		}
-		if ( $form_id > 0 && class_exists( 'Nestform_Response_Summary' ) ) {
-			$actions .= ' <a class="nestform-btn nestform-btn--outline" href="' . esc_url( Nestform_Response_Summary::url( $form_id ) ) . '">';
-			$actions .= nestform_admin_icon_html( 'analytics' ) . ' ' . esc_html__( 'Summary', 'nestform' );
+		if ( $form_id > 0 && class_exists( 'Thimbleform_Response_Summary' ) ) {
+			$actions .= ' <a class="thimbleform-btn thimbleform-btn--outline" href="' . esc_url( Thimbleform_Response_Summary::url( $form_id ) ) . '">';
+			$actions .= thimbleform_admin_icon_html( 'analytics' ) . ' ' . esc_html__( 'Summary', 'thimbleform' );
 			$actions .= '</a>';
 		}
-		if ( $form_id > 0 && class_exists( 'Nestform_Export' ) ) {
-			$actions .= ' ' . Nestform_Export::dropdown_html( $form_id );
+		if ( $form_id > 0 && class_exists( 'Thimbleform_Export' ) ) {
+			$actions .= ' ' . Thimbleform_Export::dropdown_html( $form_id );
 		}
 
-		nestform_render_page_head(
+		thimbleform_render_page_head(
 			array(
 				'title'        => $title,
-				'description'  => __( 'Submissions for this form.', 'nestform' ),
+				'description'  => __( 'Submissions for this form.', 'thimbleform' ),
 				'actions_html' => $actions,
 				'icon'         => 'entries',
 			)
@@ -422,7 +422,7 @@ class Nestform_Submissions {
 		if ( $title === '' ) {
 			$title = sprintf(
 				/* translators: %d: entry ID */
-				__( 'Entry #%d', 'nestform' ),
+				__( 'Entry #%d', 'thimbleform' ),
 				(int) $post->ID
 			);
 		}
@@ -433,40 +433,40 @@ class Nestform_Submissions {
 		}
 		$desc_parts[] = sprintf(
 			/* translators: %s: status label */
-			__( 'Status: %s', 'nestform' ),
+			__( 'Status: %s', 'thimbleform' ),
 			$status_lbl
 		);
 		$desc_parts[] = sprintf(
 			/* translators: %s: datetime */
-			__( 'Submitted %s', 'nestform' ),
-			class_exists( 'Nestform_Settings' ) ? Nestform_Settings::format_entry_datetime( $post ) : get_the_date( 'Y-m-d H:i', $post )
+			__( 'Submitted %s', 'thimbleform' ),
+			class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::format_entry_datetime( $post ) : get_the_date( 'Y-m-d H:i', $post )
 		);
 
 		$actions = '';
 		if ( $form_id > 0 ) {
-			$actions .= '<a class="nestform-btn nestform-btn--outline" href="' . esc_url( self::list_url( $form_id ) ) . '">';
-			$actions .= nestform_admin_icon_html( 'back' ) . ' ' . esc_html__( 'Form inbox', 'nestform' );
+			$actions .= '<a class="thimbleform-btn thimbleform-btn--outline" href="' . esc_url( self::list_url( $form_id ) ) . '">';
+			$actions .= thimbleform_admin_icon_html( 'back' ) . ' ' . esc_html__( 'Form inbox', 'thimbleform' );
 			$actions .= '</a>';
 		} else {
-			$actions .= '<a class="nestform-btn nestform-btn--outline" href="' . esc_url( self::hub_url() ) . '">';
-			$actions .= nestform_admin_icon_html( 'back' ) . ' ' . esc_html__( 'All entries', 'nestform' );
+			$actions .= '<a class="thimbleform-btn thimbleform-btn--outline" href="' . esc_url( self::hub_url() ) . '">';
+			$actions .= thimbleform_admin_icon_html( 'back' ) . ' ' . esc_html__( 'All entries', 'thimbleform' );
 			$actions .= '</a>';
 		}
 
-		if ( class_exists( 'Nestform_Entry_Print' ) ) {
-			$actions .= ' <a class="nestform-btn nestform-btn--outline" href="' . esc_url( Nestform_Entry_Print::url( $post->ID ) ) . '" target="_blank" rel="noopener noreferrer">';
-			$actions .= esc_html__( 'Print', 'nestform' );
+		if ( class_exists( 'Thimbleform_Entry_Print' ) ) {
+			$actions .= ' <a class="thimbleform-btn thimbleform-btn--outline" href="' . esc_url( Thimbleform_Entry_Print::url( $post->ID ) ) . '" target="_blank" rel="noopener noreferrer">';
+			$actions .= esc_html__( 'Print', 'thimbleform' );
 			$actions .= '</a>';
 		}
 
 		$trash = get_delete_post_link( $post->ID, '', false );
 		if ( $trash ) {
-			$actions .= ' <a class="nestform-btn nestform-btn--danger-text" href="' . esc_url( $trash ) . '">';
-			$actions .= esc_html__( 'Move to Trash', 'nestform' );
+			$actions .= ' <a class="thimbleform-btn thimbleform-btn--danger-text" href="' . esc_url( $trash ) . '">';
+			$actions .= esc_html__( 'Move to Trash', 'thimbleform' );
 			$actions .= '</a>';
 		}
 
-		nestform_render_page_head(
+		thimbleform_render_page_head(
 			array(
 				'title'        => $title,
 				'description'  => implode( ' · ', $desc_parts ),
@@ -483,12 +483,12 @@ class Nestform_Submissions {
 	 * @return array<string, string>
 	 */
 	public static function list_views( $views ) {
-		$form_id = isset( $_GET['nestform_form_id'] ) ? (int) $_GET['nestform_form_id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$form_id = isset( $_GET['thimbleform_form_id'] ) ? (int) $_GET['thimbleform_form_id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( $form_id <= 0 ) {
 			return array();
 		}
 
-		$current = isset( $_GET['nestform_status'] ) ? sanitize_key( wp_unslash( $_GET['nestform_status'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$current = isset( $_GET['thimbleform_status'] ) ? sanitize_key( wp_unslash( $_GET['thimbleform_status'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( $current !== '' && ! isset( self::status_labels()[ $current ] ) ) {
 			$current = '';
 		}
@@ -500,7 +500,7 @@ class Nestform_Submissions {
 			'<a href="%1$s"%2$s>%3$s <span class="count">(%4$s)</span></a>',
 			esc_url( self::list_url( $form_id ) ),
 			( '' === $current && ! $starred_only ) ? ' class="current" aria-current="page"' : '',
-			esc_html__( 'All', 'nestform' ),
+			esc_html__( 'All', 'thimbleform' ),
 			esc_html( number_format_i18n( $all_n ) )
 		);
 
@@ -530,7 +530,7 @@ class Nestform_Submissions {
 			'<a href="%1$s"%2$s>%3$s <span class="count">(%4$s)</span></a>',
 			esc_url( self::list_url( $form_id, '', array( 'starred' => '1' ) ) ),
 			$starred_only ? ' class="current" aria-current="page"' : '',
-			esc_html__( 'Starred', 'nestform' ),
+			esc_html__( 'Starred', 'thimbleform' ),
 			esc_html( number_format_i18n( $starred_n ) )
 		);
 
@@ -545,7 +545,7 @@ class Nestform_Submissions {
 		if ( ! self::is_entries_screen() ) {
 			return $classes;
 		}
-		$classes .= ' nestform-admin-screen nestform-entries-screen';
+		$classes .= ' thimbleform-admin-screen thimbleform-entries-screen';
 		return $classes;
 	}
 
@@ -556,12 +556,12 @@ class Nestform_Submissions {
 		if ( ! self::is_entries_screen( $hook ) ) {
 			return;
 		}
-		$ver = (string) filemtime( nestform_admin_css_path() );
+		$ver = (string) filemtime( thimbleform_admin_css_path() );
 		wp_enqueue_style(
-			'nestform-admin',
-			nestform_admin_css_url(),
-			nestform_admin_style_deps(),
-			$ver ? $ver : NESTFORM_VERSION
+			'thimbleform-admin',
+			thimbleform_admin_css_url(),
+			thimbleform_admin_style_deps(),
+			$ver ? $ver : THIMBLEFORM_VERSION
 		);
 	}
 
@@ -573,11 +573,11 @@ class Nestform_Submissions {
 	public static function list_url( $form_id, $status = '', $extra = array() ) {
 		$args = array(
 			'post_type'          => self::POST_TYPE,
-			'nestform_form_id' => (int) $form_id,
+			'thimbleform_form_id' => (int) $form_id,
 		);
 		$status = sanitize_key( (string) $status );
 		if ( $status !== '' && isset( self::status_labels()[ $status ] ) ) {
-			$args['nestform_status'] = $status;
+			$args['thimbleform_status'] = $status;
 		}
 		if ( is_array( $extra ) && array() !== $extra ) {
 			$args = array_merge( $args, $extra );
@@ -639,9 +639,9 @@ class Nestform_Submissions {
 		$entry_id = (int) $entry_id;
 		$form_id  = isset( $args['form_id'] ) ? (int) $args['form_id'] : (int) get_post_meta( $entry_id, self::META_FORM, true );
 		$params   = array(
-			'action'           => 'nestform_toggle_entry_star',
+			'action'           => 'thimbleform_toggle_entry_star',
 			'entry_id'         => $entry_id,
-			'nestform_form_id' => $form_id,
+			'thimbleform_form_id' => $form_id,
 		);
 		if ( ! empty( $args['redirect_to'] ) ) {
 			$params['redirect_to'] = sanitize_key( (string) $args['redirect_to'] );
@@ -650,7 +650,7 @@ class Nestform_Submissions {
 		}
 		return wp_nonce_url(
 			add_query_arg( $params, admin_url( 'admin-post.php' ) ),
-			'nestform_toggle_entry_star_' . $entry_id
+			'thimbleform_toggle_entry_star_' . $entry_id
 		);
 	}
 
@@ -666,29 +666,29 @@ class Nestform_Submissions {
 		$entry_id = (int) $entry_id;
 		$form_id  = isset( $args['form_id'] ) ? (int) $args['form_id'] : (int) get_post_meta( $entry_id, self::META_FORM, true );
 		$params   = array(
-			'action'             => 'nestform_set_entry_status',
+			'action'             => 'thimbleform_set_entry_status',
 			'entry_id'           => $entry_id,
 			'status'             => sanitize_key( (string) $status ),
-			'nestform_form_id' => $form_id,
+			'thimbleform_form_id' => $form_id,
 		);
 		if ( ! empty( $args['redirect_to'] ) ) {
 			$params['redirect_to'] = sanitize_key( (string) $args['redirect_to'] );
 		}
 		return wp_nonce_url(
 			add_query_arg( $params, admin_url( 'admin-post.php' ) ),
-			'nestform_set_entry_status_' . $entry_id
+			'thimbleform_set_entry_status_' . $entry_id
 		);
 	}
 
 	/**
-	 * @param array<string, mixed> $args Optional nestform_status.
+	 * @param array<string, mixed> $args Optional thimbleform_status.
 	 * @return string
 	 */
 	public static function hub_url( $args = array() ) {
 		return add_query_arg(
 			array_merge(
 				array(
-					'post_type' => Nestform_Post_Type::POST_TYPE,
+					'post_type' => Thimbleform_Post_Type::POST_TYPE,
 					'page'      => self::PAGE_SLUG,
 				),
 				$args
@@ -730,7 +730,7 @@ class Nestform_Submissions {
 		 * @param int  $form_id Form ID.
 		 * @param int  $user_id User ID.
 		 */
-		$allowed = (bool) apply_filters( 'nestform_user_can_manage_form_entries', $allowed, $form_id, $user_id );
+		$allowed = (bool) apply_filters( 'thimbleform_user_can_manage_form_entries', $allowed, $form_id, $user_id );
 		if ( ! $allowed ) {
 			return array( 'do_not_allow' );
 		}
@@ -753,7 +753,7 @@ class Nestform_Submissions {
 		 * @param int  $form_id Form ID.
 		 * @param int  $user_id User ID.
 		 */
-		return (bool) apply_filters( 'nestform_user_can_manage_form_entries', $allowed, $form_id, get_current_user_id() );
+		return (bool) apply_filters( 'thimbleform_user_can_manage_form_entries', $allowed, $form_id, get_current_user_id() );
 	}
 
 	/**
@@ -774,11 +774,11 @@ class Nestform_Submissions {
 			 * @param array<int, int>|null $ids     Form IDs or null.
 			 * @param int                  $user_id User ID.
 			 */
-			return apply_filters( 'nestform_accessible_form_ids', null, get_current_user_id() );
+			return apply_filters( 'thimbleform_accessible_form_ids', null, get_current_user_id() );
 		}
 		$forms = get_posts(
 			array(
-				'post_type'              => Nestform_Post_Type::POST_TYPE,
+				'post_type'              => Thimbleform_Post_Type::POST_TYPE,
 				'post_status'            => array( 'publish', 'draft', 'private', 'pending' ),
 				'posts_per_page'         => 200,
 				'orderby'                => 'title',
@@ -790,7 +790,7 @@ class Nestform_Submissions {
 			)
 		);
 		if ( ! is_array( $forms ) ) {
-			return apply_filters( 'nestform_accessible_form_ids', array(), get_current_user_id() );
+			return apply_filters( 'thimbleform_accessible_form_ids', array(), get_current_user_id() );
 		}
 		$ids = array();
 		foreach ( $forms as $fid ) {
@@ -799,7 +799,7 @@ class Nestform_Submissions {
 				$ids[] = $fid;
 			}
 		}
-		return apply_filters( 'nestform_accessible_form_ids', $ids, get_current_user_id() );
+		return apply_filters( 'thimbleform_accessible_form_ids', $ids, get_current_user_id() );
 	}
 
 	/**
@@ -808,7 +808,7 @@ class Nestform_Submissions {
 	private static function get_forms() {
 		$forms = get_posts(
 			array(
-				'post_type'      => Nestform_Post_Type::POST_TYPE,
+				'post_type'      => Thimbleform_Post_Type::POST_TYPE,
 				'post_status'    => array( 'publish', 'draft', 'private' ),
 				'posts_per_page' => 200,
 				'orderby'        => 'title',
@@ -1445,13 +1445,13 @@ class Nestform_Submissions {
 		$from = ( ( $paged - 1 ) * $per_page ) + 1;
 		$to   = min( $total, $paged * $per_page );
 		?>
-		<nav class="nestform-entries__pager" aria-label="<?php esc_attr_e( 'Entries pagination', 'nestform' ); ?>">
-			<p class="nestform-entries__pager-meta">
+		<nav class="thimbleform-entries__pager" aria-label="<?php esc_attr_e( 'Entries pagination', 'thimbleform' ); ?>">
+			<p class="thimbleform-entries__pager-meta">
 				<?php
 				echo esc_html(
 					sprintf(
 						/* translators: 1: first item, 2: last item, 3: total */
-						__( 'Showing %1$s–%2$s of %3$s', 'nestform' ),
+						__( 'Showing %1$s–%2$s of %3$s', 'thimbleform' ),
 						number_format_i18n( $from ),
 						number_format_i18n( $to ),
 						number_format_i18n( $total )
@@ -1478,7 +1478,7 @@ class Nestform_Submissions {
 				);
 				?>
 				<?php if ( is_array( $links ) && array() !== $links ) : ?>
-					<div class="nestform-entries__pager-links">
+					<div class="thimbleform-entries__pager-links">
 						<?php foreach ( $links as $link ) : ?>
 							<?php echo $link; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- paginate_links HTML ?>
 						<?php endforeach; ?>
@@ -1517,13 +1517,13 @@ class Nestform_Submissions {
 				if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}/', $first ) ) {
 					$exclude = trim( (string) $exclude );
 					if ( $exclude !== '' && 0 === strcasecmp( $first, $exclude ) ) {
-						return __( 'Unknown', 'nestform' );
+						return __( 'Unknown', 'thimbleform' );
 					}
 					return $first;
 				}
 			}
 		}
-		return __( 'Unknown', 'nestform' );
+		return __( 'Unknown', 'thimbleform' );
 	}
 
 	/**
@@ -1560,8 +1560,8 @@ class Nestform_Submissions {
 		}
 
 		$form_id = (int) $form_id;
-		if ( $form_id > 0 && class_exists( 'Nestform_Form_Config' ) ) {
-			$fields = Nestform_Form_Config::get_fields( $form_id );
+		if ( $form_id > 0 && class_exists( 'Thimbleform_Form_Config' ) ) {
+			$fields = Thimbleform_Form_Config::get_fields( $form_id );
 			if ( is_array( $fields ) ) {
 				foreach ( $fields as $field ) {
 					if ( ! is_array( $field ) ) {
@@ -1570,7 +1570,7 @@ class Nestform_Submissions {
 					$name  = isset( $field['name'] ) ? (string) $field['name'] : '';
 					$label = isset( $field['label'] ) ? strtolower( trim( wp_strip_all_tags( (string) $field['label'] ) ) ) : '';
 					$type  = isset( $field['type'] ) ? (string) $field['type'] : '';
-					if ( $name === '' || Nestform_Form_Config::is_layout_field( $type ) ) {
+					if ( $name === '' || Thimbleform_Form_Config::is_layout_field( $type ) ) {
 						continue;
 					}
 					if ( ! self::is_person_name_label( $label ) && ! self::is_person_name_key( $name ) ) {
@@ -1596,8 +1596,8 @@ class Nestform_Submissions {
 	 */
 	public static function payload_payment_summary( array $payload, $form_id = 0 ) {
 		$form_id = (int) $form_id;
-		if ( $form_id > 0 && class_exists( 'Nestform_Form_Config' ) ) {
-			$fields = Nestform_Form_Config::get_fields( $form_id );
+		if ( $form_id > 0 && class_exists( 'Thimbleform_Form_Config' ) ) {
+			$fields = Thimbleform_Form_Config::get_fields( $form_id );
 			if ( is_array( $fields ) ) {
 				foreach ( $fields as $field ) {
 					if ( ! is_array( $field ) || 'payment' !== (string) ( $field['type'] ?? '' ) ) {
@@ -1640,12 +1640,12 @@ class Nestform_Submissions {
 		}
 		$line = sprintf(
 			/* translators: 1: amount, 2: currency */
-			__( 'Paid %1$s %2$s', 'nestform' ),
+			__( 'Paid %1$s %2$s', 'thimbleform' ),
 			$amount,
 			$currency
 		);
 		if ( ! empty( $value['mode'] ) && 'test' === (string) $value['mode'] ) {
-			$line .= ' · ' . __( 'test', 'nestform' );
+			$line .= ' · ' . __( 'test', 'thimbleform' );
 		}
 		return $line;
 	}
@@ -1794,19 +1794,19 @@ class Nestform_Submissions {
 	}
 
 	public static function render_hub() {
-		$can_view = class_exists( 'Nestform_Capabilities' )
-			? Nestform_Capabilities::can_view_entries()
+		$can_view = class_exists( 'Thimbleform_Capabilities' )
+			? Thimbleform_Capabilities::can_view_entries()
 			: current_user_can( 'edit_posts' );
 		if ( ! $can_view ) {
-			wp_die( esc_html__( 'You do not have permission to view entries.', 'nestform' ) );
+			wp_die( esc_html__( 'You do not have permission to view entries.', 'thimbleform' ) );
 		}
 
 		$want_summary = isset( $_GET['summary'] ) && '1' === sanitize_text_field( wp_unslash( (string) $_GET['summary'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( $want_summary && class_exists( 'Nestform_Response_Summary' ) && Nestform_Response_Summary::render_summary_screen() ) {
+		if ( $want_summary && class_exists( 'Thimbleform_Response_Summary' ) && Thimbleform_Response_Summary::render_summary_screen() ) {
 			return;
 		}
 
-		$status = isset( $_GET['nestform_status'] ) ? sanitize_key( wp_unslash( $_GET['nestform_status'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$status = isset( $_GET['thimbleform_status'] ) ? sanitize_key( wp_unslash( $_GET['thimbleform_status'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( $status !== '' && ! isset( self::status_labels()[ $status ] ) ) {
 			$status = '';
 		}
@@ -1816,8 +1816,8 @@ class Nestform_Submissions {
 		 *
 		 * @param array<string, string> $filters Map of kind key => label. Empty key = All.
 		 */
-		$kind_filters = (array) apply_filters( 'nestform_entries_kind_filters', array() );
-		$kind         = isset( $_GET['nestform_kind'] ) ? sanitize_key( wp_unslash( $_GET['nestform_kind'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$kind_filters = (array) apply_filters( 'thimbleform_entries_kind_filters', array() );
+		$kind         = isset( $_GET['thimbleform_kind'] ) ? sanitize_key( wp_unslash( $_GET['thimbleform_kind'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( $kind !== '' && ! isset( $kind_filters[ $kind ] ) ) {
 			$kind = '';
 		}
@@ -1829,7 +1829,7 @@ class Nestform_Submissions {
 		 * @param array{kind:string}   $ctx  Hub context.
 		 */
 		$scope = (array) apply_filters(
-			'nestform_entries_hub_query_args',
+			'thimbleform_entries_hub_query_args',
 			array(),
 			array(
 				'kind' => $kind,
@@ -1853,11 +1853,11 @@ class Nestform_Submissions {
 		);
 		$url_args = array();
 		if ( $kind !== '' ) {
-			$url_args['nestform_kind'] = $kind;
+			$url_args['thimbleform_kind'] = $kind;
 		}
 		if ( $status !== '' ) {
 			$query['status']             = $status;
-			$url_args['nestform_status'] = $status;
+			$url_args['thimbleform_status'] = $status;
 		}
 
 		$result  = self::query_entries( $query );
@@ -1875,16 +1875,16 @@ class Nestform_Submissions {
 		}
 
 		$filters = array(
-			''                => array( __( 'All', 'nestform' ), $all_n ),
-			self::STATUS_NEW  => array( __( 'New', 'nestform' ), $new_n ),
-			self::STATUS_READ => array( __( 'Read', 'nestform' ), $read_n ),
-			self::STATUS_SPAM => array( __( 'Spam', 'nestform' ), $spam_n ),
+			''                => array( __( 'All', 'thimbleform' ), $all_n ),
+			self::STATUS_NEW  => array( __( 'New', 'thimbleform' ), $new_n ),
+			self::STATUS_READ => array( __( 'Read', 'thimbleform' ), $read_n ),
+			self::STATUS_SPAM => array( __( 'Spam', 'thimbleform' ), $spam_n ),
 		);
 
-		$kind_url_base = $kind !== '' ? array( 'nestform_kind' => $kind ) : array();
+		$kind_url_base = $kind !== '' ? array( 'thimbleform_kind' => $kind ) : array();
 
 		$lead_html = '';
-		if ( class_exists( 'Nestform_Features' ) && Nestform_Features::can( Nestform_Features::LEAD_INSIGHTS ) ) {
+		if ( class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::can( Thimbleform_Features::LEAD_INSIGHTS ) ) {
 			/**
 			 * Lead insights meta HTML for Entries page head (Pro).
 			 *
@@ -1892,7 +1892,7 @@ class Nestform_Submissions {
 			 * @param array  $ctx  Counts context.
 			 */
 			$lead_html = (string) apply_filters(
-				'nestform_entries_lead_insights',
+				'thimbleform_entries_lead_insights',
 				'',
 				array(
 					'all'  => $all_n,
@@ -1904,29 +1904,29 @@ class Nestform_Submissions {
 			);
 		}
 		?>
-		<div class="wrap nestform-hub nestform-hub--entries">
+		<div class="wrap thimbleform-hub thimbleform-hub--entries">
 			<?php
-			nestform_render_page_head(
+			thimbleform_render_page_head(
 				array(
-					'title'       => __( 'Entries', 'nestform' ),
-					'description' => __( 'Recent submissions across all forms. Open a form name to view its full inbox.', 'nestform' ),
+					'title'       => __( 'Entries', 'thimbleform' ),
+					'description' => __( 'Recent submissions across all forms. Open a form name to view its full inbox.', 'thimbleform' ),
 					'meta_html'   => $lead_html,
 				)
 			);
 			?>
 			<?php if ( array() !== $kind_filters ) : ?>
-				<nav class="nestform-entries__kinds" role="navigation" aria-label="<?php esc_attr_e( 'Entry type', 'nestform' ); ?>">
+				<nav class="thimbleform-entries__kinds" role="navigation" aria-label="<?php esc_attr_e( 'Entry type', 'thimbleform' ); ?>">
 					<?php foreach ( $kind_filters as $kind_key => $kind_label ) : ?>
 						<?php
 						$kind_key = (string) $kind_key;
-						$k_args   = '' === $kind_key ? array() : array( 'nestform_kind' => $kind_key );
+						$k_args   = '' === $kind_key ? array() : array( 'thimbleform_kind' => $kind_key );
 						if ( $status !== '' ) {
-							$k_args['nestform_status'] = $status;
+							$k_args['thimbleform_status'] = $status;
 						}
 						$k_url    = self::hub_url( $k_args );
 						$k_active = $kind === $kind_key;
 						$k_scope  = (array) apply_filters(
-							'nestform_entries_hub_query_args',
+							'thimbleform_entries_hub_query_args',
 							array(),
 							array(
 								'kind' => $kind_key,
@@ -1935,71 +1935,71 @@ class Nestform_Submissions {
 						$k_count = self::count_entries( $k_scope );
 						?>
 						<a
-							class="nestform-entries__kind<?php echo $k_active ? ' is-active' : ''; ?>"
+							class="thimbleform-entries__kind<?php echo $k_active ? ' is-active' : ''; ?>"
 							href="<?php echo esc_url( $k_url ); ?>"
 							<?php echo $k_active ? ' aria-current="page"' : ''; ?>
 						>
-							<span class="nestform-entries__kind-label"><?php echo esc_html( (string) $kind_label ); ?></span>
-							<span class="nestform-entries__kind-count"><?php echo esc_html( number_format_i18n( $k_count ) ); ?></span>
+							<span class="thimbleform-entries__kind-label"><?php echo esc_html( (string) $kind_label ); ?></span>
+							<span class="thimbleform-entries__kind-count"><?php echo esc_html( number_format_i18n( $k_count ) ); ?></span>
 						</a>
 					<?php endforeach; ?>
 				</nav>
 			<?php endif; ?>
-			<div class="nestform-entries__stats" role="navigation" aria-label="<?php esc_attr_e( 'Filter entries', 'nestform' ); ?>">
+			<div class="thimbleform-entries__stats" role="navigation" aria-label="<?php esc_attr_e( 'Filter entries', 'thimbleform' ); ?>">
 				<?php foreach ( $filters as $key => $meta ) : ?>
 					<?php
 					$url     = '' === $key
 						? self::hub_url( $kind_url_base )
-						: self::hub_url( array_merge( $kind_url_base, array( 'nestform_status' => $key ) ) );
+						: self::hub_url( array_merge( $kind_url_base, array( 'thimbleform_status' => $key ) ) );
 					$active  = $status === (string) $key;
 					$mod     = '';
 					if ( self::STATUS_NEW === $key ) {
-						$mod = ' nestform-entries__stat--new';
+						$mod = ' thimbleform-entries__stat--new';
 					} elseif ( self::STATUS_READ === $key ) {
-						$mod = ' nestform-entries__stat--ok';
+						$mod = ' thimbleform-entries__stat--ok';
 					} elseif ( self::STATUS_SPAM === $key ) {
-						$mod = ' nestform-entries__stat--spam';
+						$mod = ' thimbleform-entries__stat--spam';
 					}
-					$label = '' === $key ? __( 'Total entries', 'nestform' ) : (string) $meta[0];
+					$label = '' === $key ? __( 'Total entries', 'thimbleform' ) : (string) $meta[0];
 					if ( self::STATUS_SPAM === $key ) {
-						$label = __( 'Spam blocked', 'nestform' );
+						$label = __( 'Spam blocked', 'thimbleform' );
 					}
-					$class = 'nestform-entries__stat' . $mod . ( $active ? ' is-active' : '' );
+					$class = 'thimbleform-entries__stat' . $mod . ( $active ? ' is-active' : '' );
 					?>
 					<a
 						class="<?php echo esc_attr( $class ); ?>"
 						href="<?php echo esc_url( $url ); ?>"
 						<?php echo $active ? ' aria-current="page"' : ''; ?>
 					>
-						<span class="nestform-entries__stat-value"><?php echo esc_html( number_format_i18n( (int) $meta[1] ) ); ?></span>
-						<span class="nestform-entries__stat-label"><?php echo esc_html( $label ); ?></span>
+						<span class="thimbleform-entries__stat-value"><?php echo esc_html( number_format_i18n( (int) $meta[1] ) ); ?></span>
+						<span class="thimbleform-entries__stat-label"><?php echo esc_html( $label ); ?></span>
 					</a>
 				<?php endforeach; ?>
 			</div>
 			<?php if ( array() === $entries ) : ?>
-				<div class="nestform-hub__empty-state">
+				<div class="thimbleform-hub__empty-state">
 					<?php if ( $status !== '' || $kind !== '' ) : ?>
-						<p class="nestform-hub__empty-state-title"><?php esc_html_e( 'No matching entries', 'nestform' ); ?></p>
-						<p class="nestform-hub__empty-state-text"><?php esc_html_e( 'Try another filter, or open a form inbox from All Forms.', 'nestform' ); ?></p>
+						<p class="thimbleform-hub__empty-state-title"><?php esc_html_e( 'No matching entries', 'thimbleform' ); ?></p>
+						<p class="thimbleform-hub__empty-state-text"><?php esc_html_e( 'Try another filter, or open a form inbox from All Forms.', 'thimbleform' ); ?></p>
 						<p>
-							<a class="nestform-btn nestform-btn--outline" href="<?php echo esc_url( self::hub_url() ); ?>">
-								<?php esc_html_e( 'Show all entries', 'nestform' ); ?>
+							<a class="thimbleform-btn thimbleform-btn--outline" href="<?php echo esc_url( self::hub_url() ); ?>">
+								<?php esc_html_e( 'Show all entries', 'thimbleform' ); ?>
 							</a>
 						</p>
 					<?php else : ?>
-						<p class="nestform-hub__empty-state-title"><?php esc_html_e( 'No entries yet', 'nestform' ); ?></p>
-						<p class="nestform-hub__empty-state-text"><?php esc_html_e( 'Submissions will show up here as soon as a form is sent. You can also open a form inbox from All Forms.', 'nestform' ); ?></p>
+						<p class="thimbleform-hub__empty-state-title"><?php esc_html_e( 'No entries yet', 'thimbleform' ); ?></p>
+						<p class="thimbleform-hub__empty-state-text"><?php esc_html_e( 'Submissions will show up here as soon as a form is sent. You can also open a form inbox from All Forms.', 'thimbleform' ); ?></p>
 					<?php endif; ?>
 				</div>
 			<?php else : ?>
 				<?php self::render_hub_pagination( $total, $paged, $pages, $per_page, $url_args ); ?>
-				<div class="nestform-entries__table">
-					<div class="nestform-entries__thead">
-						<div class="nestform-entries__th nestform-entries__th--status"><?php esc_html_e( 'Status', 'nestform' ); ?></div>
-						<div class="nestform-entries__th nestform-entries__th--from"><?php esc_html_e( 'Contact', 'nestform' ); ?></div>
-						<div class="nestform-entries__th nestform-entries__th--form"><?php esc_html_e( 'Form', 'nestform' ); ?></div>
-						<div class="nestform-entries__th nestform-entries__th--date"><?php esc_html_e( 'Date', 'nestform' ); ?></div>
-						<div class="nestform-entries__th nestform-entries__th--actions"></div>
+				<div class="thimbleform-entries__table">
+					<div class="thimbleform-entries__thead">
+						<div class="thimbleform-entries__th thimbleform-entries__th--status"><?php esc_html_e( 'Status', 'thimbleform' ); ?></div>
+						<div class="thimbleform-entries__th thimbleform-entries__th--from"><?php esc_html_e( 'Contact', 'thimbleform' ); ?></div>
+						<div class="thimbleform-entries__th thimbleform-entries__th--form"><?php esc_html_e( 'Form', 'thimbleform' ); ?></div>
+						<div class="thimbleform-entries__th thimbleform-entries__th--date"><?php esc_html_e( 'Date', 'thimbleform' ); ?></div>
+						<div class="thimbleform-entries__th thimbleform-entries__th--actions"></div>
 					</div>
 					<?php foreach ( $entries as $entry ) : ?>
 						<?php
@@ -2015,48 +2015,48 @@ class Nestform_Submissions {
 						$ago     = human_time_diff( get_post_time( 'U', true, $entry ), current_time( 'timestamp', true ) );
 						$view    = get_edit_post_link( $eid, 'raw' );
 						$badge   = self::badge_modifier( $estatus );
-						$row_mod = 'new' === $estatus ? ' nestform-entries__row--new' : '';
-						$who_unknown = 0 === strcasecmp( $who, __( 'Unknown', 'nestform' ) );
+						$row_mod = 'new' === $estatus ? ' thimbleform-entries__row--new' : '';
+						$who_unknown = 0 === strcasecmp( $who, __( 'Unknown', 'thimbleform' ) );
 						?>
-						<div class="nestform-entries__row<?php echo esc_attr( $row_mod ); ?>">
-							<div class="nestform-entries__td nestform-entries__td--status">
-								<span class="nestform-badge nestform-badge--<?php echo esc_attr( $badge ); ?>"><?php echo esc_html( strtoupper( $estatus ) ); ?></span>
+						<div class="thimbleform-entries__row<?php echo esc_attr( $row_mod ); ?>">
+							<div class="thimbleform-entries__td thimbleform-entries__td--status">
+								<span class="thimbleform-badge thimbleform-badge--<?php echo esc_attr( $badge ); ?>"><?php echo esc_html( strtoupper( $estatus ) ); ?></span>
 							</div>
-							<div class="nestform-entries__td nestform-entries__td--from">
+							<div class="thimbleform-entries__td thimbleform-entries__td--from">
 								<?php if ( $view ) : ?>
-									<a class="nestform-entries__who<?php echo $who_unknown ? ' nestform-entries__who--muted' : ''; ?>" href="<?php echo esc_url( $view ); ?>">
+									<a class="thimbleform-entries__who<?php echo $who_unknown ? ' thimbleform-entries__who--muted' : ''; ?>" href="<?php echo esc_url( $view ); ?>">
 										<?php echo esc_html( $who ); ?>
 									</a>
 								<?php else : ?>
-									<div class="nestform-entries__who<?php echo $who_unknown ? ' nestform-entries__who--muted' : ''; ?>"><?php echo esc_html( $who ); ?></div>
+									<div class="thimbleform-entries__who<?php echo $who_unknown ? ' thimbleform-entries__who--muted' : ''; ?>"><?php echo esc_html( $who ); ?></div>
 								<?php endif; ?>
 								<?php if ( $email !== '' && 0 !== strcasecmp( $email, $who ) ) : ?>
-									<div class="nestform-entries__email"><?php echo esc_html( $email ); ?></div>
+									<div class="thimbleform-entries__email"><?php echo esc_html( $email ); ?></div>
 								<?php endif; ?>
 							</div>
-							<div class="nestform-entries__td nestform-entries__td--form">
+							<div class="thimbleform-entries__td thimbleform-entries__td--form">
 								<?php if ( $efid > 0 ) : ?>
-									<a class="nestform-entries__form-link" href="<?php echo esc_url( self::list_url( $efid ) ); ?>" title="<?php esc_attr_e( 'Open form inbox', 'nestform' ); ?>">
+									<a class="thimbleform-entries__form-link" href="<?php echo esc_url( self::list_url( $efid ) ); ?>" title="<?php esc_attr_e( 'Open form inbox', 'thimbleform' ); ?>">
 										<?php echo esc_html( $ftitle ); ?>
 									</a>
 								<?php else : ?>
 									<?php echo esc_html( $ftitle ); ?>
 								<?php endif; ?>
 							</div>
-							<div class="nestform-entries__td nestform-entries__td--date">
+							<div class="thimbleform-entries__td thimbleform-entries__td--date">
 								<?php
 								echo esc_html(
 									sprintf(
 										/* translators: %s: relative time */
-										__( '%s ago', 'nestform' ),
+										__( '%s ago', 'thimbleform' ),
 										$ago
 									)
 								);
 								?>
 							</div>
-							<div class="nestform-entries__td nestform-entries__td--actions">
+							<div class="thimbleform-entries__td thimbleform-entries__td--actions">
 								<?php if ( $view ) : ?>
-									<a class="nestform-btn nestform-btn--outline" href="<?php echo esc_url( $view ); ?>"><?php esc_html_e( 'View', 'nestform' ); ?></a>
+									<a class="thimbleform-btn thimbleform-btn--outline" href="<?php echo esc_url( $view ); ?>"><?php esc_html_e( 'View', 'thimbleform' ); ?></a>
 								<?php endif; ?>
 							</div>
 						</div>
@@ -2082,7 +2082,7 @@ class Nestform_Submissions {
 		if ( $who !== '' && $form ) {
 			$title = sprintf(
 				/* translators: 1: visitor name/email, 2: form title, 3: datetime */
-				__( '%1$s — %2$s — %3$s', 'nestform' ),
+				__( '%1$s — %2$s — %3$s', 'thimbleform' ),
 				$who,
 				$form->post_title,
 				$when
@@ -2090,7 +2090,7 @@ class Nestform_Submissions {
 		} elseif ( $form ) {
 			$title = sprintf(
 				/* translators: 1: form title, 2: datetime */
-				__( '%1$s — %2$s', 'nestform' ),
+				__( '%1$s — %2$s', 'thimbleform' ),
 				$form->post_title,
 				$when
 			);
@@ -2155,10 +2155,10 @@ class Nestform_Submissions {
 	public static function columns( $columns ) {
 		return array(
 			'cb'                 => $columns['cb'] ?? '',
-			'title'              => __( 'Entry', 'nestform' ),
-			'nestform_status'    => __( 'Status', 'nestform' ),
-			'nestform_preview'   => __( 'Preview', 'nestform' ),
-			'nestform_date'      => __( 'Date', 'nestform' ),
+			'title'              => __( 'Entry', 'thimbleform' ),
+			'thimbleform_status'    => __( 'Status', 'thimbleform' ),
+			'thimbleform_preview'   => __( 'Preview', 'thimbleform' ),
+			'thimbleform_date'      => __( 'Date', 'thimbleform' ),
 		);
 	}
 
@@ -2172,18 +2172,18 @@ class Nestform_Submissions {
 			$data = array();
 		}
 
-		if ( 'nestform_status' === $column ) {
+		if ( 'thimbleform_status' === $column ) {
 			$status = self::get_status( $post_id );
 			$labels = self::status_labels();
 			printf(
-				'<span class="nestform-entry-status nestform-entry-status--%1$s">%2$s</span>',
+				'<span class="thimbleform-entry-status thimbleform-entry-status--%1$s">%2$s</span>',
 				esc_attr( $status ),
 				esc_html( $labels[ $status ] ?? $status )
 			);
 			return;
 		}
 
-		if ( 'nestform_preview' === $column ) {
+		if ( 'thimbleform_preview' === $column ) {
 			$form_id = (int) get_post_meta( $post_id, self::META_FORM, true );
 			$parts   = self::preview_parts( $form_id, $data );
 			if ( array() === $parts ) {
@@ -2194,23 +2194,23 @@ class Nestform_Submissions {
 			return;
 		}
 
-		if ( 'nestform_date' === $column ) {
+		if ( 'thimbleform_date' === $column ) {
 			$post = get_post( $post_id );
 			if ( ! $post ) {
 				echo '—';
 				return;
 			}
-			$formatted = class_exists( 'Nestform_Settings' )
-				? Nestform_Settings::format_entry_datetime( $post )
+			$formatted = class_exists( 'Thimbleform_Settings' )
+				? Thimbleform_Settings::format_entry_datetime( $post )
 				: get_the_date( 'Y-m-d H:i', $post );
 			$ago = human_time_diff( get_post_time( 'U', true, $post ), current_time( 'timestamp', true ) );
 			printf(
-				'<span class="nestform-entry-date" title="%1$s">%2$s</span>',
+				'<span class="thimbleform-entry-date" title="%1$s">%2$s</span>',
 				esc_attr( $formatted ),
 				esc_html(
 					sprintf(
 						/* translators: %s: relative time */
-						__( '%s ago', 'nestform' ),
+						__( '%s ago', 'thimbleform' ),
 						$ago
 					)
 				)
@@ -2225,7 +2225,7 @@ class Nestform_Submissions {
 	 */
 	private static function preview_parts( $form_id, array $data ) {
 		$parts  = array();
-		$fields = $form_id > 0 ? Nestform_Form_Config::get_fields( $form_id ) : array();
+		$fields = $form_id > 0 ? Thimbleform_Form_Config::get_fields( $form_id ) : array();
 		$skip   = array( 'email', 'e-mail', 'mail', 'phone', 'tel', 'telephone', 'mobile', 'acceptance' );
 
 		if ( is_array( $fields ) && array() !== $fields ) {
@@ -2235,7 +2235,7 @@ class Nestform_Submissions {
 				}
 				$name = (string) ( $field['name'] ?? '' );
 				$type = (string) ( $field['type'] ?? '' );
-				if ( $name === '' || Nestform_Form_Config::is_layout_field( $type ) || in_array( $type, array( 'hidden', 'acceptance' ), true ) || in_array( $name, $skip, true ) ) {
+				if ( $name === '' || Thimbleform_Form_Config::is_layout_field( $type ) || in_array( $type, array( 'hidden', 'acceptance' ), true ) || in_array( $name, $skip, true ) ) {
 					continue;
 				}
 				if ( ! array_key_exists( $name, $data ) ) {
@@ -2297,13 +2297,13 @@ class Nestform_Submissions {
 		 * @param bool        $truncate Truncate.
 		 * @param string      $type     Field type.
 		 */
-		$custom = apply_filters( 'nestform_format_entry_value', null, $value, $truncate, $type );
+		$custom = apply_filters( 'thimbleform_format_entry_value', null, $value, $truncate, $type );
 		if ( is_string( $custom ) ) {
 			return $custom;
 		}
 
 		if ( is_bool( $value ) ) {
-			return $value ? __( 'Yes', 'nestform' ) : __( 'No', 'nestform' );
+			return $value ? __( 'Yes', 'thimbleform' ) : __( 'No', 'thimbleform' );
 		}
 		if ( is_array( $value ) && ! empty( $value['url'] ) ) {
 			$name = ! empty( $value['name'] ) ? (string) $value['name'] : basename( (string) $value['url'] );
@@ -2313,12 +2313,12 @@ class Nestform_Submissions {
 		if ( is_array( $value ) && isset( $value['intent_id'], $value['amount'], $value['currency'] ) ) {
 			$line = sprintf(
 				/* translators: 1: amount, 2: currency */
-				__( 'Paid %1$s %2$s', 'nestform' ),
+				__( 'Paid %1$s %2$s', 'thimbleform' ),
 				(string) $value['amount'],
 				(string) $value['currency']
 			);
 			if ( ! empty( $value['mode'] ) && 'test' === (string) $value['mode'] ) {
-				$line .= ' · ' . __( 'test', 'nestform' );
+				$line .= ' · ' . __( 'test', 'thimbleform' );
 			}
 			if ( ! empty( $value['intent_id'] ) ) {
 				$line .= ' (' . (string) $value['intent_id'] . ')';
@@ -2368,22 +2368,22 @@ class Nestform_Submissions {
 		if ( self::POST_TYPE !== $typenow ) {
 			return;
 		}
-		$selected = isset( $_GET['nestform_form_id'] ) ? (int) $_GET['nestform_form_id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$selected = isset( $_GET['thimbleform_form_id'] ) ? (int) $_GET['thimbleform_form_id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( $selected <= 0 ) {
 			return;
 		}
 
-		$status_filter = isset( $_GET['nestform_status'] ) ? sanitize_key( wp_unslash( $_GET['nestform_status'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$status_filter = isset( $_GET['thimbleform_status'] ) ? sanitize_key( wp_unslash( $_GET['thimbleform_status'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$starred       = isset( $_GET['starred'] ) && '1' === sanitize_text_field( wp_unslash( (string) $_GET['starred'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		echo '<span class="nestform-entries-toolbar">';
+		echo '<span class="thimbleform-entries-toolbar">';
 		printf(
-			'<input type="hidden" name="nestform_form_id" value="%s" />',
+			'<input type="hidden" name="thimbleform_form_id" value="%s" />',
 			esc_attr( (string) $selected )
 		);
 		if ( $status_filter !== '' && isset( self::status_labels()[ $status_filter ] ) ) {
 			printf(
-				'<input type="hidden" name="nestform_status" value="%s" />',
+				'<input type="hidden" name="thimbleform_status" value="%s" />',
 				esc_attr( $status_filter )
 			);
 		}
@@ -2392,11 +2392,11 @@ class Nestform_Submissions {
 		}
 
 		$count = self::count_for_form( $selected );
-		echo '<span class="nestform-entries-toolbar__meta">';
+		echo '<span class="thimbleform-entries-toolbar__meta">';
 		echo esc_html(
 			sprintf(
 				/* translators: %d: entry count */
-				_n( '%d entry', '%d entries', $count, 'nestform' ),
+				_n( '%d entry', '%d entries', $count, 'thimbleform' ),
 				$count
 			)
 		);
@@ -2458,7 +2458,7 @@ class Nestform_Submissions {
 		if ( ! $screen || self::POST_TYPE !== $screen->post_type ) {
 			return;
 		}
-		$form_id = isset( $_GET['nestform_form_id'] ) ? (int) $_GET['nestform_form_id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$form_id = isset( $_GET['thimbleform_form_id'] ) ? (int) $_GET['thimbleform_form_id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$meta_query = array( 'relation' => 'AND' );
 		if ( $form_id > 0 ) {
 			if ( ! self::user_can_manage_form_entries( $form_id ) ) {
@@ -2489,7 +2489,7 @@ class Nestform_Submissions {
 				}
 			}
 		}
-		$status = isset( $_GET['nestform_status'] ) ? sanitize_key( wp_unslash( $_GET['nestform_status'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$status = isset( $_GET['thimbleform_status'] ) ? sanitize_key( wp_unslash( $_GET['thimbleform_status'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( $status !== '' && isset( self::status_labels()[ $status ] ) ) {
 			if ( self::STATUS_NEW === $status ) {
 				$meta_query[] = array(
@@ -2536,49 +2536,49 @@ class Nestform_Submissions {
 		$status = self::get_status( $post->ID );
 		$form_id = (int) get_post_meta( $post->ID, self::META_FORM, true );
 		$base    = array(
-			'action'             => 'nestform_set_entry_status',
+			'action'             => 'thimbleform_set_entry_status',
 			'entry_id'           => (int) $post->ID,
-			'nestform_form_id' => $form_id,
+			'thimbleform_form_id' => $form_id,
 		);
 
 		if ( self::STATUS_NEW === $status ) {
-			$actions['nestform_mark_read'] = sprintf(
+			$actions['thimbleform_mark_read'] = sprintf(
 				'<a href="%s">%s</a>',
-				esc_url( wp_nonce_url( add_query_arg( array_merge( $base, array( 'status' => self::STATUS_READ ) ), admin_url( 'admin-post.php' ) ), 'nestform_set_entry_status_' . (int) $post->ID ) ),
-				esc_html__( 'Mark read', 'nestform' )
+				esc_url( wp_nonce_url( add_query_arg( array_merge( $base, array( 'status' => self::STATUS_READ ) ), admin_url( 'admin-post.php' ) ), 'thimbleform_set_entry_status_' . (int) $post->ID ) ),
+				esc_html__( 'Mark read', 'thimbleform' )
 			);
 		} elseif ( self::STATUS_READ === $status ) {
-			$actions['nestform_mark_new'] = sprintf(
+			$actions['thimbleform_mark_new'] = sprintf(
 				'<a href="%s">%s</a>',
-				esc_url( wp_nonce_url( add_query_arg( array_merge( $base, array( 'status' => self::STATUS_NEW ) ), admin_url( 'admin-post.php' ) ), 'nestform_set_entry_status_' . (int) $post->ID ) ),
-				esc_html__( 'Mark new', 'nestform' )
+				esc_url( wp_nonce_url( add_query_arg( array_merge( $base, array( 'status' => self::STATUS_NEW ) ), admin_url( 'admin-post.php' ) ), 'thimbleform_set_entry_status_' . (int) $post->ID ) ),
+				esc_html__( 'Mark new', 'thimbleform' )
 			);
 		}
 
 		if ( self::STATUS_SPAM !== $status ) {
-			$actions['nestform_mark_spam'] = sprintf(
+			$actions['thimbleform_mark_spam'] = sprintf(
 				'<a href="%s">%s</a>',
-				esc_url( wp_nonce_url( add_query_arg( array_merge( $base, array( 'status' => self::STATUS_SPAM ) ), admin_url( 'admin-post.php' ) ), 'nestform_set_entry_status_' . (int) $post->ID ) ),
-				esc_html__( 'Spam', 'nestform' )
+				esc_url( wp_nonce_url( add_query_arg( array_merge( $base, array( 'status' => self::STATUS_SPAM ) ), admin_url( 'admin-post.php' ) ), 'thimbleform_set_entry_status_' . (int) $post->ID ) ),
+				esc_html__( 'Spam', 'thimbleform' )
 			);
 		} else {
-			$actions['nestform_mark_read'] = sprintf(
+			$actions['thimbleform_mark_read'] = sprintf(
 				'<a href="%s">%s</a>',
-				esc_url( wp_nonce_url( add_query_arg( array_merge( $base, array( 'status' => self::STATUS_READ ) ), admin_url( 'admin-post.php' ) ), 'nestform_set_entry_status_' . (int) $post->ID ) ),
-				esc_html__( 'Not spam', 'nestform' )
+				esc_url( wp_nonce_url( add_query_arg( array_merge( $base, array( 'status' => self::STATUS_READ ) ), admin_url( 'admin-post.php' ) ), 'thimbleform_set_entry_status_' . (int) $post->ID ) ),
+				esc_html__( 'Not spam', 'thimbleform' )
 			);
 		}
 
-		if ( class_exists( 'Nestform_Entry_Print' ) ) {
-			$actions['nestform_print'] = sprintf(
+		if ( class_exists( 'Thimbleform_Entry_Print' ) ) {
+			$actions['thimbleform_print'] = sprintf(
 				'<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>',
-				esc_url( Nestform_Entry_Print::url( (int) $post->ID ) ),
-				esc_html__( 'Print', 'nestform' )
+				esc_url( Thimbleform_Entry_Print::url( (int) $post->ID ) ),
+				esc_html__( 'Print', 'thimbleform' )
 			);
 		}
 
 		$starred = self::is_starred( $post->ID );
-		$actions['nestform_star'] = sprintf(
+		$actions['thimbleform_star'] = sprintf(
 			'<a href="%s">%s</a>',
 			esc_url(
 				self::star_action_url(
@@ -2589,7 +2589,7 @@ class Nestform_Submissions {
 					)
 				)
 			),
-			$starred ? esc_html__( 'Unstar', 'nestform' ) : esc_html__( 'Star', 'nestform' )
+			$starred ? esc_html__( 'Unstar', 'thimbleform' ) : esc_html__( 'Star', 'thimbleform' )
 		);
 
 		return $actions;
@@ -2623,7 +2623,7 @@ class Nestform_Submissions {
 			return;
 		}
 		if ( self::STATUS_NEW === self::get_status( $post_id ) ) {
-			if ( class_exists( 'Nestform_Settings' ) && ! Nestform_Settings::auto_mark_read_enabled() ) {
+			if ( class_exists( 'Thimbleform_Settings' ) && ! Thimbleform_Settings::auto_mark_read_enabled() ) {
 				return;
 			}
 			self::set_status( $post_id, self::STATUS_READ );
@@ -2635,9 +2635,9 @@ class Nestform_Submissions {
 	 * @return array
 	 */
 	public static function bulk_actions( $actions ) {
-		$actions['nestform_mark_read'] = __( 'Mark as read', 'nestform' );
-		$actions['nestform_mark_new']  = __( 'Mark as new', 'nestform' );
-		$actions['nestform_mark_spam'] = __( 'Mark as spam', 'nestform' );
+		$actions['thimbleform_mark_read'] = __( 'Mark as read', 'thimbleform' );
+		$actions['thimbleform_mark_new']  = __( 'Mark as new', 'thimbleform' );
+		$actions['thimbleform_mark_spam'] = __( 'Mark as spam', 'thimbleform' );
 		return $actions;
 	}
 
@@ -2649,9 +2649,9 @@ class Nestform_Submissions {
 	 */
 	public static function handle_bulk_actions( $redirect, $action, $post_ids ) {
 		$map = array(
-			'nestform_mark_read' => self::STATUS_READ,
-			'nestform_mark_new'  => self::STATUS_NEW,
-			'nestform_mark_spam' => self::STATUS_SPAM,
+			'thimbleform_mark_read' => self::STATUS_READ,
+			'thimbleform_mark_new'  => self::STATUS_NEW,
+			'thimbleform_mark_spam' => self::STATUS_SPAM,
 		);
 		if ( ! isset( $map[ $action ] ) ) {
 			return $redirect;
@@ -2666,14 +2666,14 @@ class Nestform_Submissions {
 				++$updated;
 			}
 		}
-		return add_query_arg( 'nestform_status_updated', $updated, $redirect );
+		return add_query_arg( 'thimbleform_status_updated', $updated, $redirect );
 	}
 
 	public static function bulk_admin_notice() {
-		if ( ! isset( $_GET['nestform_status_updated'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! isset( $_GET['thimbleform_status_updated'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return;
 		}
-		$count = (int) $_GET['nestform_status_updated']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$count = (int) $_GET['thimbleform_status_updated']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( $count <= 0 ) {
 			return;
 		}
@@ -2682,7 +2682,7 @@ class Nestform_Submissions {
 			esc_html(
 				sprintf(
 					/* translators: %d: number of entries */
-					_n( 'Updated status for %d entry.', 'Updated status for %d entries.', $count, 'nestform' ),
+					_n( 'Updated status for %d entry.', 'Updated status for %d entries.', $count, 'thimbleform' ),
 					$count
 				)
 			)
@@ -2692,15 +2692,15 @@ class Nestform_Submissions {
 	public static function handle_set_status() {
 		$entry_id    = isset( $_GET['entry_id'] ) ? (int) $_GET['entry_id'] : 0;
 		$status      = isset( $_GET['status'] ) ? sanitize_key( wp_unslash( $_GET['status'] ) ) : '';
-		$form_id     = isset( $_GET['nestform_form_id'] ) ? (int) $_GET['nestform_form_id'] : 0;
+		$form_id     = isset( $_GET['thimbleform_form_id'] ) ? (int) $_GET['thimbleform_form_id'] : 0;
 		$redirect_to = isset( $_GET['redirect_to'] ) ? sanitize_key( wp_unslash( $_GET['redirect_to'] ) ) : '';
 
 		if ( $entry_id <= 0 || self::POST_TYPE !== get_post_type( $entry_id ) ) {
-			wp_die( esc_html__( 'Invalid entry.', 'nestform' ), 400 );
+			wp_die( esc_html__( 'Invalid entry.', 'thimbleform' ), 400 );
 		}
-		check_admin_referer( 'nestform_set_entry_status_' . $entry_id );
+		check_admin_referer( 'thimbleform_set_entry_status_' . $entry_id );
 		if ( ! current_user_can( 'edit_post', $entry_id ) ) {
-			wp_die( esc_html__( 'You do not have permission to update this entry.', 'nestform' ), 403 );
+			wp_die( esc_html__( 'You do not have permission to update this entry.', 'thimbleform' ), 403 );
 		}
 		self::set_status( $entry_id, $status );
 
@@ -2721,14 +2721,14 @@ class Nestform_Submissions {
 
 	public static function handle_toggle_star() {
 		$entry_id = isset( $_GET['entry_id'] ) ? (int) $_GET['entry_id'] : 0;
-		$form_id  = isset( $_GET['nestform_form_id'] ) ? (int) $_GET['nestform_form_id'] : 0;
+		$form_id  = isset( $_GET['thimbleform_form_id'] ) ? (int) $_GET['thimbleform_form_id'] : 0;
 
 		if ( $entry_id <= 0 || self::POST_TYPE !== get_post_type( $entry_id ) ) {
-			wp_die( esc_html__( 'Invalid entry.', 'nestform' ), 400 );
+			wp_die( esc_html__( 'Invalid entry.', 'thimbleform' ), 400 );
 		}
-		check_admin_referer( 'nestform_toggle_entry_star_' . $entry_id );
+		check_admin_referer( 'thimbleform_toggle_entry_star_' . $entry_id );
 		if ( ! current_user_can( 'edit_post', $entry_id ) ) {
-			wp_die( esc_html__( 'You do not have permission to update this entry.', 'nestform' ), 403 );
+			wp_die( esc_html__( 'You do not have permission to update this entry.', 'thimbleform' ), 403 );
 		}
 
 		self::set_starred( $entry_id, ! self::is_starred( $entry_id ) );
@@ -2755,21 +2755,21 @@ class Nestform_Submissions {
 		$entry_id = isset( $_POST['entry_id'] ) ? (int) $_POST['entry_id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		if ( $entry_id <= 0 || self::POST_TYPE !== get_post_type( $entry_id ) ) {
-			wp_die( esc_html__( 'Invalid entry.', 'nestform' ), 400 );
+			wp_die( esc_html__( 'Invalid entry.', 'thimbleform' ), 400 );
 		}
-		check_admin_referer( 'nestform_save_entry_notes_' . $entry_id );
+		check_admin_referer( 'thimbleform_save_entry_notes_' . $entry_id );
 		if ( ! current_user_can( 'edit_post', $entry_id ) ) {
-			wp_die( esc_html__( 'You do not have permission to update this entry.', 'nestform' ), 403 );
+			wp_die( esc_html__( 'You do not have permission to update this entry.', 'thimbleform' ), 403 );
 		}
 
-		$notes   = isset( $_POST['nestform_notes'] ) ? wp_unslash( $_POST['nestform_notes'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.NonceVerification.Missing
-		$starred = ! empty( $_POST['nestform_starred'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$notes   = isset( $_POST['thimbleform_notes'] ) ? wp_unslash( $_POST['thimbleform_notes'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.NonceVerification.Missing
+		$starred = ! empty( $_POST['thimbleform_starred'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		self::set_notes( $entry_id, $notes );
 		self::set_starred( $entry_id, $starred );
 
 		$edit = get_edit_post_link( $entry_id, 'raw' );
-		wp_safe_redirect( $edit ? add_query_arg( 'nestform_notes_saved', '1', $edit ) : self::hub_url() );
+		wp_safe_redirect( $edit ? add_query_arg( 'thimbleform_notes_saved', '1', $edit ) : self::hub_url() );
 		exit;
 	}
 
@@ -2786,25 +2786,25 @@ class Nestform_Submissions {
 			return $classes;
 		}
 		$status     = self::get_status( $post_id );
-		$classes[]  = 'nestform-entry--' . $status;
+		$classes[]  = 'thimbleform-entry--' . $status;
 		if ( self::is_starred( $post_id ) ) {
-			$classes[] = 'nestform-entry--starred';
+			$classes[] = 'thimbleform-entry--starred';
 		}
 		return $classes;
 	}
 
 	public static function meta_boxes() {
 		add_meta_box(
-			'nestform_entry_meta',
-			__( 'Entry details', 'nestform' ),
+			'thimbleform_entry_meta',
+			__( 'Entry details', 'thimbleform' ),
 			array( __CLASS__, 'render_meta_box' ),
 			self::POST_TYPE,
 			'side',
 			'high'
 		);
 		add_meta_box(
-			'nestform_entry_notes',
-			__( 'Notes & star', 'nestform' ),
+			'thimbleform_entry_notes',
+			__( 'Notes & star', 'thimbleform' ),
 			array( __CLASS__, 'render_notes_box' ),
 			self::POST_TYPE,
 			'side',
@@ -2817,7 +2817,7 @@ class Nestform_Submissions {
 	 */
 	public static function remove_default_boxes() {
 		$boxes = array(
-			'nestform_entry_payload',
+			'thimbleform_entry_payload',
 			'slugdiv',
 			'submitdiv',
 			'authordiv',
@@ -2846,11 +2846,11 @@ class Nestform_Submissions {
 			return;
 		}
 		?>
-		<div class="nestform-entry-main">
-			<div class="nestform-entry-main__head">
-				<h2 class="nestform-entry-main__title"><?php esc_html_e( 'Submission data', 'nestform' ); ?></h2>
+		<div class="thimbleform-entry-main">
+			<div class="thimbleform-entry-main__head">
+				<h2 class="thimbleform-entry-main__title"><?php esc_html_e( 'Submission data', 'thimbleform' ); ?></h2>
 			</div>
-			<div class="nestform-entry-main__body">
+			<div class="thimbleform-entry-main__body">
 				<?php self::render_payload_box( $post ); ?>
 			</div>
 		</div>
@@ -2870,20 +2870,20 @@ class Nestform_Submissions {
 			'redirect_to' => 'edit',
 		);
 		?>
-		<div class="nestform-entry-meta">
-			<div class="nestform-entry-meta__triage">
-				<p class="nestform-entry-meta__triage-label"><?php esc_html_e( 'Status', 'nestform' ); ?></p>
-				<span class="nestform-entry-status nestform-entry-status--<?php echo esc_attr( $status ); ?>"><?php echo esc_html( $labels[ $status ] ?? $status ); ?></span>
-				<div class="nestform-entry-meta__triage-actions">
+		<div class="thimbleform-entry-meta">
+			<div class="thimbleform-entry-meta__triage">
+				<p class="thimbleform-entry-meta__triage-label"><?php esc_html_e( 'Status', 'thimbleform' ); ?></p>
+				<span class="thimbleform-entry-status thimbleform-entry-status--<?php echo esc_attr( $status ); ?>"><?php echo esc_html( $labels[ $status ] ?? $status ); ?></span>
+				<div class="thimbleform-entry-meta__triage-actions">
 					<?php if ( self::STATUS_NEW === $status ) : ?>
-						<a class="nestform-btn nestform-btn--outline" href="<?php echo esc_url( self::status_action_url( $post->ID, self::STATUS_READ, $triage ) ); ?>"><?php esc_html_e( 'Mark read', 'nestform' ); ?></a>
+						<a class="thimbleform-btn thimbleform-btn--outline" href="<?php echo esc_url( self::status_action_url( $post->ID, self::STATUS_READ, $triage ) ); ?>"><?php esc_html_e( 'Mark read', 'thimbleform' ); ?></a>
 					<?php else : ?>
-						<a class="nestform-btn nestform-btn--outline" href="<?php echo esc_url( self::status_action_url( $post->ID, self::STATUS_NEW, $triage ) ); ?>"><?php esc_html_e( 'Mark new', 'nestform' ); ?></a>
+						<a class="thimbleform-btn thimbleform-btn--outline" href="<?php echo esc_url( self::status_action_url( $post->ID, self::STATUS_NEW, $triage ) ); ?>"><?php esc_html_e( 'Mark new', 'thimbleform' ); ?></a>
 					<?php endif; ?>
 					<?php if ( self::STATUS_SPAM !== $status ) : ?>
-						<a class="nestform-btn nestform-btn--outline" href="<?php echo esc_url( self::status_action_url( $post->ID, self::STATUS_SPAM, $triage ) ); ?>"><?php esc_html_e( 'Spam', 'nestform' ); ?></a>
+						<a class="thimbleform-btn thimbleform-btn--outline" href="<?php echo esc_url( self::status_action_url( $post->ID, self::STATUS_SPAM, $triage ) ); ?>"><?php esc_html_e( 'Spam', 'thimbleform' ); ?></a>
 					<?php else : ?>
-						<a class="nestform-btn nestform-btn--outline" href="<?php echo esc_url( self::status_action_url( $post->ID, self::STATUS_READ, $triage ) ); ?>"><?php esc_html_e( 'Not spam', 'nestform' ); ?></a>
+						<a class="thimbleform-btn thimbleform-btn--outline" href="<?php echo esc_url( self::status_action_url( $post->ID, self::STATUS_READ, $triage ) ); ?>"><?php esc_html_e( 'Not spam', 'thimbleform' ); ?></a>
 					<?php endif; ?>
 				</div>
 			</div>
@@ -2893,21 +2893,21 @@ class Nestform_Submissions {
 			 *
 			 * @param WP_Post $post Entry post.
 			 */
-			do_action( 'nestform_entry_meta_after_triage', $post );
+			do_action( 'thimbleform_entry_meta_after_triage', $post );
 			?>
-			<div class="nestform-entry-meta__rows">
-				<div class="nestform-entry-meta__row">
-					<span class="nestform-entry-meta__label"><?php esc_html_e( 'Entry ID', 'nestform' ); ?></span>
-					<span class="nestform-entry-meta__value"><?php echo (int) $post->ID; ?></span>
+			<div class="thimbleform-entry-meta__rows">
+				<div class="thimbleform-entry-meta__row">
+					<span class="thimbleform-entry-meta__label"><?php esc_html_e( 'Entry ID', 'thimbleform' ); ?></span>
+					<span class="thimbleform-entry-meta__value"><?php echo (int) $post->ID; ?></span>
 				</div>
-				<div class="nestform-entry-meta__row">
-					<span class="nestform-entry-meta__label"><?php esc_html_e( 'Submitted', 'nestform' ); ?></span>
-					<span class="nestform-entry-meta__value"><?php echo esc_html( class_exists( 'Nestform_Settings' ) ? Nestform_Settings::format_entry_datetime( $post ) : get_the_date( 'Y-m-d H:i:s', $post ) ); ?></span>
+				<div class="thimbleform-entry-meta__row">
+					<span class="thimbleform-entry-meta__label"><?php esc_html_e( 'Submitted', 'thimbleform' ); ?></span>
+					<span class="thimbleform-entry-meta__value"><?php echo esc_html( class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::format_entry_datetime( $post ) : get_the_date( 'Y-m-d H:i:s', $post ) ); ?></span>
 				</div>
 				<?php if ( $form_id > 0 ) : ?>
-					<div class="nestform-entry-meta__row">
-						<span class="nestform-entry-meta__label"><?php esc_html_e( 'Form', 'nestform' ); ?></span>
-						<span class="nestform-entry-meta__value">
+					<div class="thimbleform-entry-meta__row">
+						<span class="thimbleform-entry-meta__label"><?php esc_html_e( 'Form', 'thimbleform' ); ?></span>
+						<span class="thimbleform-entry-meta__value">
 							<?php
 							$edit_link = get_edit_post_link( $form_id );
 							$title     = get_the_title( $form_id );
@@ -2924,9 +2924,9 @@ class Nestform_Submissions {
 					</div>
 				<?php endif; ?>
 				<?php if ( $ip !== '' ) : ?>
-					<div class="nestform-entry-meta__row">
-						<span class="nestform-entry-meta__label"><?php esc_html_e( 'IP address', 'nestform' ); ?></span>
-						<span class="nestform-entry-meta__value"><code><?php echo esc_html( $ip ); ?></code></span>
+					<div class="thimbleform-entry-meta__row">
+						<span class="thimbleform-entry-meta__label"><?php esc_html_e( 'IP address', 'thimbleform' ); ?></span>
+						<span class="thimbleform-entry-meta__value"><code><?php echo esc_html( $ip ); ?></code></span>
 					</div>
 				<?php endif; ?>
 			</div>
@@ -2936,7 +2936,7 @@ class Nestform_Submissions {
 			 *
 			 * @param WP_Post $post Entry post.
 			 */
-			do_action( 'nestform_entry_meta_after', $post );
+			do_action( 'thimbleform_entry_meta_after', $post );
 			?>
 		</div>
 		<?php
@@ -2946,12 +2946,12 @@ class Nestform_Submissions {
 		if ( ! self::is_entry_edit_screen() ) {
 			return;
 		}
-		if ( empty( $_GET['nestform_notes_saved'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( empty( $_GET['thimbleform_notes_saved'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return;
 		}
 		printf(
 			'<div class="notice notice-success is-dismissible"><p>%s</p></div>',
-			esc_html__( 'Notes saved.', 'nestform' )
+			esc_html__( 'Notes saved.', 'thimbleform' )
 		);
 	}
 
@@ -2966,18 +2966,18 @@ class Nestform_Submissions {
 		if ( $post_id <= 0 || self::POST_TYPE !== get_post_type( $post_id ) ) {
 			return;
 		}
-		$form_id = 'nestform-entry-notes-form-' . $post_id;
+		$form_id = 'thimbleform-entry-notes-form-' . $post_id;
 		?>
 		<form
 			id="<?php echo esc_attr( $form_id ); ?>"
 			method="post"
 			action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"
-			class="nestform-entry-notes-form"
+			class="thimbleform-entry-notes-form"
 			hidden
 		>
-			<input type="hidden" name="action" value="nestform_save_entry_notes" />
+			<input type="hidden" name="action" value="thimbleform_save_entry_notes" />
 			<input type="hidden" name="entry_id" value="<?php echo (int) $post_id; ?>" />
-			<?php wp_nonce_field( 'nestform_save_entry_notes_' . (int) $post_id ); ?>
+			<?php wp_nonce_field( 'thimbleform_save_entry_notes_' . (int) $post_id ); ?>
 		</form>
 		<?php
 	}
@@ -2990,35 +2990,35 @@ class Nestform_Submissions {
 	public static function render_notes_box( $post ) {
 		$starred  = self::is_starred( $post->ID );
 		$notes    = self::get_notes( $post->ID );
-		$form_id  = 'nestform-entry-notes-form-' . (int) $post->ID;
-		$star_id  = 'nestform_starred_' . (int) $post->ID;
-		$notes_id = 'nestform_notes_' . (int) $post->ID;
+		$form_id  = 'thimbleform-entry-notes-form-' . (int) $post->ID;
+		$star_id  = 'thimbleform_starred_' . (int) $post->ID;
+		$notes_id = 'thimbleform_notes_' . (int) $post->ID;
 		?>
-		<div class="nestform-entry-notes">
-			<label class="nestform-admin__check nestform-entry-notes__star" for="<?php echo esc_attr( $star_id ); ?>">
+		<div class="thimbleform-entry-notes">
+			<label class="thimbleform-admin__check thimbleform-entry-notes__star" for="<?php echo esc_attr( $star_id ); ?>">
 				<input
 					type="checkbox"
 					id="<?php echo esc_attr( $star_id ); ?>"
-					name="nestform_starred"
+					name="thimbleform_starred"
 					value="1"
 					form="<?php echo esc_attr( $form_id ); ?>"
 					<?php checked( $starred ); ?>
 				/>
-				<span><?php esc_html_e( 'Starred', 'nestform' ); ?></span>
+				<span><?php esc_html_e( 'Starred', 'thimbleform' ); ?></span>
 			</label>
-			<div class="nestform-entry-notes__field">
-				<label class="nestform-admin__label" for="<?php echo esc_attr( $notes_id ); ?>"><?php esc_html_e( 'Internal notes', 'nestform' ); ?></label>
+			<div class="thimbleform-entry-notes__field">
+				<label class="thimbleform-admin__label" for="<?php echo esc_attr( $notes_id ); ?>"><?php esc_html_e( 'Internal notes', 'thimbleform' ); ?></label>
 				<textarea
-					class="nestform-admin__input nestform-admin__textarea nestform-entry-notes__textarea"
+					class="thimbleform-admin__input thimbleform-admin__textarea thimbleform-entry-notes__textarea"
 					rows="5"
 					id="<?php echo esc_attr( $notes_id ); ?>"
-					name="nestform_notes"
+					name="thimbleform_notes"
 					form="<?php echo esc_attr( $form_id ); ?>"
 				><?php echo esc_textarea( $notes ); ?></textarea>
 			</div>
-			<button type="submit" class="nestform-btn nestform-btn--primary" form="<?php echo esc_attr( $form_id ); ?>">
-				<?php nestform_admin_icon( 'save' ); ?>
-				<?php esc_html_e( 'Save notes', 'nestform' ); ?>
+			<button type="submit" class="thimbleform-btn thimbleform-btn--primary" form="<?php echo esc_attr( $form_id ); ?>">
+				<?php thimbleform_admin_icon( 'save' ); ?>
+				<?php esc_html_e( 'Save notes', 'thimbleform' ); ?>
 			</button>
 		</div>
 		<?php
@@ -3032,11 +3032,11 @@ class Nestform_Submissions {
 		$data    = get_post_meta( $post->ID, self::META_DATA, true );
 
 		if ( ! is_array( $data ) || array() === $data ) {
-			echo '<p>' . esc_html__( 'No payload stored.', 'nestform' ) . '</p>';
+			echo '<p>' . esc_html__( 'No payload stored.', 'thimbleform' ) . '</p>';
 			return;
 		}
 
-		$fields = $form_id > 0 ? Nestform_Form_Config::get_fields( $form_id ) : array();
+		$fields = $form_id > 0 ? Thimbleform_Form_Config::get_fields( $form_id ) : array();
 		$labels = array();
 		$types  = array();
 		$order  = array();
@@ -3065,19 +3065,19 @@ class Nestform_Submissions {
 			}
 		}
 
-		echo '<table class="nestform-entry-payload">';
-		echo '<thead><tr><th>' . esc_html__( 'Field', 'nestform' ) . '</th><th>' . esc_html__( 'Value', 'nestform' ) . '</th></tr></thead><tbody>';
+		echo '<table class="thimbleform-entry-payload">';
+		echo '<thead><tr><th>' . esc_html__( 'Field', 'thimbleform' ) . '</th><th>' . esc_html__( 'Value', 'thimbleform' ) . '</th></tr></thead><tbody>';
 		foreach ( $rows as $key => $value ) {
 			$label   = $labels[ $key ] ?? (string) $key;
 			$key_s   = (string) $key;
 			$ftype   = $types[ $key_s ] ?? '';
 			if ( 'password' === $ftype || ( is_string( $value ) && '[redacted]' === $value ) ) {
-				$display = esc_html__( '[redacted]', 'nestform' );
+				$display = esc_html__( '[redacted]', 'thimbleform' );
 			} else {
 				$display = self::format_value( $value, false, $ftype );
 			}
 			echo '<tr>';
-			echo '<th scope="row"><span class="nestform-entry-payload__label" title="' . esc_attr( $key_s ) . '">' . esc_html( $label ) . '</span>';
+			echo '<th scope="row"><span class="thimbleform-entry-payload__label" title="' . esc_attr( $key_s ) . '">' . esc_html( $label ) . '</span>';
 			if ( $label !== $key_s ) {
 				echo '<span class="screen-reader-text"> (' . esc_html( $key_s ) . ')</span>';
 			}
@@ -3087,7 +3087,7 @@ class Nestform_Submissions {
 			} elseif ( 'signature' === $ftype && is_array( $value ) && ! empty( $value['url'] ) ) {
 				echo $display; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built via format filter with esc_url.
 			} elseif ( is_array( $value ) && isset( $value[0] ) && is_array( $value[0] ) && ! empty( $value[0]['url'] ) ) {
-				echo '<ul class="nestform-entry-payload__files">';
+				echo '<ul class="thimbleform-entry-payload__files">';
 				foreach ( $value as $file_row ) {
 					if ( ! is_array( $file_row ) || empty( $file_row['url'] ) ) {
 						continue;

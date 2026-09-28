@@ -30,7 +30,7 @@ function snapPx(n) {
 			: acc
 	);
 	if (best === 8) {
-		return 'var(--nestform-radius)';
+		return 'var(--thimbleform-radius)';
 	}
 	if (best === 4) {
 		return '4px';
@@ -42,19 +42,19 @@ function transformRadiusValue(raw) {
 	let out = raw.trim();
 
 	out = out.replace(
-		/var\(--nestform-radius,\s*(?:6|10)px\)/g,
-		'var(--nestform-radius)'
+		/var\(--thimbleform-radius,\s*(?:6|10)px\)/g,
+		'var(--thimbleform-radius)'
 	);
 	out = out.replace(
-		/var\(--nestform-radius,\s*var\(--nestform-radius\)\)/g,
-		'var(--nestform-radius)'
+		/var\(--thimbleform-radius,\s*var\(--thimbleform-radius\)\)/g,
+		'var(--thimbleform-radius)'
 	);
 	out = out.replace(
-		/var\(--nestform-radius-sm,\s*4px\)/g,
-		'var(--nestform-radius-sm)'
+		/var\(--thimbleform-radius-sm,\s*4px\)/g,
+		'var(--thimbleform-radius-sm)'
 	);
 	out = out.replace(
-		/calc\(\s*var\(--nestform-radius\)\s*-\s*2px\s*\)/g,
+		/calc\(\s*var\(--thimbleform-radius\)\s*-\s*2px\s*\)/g,
 		'4px'
 	);
 	out = out.replace(
@@ -69,7 +69,7 @@ function transformRadiusValue(raw) {
 			return `0${suf}`;
 		}
 		if (n === 8) {
-			return `var(--nestform-radius)${suf}`;
+			return `var(--thimbleform-radius)${suf}`;
 		}
 		if (n === 4) {
 			return `4px${suf}`;

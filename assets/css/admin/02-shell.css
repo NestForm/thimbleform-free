@@ -1,32 +1,32 @@
-body.nestform-app-screen.nestform-license-screen #wpbody-content > .wrap,
-body.nestform-app-screen #wpbody-content > .wrap.nestform-hub,
-body.nestform-app-screen #wpbody-content > .wrap.nestform-dash,
-body.nestform-app-screen #wpbody-content > .wrap.nestform-settings,
-body.nestform-app-screen #wpbody-content > .wrap.nestform-integrations,
-body.nestform-app-screen #wpbody-content > .wrap.nestform-developers,
-body.nestform-app-screen #wpbody-content > .wrap.nestform-upgrade,
-body.nestform-app-screen #wpbody-content > .wrap.nestform-license,
-body.nestform-app-screen #wpbody-content > .wrap.nestform-admin,
-body.nestform-app-screen.nestform-entries-screen.edit-php
+body.thimbleform-app-screen.thimbleform-license-screen #wpbody-content > .wrap,
+body.thimbleform-app-screen #wpbody-content > .wrap.thimbleform-hub,
+body.thimbleform-app-screen #wpbody-content > .wrap.thimbleform-dash,
+body.thimbleform-app-screen #wpbody-content > .wrap.thimbleform-settings,
+body.thimbleform-app-screen #wpbody-content > .wrap.thimbleform-integrations,
+body.thimbleform-app-screen #wpbody-content > .wrap.thimbleform-developers,
+body.thimbleform-app-screen #wpbody-content > .wrap.thimbleform-upgrade,
+body.thimbleform-app-screen #wpbody-content > .wrap.thimbleform-license,
+body.thimbleform-app-screen #wpbody-content > .wrap.thimbleform-admin,
+body.thimbleform-app-screen.thimbleform-entries-screen.edit-php
     #wpbody-content
     > .wrap,
-body.nestform-app-screen.nestform-entries-screen.post-php
+body.thimbleform-app-screen.thimbleform-entries-screen.post-php
     #wpbody-content
     > .wrap {
     margin: 0;
     max-width: none;
 }
 
-.nestform-app {
+.thimbleform-app {
     display: flex;
     align-items: stretch;
     height: 100%;
     min-height: 0;
     overflow: hidden;
-    background: var(--nestform-canvas);
+    background: var(--thimbleform-canvas);
 }
 
-.nestform-app__sidebar {
+.thimbleform-app__sidebar {
     display: flex;
     flex-direction: column;
     width: 240px;
@@ -36,28 +36,28 @@ body.nestform-app-screen.nestform-entries-screen.post-php
     overflow-x: hidden;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: color-mix(in srgb, var(--nestform-muted) 35%, transparent)
+    scrollbar-color: color-mix(in srgb, var(--thimbleform-muted) 35%, transparent)
         transparent;
-    background: var(--nestform-surface);
-    border-right: 1px solid var(--nestform-border);
+    background: var(--thimbleform-surface);
+    border-right: 1px solid var(--thimbleform-border);
     transition: width 0.25s ease-in-out;
 }
 
-.nestform-app__sidebar::-webkit-scrollbar {
+.thimbleform-app__sidebar::-webkit-scrollbar {
     width: 3px;
     height: 3px;
 }
 
-.nestform-app__sidebar::-webkit-scrollbar-button,
-.nestform-app__sidebar::-webkit-scrollbar-button:single-button,
-.nestform-app__sidebar::-webkit-scrollbar-button:start,
-.nestform-app__sidebar::-webkit-scrollbar-button:end,
-.nestform-app__sidebar::-webkit-scrollbar-button:vertical:start:decrement,
-.nestform-app__sidebar::-webkit-scrollbar-button:vertical:end:increment,
-.nestform-app__sidebar::-webkit-scrollbar-button:vertical:start:increment,
-.nestform-app__sidebar::-webkit-scrollbar-button:vertical:end:decrement,
-.nestform-app__sidebar::-webkit-scrollbar-button:horizontal:start:decrement,
-.nestform-app__sidebar::-webkit-scrollbar-button:horizontal:end:increment {
+.thimbleform-app__sidebar::-webkit-scrollbar-button,
+.thimbleform-app__sidebar::-webkit-scrollbar-button:single-button,
+.thimbleform-app__sidebar::-webkit-scrollbar-button:start,
+.thimbleform-app__sidebar::-webkit-scrollbar-button:end,
+.thimbleform-app__sidebar::-webkit-scrollbar-button:vertical:start:decrement,
+.thimbleform-app__sidebar::-webkit-scrollbar-button:vertical:end:increment,
+.thimbleform-app__sidebar::-webkit-scrollbar-button:vertical:start:increment,
+.thimbleform-app__sidebar::-webkit-scrollbar-button:vertical:end:decrement,
+.thimbleform-app__sidebar::-webkit-scrollbar-button:horizontal:start:decrement,
+.thimbleform-app__sidebar::-webkit-scrollbar-button:horizontal:end:increment {
     display: block;
     width: 0 !important;
     height: 0 !important;
@@ -67,35 +67,35 @@ body.nestform-app-screen.nestform-entries-screen.post-php
     background: transparent !important;
 }
 
-.nestform-app__sidebar::-webkit-scrollbar-track {
+.thimbleform-app__sidebar::-webkit-scrollbar-track {
     margin: 0;
     background: transparent;
 }
 
-.nestform-app__sidebar::-webkit-scrollbar-corner {
+.thimbleform-app__sidebar::-webkit-scrollbar-corner {
     background: transparent;
 }
 
-.nestform-app__sidebar::-webkit-scrollbar-thumb {
+.thimbleform-app__sidebar::-webkit-scrollbar-thumb {
     border-radius: 999px;
-    background: color-mix(in srgb, var(--nestform-muted) 40%, transparent);
+    background: color-mix(in srgb, var(--thimbleform-muted) 40%, transparent);
 }
 
-.nestform-app__sidebar::-webkit-scrollbar-thumb:hover {
-    background: color-mix(in srgb, var(--nestform-muted) 58%, transparent);
+.thimbleform-app__sidebar::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--thimbleform-muted) 58%, transparent);
 }
 
-.nestform-app__brand {
+.thimbleform-app__brand {
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    gap: var(--nestform-space-2);
-    padding: var(--nestform-space-4);
-    border-bottom: 1px solid var(--nestform-border);
-    background: var(--nestform-surface);
+    gap: var(--thimbleform-space-2);
+    padding: var(--thimbleform-space-4);
+    border-bottom: 1px solid var(--thimbleform-border);
+    background: var(--thimbleform-surface);
 }
 
-.nestform-app__logo {
+.thimbleform-app__logo {
     display: block;
     width: 52px;
     height: 52px;
@@ -103,93 +103,93 @@ body.nestform-app-screen.nestform-entries-screen.post-php
     object-fit: contain;
 }
 
-.nestform-app__brand-copy {
+.thimbleform-app__brand-copy {
     min-width: 0;
 }
 
-.nestform-app__name {
+.thimbleform-app__name {
     font-weight: 700;
     font-size: 24px;
-    color: var(--nestform-ink);
+    color: var(--thimbleform-ink);
     letter-spacing: -0.03em;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
 }
 
-.nestform-app__name-accent {
-    color: var(--nestform-accent);
+.thimbleform-app__name-accent {
+    color: var(--thimbleform-accent);
 }
 
-.nestform-app__ver {
+.thimbleform-app__ver {
     display: inline-flex;
     align-items: center;
-    padding: 2px var(--nestform-space-1);
+    padding: 2px var(--thimbleform-space-1);
     border-radius: 999px;
-    background: var(--nestform-accent-soft);
-    color: var(--nestform-accent);
+    background: var(--thimbleform-accent-soft);
+    color: var(--thimbleform-accent);
     font-size: 10px;
     font-weight: 500;
     letter-spacing: 0.02em;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     margin-top: 2px;
 }
 
-.nestform-app__nav {
+.thimbleform-app__nav {
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
     gap: 0;
-    padding: var(--nestform-space-2);
+    padding: var(--thimbleform-space-2);
 }
 
-.nestform-app__nav-sep {
+.thimbleform-app__nav-sep {
     display: block;
     flex-shrink: 0;
     height: 1px;
-    margin: var(--nestform-space-2) var(--nestform-space-2);
+    margin: var(--thimbleform-space-2) var(--thimbleform-space-2);
     padding: 0;
     border: 0;
-    background: var(--nestform-border);
+    background: var(--thimbleform-border);
 }
 
-.nestform-app__nav-item {
+.thimbleform-app__nav-item {
     position: relative;
     display: flex;
     align-items: center;
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
     width: 100%;
     margin: 0;
-    padding: var(--nestform-space-2) var(--nestform-space-2)
-        var(--nestform-space-2) var(--nestform-space-4);
-    border-radius: var(--nestform-radius) !important;
-    color: var(--nestform-muted);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-2)
+        var(--thimbleform-space-2) var(--thimbleform-space-4);
+    border-radius: var(--thimbleform-radius) !important;
+    color: var(--thimbleform-muted);
     font-size: 14px;
     font-weight: 500;
     text-decoration: none;
     box-sizing: border-box;
-    transition: var(--nestform-transition);
-    min-height: var(--nestform-space-10);
+    transition: var(--thimbleform-transition);
+    min-height: var(--thimbleform-space-10);
 }
 
-.nestform-app__nav-item + .nestform-app__nav-item {
-    margin-top: var(--nestform-space-1);
+.thimbleform-app__nav-item + .thimbleform-app__nav-item {
+    margin-top: var(--thimbleform-space-1);
 }
 
-.nestform-app__nav-item:hover,
-.nestform-app__nav-item:focus {
-    color: var(--nestform-ink);
-    background: var(--nestform-hover);
+.thimbleform-app__nav-item:hover,
+.thimbleform-app__nav-item:focus {
+    color: var(--thimbleform-ink);
+    background: var(--thimbleform-hover);
     box-shadow: none;
 }
 
-.nestform-app__nav-item--active,
-.nestform-app__nav-item--active:hover,
-.nestform-app__nav-item--active:focus {
-    color: var(--nestform-accent-dark);
+.thimbleform-app__nav-item--active,
+.thimbleform-app__nav-item--active:hover,
+.thimbleform-app__nav-item--active:focus {
+    color: var(--thimbleform-accent-dark);
     background: var(--thimbleform-pro-soft);
     box-shadow: none;
 }
 
-.nestform-app__nav-item--active::before {
+.thimbleform-app__nav-item--active::before {
     content: "";
     position: absolute;
     left: 0;
@@ -197,10 +197,10 @@ body.nestform-app-screen.nestform-entries-screen.post-php
     bottom: 7px;
     width: 3px;
     border-radius: 0 4px 4px 0;
-    background: var(--nestform-accent);
+    background: var(--thimbleform-accent);
 }
 
-.nestform-app__nav-icon {
+.thimbleform-app__nav-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -210,23 +210,23 @@ body.nestform-app-screen.nestform-entries-screen.post-php
     color: inherit;
 }
 
-.nestform-app__nav-icon svg,
-.nestform-app__wp-icon svg,
-.nestform-app__sidebar-toggle-icon svg {
+.thimbleform-app__nav-icon svg,
+.thimbleform-app__wp-icon svg,
+.thimbleform-app__sidebar-toggle-icon svg {
     display: block;
     width: 16px;
     height: 16px;
 }
 
-.nestform-app__nav-count {
+.thimbleform-app__nav-count {
     margin-left: auto;
-    background: var(--nestform-accent);
-    color: var(--nestform-on-accent);
+    background: var(--thimbleform-accent);
+    color: var(--thimbleform-on-accent);
     border-radius: 100%;
     padding: 2px;
     font-size: 10px;
     font-weight: 600;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -234,516 +234,516 @@ body.nestform-app-screen.nestform-entries-screen.post-php
     margin: -2px 0 -2px auto;
 }
 
-.nestform-app__foot {
+.thimbleform-app__foot {
     display: flex;
     flex-direction: column;
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
     flex-shrink: 0;
-    margin: auto var(--nestform-space-2) var(--nestform-space-2);
-    padding: var(--nestform-space-2) 0 0;
-    border-top: 1px solid var(--nestform-border);
+    margin: auto var(--thimbleform-space-2) var(--thimbleform-space-2);
+    padding: var(--thimbleform-space-2) 0 0;
+    border-top: 1px solid var(--thimbleform-border);
 }
 
-.nestform-app__usage {
-    padding: var(--nestform-space-2);
-    background: var(--nestform-soft);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
+.thimbleform-app__usage {
+    padding: var(--thimbleform-space-2);
+    background: var(--thimbleform-soft);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
     box-sizing: border-box;
 }
 
-.nestform-app__usage-row {
+.thimbleform-app__usage-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    color: var(--nestform-faint);
+    color: var(--thimbleform-faint);
 }
 
-.nestform-app__usage-row strong {
-    color: var(--nestform-ink);
+.thimbleform-app__usage-row strong {
+    color: var(--thimbleform-ink);
     font-size: 12px;
     letter-spacing: 0;
     text-transform: none;
 }
 
-.nestform-app__usage-bar {
+.thimbleform-app__usage-bar {
     display: block;
     height: 6px;
-    margin: var(--nestform-space-2) 0 var(--nestform-space-2);
+    margin: var(--thimbleform-space-2) 0 var(--thimbleform-space-2);
     border-radius: 999px;
-    background: var(--nestform-border);
+    background: var(--thimbleform-border);
     overflow: hidden;
 }
 
-.nestform-app__usage-fill {
+.thimbleform-app__usage-fill {
     display: block;
     height: 100%;
     border-radius: inherit;
-    background: var(--nestform-accent);
+    background: var(--thimbleform-accent);
 }
 
-.nestform-app__usage-fill.is-full {
-    background: var(--nestform-warn);
+.thimbleform-app__usage-fill.is-full {
+    background: var(--thimbleform-warn);
 }
 
-.nestform-app__usage-hint {
+.thimbleform-app__usage-hint {
     display: block;
     font-size: 10px;
     font-weight: 600;
-    color: var(--nestform-muted);
+    color: var(--thimbleform-muted);
 }
 
-.nestform-icon-pro,
-.nestform-icon-crown,
-.nestform-app__pro-kicker svg,
+.thimbleform-icon-pro,
+.thimbleform-icon-crown,
+.thimbleform-app__pro-kicker svg,
 .thimbleform-pro-pill svg {
     color: var(--thimbleform-pro-gold);
 }
 
-.nestform-app__pro {
+.thimbleform-app__pro {
     display: flex;
     flex-direction: column;
-    gap: var(--nestform-space-2);
-    padding: var(--nestform-space-4);
-    border-radius: var(--nestform-radius);
+    gap: var(--thimbleform-space-2);
+    padding: var(--thimbleform-space-4);
+    border-radius: var(--thimbleform-radius);
     text-decoration: none;
     background: var(--thimbleform-pro-bg);
     background-image: var(--thimbleform-pro-image);
     box-sizing: border-box;
-    transition: var(--nestform-transition);
+    transition: var(--thimbleform-transition);
 }
 
-.nestform-app__pro:hover,
-.nestform-app__pro:focus {
+.thimbleform-app__pro:hover,
+.thimbleform-app__pro:focus {
     outline: none;
     filter: brightness(1.06);
-    border-radius: var(--nestform-radius);
+    border-radius: var(--thimbleform-radius);
     box-shadow: 0 1px 8px var(--thimbleform-pro-glow);
 }
 
-.nestform-app__pro-kicker {
+.thimbleform-app__pro-kicker {
     display: inline-flex;
     align-items: center;
-    gap: var(--nestform-space-2);
-    color: var(--nestform-on-accent);
+    gap: var(--thimbleform-space-2);
+    color: var(--thimbleform-on-accent);
     font-size: 13px;
     font-weight: 700;
     letter-spacing: -0.02em;
     text-transform: none;
 }
 
-.nestform-app__pro-kicker svg {
+.thimbleform-app__pro-kicker svg {
     width: 14px;
     height: 14px;
 }
 
-.nestform-app__pro-copy {
+.thimbleform-app__pro-copy {
     color: rgba(255, 255, 255, 0.82);
     font-size: 12px;
     font-weight: 500;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
 }
 
 .thimbleform-pro-cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
     width: 100%;
-    min-height: var(--nestform-control-h);
+    min-height: var(--thimbleform-control-h);
     margin: 0;
-    padding: var(--nestform-space-2) var(--nestform-space-4);
-    border: 1px solid var(--nestform-primary) !important;
-    border-radius: var(--nestform-radius);
-    background: var(--nestform-primary);
-    color: var(--nestform-on-accent);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-4);
+    border: 1px solid var(--thimbleform-primary) !important;
+    border-radius: var(--thimbleform-radius);
+    background: var(--thimbleform-primary);
+    color: var(--thimbleform-on-accent);
     font-size: 14px;
     font-weight: 600;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     text-decoration: none;
     box-sizing: border-box;
     box-shadow: none;
-    transition: var(--nestform-transition);
+    transition: var(--thimbleform-transition);
 }
 
 .thimbleform-pro-cta:hover,
 .thimbleform-pro-cta:focus {
-    background: var(--nestform-primary-hover);
-    border-color: var(--nestform-primary-hover);
-    color: var(--nestform-on-accent);
+    background: var(--thimbleform-primary-hover);
+    border-color: var(--thimbleform-primary-hover);
+    color: var(--thimbleform-on-accent);
     outline: none;
-    box-shadow: 0 1px 8px var(--nestform-accent-mid);
+    box-shadow: 0 1px 8px var(--thimbleform-accent-mid);
 }
 
-.nestform-app__pro-cta {
-    margin-top: var(--nestform-space-1);
+.thimbleform-app__pro-cta {
+    margin-top: var(--thimbleform-space-1);
 }
 
 .thimbleform-pro-pill {
     display: inline-flex;
     align-items: center;
-    gap: var(--nestform-space-1);
-    margin-left: var(--nestform-space-1);
-    padding: var(--nestform-space-1) var(--nestform-space-2);
+    gap: var(--thimbleform-space-1);
+    margin-left: var(--thimbleform-space-1);
+    padding: var(--thimbleform-space-1) var(--thimbleform-space-2);
     border-radius: 999px;
     background: var(--thimbleform-pro-bg);
     background-image: var(--thimbleform-pro-image);
-    color: var(--nestform-on-accent);
+    color: var(--thimbleform-on-accent);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.06em;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     vertical-align: middle;
 }
 
-.nestform-app__pro .thimbleform-pro-pill,
+.thimbleform-app__pro .thimbleform-pro-pill,
 .thimbleform-pro-modal__card .thimbleform-pro-pill,
-.nestform-upgrade__plan--pro .thimbleform-pro-pill,
-.nestform-dash__kpi--pro .thimbleform-pro-pill,
-.nestform-entries__stat--pro .thimbleform-pro-pill {
+.thimbleform-upgrade__plan--pro .thimbleform-pro-pill,
+.thimbleform-dash__kpi--pro .thimbleform-pro-pill,
+.thimbleform-entries__stat--pro .thimbleform-pro-pill {
     margin-left: 0;
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(147, 197, 253, 0.55);
-    color: var(--nestform-on-accent);
+    color: var(--thimbleform-on-accent);
 }
 
-.nestform-app__foot-grid {
+.thimbleform-app__foot-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
 }
 
-.nestform-app__foot-grid--compact {
+.thimbleform-app__foot-grid--compact {
     margin-top: 0;
 }
 
-.nestform-app__foot-card {
+.thimbleform-app__foot-card {
     display: flex;
     flex-direction: column;
-    gap: var(--nestform-space-2);
-    padding: var(--nestform-space-2);
-    background: var(--nestform-surface);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
+    gap: var(--thimbleform-space-2);
+    padding: var(--thimbleform-space-2);
+    background: var(--thimbleform-surface);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
     box-sizing: border-box;
 }
 
-.nestform-app__foot-card-head {
+.thimbleform-app__foot-card-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
 }
 
-.nestform-app__foot-card-title {
+.thimbleform-app__foot-card-title {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--nestform-faint);
+    color: var(--thimbleform-faint);
 }
 
-.nestform-app__foot-card-link {
+.thimbleform-app__foot-card-link {
     display: inline-flex;
     align-items: center;
     gap: 2px;
     font-size: 11px;
     font-weight: 600;
-    color: var(--nestform-accent);
+    color: var(--thimbleform-accent);
     text-decoration: none;
-    line-height: var(--nestform-line-height);
-    transition: var(--nestform-transition);
+    line-height: var(--thimbleform-line-height);
+    transition: var(--thimbleform-transition);
 }
 
-.nestform-app__foot-card-link:hover,
-.nestform-app__foot-card-link:focus {
-    color: var(--nestform-accent-dark);
+.thimbleform-app__foot-card-link:hover,
+.thimbleform-app__foot-card-link:focus {
+    color: var(--thimbleform-accent-dark);
     outline: none;
 }
 
-.nestform-app__foot-card-link svg {
+.thimbleform-app__foot-card-link svg {
     display: block;
     width: 14px;
     height: 14px;
 }
 
-.nestform-app__foot-cta {
+.thimbleform-app__foot-cta {
     display: flex;
     align-items: center;
-    gap: var(--nestform-space-2);
-    padding: var(--nestform-space-2) var(--nestform-space-4);
-    background: var(--nestform-accent-soft);
-    border: 1px solid var(--nestform-accent-line);
-    border-radius: var(--nestform-radius);
+    gap: var(--thimbleform-space-2);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-4);
+    background: var(--thimbleform-accent-soft);
+    border: 1px solid var(--thimbleform-accent-line);
+    border-radius: var(--thimbleform-radius);
     text-decoration: none;
-    color: var(--nestform-accent-dark);
+    color: var(--thimbleform-accent-dark);
     box-sizing: border-box;
-    transition: var(--nestform-transition);
+    transition: var(--thimbleform-transition);
 }
 
-.nestform-app__foot-cta:hover,
-.nestform-app__foot-cta:focus {
+.thimbleform-app__foot-cta:hover,
+.thimbleform-app__foot-cta:focus {
     outline: none;
     background: color-mix(
         in srgb,
-        var(--nestform-accent) 14%,
-        var(--nestform-surface)
+        var(--thimbleform-accent) 14%,
+        var(--thimbleform-surface)
     );
-    border-color: var(--nestform-accent);
+    border-color: var(--thimbleform-accent);
 }
 
-.nestform-app__foot-cta-count {
+.thimbleform-app__foot-cta-count {
     flex: 0 0 auto;
     font-size: 18px;
     font-weight: 700;
     letter-spacing: -0.03em;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     font-variant-numeric: tabular-nums;
-    color: var(--nestform-accent);
+    color: var(--thimbleform-accent);
 }
 
-.nestform-app__foot-cta-text {
+.thimbleform-app__foot-cta-text {
     min-width: 0;
     font-size: 12px;
     font-weight: 600;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
 }
 
-.nestform-app__foot-clear {
+.thimbleform-app__foot-clear {
     margin: 0;
-    padding: var(--nestform-space-1) 2px 2px;
+    padding: var(--thimbleform-space-1) 2px 2px;
     font-size: 11.5px;
     font-weight: 500;
-    color: var(--nestform-muted);
-    line-height: var(--nestform-line-height);
+    color: var(--thimbleform-muted);
+    line-height: var(--thimbleform-line-height);
 }
 
-.nestform-app__foot-cell {
+.thimbleform-app__foot-cell {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 2px;
     min-width: 0;
-    padding: var(--nestform-space-2);
-    background: var(--nestform-soft);
-    border: 1px solid var(--nestform-border);
+    padding: var(--thimbleform-space-2);
+    background: var(--thimbleform-soft);
+    border: 1px solid var(--thimbleform-border);
     border-radius: 4px !important;
     text-decoration: none;
     color: inherit;
     box-sizing: border-box;
-    transition: var(--nestform-transition);
+    transition: var(--thimbleform-transition);
 }
 
-.nestform-app__foot-cell:hover,
-.nestform-app__foot-cell:focus {
-    border-color: var(--nestform-hover-border);
-    background: var(--nestform-hover);
+.thimbleform-app__foot-cell:hover,
+.thimbleform-app__foot-cell:focus {
+    border-color: var(--thimbleform-hover-border);
+    background: var(--thimbleform-hover);
     outline: none;
     color: inherit;
     text-decoration: none;
 }
 
-.nestform-app__foot-cell--accent {
-    background: var(--nestform-accent-soft);
-    border-color: var(--nestform-accent-line);
+.thimbleform-app__foot-cell--accent {
+    background: var(--thimbleform-accent-soft);
+    border-color: var(--thimbleform-accent-line);
 }
 
-.nestform-app__foot-cell--accent:hover,
-.nestform-app__foot-cell--accent:focus {
+.thimbleform-app__foot-cell--accent:hover,
+.thimbleform-app__foot-cell--accent:focus {
     background: color-mix(
         in srgb,
-        var(--nestform-accent) 14%,
-        var(--nestform-surface)
+        var(--thimbleform-accent) 14%,
+        var(--thimbleform-surface)
     );
-    border-color: var(--nestform-accent);
+    border-color: var(--thimbleform-accent);
 }
 
-.nestform-app__foot-stat {
+.thimbleform-app__foot-stat {
     display: none;
 }
 
-.nestform-app__foot-val {
+.thimbleform-app__foot-val {
     display: block;
     font-size: 15px;
     font-weight: 700;
-    color: var(--nestform-ink);
+    color: var(--thimbleform-ink);
     letter-spacing: -0.03em;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     font-variant-numeric: tabular-nums;
 }
 
-.nestform-app__foot-cell--accent .nestform-app__foot-val,
-.nestform-app__foot-stat--new .nestform-app__foot-val {
-    color: var(--nestform-accent);
+.thimbleform-app__foot-cell--accent .thimbleform-app__foot-val,
+.thimbleform-app__foot-stat--new .thimbleform-app__foot-val {
+    color: var(--thimbleform-accent);
 }
 
-.nestform-app__foot-label {
+.thimbleform-app__foot-label {
     display: block;
     font-size: 9px;
-    color: var(--nestform-faint);
+    color: var(--thimbleform-faint);
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
 }
 
-.nestform-app__foot-cell--accent .nestform-app__foot-label,
-.nestform-app__foot-stat--new .nestform-app__foot-label {
+.thimbleform-app__foot-cell--accent .thimbleform-app__foot-label,
+.thimbleform-app__foot-stat--new .thimbleform-app__foot-label {
     color: color-mix(
         in srgb,
-        var(--nestform-accent) 72%,
-        var(--nestform-faint)
+        var(--thimbleform-accent) 72%,
+        var(--thimbleform-faint)
     );
 }
 
-.nestform-app__foot-hint {
+.thimbleform-app__foot-hint {
     margin: 0;
     padding: 0 2px;
     font-size: 10px;
     font-weight: 500;
-    color: var(--nestform-faint);
-    line-height: var(--nestform-line-height);
+    color: var(--thimbleform-faint);
+    line-height: var(--thimbleform-line-height);
 }
 
-.nestform-app__wp {
+.thimbleform-app__wp {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--nestform-space-2);
-    min-height: var(--nestform-control-h);
-    margin: var(--nestform-space-2) var(--nestform-space-2)
-        var(--nestform-space-2);
-    padding: var(--nestform-space-2) var(--nestform-space-4);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius) !important;
+    gap: var(--thimbleform-space-2);
+    min-height: var(--thimbleform-control-h);
+    margin: var(--thimbleform-space-2) var(--thimbleform-space-2)
+        var(--thimbleform-space-2);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-4);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius) !important;
     background: transparent;
     box-sizing: border-box;
     font-size: 14px;
     font-weight: 500;
-    line-height: var(--nestform-line-height);
-    color: var(--nestform-muted);
+    line-height: var(--thimbleform-line-height);
+    color: var(--thimbleform-muted);
     text-decoration: none;
     box-shadow: none;
-    transition: var(--nestform-transition);
+    transition: var(--thimbleform-transition);
 }
 
-.nestform-app__wp-icon {
+.thimbleform-app__wp-icon {
     display: inline-flex;
     flex-shrink: 0;
-    color: var(--nestform-faint);
-    transition: var(--nestform-transition);
+    color: var(--thimbleform-faint);
+    transition: var(--thimbleform-transition);
 }
 
-.nestform-app__wp:hover,
-.nestform-app__wp:focus {
-    color: var(--nestform-accent-dark);
-    background: var(--nestform-surface);
-    border-color: var(--nestform-hover-border);
+.thimbleform-app__wp:hover,
+.thimbleform-app__wp:focus {
+    color: var(--thimbleform-accent-dark);
+    background: var(--thimbleform-surface);
+    border-color: var(--thimbleform-hover-border);
     outline: none;
     text-decoration: none;
-    box-shadow: var(--nestform-shadow);
+    box-shadow: var(--thimbleform-shadow);
 }
 
-.nestform-app__wp:hover .nestform-app__wp-icon,
-.nestform-app__wp:focus .nestform-app__wp-icon {
-    color: var(--nestform-accent);
+.thimbleform-app__wp:hover .thimbleform-app__wp-icon,
+.thimbleform-app__wp:focus .thimbleform-app__wp-icon {
+    color: var(--thimbleform-accent);
 }
 
-.nestform-app__sidebar-toggle {
+.thimbleform-app__sidebar-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--nestform-space-2);
-    min-height: var(--nestform-control-h);
-    margin: 0 var(--nestform-space-2);
-    padding: var(--nestform-space-2) var(--nestform-space-4);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
+    gap: var(--thimbleform-space-2);
+    min-height: var(--thimbleform-control-h);
+    margin: 0 var(--thimbleform-space-2);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-4);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
     background: transparent;
-    color: var(--nestform-muted);
+    color: var(--thimbleform-muted);
     font-size: 14px;
     font-weight: 500;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     cursor: pointer;
     box-sizing: border-box;
     box-shadow: none;
-    transition: var(--nestform-transition);
+    transition: var(--thimbleform-transition);
 }
 
-.nestform-app__sidebar-toggle:hover,
-.nestform-app__sidebar-toggle:focus {
-    color: var(--nestform-accent-dark);
-    background: var(--nestform-surface);
-    border-color: var(--nestform-hover-border);
+.thimbleform-app__sidebar-toggle:hover,
+.thimbleform-app__sidebar-toggle:focus {
+    color: var(--thimbleform-accent-dark);
+    background: var(--thimbleform-surface);
+    border-color: var(--thimbleform-hover-border);
     outline: none;
-    box-shadow: var(--nestform-shadow);
+    box-shadow: var(--thimbleform-shadow);
 }
 
-.nestform-app__sidebar-toggle-icon {
+.thimbleform-app__sidebar-toggle-icon {
     display: inline-flex;
     flex-shrink: 0;
     transition: transform 0.25s ease-in-out;
 }
 
-.nestform-app__sidebar-toggle-label {
+.thimbleform-app__sidebar-toggle-label {
     white-space: nowrap;
 }
 
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__sidebar {
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__sidebar {
     width: 56px;
 }
 
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__brand {
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__brand {
     justify-content: center;
-    padding: var(--nestform-space-4) var(--nestform-space-2);
+    padding: var(--thimbleform-space-4) var(--thimbleform-space-2);
     gap: 0;
 }
 
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__logo {
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__logo {
     width: 36px;
     height: 36px;
 }
 
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__brand-copy,
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__nav-label,
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__sidebar-toggle-label,
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__wp-label,
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__foot {
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__brand-copy,
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__nav-label,
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__sidebar-toggle-label,
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__wp-label,
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__foot {
     display: none;
 }
 
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__nav {
-    padding: var(--nestform-space-2);
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__nav {
+    padding: var(--thimbleform-space-2);
 }
 
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__nav-sep {
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__nav-sep {
     display: none;
 }
 
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__nav-item {
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__nav-item {
     justify-content: center;
     gap: 0;
-    padding: var(--nestform-space-2) 0;
+    padding: var(--thimbleform-space-2) 0;
     margin: 0;
 }
 
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app)
-    .nestform-app__nav-item
-    + .nestform-app__nav-item {
-    margin-top: var(--nestform-space-1);
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app)
+    .thimbleform-app__nav-item
+    + .thimbleform-app__nav-item {
+    margin-top: var(--thimbleform-space-1);
 }
 
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__nav-item--active::before {
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__nav-item--active::before {
     top: 8px;
     bottom: 8px;
 }
 
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__nav-count {
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__nav-count {
     position: absolute;
     top: 4px;
     right: 4px;
@@ -752,7 +752,7 @@ body.nestform-app-screen.nestform-entries-screen.post-php
     min-height: 16px;
     border-radius: 999px;
     font-size: 9px;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     animation: none;
     display: flex;
     align-items: center;
@@ -760,127 +760,127 @@ body.nestform-app-screen.nestform-entries-screen.post-php
     padding: 0;
 }
 
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__sidebar-toggle {
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__sidebar-toggle {
     width: calc(100% - 16px);
-    min-height: var(--nestform-control-h);
-    margin: auto var(--nestform-space-2) 0;
-    padding: var(--nestform-space-2);
+    min-height: var(--thimbleform-control-h);
+    margin: auto var(--thimbleform-space-2) 0;
+    padding: var(--thimbleform-space-2);
 }
 
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__sidebar-toggle-icon {
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__sidebar-toggle-icon {
     transform: rotate(180deg);
 }
 
-:is(.nestform-app--sidebar-collapsed, html.nestform-sidebar-collapsed .nestform-app) .nestform-app__wp {
+:is(.thimbleform-app--sidebar-collapsed, html.thimbleform-sidebar-collapsed .thimbleform-app) .thimbleform-app__wp {
     width: calc(100% - 16px);
-    min-height: var(--nestform-control-h);
-    margin: var(--nestform-space-2);
-    padding: var(--nestform-space-2);
+    min-height: var(--thimbleform-control-h);
+    margin: var(--thimbleform-space-2);
+    padding: var(--thimbleform-space-2);
     gap: 0;
 }
 
-.nestform-app__main {
+.thimbleform-app__main {
     flex: 1;
     min-width: 0;
     min-height: 0;
     height: 100%;
     overflow: auto;
-    padding: var(--nestform-space-4) var(--nestform-space-6)
-        var(--nestform-space-12);
+    padding: var(--thimbleform-space-4) var(--thimbleform-space-6)
+        var(--thimbleform-space-12);
     box-sizing: border-box;
 }
 
-.nestform-page-head {
+.thimbleform-page-head {
     position: relative;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: var(--nestform-space-4);
-    margin: 0 0 var(--nestform-space-6);
-    padding: var(--nestform-space-4);
-    background: var(--nestform-surface);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
+    gap: var(--thimbleform-space-4);
+    margin: 0 0 var(--thimbleform-space-6);
+    padding: var(--thimbleform-space-4);
+    background: var(--thimbleform-surface);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
     box-sizing: border-box;
 }
 
-.nestform-page-head__lead {
+.thimbleform-page-head__lead {
     display: flex;
     align-items: center;
-    gap: var(--nestform-space-4);
+    gap: var(--thimbleform-space-4);
     min-width: 0;
     flex: 1 1 240px;
 }
 
-.nestform-page-head__icon {
+.thimbleform-page-head__icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex: 0 0 auto;
     width: 42px;
     height: 42px;
-    border-radius: var(--nestform-radius);
-    background: var(--nestform-accent-soft);
-    border: 1px solid var(--nestform-accent-line);
-    color: var(--nestform-accent);
+    border-radius: var(--thimbleform-radius);
+    background: var(--thimbleform-accent-soft);
+    border: 1px solid var(--thimbleform-accent-line);
+    color: var(--thimbleform-accent);
     box-sizing: border-box;
 }
 
-.nestform-page-head__icon svg {
+.thimbleform-page-head__icon svg {
     display: block;
     width: 18px;
     height: 18px;
 }
 
-.nestform-page-head__copy {
+.thimbleform-page-head__copy {
     min-width: 0;
     flex: 1 1 auto;
 }
 
-h1.nestform-page-head__title {
+h1.thimbleform-page-head__title {
     margin: 0;
     padding: 0;
     font-size: 20px;
     font-weight: 700;
-    color: var(--nestform-ink);
+    color: var(--thimbleform-ink);
     letter-spacing: -0.03em;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
 }
 
-.nestform-page-head__desc {
+.thimbleform-page-head__desc {
     margin: 0;
     max-width: 74ch;
     font-size: 13px;
-    line-height: var(--nestform-line-height);
-    color: var(--nestform-muted);
+    line-height: var(--thimbleform-line-height);
+    color: var(--thimbleform-muted);
 }
 
-.nestform-page-head__actions {
+.thimbleform-page-head__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
     align-items: center;
     flex: 0 0 auto;
     overflow: visible;
 }
 
-.nestform-page-head__aside {
+.thimbleform-page-head__aside {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
-    gap: var(--nestform-space-4);
+    gap: var(--thimbleform-space-4);
     flex: 0 1 auto;
     min-width: 0;
 }
 
-.nestform-page-head__meta {
+.thimbleform-page-head__meta {
     min-width: 0;
     max-width: min(320px, 100%);
 }
 
-.nestform-entries-insights {
+.thimbleform-entries-insights {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -888,81 +888,81 @@ h1.nestform-page-head__title {
     text-align: right;
 }
 
-.nestform-entries-insights__domain {
+.thimbleform-entries-insights__domain {
     font-size: 16px;
     font-weight: 700;
     letter-spacing: -0.02em;
-    color: var(--nestform-ink);
-    line-height: var(--nestform-line-height);
+    color: var(--thimbleform-ink);
+    line-height: var(--thimbleform-line-height);
 }
 
-.nestform-entries-insights__label {
+.thimbleform-entries-insights__label {
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--nestform-faint);
+    color: var(--thimbleform-faint);
 }
 
-.nestform-entries-insights__extra {
+.thimbleform-entries-insights__extra {
     font-size: 11px;
     font-weight: 500;
-    line-height: var(--nestform-line-height);
-    color: var(--nestform-muted);
+    line-height: var(--thimbleform-line-height);
+    color: var(--thimbleform-muted);
 }
 
-.nestform-page-head__actions .nestform-export-menu {
+.thimbleform-page-head__actions .thimbleform-export-menu {
     z-index: 2;
 }
 
-.nestform-page-head__actions .nestform-export-menu__panel {
+.thimbleform-page-head__actions .thimbleform-export-menu__panel {
     z-index: 40;
 }
 
-.nestform-hub__import {
+.thimbleform-hub__import {
     display: inline-flex;
     margin: 0;
 }
 
-.nestform-hub__import-menu {
+.thimbleform-hub__import-menu {
     position: relative;
     display: inline-flex;
 }
 
-.nestform-hub__import-panel {
+.thimbleform-hub__import-panel {
     position: absolute;
-    top: calc(100% + var(--nestform-space-1));
+    top: calc(100% + var(--thimbleform-space-1));
     right: 0;
     z-index: 30;
     display: flex;
     flex-direction: column;
-    gap: var(--nestform-space-1);
+    gap: var(--thimbleform-space-1);
     min-width: 220px;
-    padding: var(--nestform-space-2);
-    background: var(--nestform-surface);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
-    box-shadow: var(--nestform-shadow-md);
+    padding: var(--thimbleform-space-2);
+    background: var(--thimbleform-surface);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
+    box-shadow: var(--thimbleform-shadow-md);
 }
 
-.nestform-hub__import-panel[hidden] {
+.thimbleform-hub__import-panel[hidden] {
     display: none !important;
 }
 
-.nestform-hub__import-panel .nestform-hub__import,
-.nestform-hub__import-panel .nestform-hub__import-item,
-.nestform-hub__import-panel .nestform-hub__import-label {
+.thimbleform-hub__import-panel .thimbleform-hub__import,
+.thimbleform-hub__import-panel .thimbleform-hub__import-item,
+.thimbleform-hub__import-panel .thimbleform-hub__import-label {
     width: 100%;
     justify-content: flex-start;
 }
 
-.nestform-hub__import-label {
+.thimbleform-hub__import-label {
     position: relative;
     overflow: hidden;
     cursor: pointer;
 }
 
-.nestform-hub__import-file {
+.thimbleform-hub__import-file {
     position: absolute;
     inset: 0;
     opacity: 0;
@@ -970,22 +970,22 @@ h1.nestform-page-head__title {
     font-size: 0;
 }
 
-body.nestform-admin-screen .wp-header-end {
+body.thimbleform-admin-screen .wp-header-end {
     display: none;
 }
 
 /* Core update nags clutter Thimbleform chrome — keep them on other admin screens. */
-body.nestform-admin-screen .update-nag,
-body.nestform-admin-screen div.notice.update-nag,
-body.nestform-editor-app .update-nag,
-body.nestform-editor-app div.notice.update-nag {
+body.thimbleform-admin-screen .update-nag,
+body.thimbleform-admin-screen div.notice.update-nag,
+body.thimbleform-editor-app .update-nag,
+body.thimbleform-editor-app div.notice.update-nag {
     display: none !important;
 }
 
-body.nestform-admin-screen
+body.thimbleform-admin-screen
     div.notice:not(.inline):not(.hidden):not(.update-nag),
-body.nestform-admin-screen div.updated:not(.inline):not(.hidden),
-body.nestform-admin-screen div.error:not(.inline):not(.hidden) {
+body.thimbleform-admin-screen div.updated:not(.inline):not(.hidden),
+body.thimbleform-admin-screen div.error:not(.inline):not(.hidden) {
     position: fixed !important;
     top: auto !important;
     right: 0 !important;
@@ -994,25 +994,25 @@ body.nestform-admin-screen div.error:not(.inline):not(.hidden) {
     z-index: 100000 !important;
     width: min(440px, calc(100vw - 248px)) !important;
     margin: 0 auto !important;
-    padding: var(--nestform-space-2) var(--nestform-space-10)
-        var(--nestform-space-2) var(--nestform-space-4);
-    border: 1px solid var(--nestform-accent-line);
-    border-radius: var(--nestform-radius);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-10)
+        var(--thimbleform-space-2) var(--thimbleform-space-4);
+    border: 1px solid var(--thimbleform-accent-line);
+    border-radius: var(--thimbleform-radius);
     background: var(--thimbleform-pro-soft);
-    box-shadow: var(--nestform-shadow-md);
-    color: var(--nestform-accent-dark);
+    box-shadow: var(--thimbleform-shadow-md);
+    color: var(--thimbleform-accent-dark);
     font-size: 13px;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     box-sizing: border-box;
 }
 
-body.nestform-editor-app div.notice:not(.inline):not(.hidden):not(.update-nag),
-body.nestform-editor-app div.updated:not(.inline):not(.hidden),
-body.nestform-editor-app div.error:not(.inline):not(.hidden) {
+body.thimbleform-editor-app div.notice:not(.inline):not(.hidden):not(.update-nag),
+body.thimbleform-editor-app div.updated:not(.inline):not(.hidden),
+body.thimbleform-editor-app div.error:not(.inline):not(.hidden) {
     right: 240px !important;
 }
 
-.nestform-toasts {
+.thimbleform-toasts {
     position: fixed;
     left: 200px;
     right: 0;
@@ -1021,21 +1021,21 @@ body.nestform-editor-app div.error:not(.inline):not(.hidden) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
     pointer-events: none;
 }
 
-body.nestform-editor-app .nestform-toasts {
+body.thimbleform-editor-app .thimbleform-toasts {
     right: 240px;
 }
 
 @media screen and (max-width: 782px) {
-    body.nestform-admin-screen
+    body.thimbleform-admin-screen
         div.notice:not(.inline):not(.hidden):not(.update-nag),
-    body.nestform-admin-screen div.updated:not(.inline):not(.hidden),
-    body.nestform-admin-screen div.error:not(.inline):not(.hidden),
-    .nestform-toasts,
-    body.nestform-editor-app .nestform-toasts {
+    body.thimbleform-admin-screen div.updated:not(.inline):not(.hidden),
+    body.thimbleform-admin-screen div.error:not(.inline):not(.hidden),
+    .thimbleform-toasts,
+    body.thimbleform-editor-app .thimbleform-toasts {
         left: 16px !important;
         right: 16px !important;
         bottom: 16px;
@@ -1043,21 +1043,21 @@ body.nestform-editor-app .nestform-toasts {
     }
 }
 
-.nestform-toasts .notice,
-.nestform-toasts div.updated,
-.nestform-toasts div.error,
-body.nestform-admin-screen
-    .nestform-toasts
+.thimbleform-toasts .notice,
+.thimbleform-toasts div.updated,
+.thimbleform-toasts div.error,
+body.thimbleform-admin-screen
+    .thimbleform-toasts
     div.notice:not(.inline):not(.hidden):not(.update-nag),
-body.nestform-admin-screen
-    .nestform-toasts
+body.thimbleform-admin-screen
+    .thimbleform-toasts
     div.updated:not(.inline):not(.hidden),
-body.nestform-admin-screen .nestform-toasts div.error:not(.inline):not(.hidden),
-body.nestform-editor-app
-    .nestform-toasts
+body.thimbleform-admin-screen .thimbleform-toasts div.error:not(.inline):not(.hidden),
+body.thimbleform-editor-app
+    .thimbleform-toasts
     div.notice:not(.inline):not(.hidden):not(.update-nag),
-body.nestform-editor-app .nestform-toasts div.updated:not(.inline):not(.hidden),
-body.nestform-editor-app .nestform-toasts div.error:not(.inline):not(.hidden) {
+body.thimbleform-editor-app .thimbleform-toasts div.updated:not(.inline):not(.hidden),
+body.thimbleform-editor-app .thimbleform-toasts div.error:not(.inline):not(.hidden) {
     position: relative !important;
     left: auto !important;
     right: auto !important;
@@ -1069,13 +1069,13 @@ body.nestform-editor-app .nestform-toasts div.error:not(.inline):not(.hidden) {
     margin: 0 !important;
 }
 
-.nestform-toasts .notice.is-leaving,
-.nestform-toasts div.updated.is-leaving,
-.nestform-toasts div.error.is-leaving {
-    animation: nestform-toast-out 0.22s ease forwards;
+.thimbleform-toasts .notice.is-leaving,
+.thimbleform-toasts div.updated.is-leaving,
+.thimbleform-toasts div.error.is-leaving {
+    animation: thimbleform-toast-out 0.22s ease forwards;
 }
 
-@keyframes nestform-toast-out {
+@keyframes thimbleform-toast-out {
     from {
         opacity: 1;
         transform: translateY(0);
@@ -1086,73 +1086,73 @@ body.nestform-editor-app .nestform-toasts div.error:not(.inline):not(.hidden) {
     }
 }
 
-body.nestform-admin-screen .notice p,
-body.nestform-admin-screen div.updated p,
-body.nestform-admin-screen div.error p {
+body.thimbleform-admin-screen .notice p,
+body.thimbleform-admin-screen div.updated p,
+body.thimbleform-admin-screen div.error p {
     margin: 0;
     padding: 0;
     font-size: 13px;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     color: inherit;
 }
 
-body.nestform-admin-screen .notice a,
-body.nestform-admin-screen div.updated a {
-    color: var(--nestform-accent);
+body.thimbleform-admin-screen .notice a,
+body.thimbleform-admin-screen div.updated a {
+    color: var(--thimbleform-accent);
     font-weight: 600;
     text-decoration: none;
 }
 
-body.nestform-admin-screen .notice a:hover,
-body.nestform-admin-screen .notice a:focus,
-body.nestform-admin-screen div.updated a:hover,
-body.nestform-admin-screen div.updated a:focus {
-    color: var(--nestform-accent-dark);
+body.thimbleform-admin-screen .notice a:hover,
+body.thimbleform-admin-screen .notice a:focus,
+body.thimbleform-admin-screen div.updated a:hover,
+body.thimbleform-admin-screen div.updated a:focus {
+    color: var(--thimbleform-accent-dark);
     text-decoration: underline;
 }
 
-body.nestform-admin-screen div.notice.notice-success:not(.inline):not(.hidden),
-body.nestform-admin-screen div.updated:not(.inline):not(.hidden),
-body.nestform-admin-screen div.notice.updated:not(.inline):not(.hidden) {
-    background: var(--nestform-ok-soft) !important;
-    border-color: var(--nestform-ok-border) !important;
-    color: var(--nestform-ok) !important;
+body.thimbleform-admin-screen div.notice.notice-success:not(.inline):not(.hidden),
+body.thimbleform-admin-screen div.updated:not(.inline):not(.hidden),
+body.thimbleform-admin-screen div.notice.updated:not(.inline):not(.hidden) {
+    background: var(--thimbleform-ok-soft) !important;
+    border-color: var(--thimbleform-ok-border) !important;
+    color: var(--thimbleform-ok) !important;
 }
 
-body.nestform-admin-screen div.notice.notice-warning:not(.inline):not(.hidden) {
-    background: var(--nestform-warn-soft) !important;
-    border-color: var(--nestform-warn-border) !important;
-    color: var(--nestform-warn) !important;
+body.thimbleform-admin-screen div.notice.notice-warning:not(.inline):not(.hidden) {
+    background: var(--thimbleform-warn-soft) !important;
+    border-color: var(--thimbleform-warn-border) !important;
+    color: var(--thimbleform-warn) !important;
 }
 
-body.nestform-admin-screen div.notice.notice-error:not(.inline):not(.hidden),
-body.nestform-admin-screen div.error:not(.inline):not(.hidden) {
-    background: var(--nestform-danger-soft) !important;
-    border-color: var(--nestform-danger-border) !important;
-    color: var(--nestform-danger) !important;
+body.thimbleform-admin-screen div.notice.notice-error:not(.inline):not(.hidden),
+body.thimbleform-admin-screen div.error:not(.inline):not(.hidden) {
+    background: var(--thimbleform-danger-soft) !important;
+    border-color: var(--thimbleform-danger-border) !important;
+    color: var(--thimbleform-danger) !important;
 }
 
-body.nestform-admin-screen div.notice.notice-info:not(.inline):not(.hidden) {
+body.thimbleform-admin-screen div.notice.notice-info:not(.inline):not(.hidden) {
     background: var(--thimbleform-pro-soft) !important;
-    border-color: var(--nestform-accent-line) !important;
-    color: var(--nestform-accent-dark) !important;
+    border-color: var(--thimbleform-accent-line) !important;
+    color: var(--thimbleform-accent-dark) !important;
 }
 
-body.nestform-admin-screen .postbox div.notice,
-body.nestform-admin-screen .postbox div.updated,
-body.nestform-admin-screen .postbox div.error,
-body.nestform-admin-screen #screen-meta div.notice,
-body.nestform-admin-screen .media-modal div.notice {
+body.thimbleform-admin-screen .postbox div.notice,
+body.thimbleform-admin-screen .postbox div.updated,
+body.thimbleform-admin-screen .postbox div.error,
+body.thimbleform-admin-screen #screen-meta div.notice,
+body.thimbleform-admin-screen .media-modal div.notice {
     position: relative !important;
     left: auto !important;
     right: auto !important;
     bottom: auto !important;
     top: auto !important;
     width: auto !important;
-    margin: 0 0 var(--nestform-space-2) !important;
+    margin: 0 0 var(--thimbleform-space-2) !important;
 }
 
-body.nestform-admin-screen .notice-dismiss {
+body.thimbleform-admin-screen .notice-dismiss {
     top: 6px;
     right: 6px;
     width: 28px;
@@ -1160,74 +1160,74 @@ body.nestform-admin-screen .notice-dismiss {
     border: 0;
     border-radius: 4px;
     background: transparent;
-    color: var(--nestform-faint);
+    color: var(--thimbleform-faint);
     box-shadow: none;
-    transition: var(--nestform-transition);
+    transition: var(--thimbleform-transition);
 }
 
-body.nestform-admin-screen .notice-dismiss:hover,
-body.nestform-admin-screen .notice-dismiss:focus {
-    background: var(--nestform-hover);
-    color: var(--nestform-ink);
+body.thimbleform-admin-screen .notice-dismiss:hover,
+body.thimbleform-admin-screen .notice-dismiss:focus {
+    background: var(--thimbleform-hover);
+    color: var(--thimbleform-ink);
     box-shadow: none;
 }
 
-body.nestform-admin-screen .notice-dismiss::before {
+body.thimbleform-admin-screen .notice-dismiss::before {
     color: inherit;
 }
 
-.nestform-badge,
-.nestform-entry-status {
+.thimbleform-badge,
+.thimbleform-entry-status {
     display: inline-flex;
     align-items: center;
-    padding: 2px var(--nestform-space-2);
+    padding: 2px var(--thimbleform-space-2);
     border-radius: 4px;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.02em;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
 }
 
-.nestform-badge--ok,
-.nestform-badge--read,
-.nestform-entry-status--read {
-    background: var(--nestform-ok-soft);
-    color: var(--nestform-ok);
-    border: 1px solid var(--nestform-ok-border);
+.thimbleform-badge--ok,
+.thimbleform-badge--read,
+.thimbleform-entry-status--read {
+    background: var(--thimbleform-ok-soft);
+    color: var(--thimbleform-ok);
+    border: 1px solid var(--thimbleform-ok-border);
 }
 
-.nestform-badge--job {
-    background: var(--nestform-violet-soft);
+.thimbleform-badge--job {
+    background: var(--thimbleform-violet-soft);
     color: #4f46e5;
-    border: 1px solid var(--nestform-violet-line);
+    border: 1px solid var(--thimbleform-violet-line);
     text-decoration: none;
 }
 
-.nestform-badge--job:hover,
-.nestform-badge--job:focus {
+.thimbleform-badge--job:hover,
+.thimbleform-badge--job:focus {
     color: var(--thimbleform-pro);
-    border-color: var(--nestform-violet);
+    border-color: var(--thimbleform-violet);
 }
 
-.nestform-badge--new,
-.nestform-entry-status--new {
-    background: var(--nestform-accent-soft);
-    color: var(--nestform-accent);
-    border: 1px solid var(--nestform-accent-line);
+.thimbleform-badge--new,
+.thimbleform-entry-status--new {
+    background: var(--thimbleform-accent-soft);
+    color: var(--thimbleform-accent);
+    border: 1px solid var(--thimbleform-accent-line);
     text-decoration: none;
-    animation: nestform-badge-border 2.6s ease-in-out infinite;
+    animation: thimbleform-badge-border 2.6s ease-in-out infinite;
 }
 
-.nestform-app__nav-count,
-.nestform-app__foot-alert-dot,
-.nestform-entries__filter-count {
+.thimbleform-app__nav-count,
+.thimbleform-app__foot-alert-dot,
+.thimbleform-entries__filter-count {
     position: relative;
     isolation: isolate;
 }
 
-.nestform-app__nav-count::after,
-.nestform-app__foot-alert-dot::after,
-.nestform-entries__filter-count::after {
+.thimbleform-app__nav-count::after,
+.thimbleform-app__foot-alert-dot::after,
+.thimbleform-entries__filter-count::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -1235,14 +1235,14 @@ body.nestform-admin-screen .notice-dismiss::before {
     background: inherit;
     pointer-events: none;
     z-index: -1;
-    animation: nestform-pulse 2.4s ease-in-out infinite;
+    animation: thimbleform-pulse 2.4s ease-in-out infinite;
 }
 
-.nestform-btn--primary .nestform-entries__filter-count::after {
-    background: var(--nestform-accent);
+.thimbleform-btn--primary .thimbleform-entries__filter-count::after {
+    background: var(--thimbleform-accent);
 }
 
-@keyframes nestform-pulse {
+@keyframes thimbleform-pulse {
     0% {
         transform: scale(1);
         opacity: 0.5;
@@ -1259,90 +1259,90 @@ body.nestform-admin-screen .notice-dismiss::before {
     }
 }
 
-@keyframes nestform-badge-border {
+@keyframes thimbleform-badge-border {
     0%,
     100% {
-        border-color: var(--nestform-accent-line);
+        border-color: var(--thimbleform-accent-line);
     }
 
     50% {
-        border-color: var(--nestform-accent);
+        border-color: var(--thimbleform-accent);
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .nestform-app__nav-count::after,
-    .nestform-app__foot-alert-dot::after,
-    .nestform-entries__filter-count::after {
+    .thimbleform-app__nav-count::after,
+    .thimbleform-app__foot-alert-dot::after,
+    .thimbleform-entries__filter-count::after {
         animation: none;
     }
 
-    .nestform-badge--new,
-    .nestform-entry-status--new {
+    .thimbleform-badge--new,
+    .thimbleform-entry-status--new {
         animation: none;
     }
 }
 
-.nestform-badge--draft {
-    background: var(--nestform-warn-soft);
-    color: var(--nestform-warn);
-    border: 1px solid var(--nestform-warn);
+.thimbleform-badge--draft {
+    background: var(--thimbleform-warn-soft);
+    color: var(--thimbleform-warn);
+    border: 1px solid var(--thimbleform-warn);
 }
 
-.nestform-badge--danger,
-.nestform-entry-status--spam {
-    background: var(--nestform-danger-soft);
-    color: var(--nestform-danger);
-    border: 1px solid var(--nestform-danger-border);
+.thimbleform-badge--danger,
+.thimbleform-entry-status--spam {
+    background: var(--thimbleform-danger-soft);
+    color: var(--thimbleform-danger);
+    border: 1px solid var(--thimbleform-danger-border);
 }
 
-.nestform-hub__table {
-    background: var(--nestform-surface);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
+.thimbleform-hub__table {
+    background: var(--thimbleform-surface);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
 }
 
-.nestform-hub__thead,
-.nestform-hub__row {
+.thimbleform-hub__thead,
+.thimbleform-hub__row {
     display: flex;
     align-items: center;
-    padding: var(--nestform-space-2) var(--nestform-space-4);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-4);
 }
 
-.nestform-hub__row[hidden] {
+.thimbleform-hub__row[hidden] {
     display: none !important;
 }
 
-.nestform-hub__thead {
-    padding: var(--nestform-space-2) var(--nestform-space-4);
-    background: var(--nestform-soft);
-    border-bottom: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius) var(--nestform-radius) 0 0;
+.thimbleform-hub__thead {
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-4);
+    background: var(--thimbleform-soft);
+    border-bottom: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius) var(--thimbleform-radius) 0 0;
 }
 
-.nestform-hub__th {
+.thimbleform-hub__th {
     font-size: 11px;
     font-weight: 600;
-    color: var(--nestform-faint);
+    color: var(--thimbleform-faint);
     text-transform: uppercase;
     letter-spacing: 0.06em;
 }
 
-.nestform-hub__th--form,
-.nestform-hub__td--form {
+.thimbleform-hub__th--form,
+.thimbleform-hub__td--form {
     flex: 1;
     min-width: 0;
 }
 
-.nestform-hub__th--fields,
-.nestform-hub__td--fields {
+.thimbleform-hub__th--fields,
+.thimbleform-hub__td--fields {
     width: 80px;
     text-align: center;
     flex-shrink: 0;
 }
 
-.nestform-hub__th--activity,
-.nestform-hub__td--activity {
+.thimbleform-hub__th--activity,
+.thimbleform-hub__td--activity {
     width: 112px;
     flex-shrink: 0;
     text-align: left;
@@ -1350,8 +1350,8 @@ body.nestform-admin-screen .notice-dismiss::before {
     align-items: center;
 }
 
-.nestform-hub__th--entries,
-.nestform-hub__td--entries {
+.thimbleform-hub__th--entries,
+.thimbleform-hub__td--entries {
     width: 72px;
     text-align: center;
     flex-shrink: 0;
@@ -1360,298 +1360,298 @@ body.nestform-admin-screen .notice-dismiss::before {
     justify-content: center;
 }
 
-.nestform-hub__th--actions,
-.nestform-hub__td--actions {
+.thimbleform-hub__th--actions,
+.thimbleform-hub__td--actions {
     width: 132px;
     flex-shrink: 0;
     display: flex;
     justify-content: flex-end;
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
     flex-wrap: nowrap;
     align-items: center;
 }
 
-.nestform-hub__count {
+.thimbleform-hub__count {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     min-width: 24px;
-    padding: var(--nestform-space-1);
-    border-radius: var(--nestform-radius);
-    color: var(--nestform-accent-dark);
+    padding: var(--thimbleform-space-1);
+    border-radius: var(--thimbleform-radius);
+    color: var(--thimbleform-accent-dark);
     font-size: 12px;
     font-weight: 700;
     text-decoration: none;
-    transition: var(--nestform-transition);
+    transition: var(--thimbleform-transition);
 }
 
-a.nestform-hub__count:hover,
-a.nestform-hub__count:focus {
-    background: var(--nestform-accent);
-    color: var(--nestform-on-accent);
+a.thimbleform-hub__count:hover,
+a.thimbleform-hub__count:focus {
+    background: var(--thimbleform-accent);
+    color: var(--thimbleform-on-accent);
     box-shadow: 0 0 0 2px
-        color-mix(in srgb, var(--nestform-accent) 25%, transparent);
+        color-mix(in srgb, var(--thimbleform-accent) 25%, transparent);
     outline: none;
 }
 
-.nestform-hub__more {
+.thimbleform-hub__more {
     position: relative;
 }
 
-.nestform-hub__more-toggle {
+.thimbleform-hub__more-toggle {
     min-width: 34px;
-    padding-left: var(--nestform-space-2);
-    padding-right: var(--nestform-space-2);
+    padding-left: var(--thimbleform-space-2);
+    padding-right: var(--thimbleform-space-2);
     letter-spacing: 0.12em;
 }
 
-.nestform-hub__more-menu {
+.thimbleform-hub__more-menu {
     position: absolute;
     top: calc(100% + 4px);
     right: 0;
     z-index: 20;
     min-width: 160px;
-    padding: var(--nestform-space-1);
-    background: var(--nestform-surface);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
-    box-shadow: var(--nestform-shadow-md);
+    padding: var(--thimbleform-space-1);
+    background: var(--thimbleform-surface);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
+    box-shadow: var(--thimbleform-shadow-md);
 }
 
-.nestform-hub__more-menu[hidden] {
+.thimbleform-hub__more-menu[hidden] {
     display: none;
 }
 
-.nestform-hub__more-menu .nestform-btn {
+.thimbleform-hub__more-menu .thimbleform-btn {
     display: flex;
     width: 100%;
     justify-content: flex-start;
 }
 
-.nestform-export-menu {
+.thimbleform-export-menu {
     position: relative;
     display: inline-flex;
 }
 
-.nestform-export-menu__toggle {
+.thimbleform-export-menu__toggle {
     position: relative;
-    padding-right: var(--nestform-space-8) !important;
+    padding-right: var(--thimbleform-space-8) !important;
 }
 
-.nestform-export-menu__toggle::after {
+.thimbleform-export-menu__toggle::after {
     content: "";
     position: absolute;
     right: 10px;
     width: 16px;
     height: 16px;
     background-color: currentColor;
-    mask: var(--nestform-chevron-mask-down) center / 16px 16px no-repeat;
-    -webkit-mask: var(--nestform-chevron-mask-down) center / 16px 16px no-repeat;
+    mask: var(--thimbleform-chevron-mask-down) center / 16px 16px no-repeat;
+    -webkit-mask: var(--thimbleform-chevron-mask-down) center / 16px 16px no-repeat;
     pointer-events: none;
     transition: transform 0.15s ease;
 }
 
-.nestform-export-menu.is-open .nestform-export-menu__toggle::after {
+.thimbleform-export-menu.is-open .thimbleform-export-menu__toggle::after {
     transform: rotate(180deg);
 }
 
-.nestform-export-menu__panel {
+.thimbleform-export-menu__panel {
     position: absolute;
     top: calc(100% + 4px);
     right: 0;
     z-index: 30;
     min-width: 168px;
-    padding: var(--nestform-space-1);
-    background: var(--nestform-surface);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
-    box-shadow: var(--nestform-shadow-md);
+    padding: var(--thimbleform-space-1);
+    background: var(--thimbleform-surface);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
+    box-shadow: var(--thimbleform-shadow-md);
 }
 
-.nestform-export-menu__panel[hidden] {
+.thimbleform-export-menu__panel[hidden] {
     display: none;
 }
 
-.nestform-export-menu__item {
+.thimbleform-export-menu__item {
     display: flex;
     align-items: center;
     width: 100%;
-    padding: var(--nestform-space-2) var(--nestform-space-4);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-4);
     border-radius: 4px;
-    color: var(--nestform-ink-alt);
+    color: var(--thimbleform-ink-alt);
     text-decoration: none;
     font-size: 13px;
     font-weight: 500;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     box-sizing: border-box;
 }
 
-.nestform-export-menu__item:hover,
-.nestform-export-menu__item:focus {
-    background: var(--nestform-hover);
-    color: var(--nestform-ink-alt);
+.thimbleform-export-menu__item:hover,
+.thimbleform-export-menu__item:focus {
+    background: var(--thimbleform-hover);
+    color: var(--thimbleform-ink-alt);
     outline: none;
 }
 
-.nestform-hub__row[data-edit-url] {
+.thimbleform-hub__row[data-edit-url] {
     cursor: pointer;
 }
 
-.nestform-hub__row[data-edit-url]:hover {
-    background: var(--nestform-hover);
+.thimbleform-hub__row[data-edit-url]:hover {
+    background: var(--thimbleform-hover);
 }
 
-.nestform-hub__row[data-edit-url]:focus {
+.thimbleform-hub__row[data-edit-url]:focus {
     outline: none;
 }
 
-.nestform-hub__row[data-edit-url]:focus-visible {
-    background: var(--nestform-hover);
-    box-shadow: inset 0 0 0 2px var(--nestform-accent-line);
+.thimbleform-hub__row[data-edit-url]:focus-visible {
+    background: var(--thimbleform-hover);
+    box-shadow: inset 0 0 0 2px var(--thimbleform-accent-line);
 }
 
-.nestform-hub__row {
-    border-bottom: 1px solid var(--nestform-border);
-    transition: var(--nestform-transition);
+.thimbleform-hub__row {
+    border-bottom: 1px solid var(--thimbleform-border);
+    transition: var(--thimbleform-transition);
 }
 
-.nestform-hub__row--has-new {
-    box-shadow: inset 3px 0 0 var(--nestform-accent);
+.thimbleform-hub__row--has-new {
+    box-shadow: inset 3px 0 0 var(--thimbleform-accent);
 }
 
-.nestform-hub__row:last-child {
+.thimbleform-hub__row:last-child {
     border-bottom: none;
 }
 
-.nestform-hub__row:hover {
-    background: var(--nestform-hover);
+.thimbleform-hub__row:hover {
+    background: var(--thimbleform-hover);
 }
 
 /* Keep controls opaque on row hover so they don't melt into the fill. */
-.nestform-hub__row:hover .button,
-.nestform-hub__row:hover .nestform-btn,
-.nestform-hub__row:hover .nestform-admin__chip {
-    background: var(--nestform-surface);
+.thimbleform-hub__row:hover .button,
+.thimbleform-hub__row:hover .thimbleform-btn,
+.thimbleform-hub__row:hover .thimbleform-admin__chip {
+    background: var(--thimbleform-surface);
 }
 
-.nestform-hub__row:hover .button:hover,
-.nestform-hub__row:hover .button:focus,
-.nestform-hub__row:hover
-    .nestform-btn:hover:not(.nestform-btn--danger):not(
-        .nestform-btn--danger-text
+.thimbleform-hub__row:hover .button:hover,
+.thimbleform-hub__row:hover .button:focus,
+.thimbleform-hub__row:hover
+    .thimbleform-btn:hover:not(.thimbleform-btn--danger):not(
+        .thimbleform-btn--danger-text
     ),
-.nestform-hub__row:hover
-    .nestform-btn:focus:not(.nestform-btn--danger):not(
-        .nestform-btn--danger-text
+.thimbleform-hub__row:hover
+    .thimbleform-btn:focus:not(.thimbleform-btn--danger):not(
+        .thimbleform-btn--danger-text
     ),
-.nestform-hub__row:hover .nestform-admin__chip:hover,
-.nestform-hub__row:hover .nestform-admin__chip:focus {
-    border-color: var(--nestform-hover-border);
-    color: var(--nestform-accent-dark);
-    background: var(--nestform-surface);
-    box-shadow: var(--nestform-shadow);
+.thimbleform-hub__row:hover .thimbleform-admin__chip:hover,
+.thimbleform-hub__row:hover .thimbleform-admin__chip:focus {
+    border-color: var(--thimbleform-hover-border);
+    color: var(--thimbleform-accent-dark);
+    background: var(--thimbleform-surface);
+    box-shadow: var(--thimbleform-shadow);
 }
 
-.nestform-hub__row:hover .nestform-btn--danger:hover,
-.nestform-hub__row:hover .nestform-btn--danger:focus,
-.nestform-hub__row:hover .nestform-btn--danger-text:hover,
-.nestform-hub__row:hover .nestform-btn--danger-text:focus {
-    background: var(--nestform-danger-soft);
-    border-color: var(--nestform-danger-border);
-    color: var(--nestform-danger);
+.thimbleform-hub__row:hover .thimbleform-btn--danger:hover,
+.thimbleform-hub__row:hover .thimbleform-btn--danger:focus,
+.thimbleform-hub__row:hover .thimbleform-btn--danger-text:hover,
+.thimbleform-hub__row:hover .thimbleform-btn--danger-text:focus {
+    background: var(--thimbleform-danger-soft);
+    border-color: var(--thimbleform-danger-border);
+    color: var(--thimbleform-danger);
     box-shadow: none;
 }
 
-.nestform-hub__activity {
+.thimbleform-hub__activity {
     font-size: 12.5px;
     font-weight: 500;
-    color: var(--nestform-ink);
+    color: var(--thimbleform-ink);
 }
 
-.nestform-hub__activity--empty {
-    color: var(--nestform-faint);
+.thimbleform-hub__activity--empty {
+    color: var(--thimbleform-faint);
 }
 
-.nestform-hub__td--fields {
+.thimbleform-hub__td--fields {
     font-size: 13.5px;
-    color: var(--nestform-muted);
+    color: var(--thimbleform-muted);
     font-weight: 500;
 }
 
-.nestform-hub__td--entries {
+.thimbleform-hub__td--entries {
     font-size: 13.5px;
     font-weight: 600;
-    color: var(--nestform-ink);
+    color: var(--thimbleform-ink);
 }
 
-.nestform-hub__heading {
+.thimbleform-hub__heading {
     display: flex;
     align-items: center;
-    gap: var(--nestform-space-2);
-    margin-bottom: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
+    margin-bottom: var(--thimbleform-space-2);
 }
 
-.nestform-hub__title {
+.thimbleform-hub__title {
     font-size: 16px;
     font-weight: 600;
-    color: var(--nestform-ink);
+    color: var(--thimbleform-ink);
     text-decoration: none;
-    transition: var(--nestform-transition);
+    transition: var(--thimbleform-transition);
 }
 
-.nestform-hub__title--untitled {
+.thimbleform-hub__title--untitled {
     font-style: italic;
     font-weight: 500;
-    color: var(--nestform-muted);
+    color: var(--thimbleform-muted);
 }
 
-.nestform-hub__title:hover,
-.nestform-hub__title:focus {
-    color: var(--nestform-accent);
+.thimbleform-hub__title:hover,
+.thimbleform-hub__title:focus {
+    color: var(--thimbleform-accent);
 }
 
-.nestform-hub__meta {
+.thimbleform-hub__meta {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
     align-items: center;
 }
 
-.nestform-hub__meta .nestform-badge {
+.thimbleform-hub__meta .thimbleform-badge {
     flex-shrink: 0;
 }
 
-.nestform-hub__id {
+.thimbleform-hub__id {
     font-size: 11px;
     line-height: 1.2;
-    color: var(--nestform-faint);
+    color: var(--thimbleform-faint);
 }
 
-.nestform-hub__search-icon {
+.thimbleform-hub__search-icon {
     position: absolute;
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--nestform-faint);
+    color: var(--thimbleform-faint);
     display: flex;
     pointer-events: none;
 }
 
-#nestform_builder .inside,
-#nestform_shortcode .inside {
+#thimbleform_builder .inside,
+#thimbleform_shortcode .inside {
     margin: 0;
     padding: 0;
 }
 
-#nestform_builder,
-#nestform_shortcode {
-    border-color: var(--nestform-border);
-    border-radius: var(--nestform-radius);
+#thimbleform_builder,
+#thimbleform_shortcode {
+    border-color: var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
     box-shadow: none;
 }
 
-#nestform_builder > .postbox-header,
-#nestform_shortcode > .postbox-header {
-    border-bottom-color: var(--nestform-border);
-    background: var(--nestform-surface);
+#thimbleform_builder > .postbox-header,
+#thimbleform_shortcode > .postbox-header {
+    border-bottom-color: var(--thimbleform-border);
+    background: var(--thimbleform-surface);
 }

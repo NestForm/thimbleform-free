@@ -14,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return void
  */
-function nestform_uninstall_cleanup() {
-	$settings = get_option( 'nestform_settings', array() );
+function thimbleform_uninstall_cleanup() {
+	$settings = get_option( 'thimbleform_settings', array() );
 	$wipe     = is_array( $settings ) && ! empty( $settings['delete_data_on_uninstall'] ) && '1' === (string) $settings['delete_data_on_uninstall'];
 
 	if ( ! $wipe ) {
@@ -26,7 +26,7 @@ function nestform_uninstall_cleanup() {
 
 	$form_ids = get_posts(
 		array(
-			'post_type'              => 'nestform',
+			'post_type'              => 'thimbleform',
 			'post_status'            => 'any',
 			'posts_per_page'         => -1,
 			'fields'                 => 'ids',
@@ -41,7 +41,7 @@ function nestform_uninstall_cleanup() {
 
 	$entry_ids = get_posts(
 		array(
-			'post_type'              => 'nestform_entry',
+			'post_type'              => 'thimbleform_entry',
 			'post_status'            => 'any',
 			'posts_per_page'         => -1,
 			'fields'                 => 'ids',
@@ -54,34 +54,34 @@ function nestform_uninstall_cleanup() {
 		wp_delete_post( (int) $entry_id, true );
 	}
 
-	delete_option( 'nestform_settings' );
+	delete_option( 'thimbleform_settings' );
 
 	$caps_file = dirname( __FILE__ ) . '/class-capabilities.php';
 	if ( is_readable( $caps_file ) ) {
 		require_once $caps_file;
-		if ( class_exists( 'Nestform_Capabilities' ) ) {
-			Nestform_Capabilities::remove_all();
+		if ( class_exists( 'Thimbleform_Capabilities' ) ) {
+			Thimbleform_Capabilities::remove_all();
 		}
 	}
 
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-	$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'nestform\\_%'" );
+	$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'thimbleform\\_%'" );
 
-	$table = $wpdb->prefix . 'nestform_form_views';
+	$table = $wpdb->prefix . 'thimbleform_form_views';
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 	$wpdb->query( "DROP TABLE IF EXISTS {$table}" );
 
-	$spam_log = $wpdb->prefix . 'nestform_spam_log';
+	$spam_log = $wpdb->prefix . 'thimbleform_spam_log';
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 	$wpdb->query( "DROP TABLE IF EXISTS {$spam_log}" );
-	delete_option( 'nestform_spam_log_db_version' );
+	delete_option( 'thimbleform_spam_log_db_version' );
 
-	$email_log = $wpdb->prefix . 'nestform_email_log';
+	$email_log = $wpdb->prefix . 'thimbleform_email_log';
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 	$wpdb->query( "DROP TABLE IF EXISTS {$email_log}" );
-	delete_option( 'nestform_email_log_db_version' );
+	delete_option( 'thimbleform_email_log_db_version' );
 
-	wp_clear_scheduled_hook( 'nestform_spam_log_cleanup' );
-	wp_clear_scheduled_hook( 'nestform_email_log_cleanup' );
-	wp_clear_scheduled_hook( 'nestform_cleanup_entries' );
+	wp_clear_scheduled_hook( 'thimbleform_spam_log_cleanup' );
+	wp_clear_scheduled_hook( 'thimbleform_email_log_cleanup' );
+	wp_clear_scheduled_hook( 'thimbleform_cleanup_entries' );
 }

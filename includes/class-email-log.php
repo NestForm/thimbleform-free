@@ -9,23 +9,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Email_Log {
+class Thimbleform_Email_Log {
 
-	const DB_VERSION_OPTION = 'nestform_email_log_db_version';
+	const DB_VERSION_OPTION = 'thimbleform_email_log_db_version';
 
 	const DB_VERSION = 1;
 
-	const CRON_HOOK = 'nestform_email_log_cleanup';
+	const CRON_HOOK = 'thimbleform_email_log_cleanup';
 
 	const TYPES = array( 'admin', 'extra', 'user', 'test' );
 
-	const DISMISSED_META = 'nestform_email_failure_dismissed';
+	const DISMISSED_META = 'thimbleform_email_failure_dismissed';
 
 	public static function init() {
 		add_action( 'admin_init', array( __CLASS__, 'maybe_install' ) );
 		add_action( self::CRON_HOOK, array( __CLASS__, 'cleanup' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'maybe_failure_notice' ) );
-		add_action( 'admin_post_nestform_dismiss_email_failures', array( __CLASS__, 'handle_dismiss' ) );
+		add_action( 'admin_post_thimbleform_dismiss_email_failures', array( __CLASS__, 'handle_dismiss' ) );
 		self::schedule_cleanup();
 	}
 
@@ -68,7 +68,7 @@ class Nestform_Email_Log {
 	 */
 	public static function table() {
 		global $wpdb;
-		return $wpdb->prefix . 'nestform_email_log';
+		return $wpdb->prefix . 'thimbleform_email_log';
 	}
 
 	public static function drop_table() {
@@ -84,10 +84,10 @@ class Nestform_Email_Log {
 	 * @return int
 	 */
 	public static function retention_days() {
-		if ( ! class_exists( 'Nestform_Settings' ) ) {
+		if ( ! class_exists( 'Thimbleform_Settings' ) ) {
 			return 30;
 		}
-		$s = Nestform_Settings::get();
+		$s = Thimbleform_Settings::get();
 		return max( 1, (int) ( $s['email_log_retention_days'] ?? 30 ) );
 	}
 
@@ -121,7 +121,7 @@ class Nestform_Email_Log {
 		}
 
 		if ( ! $sent && $error === '' ) {
-			$error = __( 'The mailer rejected the message without reporting a reason.', 'nestform' );
+			$error = __( 'The mailer rejected the message without reporting a reason.', 'thimbleform' );
 		}
 
 		self::record(
@@ -264,7 +264,7 @@ class Nestform_Email_Log {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-		$view = function_exists( 'nestform_admin_current_view' ) ? nestform_admin_current_view() : '';
+		$view = function_exists( 'thimbleform_admin_current_view' ) ? thimbleform_admin_current_view() : '';
 		if ( ! in_array( $view, array( 'dashboard', 'forms', 'entries', 'settings' ), true ) ) {
 			return;
 		}
@@ -280,11 +280,11 @@ class Nestform_Email_Log {
 		}
 
 		$dismiss = wp_nonce_url(
-			admin_url( 'admin-post.php?action=nestform_dismiss_email_failures' ),
-			'nestform_dismiss_email_failures'
+			admin_url( 'admin-post.php?action=thimbleform_dismiss_email_failures' ),
+			'thimbleform_dismiss_email_failures'
 		);
-		$log_url = class_exists( 'Nestform_Settings' )
-			? Nestform_Settings::url(
+		$log_url = class_exists( 'Thimbleform_Settings' )
+			? Thimbleform_Settings::url(
 				array(
 					'section' => 'email',
 					'sub'     => 'log',
@@ -292,13 +292,13 @@ class Nestform_Email_Log {
 			)
 			: '';
 		?>
-		<div class="notice notice-error nestform-email-failure-notice">
+		<div class="notice notice-error thimbleform-email-failure-notice">
 			<p>
 				<?php
 				echo esc_html(
 					sprintf(
 						/* translators: 1: recipient, 2: error */
-						__( 'Thimbleform could not send mail to %1$s: %2$s', 'nestform' ),
+						__( 'Thimbleform could not send mail to %1$s: %2$s', 'thimbleform' ),
 						(string) $failure->recipient,
 						(string) $failure->error
 					)
@@ -307,10 +307,10 @@ class Nestform_Email_Log {
 			</p>
 			<p>
 				<?php if ( $log_url ) : ?>
-					<a href="<?php echo esc_url( $log_url ); ?>"><?php esc_html_e( 'Open delivery log', 'nestform' ); ?></a>
+					<a href="<?php echo esc_url( $log_url ); ?>"><?php esc_html_e( 'Open delivery log', 'thimbleform' ); ?></a>
 					<span aria-hidden="true"> · </span>
 				<?php endif; ?>
-				<a href="<?php echo esc_url( $dismiss ); ?>"><?php esc_html_e( 'Dismiss', 'nestform' ); ?></a>
+				<a href="<?php echo esc_url( $dismiss ); ?>"><?php esc_html_e( 'Dismiss', 'thimbleform' ); ?></a>
 			</p>
 		</div>
 		<?php
@@ -318,9 +318,9 @@ class Nestform_Email_Log {
 
 	public static function handle_dismiss() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Forbidden', 'nestform' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'Forbidden', 'thimbleform' ), '', array( 'response' => 403 ) );
 		}
-		check_admin_referer( 'nestform_dismiss_email_failures' );
+		check_admin_referer( 'thimbleform_dismiss_email_failures' );
 		$failure = self::latest_failure();
 		update_user_meta( get_current_user_id(), self::DISMISSED_META, $failure ? (int) $failure->id : 0 );
 		wp_safe_redirect( wp_get_referer() ? wp_get_referer() : admin_url() );
@@ -348,10 +348,10 @@ class Nestform_Email_Log {
 	 */
 	public static function type_labels() {
 		return array(
-			'admin' => __( 'Admin notification', 'nestform' ),
-			'extra' => __( 'Extra notification', 'nestform' ),
-			'user'  => __( 'Visitor autoreply', 'nestform' ),
-			'test'  => __( 'Test email', 'nestform' ),
+			'admin' => __( 'Admin notification', 'thimbleform' ),
+			'extra' => __( 'Extra notification', 'thimbleform' ),
+			'user'  => __( 'Visitor autoreply', 'thimbleform' ),
+			'test'  => __( 'Test email', 'thimbleform' ),
 		);
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * Normalize layout spacing to --nestform-space-* tokens (8-point grid).
+ * Normalize layout spacing to --thimbleform-space-* tokens (8-point grid).
  *
  * Usage: node assets/css/normalize-spacing.mjs
  */
@@ -16,14 +16,14 @@ const SPACING_PROPS =
 	/^(?<indent>\s*)(?<prop>padding(?:-(?:top|right|bottom|left))?|margin(?:-(?:top|right|bottom|left))?|gap|row-gap|column-gap)\s*:\s*(?<value>[^;]+);(?<suffix>\s*(?:\/\*.*?\*\/)?\s*)$/;
 
 const TOKEN_BY_PX = {
-	4: 'var(--nestform-space-1)',
-	8: 'var(--nestform-space-2)',
-	16: 'var(--nestform-space-4)',
-	24: 'var(--nestform-space-6)',
-	32: 'var(--nestform-space-8)',
-	40: 'var(--nestform-space-10)',
-	48: 'var(--nestform-space-12)',
-	64: 'var(--nestform-space-16)',
+	4: 'var(--thimbleform-space-1)',
+	8: 'var(--thimbleform-space-2)',
+	16: 'var(--thimbleform-space-4)',
+	24: 'var(--thimbleform-space-6)',
+	32: 'var(--thimbleform-space-8)',
+	40: 'var(--thimbleform-space-10)',
+	48: 'var(--thimbleform-space-12)',
+	64: 'var(--thimbleform-space-16)',
 };
 
 const GRID = [4, 8, 16, 24, 32, 40, 48, 64];
@@ -48,7 +48,7 @@ function transformSpacingValue(raw) {
 		return trimmed;
 	}
 
-	if (trimmed.includes('var(--nestform-space-')) {
+	if (trimmed.includes('var(--thimbleform-space-')) {
 		return trimmed
 			.split(/\s+/)
 			.map((part) => transformSpacingPart(part))

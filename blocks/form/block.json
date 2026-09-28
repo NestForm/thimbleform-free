@@ -1,14 +1,14 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "nestform/form",
+  "name": "thimbleform/form",
   "version": "1.0.1",
   "title": "Thimbleform",
-  "category": "nestform",
+  "category": "thimbleform",
   "icon": "feedback",
   "description": "Insert a Thimbleform form by selecting it from the list.",
-  "keywords": ["form", "contact", "lead", "nestform"],
-  "textdomain": "nestform",
+  "keywords": ["form", "contact", "lead", "thimbleform"],
+  "textdomain": "thimbleform",
   "attributes": {
     "formId": {
       "type": "number",

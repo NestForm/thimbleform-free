@@ -9,12 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Form_IO {
+class Thimbleform_Form_IO {
 
-	const SCHEMA         = 'nestform/form';
+	const SCHEMA         = 'thimbleform/form';
 	const VERSION        = 1;
-	const ACTION_EXPORT  = 'nestform_export_form';
-	const ACTION_IMPORT  = 'nestform_import_form';
+	const ACTION_EXPORT  = 'thimbleform_export_form';
+	const ACTION_IMPORT  = 'thimbleform_import_form';
 
 	public static function init() {
 		add_action( 'admin_post_' . self::ACTION_EXPORT, array( __CLASS__, 'handle_export' ) );
@@ -48,16 +48,16 @@ class Nestform_Form_IO {
 	public static function build_payload( $form_id ) {
 		$form_id = (int) $form_id;
 		$post    = get_post( $form_id );
-		if ( ! $post || Nestform_Post_Type::POST_TYPE !== $post->post_type ) {
+		if ( ! $post || Thimbleform_Post_Type::POST_TYPE !== $post->post_type ) {
 			return null;
 		}
 
-		$config = Nestform_Form_Config::get( $form_id );
+		$config = Thimbleform_Form_Config::get( $form_id );
 		return array(
 			'schema'      => self::SCHEMA,
 			'version'     => self::VERSION,
 			'exported_at' => gmdate( 'c' ),
-			'plugin'      => defined( 'NESTFORM_VERSION' ) ? NESTFORM_VERSION : '',
+			'plugin'      => defined( 'THIMBLEFORM_VERSION' ) ? THIMBLEFORM_VERSION : '',
 			'form'        => array(
 				'title'    => (string) $post->post_title,
 				'status'   => in_array( $post->post_status, array( 'publish', 'draft', 'private' ), true ) ? $post->post_status : 'draft',
@@ -71,27 +71,27 @@ class Nestform_Form_IO {
 
 	public static function handle_export() {
 		$form_id = isset( $_GET['form_id'] ) ? (int) $_GET['form_id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( $form_id <= 0 || Nestform_Post_Type::POST_TYPE !== get_post_type( $form_id ) ) {
-			wp_die( esc_html__( 'Invalid form.', 'nestform' ), 400 );
+		if ( $form_id <= 0 || Thimbleform_Post_Type::POST_TYPE !== get_post_type( $form_id ) ) {
+			wp_die( esc_html__( 'Invalid form.', 'thimbleform' ), 400 );
 		}
 		check_admin_referer( self::ACTION_EXPORT . '_' . $form_id );
 		if ( ! current_user_can( 'edit_post', $form_id ) ) {
-			wp_die( esc_html__( 'You do not have permission to export this form.', 'nestform' ), 403 );
+			wp_die( esc_html__( 'You do not have permission to export this form.', 'thimbleform' ), 403 );
 		}
 
 		$payload = self::build_payload( $form_id );
 		if ( null === $payload ) {
-			wp_die( esc_html__( 'Could not export form.', 'nestform' ), 500 );
+			wp_die( esc_html__( 'Could not export form.', 'thimbleform' ), 500 );
 		}
 
 		$slug = sanitize_title( (string) ( $payload['form']['title'] ?? '' ) );
 		if ( '' === $slug ) {
 			$slug = 'form-' . $form_id;
 		}
-		$filename = 'nestform-' . $slug . '-' . gmdate( 'Ymd-His' ) . '.json';
+		$filename = 'thimbleform-' . $slug . '-' . gmdate( 'Ymd-His' ) . '.json';
 		$json     = wp_json_encode( $payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 		if ( ! is_string( $json ) || '' === $json ) {
-			wp_die( esc_html__( 'Could not encode form JSON.', 'nestform' ), 500 );
+			wp_die( esc_html__( 'Could not encode form JSON.', 'thimbleform' ), 500 );
 		}
 
 		nocache_headers();
@@ -111,7 +111,7 @@ class Nestform_Form_IO {
 			return array(
 				'ok'      => false,
 				'form_id' => 0,
-				'message' => __( 'Not a Thimbleform export file.', 'nestform' ),
+				'message' => __( 'Not a Thimbleform export file.', 'thimbleform' ),
 			);
 		}
 
@@ -120,13 +120,13 @@ class Nestform_Form_IO {
 			return array(
 				'ok'      => false,
 				'form_id' => 0,
-				'message' => __( 'Export file is missing form data.', 'nestform' ),
+				'message' => __( 'Export file is missing form data.', 'thimbleform' ),
 			);
 		}
 
 		$title = isset( $form['title'] ) ? sanitize_text_field( (string) $form['title'] ) : '';
 		if ( '' === $title ) {
-			$title = __( 'Imported form', 'nestform' );
+			$title = __( 'Imported form', 'thimbleform' );
 		}
 
 		$status = isset( $form['status'] ) ? sanitize_key( (string) $form['status'] ) : 'draft';
@@ -138,7 +138,7 @@ class Nestform_Form_IO {
 
 		$new_id = wp_insert_post(
 			array(
-				'post_type'   => Nestform_Post_Type::POST_TYPE,
+				'post_type'   => Thimbleform_Post_Type::POST_TYPE,
 				'post_status' => $status,
 				'post_title'  => $title,
 			),
@@ -149,7 +149,7 @@ class Nestform_Form_IO {
 			return array(
 				'ok'      => false,
 				'form_id' => 0,
-				'message' => __( 'Could not create the imported form.', 'nestform' ),
+				'message' => __( 'Could not create the imported form.', 'thimbleform' ),
 			);
 		}
 
@@ -160,63 +160,63 @@ class Nestform_Form_IO {
 			'settings' => isset( $form['settings'] ) && is_array( $form['settings'] ) ? $form['settings'] : array(),
 		);
 
-		Nestform_Form_Config::save( (int) $new_id, $config );
+		Thimbleform_Form_Config::save( (int) $new_id, $config );
 
 		return array(
 			'ok'      => true,
 			'form_id' => (int) $new_id,
-			'message' => __( 'Form imported as a draft.', 'nestform' ),
+			'message' => __( 'Form imported as a draft.', 'thimbleform' ),
 		);
 	}
 
 	public static function handle_import() {
 		if ( ! current_user_can( 'publish_posts' ) ) {
-			wp_die( esc_html__( 'You do not have permission to import forms.', 'nestform' ), 403 );
+			wp_die( esc_html__( 'You do not have permission to import forms.', 'thimbleform' ), 403 );
 		}
 		check_admin_referer( self::ACTION_IMPORT );
 
-		$hub = Nestform_Post_Type::hub_url();
+		$hub = Thimbleform_Post_Type::hub_url();
 
-		if ( empty( $_FILES['nestform_import_file'] ) || ! is_array( $_FILES['nestform_import_file'] ) ) {
-			wp_safe_redirect( add_query_arg( 'nestform_import', 'nofile', $hub ) );
+		if ( empty( $_FILES['thimbleform_import_file'] ) || ! is_array( $_FILES['thimbleform_import_file'] ) ) {
+			wp_safe_redirect( add_query_arg( 'thimbleform_import', 'nofile', $hub ) );
 			exit;
 		}
 
-		$file = $_FILES['nestform_import_file']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$file = $_FILES['thimbleform_import_file']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( ! empty( $file['error'] ) || empty( $file['tmp_name'] ) || ! is_uploaded_file( $file['tmp_name'] ) ) {
-			wp_safe_redirect( add_query_arg( 'nestform_import', 'upload', $hub ) );
+			wp_safe_redirect( add_query_arg( 'thimbleform_import', 'upload', $hub ) );
 			exit;
 		}
 
 		$size = isset( $file['size'] ) ? (int) $file['size'] : 0;
 		if ( $size <= 0 || $size > 2 * MB_IN_BYTES ) {
-			wp_safe_redirect( add_query_arg( 'nestform_import', 'size', $hub ) );
+			wp_safe_redirect( add_query_arg( 'thimbleform_import', 'size', $hub ) );
 			exit;
 		}
 
 		$raw = file_get_contents( $file['tmp_name'] ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		if ( ! is_string( $raw ) || '' === $raw ) {
-			wp_safe_redirect( add_query_arg( 'nestform_import', 'empty', $hub ) );
+			wp_safe_redirect( add_query_arg( 'thimbleform_import', 'empty', $hub ) );
 			exit;
 		}
 
 		$decoded = json_decode( $raw, true );
 		if ( ! is_array( $decoded ) ) {
-			wp_safe_redirect( add_query_arg( 'nestform_import', 'json', $hub ) );
+			wp_safe_redirect( add_query_arg( 'thimbleform_import', 'json', $hub ) );
 			exit;
 		}
 
 		$result = self::import_payload( $decoded );
 		if ( ! $result['ok'] ) {
-			wp_safe_redirect( add_query_arg( 'nestform_import', 'invalid', $hub ) );
+			wp_safe_redirect( add_query_arg( 'thimbleform_import', 'invalid', $hub ) );
 			exit;
 		}
 
 		wp_safe_redirect(
 			add_query_arg(
 				array(
-					'nestform_import' => 'ok',
-					'nestform_imported' => (int) $result['form_id'],
+					'thimbleform_import' => 'ok',
+					'thimbleform_imported' => (int) $result['form_id'],
 				),
 				$hub
 			)
@@ -225,35 +225,35 @@ class Nestform_Form_IO {
 	}
 
 	public static function import_notice() {
-		if ( ! is_admin() || empty( $_GET['page'] ) || Nestform_Post_Type::PAGE_SLUG !== sanitize_key( wp_unslash( $_GET['page'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! is_admin() || empty( $_GET['page'] ) || Thimbleform_Post_Type::PAGE_SLUG !== sanitize_key( wp_unslash( $_GET['page'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return;
 		}
-		if ( empty( $_GET['nestform_import'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( empty( $_GET['thimbleform_import'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return;
 		}
 
-		$code = sanitize_key( wp_unslash( $_GET['nestform_import'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$code = sanitize_key( wp_unslash( $_GET['thimbleform_import'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( 'ok' === $code ) {
-			$new_id = isset( $_GET['nestform_imported'] ) ? (int) $_GET['nestform_imported'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$new_id = isset( $_GET['thimbleform_imported'] ) ? (int) $_GET['thimbleform_imported'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$edit   = $new_id > 0 ? get_edit_post_link( $new_id, 'raw' ) : '';
 			echo '<div class="notice notice-success is-dismissible"><p>';
-			esc_html_e( 'Form imported as a draft.', 'nestform' );
+			esc_html_e( 'Form imported as a draft.', 'thimbleform' );
 			if ( $edit ) {
-				echo ' <a href="' . esc_url( $edit ) . '">' . esc_html__( 'Edit form', 'nestform' ) . '</a>';
+				echo ' <a href="' . esc_url( $edit ) . '">' . esc_html__( 'Edit form', 'thimbleform' ) . '</a>';
 			}
 			echo '</p></div>';
 			return;
 		}
 
 		$messages = array(
-			'nofile'  => __( 'Choose a Thimbleform JSON file to import.', 'nestform' ),
-			'upload'  => __( 'Upload failed. Try again.', 'nestform' ),
-			'size'    => __( 'File is too large (max 2 MB).', 'nestform' ),
-			'empty'   => __( 'The file is empty.', 'nestform' ),
-			'json'    => __( 'Could not parse JSON.', 'nestform' ),
-			'invalid' => __( 'This file is not a valid Thimbleform export.', 'nestform' ),
+			'nofile'  => __( 'Choose a Thimbleform JSON file to import.', 'thimbleform' ),
+			'upload'  => __( 'Upload failed. Try again.', 'thimbleform' ),
+			'size'    => __( 'File is too large (max 2 MB).', 'thimbleform' ),
+			'empty'   => __( 'The file is empty.', 'thimbleform' ),
+			'json'    => __( 'Could not parse JSON.', 'thimbleform' ),
+			'invalid' => __( 'This file is not a valid Thimbleform export.', 'thimbleform' ),
 		);
-		$msg = isset( $messages[ $code ] ) ? $messages[ $code ] : __( 'Import failed.', 'nestform' );
+		$msg = isset( $messages[ $code ] ) ? $messages[ $code ] : __( 'Import failed.', 'thimbleform' );
 		echo '<div class="notice notice-error is-dismissible"><p>' . esc_html( $msg ) . '</p></div>';
 	}
 
@@ -268,17 +268,17 @@ class Nestform_Form_IO {
 		if ( ! current_user_can( 'publish_posts' ) ) {
 			return '';
 		}
-		$label = $label !== '' ? (string) $label : __( 'Thimbleform JSON', 'nestform' );
-		$class = trim( 'nestform-btn nestform-btn--ghost nestform-hub__import-label ' . (string) $class );
+		$label = $label !== '' ? (string) $label : __( 'Thimbleform JSON', 'thimbleform' );
+		$class = trim( 'thimbleform-btn thimbleform-btn--ghost thimbleform-hub__import-label ' . (string) $class );
 		ob_start();
 		?>
-		<form class="nestform-hub__import" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data">
+		<form class="thimbleform-hub__import" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data">
 			<input type="hidden" name="action" value="<?php echo esc_attr( self::ACTION_IMPORT ); ?>" />
 			<?php wp_nonce_field( self::ACTION_IMPORT ); ?>
 			<label class="<?php echo esc_attr( $class ); ?>">
-				<?php echo nestform_admin_icon_html( 'download' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php echo thimbleform_admin_icon_html( 'download' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				<span><?php echo esc_html( $label ); ?></span>
-				<input type="file" name="nestform_import_file" accept="application/json,.json" required class="nestform-hub__import-file" onchange="this.form.submit()" />
+				<input type="file" name="thimbleform_import_file" accept="application/json,.json" required class="thimbleform-hub__import-file" onchange="this.form.submit()" />
 			</label>
 		</form>
 		<?php
@@ -292,23 +292,23 @@ class Nestform_Form_IO {
 	 */
 	public static function hub_import_menu_html() {
 		$json = self::hub_import_html();
-		$ext  = class_exists( 'Nestform_Importer' ) ? Nestform_Importer::hub_link_html( true ) : '';
+		$ext  = class_exists( 'Thimbleform_Importer' ) ? Thimbleform_Importer::hub_link_html( true ) : '';
 		if ( $json === '' && $ext === '' ) {
 			return '';
 		}
 		ob_start();
 		?>
-		<div class="nestform-hub__import-menu" data-nestform-hub-import>
+		<div class="thimbleform-hub__import-menu" data-thimbleform-hub-import>
 			<button
 				type="button"
-				class="nestform-btn nestform-btn--outline nestform-hub__import-toggle"
+				class="thimbleform-btn thimbleform-btn--outline thimbleform-hub__import-toggle"
 				aria-expanded="false"
 				aria-haspopup="true"
 			>
-				<?php echo nestform_admin_icon_html( 'download' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-				<?php esc_html_e( 'Import', 'nestform' ); ?>
+				<?php echo thimbleform_admin_icon_html( 'download' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php esc_html_e( 'Import', 'thimbleform' ); ?>
 			</button>
-			<div class="nestform-hub__import-panel" hidden>
+			<div class="thimbleform-hub__import-panel" hidden>
 				<?php echo $json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				<?php echo $ext; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</div>

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Xlsx_Export {
+class Thimbleform_Xlsx_Export {
 
 	/**
 	 * Create a single-sheet XLSX file and send it to the browser.
@@ -25,7 +25,7 @@ class Nestform_Xlsx_Export {
 			$filename,
 			array(
 				array(
-					'name'    => __( 'Submissions', 'nestform' ),
+					'name'    => __( 'Submissions', 'thimbleform' ),
 					'headers' => $headers,
 					'rows'    => $rows,
 				),
@@ -63,7 +63,7 @@ class Nestform_Xlsx_Export {
 		return self::generate_sheets(
 			array(
 				array(
-					'name'    => __( 'Submissions', 'nestform' ),
+					'name'    => __( 'Submissions', 'thimbleform' ),
 					'headers' => $headers,
 					'rows'    => $rows,
 				),
@@ -84,7 +84,7 @@ class Nestform_Xlsx_Export {
 		if ( empty( $sheets ) ) {
 			$sheets = array(
 				array(
-					'name'    => __( 'Submissions', 'nestform' ),
+					'name'    => __( 'Submissions', 'thimbleform' ),
 					'headers' => array(),
 					'rows'    => array(),
 				),
@@ -96,7 +96,7 @@ class Nestform_Xlsx_Export {
 		$zip_file = wp_tempnam();
 		$zip      = new ZipArchive();
 		if ( $zip->open( $zip_file, ZipArchive::CREATE | ZipArchive::OVERWRITE ) !== true ) {
-			throw new Exception( esc_html__( 'Unable to create XLSX archive.', 'nestform' ) );
+			throw new Exception( esc_html__( 'Unable to create XLSX archive.', 'thimbleform' ) );
 		}
 
 		$count = count( $sheets );
@@ -168,7 +168,7 @@ class Nestform_Xlsx_Export {
 
 			if ( '' === $name ) {
 				/* translators: %d: sheet number. */
-				$name = sprintf( __( 'Sheet %d', 'nestform' ), $index + 1 );
+				$name = sprintf( __( 'Sheet %d', 'thimbleform' ), $index + 1 );
 			}
 
 			$candidate = $name;

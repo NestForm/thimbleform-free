@@ -9,18 +9,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Security {
+class Thimbleform_Security {
 
-	const UPLOAD_DIR   = 'nestform-private';
-	const META_PRIVATE = '_nestform_private';
-	const META_FORM    = '_nestform_upload_form';
+	const UPLOAD_DIR   = 'thimbleform-private';
+	const META_PRIVATE = '_thimbleform_private';
+	const META_FORM    = '_thimbleform_upload_form';
 
 	/** @var int Form ID for the current upload batch. */
 	private static $upload_form_id = 0;
 
 	public static function init() {
-		add_action( 'admin_post_nestform_file', array( __CLASS__, 'serve_file' ) );
-		add_action( 'admin_post_nopriv_nestform_file', array( __CLASS__, 'serve_file' ) );
+		add_action( 'admin_post_thimbleform_file', array( __CLASS__, 'serve_file' ) );
+		add_action( 'admin_post_nopriv_thimbleform_file', array( __CLASS__, 'serve_file' ) );
 		add_filter( 'ajax_query_attachments_args', array( __CLASS__, 'hide_private_from_media' ) );
 	}
 
@@ -41,7 +41,7 @@ class Nestform_Security {
 	 */
 	public static function is_rate_limited( $bucket, $max = 30, $window = MINUTE_IN_SECONDS ) {
 		$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( (string) $_SERVER['REMOTE_ADDR'] ) ) : '';
-		$key = 'nestform_sec_rl_' . md5( (string) $bucket . '|' . $ip );
+		$key = 'thimbleform_sec_rl_' . md5( (string) $bucket . '|' . $ip );
 		$count = (int) get_transient( $key );
 		if ( $count >= (int) $max ) {
 			return true;
@@ -79,7 +79,7 @@ class Nestform_Security {
 			if ( ! in_array( $scheme, array( 'http', 'https' ), true ) ) {
 				return '';
 			}
-			if ( class_exists( 'Nestform_Form_Config' ) && ! Nestform_Form_Config::is_safe_outbound_url( $url ) ) {
+			if ( class_exists( 'Thimbleform_Form_Config' ) && ! Thimbleform_Form_Config::is_safe_outbound_url( $url ) ) {
 				return '';
 			}
 			$validated = $url;
@@ -92,7 +92,7 @@ class Nestform_Security {
 		 * @param string $validated Validated URL.
 		 * @param string $url       Original sanitized URL.
 		 */
-		$filtered = (string) apply_filters( 'nestform_sanitize_redirect_url', $validated, $url );
+		$filtered = (string) apply_filters( 'thimbleform_sanitize_redirect_url', $validated, $url );
 		if ( $filtered === '' ) {
 			return '';
 		}
@@ -112,7 +112,7 @@ class Nestform_Security {
 		if ( ! in_array( $scheme, array( 'http', 'https' ), true ) ) {
 			return '';
 		}
-		if ( class_exists( 'Nestform_Form_Config' ) && ! Nestform_Form_Config::is_safe_outbound_url( $filtered ) ) {
+		if ( class_exists( 'Thimbleform_Form_Config' ) && ! Thimbleform_Form_Config::is_safe_outbound_url( $filtered ) ) {
 			return '';
 		}
 		return $filtered;
@@ -131,7 +131,7 @@ class Nestform_Security {
 			return '';
 		}
 
-		$probe = preg_replace( '/\{[a-zA-Z0-9_]+\}/', 'nestform', $url );
+		$probe = preg_replace( '/\{[a-zA-Z0-9_]+\}/', 'thimbleform', $url );
 		if ( ! is_string( $probe ) || self::sanitize_redirect_url( $probe ) === '' ) {
 			return '';
 		}
@@ -216,7 +216,7 @@ class Nestform_Security {
 		}
 		return add_query_arg(
 			array(
-				'action' => 'nestform_file',
+				'action' => 'thimbleform_file',
 				'aid'    => $attach_id,
 				'fid'    => $form_id,
 				'sig'    => self::file_signature( $attach_id, $form_id ),
@@ -264,37 +264,37 @@ class Nestform_Security {
 
 		if ( $attach_id <= 0 || $form_id <= 0 || $sig === '' ) {
 			status_header( 404 );
-			wp_die( esc_html__( 'File not found.', 'nestform' ), '', array( 'response' => 404 ) );
+			wp_die( esc_html__( 'File not found.', 'thimbleform' ), '', array( 'response' => 404 ) );
 		}
 
 		if ( self::is_rate_limited( 'file_' . $attach_id, 60 ) ) {
 			status_header( 429 );
-			wp_die( esc_html__( 'Too many requests.', 'nestform' ), '', array( 'response' => 429 ) );
+			wp_die( esc_html__( 'Too many requests.', 'thimbleform' ), '', array( 'response' => 429 ) );
 		}
 
 		$expected = self::file_signature( $attach_id, $form_id );
 		if ( ! hash_equals( $expected, $sig ) ) {
 			status_header( 403 );
-			wp_die( esc_html__( 'Forbidden.', 'nestform' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'Forbidden.', 'thimbleform' ), '', array( 'response' => 403 ) );
 		}
 
 		$post = get_post( $attach_id );
 		if ( ! $post || 'attachment' !== $post->post_type ) {
 			status_header( 404 );
-			wp_die( esc_html__( 'File not found.', 'nestform' ), '', array( 'response' => 404 ) );
+			wp_die( esc_html__( 'File not found.', 'thimbleform' ), '', array( 'response' => 404 ) );
 		}
 
 		$meta_form = (int) get_post_meta( $attach_id, self::META_FORM, true );
 		$private   = (string) get_post_meta( $attach_id, self::META_PRIVATE, true );
 		if ( '1' !== $private || $meta_form !== $form_id ) {
 			status_header( 404 );
-			wp_die( esc_html__( 'File not found.', 'nestform' ), '', array( 'response' => 404 ) );
+			wp_die( esc_html__( 'File not found.', 'thimbleform' ), '', array( 'response' => 404 ) );
 		}
 
 		$path = get_attached_file( $attach_id );
 		if ( ! is_string( $path ) || $path === '' || ! is_readable( $path ) ) {
 			status_header( 404 );
-			wp_die( esc_html__( 'File not found.', 'nestform' ), '', array( 'response' => 404 ) );
+			wp_die( esc_html__( 'File not found.', 'thimbleform' ), '', array( 'response' => 404 ) );
 		}
 
 		$mime = get_post_mime_type( $attach_id );

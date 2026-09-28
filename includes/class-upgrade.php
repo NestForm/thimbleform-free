@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Upgrade {
+class Thimbleform_Upgrade {
 
-	const LEGACY_PAGE_SLUG = 'nestform-upgrade';
+	const LEGACY_PAGE_SLUG = 'thimbleform-upgrade';
 
 	public static function init() {
 		add_action( 'admin_init', array( __CLASS__, 'redirect_legacy_pages' ) );
@@ -20,7 +20,7 @@ class Nestform_Upgrade {
 	/**
 	 * Old Upgrade / Account slugs → current Pro / License screens.
 	 *
-	 * Do not redirect Freemius `nestform-account` — the SDK needs that slug
+	 * Do not redirect Freemius `thimbleform-account` — the SDK needs that slug
 	 * for activate / sync / billing. Only remap our legacy Forms Account slug.
 	 */
 	public static function redirect_legacy_pages() {
@@ -28,11 +28,11 @@ class Nestform_Upgrade {
 			return;
 		}
 		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( self::LEGACY_PAGE_SLUG === $page && class_exists( 'Nestform_Promotion' ) ) {
-			wp_safe_redirect( Nestform_Promotion::url() );
+		if ( self::LEGACY_PAGE_SLUG === $page && class_exists( 'Thimbleform_Promotion' ) ) {
+			wp_safe_redirect( Thimbleform_Promotion::url() );
 			exit;
 		}
-		if ( 'nestform-forms-account' === $page && class_exists( 'Thimbleform_Pro_License' ) ) {
+		if ( 'thimbleform-forms-account' === $page && class_exists( 'Thimbleform_Pro_License' ) ) {
 			wp_safe_redirect( Thimbleform_Pro_License::url() );
 			exit;
 		}
@@ -47,7 +47,7 @@ class Nestform_Upgrade {
 		if ( class_exists( 'Thimbleform_Pro_License' ) && Thimbleform_Pro_License::is_valid() ) {
 			return true;
 		}
-		return (bool) apply_filters( 'nestform_is_pro', false );
+		return (bool) apply_filters( 'thimbleform_is_pro', false );
 	}
 
 	/**
@@ -57,30 +57,30 @@ class Nestform_Upgrade {
 	 */
 	public static function plan_catalog() {
 		$free_features = array(
-			__( 'Unlimited forms', 'nestform' ),
-			__( 'Lead & contact forms with templates', 'nestform' ),
-			__( 'Conditional logic & file uploads', 'nestform' ),
-			__( 'Entries inbox, CSV export & captcha', 'nestform' ),
-			__( 'Email notifications & spam protection', 'nestform' ),
-			__( 'Outbound webhooks (up to 5 endpoints per form)', 'nestform' ),
-			__( 'Basic analytics', 'nestform' ),
+			__( 'Unlimited forms', 'thimbleform' ),
+			__( 'Lead & contact forms with templates', 'thimbleform' ),
+			__( 'Conditional logic & file uploads', 'thimbleform' ),
+			__( 'Entries inbox, CSV export & captcha', 'thimbleform' ),
+			__( 'Email notifications & spam protection', 'thimbleform' ),
+			__( 'Outbound webhooks (up to 5 endpoints per form)', 'thimbleform' ),
+			__( 'Basic analytics', 'thimbleform' ),
 		);
 
 		$pro_features = array(
-			__( 'Multi-step forms & branch rules', 'nestform' ),
-			__( 'Quizzes & surveys with scoring, result bands, timers, and charts', 'nestform' ),
-			__( 'HTML email designer & PDF attachments', 'nestform' ),
-			__( 'Automations, calculated fields & repeaters', 'nestform' ),
-			__( 'Stripe payment fields', 'nestform' ),
-			__( 'HubSpot contact sync', 'nestform' ),
-			__( 'Rating, signature, NPS, and other advanced fields', 'nestform' ),
-			__( 'Conversion metrics & lead insights', 'nestform' ),
-			__( 'Optional Recruiting: jobs, recruiter inbox, and pipeline', 'nestform' ),
+			__( 'Multi-step forms & branch rules', 'thimbleform' ),
+			__( 'Quizzes & surveys with scoring, result bands, timers, and charts', 'thimbleform' ),
+			__( 'HTML email designer & PDF attachments', 'thimbleform' ),
+			__( 'Automations, calculated fields & repeaters', 'thimbleform' ),
+			__( 'Stripe payment fields', 'thimbleform' ),
+			__( 'HubSpot contact sync', 'thimbleform' ),
+			__( 'Rating, signature, NPS, and other advanced fields', 'thimbleform' ),
+			__( 'Conversion metrics & lead insights', 'thimbleform' ),
+			__( 'Optional Recruiting: jobs, recruiter inbox, and pipeline', 'thimbleform' ),
 		);
 
 		$agency_features = array(
-			__( 'Everything in Pro', 'nestform' ),
-			__( 'Same features on up to 5 WordPress sites', 'nestform' ),
+			__( 'Everything in Pro', 'thimbleform' ),
+			__( 'Same features on up to 5 WordPress sites', 'thimbleform' ),
 		);
 
 		/**
@@ -89,47 +89,47 @@ class Nestform_Upgrade {
 		 * @param array<string, array<string, mixed>> $plans Plan definitions.
 		 */
 		return (array) apply_filters(
-			'nestform_plan_catalog',
+			'thimbleform_plan_catalog',
 			array(
 				'free'   => array(
 					'id'                 => 'free',
-					'name'               => __( 'Free', 'nestform' ),
-					'tagline'            => __( 'Lead forms that ship', 'nestform' ),
+					'name'               => __( 'Free', 'thimbleform' ),
+					'tagline'            => __( 'Lead forms that ship', 'thimbleform' ),
 					'price_monthly'      => '$0',
 					'price_yearly'       => '$0',
-					'price_unit_monthly' => __( '/ month', 'nestform' ),
-					'price_unit_yearly'  => __( '/ year', 'nestform' ),
+					'price_unit_monthly' => __( '/ month', 'thimbleform' ),
+					'price_unit_yearly'  => __( '/ year', 'thimbleform' ),
 					'billed_yearly'      => '',
 					'features'           => $free_features,
-					'foot'               => __( 'Included with Thimbleform', 'nestform' ),
+					'foot'               => __( 'Included with Thimbleform', 'thimbleform' ),
 					'popular'            => false,
 					'checkout_plan'      => '',
 				),
 				'pro'    => array(
 					'id'                 => 'pro',
-					'name'               => __( 'Pro', 'nestform' ),
-					'tagline'            => __( 'Interactive forms & growth', 'nestform' ),
+					'name'               => __( 'Pro', 'thimbleform' ),
+					'tagline'            => __( 'Interactive forms & growth', 'thimbleform' ),
 					'price_monthly'      => '$9.99',
 					'price_yearly'       => '$89.99',
-					'price_unit_monthly' => __( '/ month', 'nestform' ),
-					'price_unit_yearly'  => __( '/ year', 'nestform' ),
+					'price_unit_monthly' => __( '/ month', 'thimbleform' ),
+					'price_unit_yearly'  => __( '/ year', 'thimbleform' ),
 					'billed_yearly'      => '',
 					'features'           => $pro_features,
-					'foot'               => __( 'Single WordPress site', 'nestform' ),
+					'foot'               => __( 'Single WordPress site', 'thimbleform' ),
 					'popular'            => true,
 					'checkout_plan'      => 'pro',
 				),
 				'agency' => array(
 					'id'                 => 'agency',
-					'name'               => __( 'Agency', 'nestform' ),
-					'tagline'            => __( 'Same features, up to 5 sites', 'nestform' ),
+					'name'               => __( 'Agency', 'thimbleform' ),
+					'tagline'            => __( 'Same features, up to 5 sites', 'thimbleform' ),
 					'price_monthly'      => '$29.99',
 					'price_yearly'       => '$269.99',
-					'price_unit_monthly' => __( '/ month', 'nestform' ),
-					'price_unit_yearly'  => __( '/ year', 'nestform' ),
+					'price_unit_monthly' => __( '/ month', 'thimbleform' ),
+					'price_unit_yearly'  => __( '/ year', 'thimbleform' ),
 					'billed_yearly'      => '',
 					'features'           => $agency_features,
-					'foot'               => __( 'Up to 5 client sites', 'nestform' ),
+					'foot'               => __( 'Up to 5 client sites', 'thimbleform' ),
 					'popular'            => false,
 					'checkout_plan'      => 'agency',
 				),
@@ -155,7 +155,7 @@ class Nestform_Upgrade {
 		}
 		return sprintf(
 			/* translators: 1: monthly price with unit, 2: yearly price with unit */
-			__( '%1$s or %2$s', 'nestform' ),
+			__( '%1$s or %2$s', 'thimbleform' ),
 			(string) $plan['price_monthly'] . (string) $plan['price_unit_monthly'],
 			(string) $plan['price_yearly'] . (string) $plan['price_unit_yearly']
 		);
@@ -232,14 +232,14 @@ class Nestform_Upgrade {
 		if ( count( $amounts ) > 1 ) {
 			return sprintf(
 				/* translators: %d: maximum yearly savings percent */
-				__( 'Save up to %d%%', 'nestform' ),
+				__( 'Save up to %d%%', 'thimbleform' ),
 				$max
 			);
 		}
 
 		return sprintf(
 			/* translators: %d: yearly savings percent */
-			__( 'Save %d%%', 'nestform' ),
+			__( 'Save %d%%', 'thimbleform' ),
 			$max
 		);
 	}
@@ -273,14 +273,14 @@ class Nestform_Upgrade {
 		if ( 'agency' === $key ) {
 			return sprintf(
 				/* translators: %s: monthly equivalent price */
-				__( '≈ %s / month, billed yearly · 5 sites', 'nestform' ),
+				__( '≈ %s / month, billed yearly · 5 sites', 'thimbleform' ),
 				$formatted
 			);
 		}
 
 		return sprintf(
 			/* translators: %s: monthly equivalent price */
-			__( '≈ %s / month, billed yearly', 'nestform' ),
+			__( '≈ %s / month, billed yearly', 'thimbleform' ),
 			$formatted
 		);
 	}
@@ -320,7 +320,7 @@ class Nestform_Upgrade {
 		);
 
 		if ( 'agency' === $plan ) {
-			$url = apply_filters( 'nestform_agency_checkout_url', $url, $plan, $billing );
+			$url = apply_filters( 'thimbleform_agency_checkout_url', $url, $plan, $billing );
 		} else {
 			$url = apply_filters( 'thimbleform_pro_checkout_url', $url, $plan, $billing );
 		}
@@ -333,13 +333,13 @@ class Nestform_Upgrade {
 	 * @return string
 	 */
 	public static function url( $args = array() ) {
-		if ( class_exists( 'Nestform_Promotion' ) ) {
-			return Nestform_Promotion::url( $args );
+		if ( class_exists( 'Thimbleform_Promotion' ) ) {
+			return Thimbleform_Promotion::url( $args );
 		}
 		return add_query_arg(
 			array_merge(
 				array(
-					'post_type' => Nestform_Post_Type::POST_TYPE,
+					'post_type' => Thimbleform_Post_Type::POST_TYPE,
 					'page'      => self::LEGACY_PAGE_SLUG,
 				),
 				$args
@@ -355,8 +355,8 @@ class Nestform_Upgrade {
 	 */
 	public static function pill_html() {
 		return '<span class="thimbleform-pro-pill">'
-			. nestform_admin_icon_html( 'pro' )
-			. esc_html__( 'PRO', 'nestform' )
+			. thimbleform_admin_icon_html( 'pro' )
+			. esc_html__( 'PRO', 'thimbleform' )
 			. '</span>';
 	}
 
@@ -366,7 +366,7 @@ class Nestform_Upgrade {
 	 * @return string
 	 */
 	public static function cta_label_html() {
-		return esc_html__( 'Upgrade to Pro', 'nestform' );
+		return esc_html__( 'Upgrade to Pro', 'thimbleform' );
 	}
 
 	/**
@@ -376,14 +376,14 @@ class Nestform_Upgrade {
 	 */
 	public static function render_sidebar( $forms_n = 0 ) {
 		unset( $forms_n );
-		if ( self::is_pro() || ! class_exists( 'Nestform_Promotion' ) || ! Nestform_Promotion::should_promote() ) {
+		if ( self::is_pro() || ! class_exists( 'Thimbleform_Promotion' ) || ! Thimbleform_Promotion::should_promote() ) {
 			return;
 		}
 		?>
-		<a class="nestform-app__pro" href="<?php echo esc_url( Nestform_Promotion::url() ); ?>">
-			<span class="nestform-app__pro-kicker"><?php echo nestform_admin_icon_html( 'pro' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG ?> <?php esc_html_e( 'Thimbleform Pro', 'nestform' ); ?></span>
-			<span class="nestform-app__pro-copy"><?php esc_html_e( 'Quizzes, multi-step flows, PDF, Stripe, HubSpot, and optional Recruiting.', 'nestform' ); ?></span>
-			<span class="thimbleform-pro-cta nestform-app__pro-cta"><?php esc_html_e( 'Learn more', 'nestform' ); ?></span>
+		<a class="thimbleform-app__pro" href="<?php echo esc_url( Thimbleform_Promotion::url() ); ?>">
+			<span class="thimbleform-app__pro-kicker"><?php echo thimbleform_admin_icon_html( 'pro' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG ?> <?php esc_html_e( 'Thimbleform Pro', 'thimbleform' ); ?></span>
+			<span class="thimbleform-app__pro-copy"><?php esc_html_e( 'Quizzes, multi-step flows, PDF, Stripe, HubSpot, and optional Recruiting.', 'thimbleform' ); ?></span>
+			<span class="thimbleform-pro-cta thimbleform-app__pro-cta"><?php esc_html_e( 'Learn more', 'thimbleform' ); ?></span>
 		</a>
 		<?php
 	}
@@ -393,23 +393,23 @@ class Nestform_Upgrade {
 	 */
 	public static function render_plan_cards( array $plans ) {
 		?>
-		<div class="nestform-upgrade__grid">
+		<div class="thimbleform-upgrade__grid">
 			<?php foreach ( $plans as $plan_key => $plan ) : ?>
 				<?php
-				$article_class = 'nestform-upgrade__plan';
+				$article_class = 'thimbleform-upgrade__plan';
 				if ( 'pro' === $plan_key ) {
-					$article_class .= ' nestform-upgrade__plan--pro';
+					$article_class .= ' thimbleform-upgrade__plan--pro';
 				} elseif ( 'agency' === $plan_key ) {
-					$article_class .= ' nestform-upgrade__plan--agency';
+					$article_class .= ' thimbleform-upgrade__plan--agency';
 				}
 				$is_paid = ! empty( $plan['checkout_plan'] );
 				?>
 				<article class="<?php echo esc_attr( $article_class ); ?>">
 					<?php if ( ! empty( $plan['popular'] ) ) : ?>
-						<span class="nestform-upgrade__popular"><?php esc_html_e( 'Most popular', 'nestform' ); ?></span>
+						<span class="thimbleform-upgrade__popular"><?php esc_html_e( 'Most popular', 'thimbleform' ); ?></span>
 					<?php endif; ?>
-					<div class="nestform-upgrade__plan-top">
-						<h2 class="nestform-upgrade__plan-name">
+					<div class="thimbleform-upgrade__plan-top">
+						<h2 class="thimbleform-upgrade__plan-name">
 							<?php echo esc_html( (string) $plan['name'] ); ?>
 							<?php
 							if ( 'pro' === $plan_key ) {
@@ -417,27 +417,27 @@ class Nestform_Upgrade {
 							}
 							?>
 						</h2>
-						<p class="nestform-upgrade__plan-tag"><?php echo esc_html( (string) $plan['tagline'] ); ?></p>
+						<p class="thimbleform-upgrade__plan-tag"><?php echo esc_html( (string) $plan['tagline'] ); ?></p>
 					</div>
 					<?php if ( $is_paid ) : ?>
-						<p class="nestform-upgrade__price" data-nestform-price-monthly<?php echo 'agency' === $plan_key ? ' data-nestform-agency-monthly' : ''; ?>>
-							<?php echo esc_html( (string) $plan['price_monthly'] ); ?><span class="nestform-upgrade__price-unit"><?php echo esc_html( (string) $plan['price_unit_monthly'] ); ?></span>
+						<p class="thimbleform-upgrade__price" data-thimbleform-price-monthly<?php echo 'agency' === $plan_key ? ' data-thimbleform-agency-monthly' : ''; ?>>
+							<?php echo esc_html( (string) $plan['price_monthly'] ); ?><span class="thimbleform-upgrade__price-unit"><?php echo esc_html( (string) $plan['price_unit_monthly'] ); ?></span>
 						</p>
-						<p class="nestform-upgrade__price" data-nestform-price-yearly<?php echo 'agency' === $plan_key ? ' data-nestform-agency-yearly' : ''; ?> hidden>
-							<?php echo esc_html( (string) $plan['price_yearly'] ); ?><span class="nestform-upgrade__price-unit"><?php echo esc_html( (string) $plan['price_unit_yearly'] ); ?></span>
+						<p class="thimbleform-upgrade__price" data-thimbleform-price-yearly<?php echo 'agency' === $plan_key ? ' data-thimbleform-agency-yearly' : ''; ?> hidden>
+							<?php echo esc_html( (string) $plan['price_yearly'] ); ?><span class="thimbleform-upgrade__price-unit"><?php echo esc_html( (string) $plan['price_unit_yearly'] ); ?></span>
 						</p>
 						<?php
 						$billed_yearly = self::plan_billed_yearly_label( (string) $plan_key, $plan );
 						if ( $billed_yearly ) :
 							?>
-							<p class="nestform-upgrade__billed" data-nestform-billed-yearly hidden><?php echo esc_html( $billed_yearly ); ?></p>
+							<p class="thimbleform-upgrade__billed" data-thimbleform-billed-yearly hidden><?php echo esc_html( $billed_yearly ); ?></p>
 						<?php endif; ?>
 					<?php else : ?>
-						<p class="nestform-upgrade__price">
-							<?php echo esc_html( (string) $plan['price_monthly'] ); ?><span class="nestform-upgrade__price-unit"><?php echo esc_html( (string) $plan['price_unit_monthly'] ); ?></span>
+						<p class="thimbleform-upgrade__price">
+							<?php echo esc_html( (string) $plan['price_monthly'] ); ?><span class="thimbleform-upgrade__price-unit"><?php echo esc_html( (string) $plan['price_unit_monthly'] ); ?></span>
 						</p>
 					<?php endif; ?>
-					<ul class="nestform-upgrade__list">
+					<ul class="thimbleform-upgrade__list">
 						<?php foreach ( (array) $plan['features'] as $item ) : ?>
 							<li><?php echo esc_html( (string) $item ); ?></li>
 						<?php endforeach; ?>
@@ -446,8 +446,8 @@ class Nestform_Upgrade {
 						<?php
 						$checkout_plan = sanitize_key( (string) $plan['checkout_plan'] );
 						$cta_class     = 'pro' === $checkout_plan
-							? 'thimbleform-pro-cta nestform-upgrade__cta'
-							: 'nestform-btn nestform-btn--outline nestform-upgrade__cta nestform-upgrade__cta--agency';
+							? 'thimbleform-pro-cta thimbleform-upgrade__cta'
+							: 'thimbleform-btn thimbleform-btn--outline thimbleform-upgrade__cta thimbleform-upgrade__cta--agency';
 						?>
 						<a
 							class="<?php echo esc_attr( $cta_class ); ?>"
@@ -457,22 +457,22 @@ class Nestform_Upgrade {
 						>
 							<?php
 							if ( 'pro' === $checkout_plan ) {
-								esc_html_e( 'Buy Pro', 'nestform' );
+								esc_html_e( 'Buy Pro', 'thimbleform' );
 							} else {
-								esc_html_e( 'Get Agency', 'nestform' );
+								esc_html_e( 'Get Agency', 'thimbleform' );
 							}
 							?>
 						</a>
 					<?php elseif ( ! empty( $plan['foot'] ) ) : ?>
-						<span class="nestform-upgrade__plan-foot"><?php echo esc_html( (string) $plan['foot'] ); ?></span>
+						<span class="thimbleform-upgrade__plan-foot"><?php echo esc_html( (string) $plan['foot'] ); ?></span>
 					<?php endif; ?>
 				</article>
 			<?php endforeach; ?>
 		</div>
-		<p class="nestform-upgrade__trust">
-			<span class="nestform-upgrade__trust-item"><?php esc_html_e( '30-day money-back guarantee', 'nestform' ); ?></span>
-			<span class="nestform-upgrade__trust-item"><?php esc_html_e( 'Cancel anytime', 'nestform' ); ?></span>
-			<span class="nestform-upgrade__trust-item"><?php esc_html_e( 'Install Thimbleform Pro after purchase', 'nestform' ); ?></span>
+		<p class="thimbleform-upgrade__trust">
+			<span class="thimbleform-upgrade__trust-item"><?php esc_html_e( '30-day money-back guarantee', 'thimbleform' ); ?></span>
+			<span class="thimbleform-upgrade__trust-item"><?php esc_html_e( 'Cancel anytime', 'thimbleform' ); ?></span>
+			<span class="thimbleform-upgrade__trust-item"><?php esc_html_e( 'Install Thimbleform Pro after purchase', 'thimbleform' ); ?></span>
 		</p>
 		<?php
 	}

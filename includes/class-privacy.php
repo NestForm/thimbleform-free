@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Privacy {
+class Thimbleform_Privacy {
 
 	const PER_PAGE = 20;
 
@@ -24,8 +24,8 @@ class Nestform_Privacy {
 	 * @return array<string, array<string, mixed>>
 	 */
 	public static function register_exporter( $exporters ) {
-		$exporters['nestform'] = array(
-			'exporter_friendly_name' => __( 'Thimbleform entries', 'nestform' ),
+		$exporters['thimbleform'] = array(
+			'exporter_friendly_name' => __( 'Thimbleform entries', 'thimbleform' ),
 			'callback'               => array( __CLASS__, 'export' ),
 		);
 
@@ -37,8 +37,8 @@ class Nestform_Privacy {
 	 * @return array<string, array<string, mixed>>
 	 */
 	public static function register_eraser( $erasers ) {
-		$erasers['nestform'] = array(
-			'eraser_friendly_name' => __( 'Thimbleform entries', 'nestform' ),
+		$erasers['thimbleform'] = array(
+			'eraser_friendly_name' => __( 'Thimbleform entries', 'thimbleform' ),
 			'callback'             => array( __CLASS__, 'erase' ),
 		);
 
@@ -58,7 +58,7 @@ class Nestform_Privacy {
 		$forms      = array();
 
 		foreach ( $candidates as $entry ) {
-			$form_id = (int) get_post_meta( $entry->ID, Nestform_Submissions::META_FORM, true );
+			$form_id = (int) get_post_meta( $entry->ID, Thimbleform_Submissions::META_FORM, true );
 			if ( $form_id <= 0 ) {
 				continue;
 			}
@@ -71,18 +71,18 @@ class Nestform_Privacy {
 				continue;
 			}
 
-			$payload = get_post_meta( $entry->ID, Nestform_Submissions::META_DATA, true );
+			$payload = get_post_meta( $entry->ID, Thimbleform_Submissions::META_DATA, true );
 			if ( ! is_array( $payload ) ) {
 				$payload = array();
 			}
 
 			$items = array(
 				array(
-					'name'  => __( 'Form', 'nestform' ),
+					'name'  => __( 'Form', 'thimbleform' ),
 					'value' => $form->post_title,
 				),
 				array(
-					'name'  => __( 'Submitted', 'nestform' ),
+					'name'  => __( 'Submitted', 'thimbleform' ),
 					'value' => get_post_time( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), true, $entry ),
 				),
 			);
@@ -99,18 +99,18 @@ class Nestform_Privacy {
 				);
 			}
 
-			$ip = (string) get_post_meta( $entry->ID, Nestform_Submissions::META_IP, true );
+			$ip = (string) get_post_meta( $entry->ID, Thimbleform_Submissions::META_IP, true );
 			if ( $ip !== '' ) {
 				$items[] = array(
-					'name'  => __( 'IP address', 'nestform' ),
+					'name'  => __( 'IP address', 'thimbleform' ),
 					'value' => $ip,
 				);
 			}
 
 			$data[] = array(
-				'group_id'    => 'nestform-entries',
-				'group_label' => __( 'Form entries', 'nestform' ),
-				'item_id'     => 'nestform-entry-' . (int) $entry->ID,
+				'group_id'    => 'thimbleform-entries',
+				'group_label' => __( 'Form entries', 'thimbleform' ),
+				'item_id'     => 'thimbleform-entry-' . (int) $entry->ID,
 				'data'        => $items,
 			);
 		}
@@ -134,7 +134,7 @@ class Nestform_Privacy {
 		$forms      = array();
 
 		foreach ( $candidates as $entry ) {
-			$form_id = (int) get_post_meta( $entry->ID, Nestform_Submissions::META_FORM, true );
+			$form_id = (int) get_post_meta( $entry->ID, Thimbleform_Submissions::META_FORM, true );
 			if ( $form_id <= 0 ) {
 				continue;
 			}
@@ -167,11 +167,11 @@ class Nestform_Privacy {
 
 		$content =
 			'<p class="privacy-policy-tutorial">' .
-			esc_html__( 'Suggested text for sites that collect form entries with Thimbleform. Edit it to match the forms you run.', 'nestform' ) .
+			esc_html__( 'Suggested text for sites that collect form entries with Thimbleform. Edit it to match the forms you run.', 'thimbleform' ) .
 			'</p><p>' .
-			esc_html__( 'When you submit a form on this site, your answers are stored in this site\'s database. Depending on the form, this may include your name, email address, phone number, and anything else the form asks for.', 'nestform' ) .
+			esc_html__( 'When you submit a form on this site, your answers are stored in this site\'s database. Depending on the form, this may include your name, email address, phone number, and anything else the form asks for.', 'thimbleform' ) .
 			'</p><p>' .
-			esc_html__( 'Stored entries are visible to site administrators. You can request a copy of entries linked to your email address, or ask for them to be deleted, using the contact details in this policy.', 'nestform' ) .
+			esc_html__( 'Stored entries are visible to site administrators. You can request a copy of entries linked to your email address, or ask for them to be deleted, using the contact details in this policy.', 'thimbleform' ) .
 			'</p>';
 
 		wp_add_privacy_policy_content( 'Thimbleform', $content );
@@ -191,7 +191,7 @@ class Nestform_Privacy {
 
 		$query = new WP_Query(
 			array(
-				'post_type'              => Nestform_Submissions::POST_TYPE,
+				'post_type'              => Thimbleform_Submissions::POST_TYPE,
 				'post_status'            => 'any',
 				'posts_per_page'         => max( 1, (int) $limit ),
 				'offset'                 => max( 0, (int) $offset ),
@@ -201,7 +201,7 @@ class Nestform_Privacy {
 				'update_post_meta_cache' => true,
 				'meta_query'             => array(
 					array(
-						'key'     => Nestform_Submissions::META_DATA,
+						'key'     => Thimbleform_Submissions::META_DATA,
 						'value'   => $email,
 						'compare' => 'LIKE',
 					),
@@ -224,7 +224,7 @@ class Nestform_Privacy {
 			return false;
 		}
 
-		$payload = get_post_meta( $entry->ID, Nestform_Submissions::META_DATA, true );
+		$payload = get_post_meta( $entry->ID, Thimbleform_Submissions::META_DATA, true );
 		if ( ! is_array( $payload ) ) {
 			return false;
 		}
@@ -251,13 +251,13 @@ class Nestform_Privacy {
 	 * @return array<int, array<string, mixed>>
 	 */
 	private static function data_fields( $form_id ) {
-		if ( ! class_exists( 'Nestform_Form_Config' ) ) {
+		if ( ! class_exists( 'Thimbleform_Form_Config' ) ) {
 			return array();
 		}
 
 		$fields = array();
-		foreach ( Nestform_Form_Config::get_fields( $form_id ) as $field ) {
-			if ( empty( $field['name'] ) || Nestform_Form_Config::is_layout_field( $field['type'] ) ) {
+		foreach ( Thimbleform_Form_Config::get_fields( $form_id ) as $field ) {
+			if ( empty( $field['name'] ) || Thimbleform_Form_Config::is_layout_field( $field['type'] ) ) {
 				continue;
 			}
 			if ( in_array( (string) $field['type'], array( 'hidden', 'password' ), true ) ) {

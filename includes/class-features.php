@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Features {
+class Thimbleform_Features {
 
 	const MULTI_STEP         = 'multi_step';
 	const WEBHOOK            = 'webhook';
@@ -108,14 +108,14 @@ class Nestform_Features {
 	public static function can( $feature ) {
 		$feature = sanitize_key( (string) $feature );
 		if ( self::WEBHOOK === $feature ) {
-			return (bool) apply_filters( 'nestform_feature_allowed', true, $feature );
+			return (bool) apply_filters( 'thimbleform_feature_allowed', true, $feature );
 		}
 		$allowed = ! empty( self::$capabilities[ $feature ] );
 
 		if ( ! $allowed ) {
 			return false;
 		}
-		return (bool) apply_filters( 'nestform_feature_allowed', true, $feature );
+		return (bool) apply_filters( 'thimbleform_feature_allowed', true, $feature );
 	}
 
 	/**
@@ -143,12 +143,12 @@ class Nestform_Features {
 	 */
 	public static function advanced_field_teasers() {
 		$labels = array(
-			'rating'    => __( 'Rating', 'nestform' ),
-			'signature' => __( 'Signature', 'nestform' ),
-			'nps'       => __( 'NPS', 'nestform' ),
-			'scale'     => __( 'Scale', 'nestform' ),
-			'ranking'   => __( 'Ranking', 'nestform' ),
-			'matrix'    => __( 'Matrix', 'nestform' ),
+			'rating'    => __( 'Rating', 'thimbleform' ),
+			'signature' => __( 'Signature', 'thimbleform' ),
+			'nps'       => __( 'NPS', 'thimbleform' ),
+			'scale'     => __( 'Scale', 'thimbleform' ),
+			'ranking'   => __( 'Ranking', 'thimbleform' ),
+			'matrix'    => __( 'Matrix', 'thimbleform' ),
 		);
 
 		/**
@@ -156,7 +156,7 @@ class Nestform_Features {
 		 *
 		 * @param array<string, string> $labels Type => label.
 		 */
-		return (array) apply_filters( 'nestform_advanced_field_teasers', $labels );
+		return (array) apply_filters( 'thimbleform_advanced_field_teasers', $labels );
 	}
 
 	/**
@@ -166,9 +166,9 @@ class Nestform_Features {
 	 */
 	public static function specialty_field_teasers() {
 		return array(
-			'calculated' => __( 'Calculated', 'nestform' ),
-			'repeater'   => __( 'Repeater', 'nestform' ),
-			'payment'    => __( 'Payment', 'nestform' ),
+			'calculated' => __( 'Calculated', 'thimbleform' ),
+			'repeater'   => __( 'Repeater', 'thimbleform' ),
+			'payment'    => __( 'Payment', 'thimbleform' ),
 		);
 	}
 

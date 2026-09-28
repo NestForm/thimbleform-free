@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Onboarding {
+class Thimbleform_Onboarding {
 
-	const REDIRECT_KEY = 'nestform_activation_redirect';
+	const REDIRECT_KEY = 'thimbleform_activation_redirect';
 
 	const REDIRECT_TTL = 60;
 
@@ -52,9 +52,9 @@ class Nestform_Onboarding {
 			return;
 		}
 
-		$target = class_exists( 'Nestform_Post_Type' )
-			? Nestform_Post_Type::hub_url()
-			: admin_url( 'edit.php?post_type=nestform' );
+		$target = class_exists( 'Thimbleform_Post_Type' )
+			? Thimbleform_Post_Type::hub_url()
+			: admin_url( 'edit.php?post_type=thimbleform' );
 
 		wp_safe_redirect( $target );
 		exit;

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-	var button = document.querySelector('[data-nestform-print]');
+	var button = document.querySelector('[data-thimbleform-print]');
 	if (!button) {
 		return;
 	}

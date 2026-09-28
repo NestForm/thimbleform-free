@@ -158,19 +158,19 @@ The phone country picker uses self-hosted SVG flags from [flag-icons](https://gi
 
 = 2.3.2 =
 * Public name is Thimbleform. The plugin directory slug is `thimbleform`.
-* Entries hub: optional All / Forms / Jobs kind filters via `nestform_entries_kind_filters` and `nestform_entries_hub_query_args` (form_ids / exclude_form_ids).
+* Entries hub: optional All / Forms / Jobs kind filters via `thimbleform_entries_kind_filters` and `thimbleform_entries_hub_query_args` (form_ids / exclude_form_ids).
 * Sharper dashboard charts (no forced canvas stretch on retina).
 * Clearer description and screenshots of the free plugin.
 
 = 2.3.1 =
-* Addon hooks: `nestform_accessible_form_ids`, `nestform_user_can_manage_form_entries`, `nestform_templates`, `nestform_template_applied`, `nestform_entry_meta_after`.
+* Addon hooks: `thimbleform_accessible_form_ids`, `thimbleform_user_can_manage_form_entries`, `thimbleform_templates`, `thimbleform_template_applied`, `thimbleform_entry_meta_after`.
 * Forms hub respects the same entry access allow-list (needed for Thimbleform HR and similar add-ons).
 
 = 2.3.0 =
 * Dashboard redesign: Work pulse (New / Read / Spam), quieter KPIs, Activity chart without duplicate status footers.
 * Top forms rail replaces Status mix; Recent activity uses a normal panel frame.
 * Quick actions are visible secondary buttons (New form, Forms/Export, Integrations).
-* Developers docs: `nestform_dashboard_work_pulse_extra` filter.
+* Developers docs: `thimbleform_dashboard_work_pulse_extra` filter.
 * Tested up to WordPress 7.1. Turnstile, hCaptcha, and Akismet are described under External services.
 * Smoke checks via `npm test`.
 

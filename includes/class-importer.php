@@ -9,10 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Importer {
+class Thimbleform_Importer {
 
-	const PAGE_SLUG     = 'nestform-import';
-	const ACTION_IMPORT = 'nestform_import_external';
+	const PAGE_SLUG     = 'thimbleform-import';
+	const ACTION_IMPORT = 'thimbleform_import_external';
 	const REPORT_TTL    = 300;
 
 	/** CF7 tag pattern: type, optional *, name, params. */
@@ -31,7 +31,7 @@ class Nestform_Importer {
 	public static function url() {
 		return add_query_arg(
 			array(
-				'post_type' => Nestform_Post_Type::POST_TYPE,
+				'post_type' => Thimbleform_Post_Type::POST_TYPE,
 				'page'      => self::PAGE_SLUG,
 			),
 			admin_url( 'edit.php' )
@@ -45,7 +45,7 @@ class Nestform_Importer {
 	 */
 	public static function user_can_import() {
 		return current_user_can( 'edit_posts' )
-			|| ( class_exists( 'Nestform_Capabilities' ) && Nestform_Capabilities::can_manage() );
+			|| ( class_exists( 'Thimbleform_Capabilities' ) && Thimbleform_Capabilities::can_manage() );
 	}
 
 	public static function menu() {
@@ -53,9 +53,9 @@ class Nestform_Importer {
 			return;
 		}
 		add_submenu_page(
-			'edit.php?post_type=' . Nestform_Post_Type::POST_TYPE,
-			__( 'Import forms', 'nestform' ),
-			__( 'Import forms', 'nestform' ),
+			'edit.php?post_type=' . Thimbleform_Post_Type::POST_TYPE,
+			__( 'Import forms', 'thimbleform' ),
+			__( 'Import forms', 'thimbleform' ),
 			'edit_posts',
 			self::PAGE_SLUG,
 			array( __CLASS__, 'render' )
@@ -69,7 +69,7 @@ class Nestform_Importer {
 	public static function admin_body_class( $classes ) {
 		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( self::PAGE_SLUG === $page ) {
-			$classes .= ' nestform-admin-screen nestform-import-screen nestform-settings-screen';
+			$classes .= ' thimbleform-admin-screen thimbleform-import-screen thimbleform-settings-screen';
 		}
 		return $classes;
 	}
@@ -82,12 +82,12 @@ class Nestform_Importer {
 		if ( self::PAGE_SLUG !== $page && false === strpos( (string) $hook, self::PAGE_SLUG ) ) {
 			return;
 		}
-		$ver = (string) filemtime( nestform_admin_css_path() );
+		$ver = (string) filemtime( thimbleform_admin_css_path() );
 		wp_enqueue_style(
-			'nestform-admin',
-			nestform_admin_css_url(),
-			nestform_admin_style_deps(),
-			$ver ? $ver : NESTFORM_VERSION
+			'thimbleform-admin',
+			thimbleform_admin_css_url(),
+			thimbleform_admin_style_deps(),
+			$ver ? $ver : THIMBLEFORM_VERSION
 		);
 	}
 
@@ -102,33 +102,33 @@ class Nestform_Importer {
 			return '';
 		}
 		$class = $menu_item
-			? 'nestform-btn nestform-btn--ghost nestform-hub__import-item'
-			: 'nestform-btn nestform-btn--outline';
+			? 'thimbleform-btn thimbleform-btn--ghost thimbleform-hub__import-item'
+			: 'thimbleform-btn thimbleform-btn--outline';
 		$label = $menu_item
-			? __( 'From CF7 / WPForms', 'nestform' )
-			: __( 'Import forms', 'nestform' );
+			? __( 'From CF7 / WPForms', 'thimbleform' )
+			: __( 'Import forms', 'thimbleform' );
 		return sprintf(
 			'<a class="%1$s" href="%2$s">%3$s%4$s</a>',
 			esc_attr( $class ),
 			esc_url( self::url() ),
-			nestform_admin_icon_html( 'download' ),
+			thimbleform_admin_icon_html( 'download' ),
 			esc_html( $label )
 		);
 	}
 
 	public static function render() {
 		if ( ! self::user_can_import() ) {
-			wp_die( esc_html__( 'You do not have permission to import forms.', 'nestform' ) );
+			wp_die( esc_html__( 'You do not have permission to import forms.', 'thimbleform' ) );
 		}
 
 		$sources = self::sources();
 		?>
-		<div class="wrap nestform-admin nestform-settings nestform-import">
+		<div class="wrap thimbleform-admin thimbleform-settings thimbleform-import">
 			<?php
-			nestform_render_page_head(
+			thimbleform_render_page_head(
 				array(
-					'title'       => __( 'Import forms', 'nestform' ),
-					'description' => __( 'Bring questions across from Contact Form 7 or WPForms. Imports land as drafts — review before publishing. Responses are not copied.', 'nestform' ),
+					'title'       => __( 'Import forms', 'thimbleform' ),
+					'description' => __( 'Bring questions across from Contact Form 7 or WPForms. Imports land as drafts — review before publishing. Responses are not copied.', 'thimbleform' ),
 					'icon'        => 'forms',
 				)
 			);
@@ -148,13 +148,13 @@ class Nestform_Importer {
 	public static function sources() {
 		return array(
 			'cf7'     => array(
-				'label'       => __( 'Contact Form 7', 'nestform' ),
-				'description' => __( 'Reads CF7 forms stored on this site. The plugin does not need to be active.', 'nestform' ),
+				'label'       => __( 'Contact Form 7', 'thimbleform' ),
+				'description' => __( 'Reads CF7 forms stored on this site. The plugin does not need to be active.', 'thimbleform' ),
 				'forms'       => self::posts_of_type( 'wpcf7_contact_form' ),
 			),
 			'wpforms' => array(
-				'label'       => __( 'WPForms', 'nestform' ),
-				'description' => __( 'Reads WPForms / WPForms Lite forms from this site. The plugin does not need to be active.', 'nestform' ),
+				'label'       => __( 'WPForms', 'thimbleform' ),
+				'description' => __( 'Reads WPForms / WPForms Lite forms from this site. The plugin does not need to be active.', 'thimbleform' ),
 				'forms'       => self::posts_of_type( 'wpforms' ),
 			),
 		);
@@ -181,7 +181,7 @@ class Nestform_Importer {
 		foreach ( $posts as $post ) {
 			$out[] = array(
 				'id'    => (int) $post->ID,
-				'title' => '' !== $post->post_title ? $post->post_title : __( '(no title)', 'nestform' ),
+				'title' => '' !== $post->post_title ? $post->post_title : __( '(no title)', 'thimbleform' ),
 			);
 		}
 		return $out;
@@ -194,25 +194,25 @@ class Nestform_Importer {
 	private static function render_source_card( $slug, array $source ) {
 		$forms = isset( $source['forms'] ) && is_array( $source['forms'] ) ? $source['forms'] : array();
 		?>
-		<div class="nestform-admin__surface nestform-settings__card nestform-import__card">
-			<div class="nestform-admin__panel-head">
+		<div class="thimbleform-admin__surface thimbleform-settings__card thimbleform-import__card">
+			<div class="thimbleform-admin__panel-head">
 				<div>
-					<h2 class="nestform-admin__panel-title"><?php echo esc_html( (string) $source['label'] ); ?></h2>
-					<p class="nestform-admin__panel-desc"><?php echo esc_html( (string) $source['description'] ); ?></p>
+					<h2 class="thimbleform-admin__panel-title"><?php echo esc_html( (string) $source['label'] ); ?></h2>
+					<p class="thimbleform-admin__panel-desc"><?php echo esc_html( (string) $source['description'] ); ?></p>
 				</div>
 			</div>
 
 			<?php if ( array() === $forms ) : ?>
-				<p class="nestform-import__empty"><?php esc_html_e( 'No forms of this type were found in the database.', 'nestform' ); ?></p>
+				<p class="thimbleform-import__empty"><?php esc_html_e( 'No forms of this type were found in the database.', 'thimbleform' ); ?></p>
 			<?php else : ?>
-				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="nestform-import__form">
+				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="thimbleform-import__form">
 					<?php wp_nonce_field( self::ACTION_IMPORT ); ?>
 					<input type="hidden" name="action" value="<?php echo esc_attr( self::ACTION_IMPORT ); ?>" />
 					<input type="hidden" name="source" value="<?php echo esc_attr( $slug ); ?>" />
-					<label class="nestform-admin__field-control">
-						<span class="nestform-admin__label"><?php esc_html_e( 'Form to import', 'nestform' ); ?></span>
-						<select class="nestform-admin__input" name="reference" required>
-							<option value=""><?php esc_html_e( 'Select a form…', 'nestform' ); ?></option>
+					<label class="thimbleform-admin__field-control">
+						<span class="thimbleform-admin__label"><?php esc_html_e( 'Form to import', 'thimbleform' ); ?></span>
+						<select class="thimbleform-admin__input" name="reference" required>
+							<option value=""><?php esc_html_e( 'Select a form…', 'thimbleform' ); ?></option>
 							<?php foreach ( $forms as $form ) : ?>
 								<option value="<?php echo esc_attr( (string) $form['id'] ); ?>">
 									<?php echo esc_html( $form['title'] . ' (#' . $form['id'] . ')' ); ?>
@@ -220,8 +220,8 @@ class Nestform_Importer {
 							<?php endforeach; ?>
 						</select>
 					</label>
-					<button type="submit" class="nestform-btn nestform-btn--primary">
-						<?php esc_html_e( 'Import as draft', 'nestform' ); ?>
+					<button type="submit" class="thimbleform-btn thimbleform-btn--primary">
+						<?php esc_html_e( 'Import as draft', 'thimbleform' ); ?>
 					</button>
 				</form>
 			<?php endif; ?>
@@ -231,7 +231,7 @@ class Nestform_Importer {
 
 	public static function handle() {
 		if ( ! self::user_can_import() ) {
-			wp_die( esc_html__( 'You do not have permission to import forms.', 'nestform' ), 403 );
+			wp_die( esc_html__( 'You do not have permission to import forms.', 'thimbleform' ), 403 );
 		}
 		check_admin_referer( self::ACTION_IMPORT );
 
@@ -274,48 +274,48 @@ class Nestform_Importer {
 		} elseif ( 'wpforms' === $source ) {
 			$definition = self::wpforms_to_definition( $reference );
 		} else {
-			throw new Exception( esc_html__(  'Unknown import source.', 'nestform' ) );
+			throw new Exception( esc_html__(  'Unknown import source.', 'thimbleform' ) );
 		}
 
 		$fields = self::normalize_fields( isset( $definition['fields'] ) ? $definition['fields'] : array() );
 		$count  = 0;
 		foreach ( $fields as $field ) {
-			if ( ! empty( $field['type'] ) && ! Nestform_Form_Config::is_layout_field( (string) $field['type'] ) ) {
+			if ( ! empty( $field['type'] ) && ! Thimbleform_Form_Config::is_layout_field( (string) $field['type'] ) ) {
 				++$count;
 			}
 		}
 		if ( $count < 1 ) {
-			throw new Exception( esc_html__(  'No Thimbleform-compatible questions were found in that form.', 'nestform' ) );
+			throw new Exception( esc_html__(  'No Thimbleform-compatible questions were found in that form.', 'thimbleform' ) );
 		}
 
 		$title = isset( $definition['title'] ) ? sanitize_text_field( (string) $definition['title'] ) : '';
 		if ( '' === $title ) {
-			$title = __( 'Imported form', 'nestform' );
+			$title = __( 'Imported form', 'thimbleform' );
 		}
 
 		$new_id = wp_insert_post(
 			array(
-				'post_type'   => Nestform_Post_Type::POST_TYPE,
+				'post_type'   => Thimbleform_Post_Type::POST_TYPE,
 				'post_status' => 'draft',
 				'post_title'  => $title,
 			),
 			true
 		);
 		if ( is_wp_error( $new_id ) || ! $new_id ) {
-			throw new Exception( esc_html__(  'Could not create the imported form.', 'nestform' ) );
+			throw new Exception( esc_html__(  'Could not create the imported form.', 'thimbleform' ) );
 		}
 
 		$config = array(
 			'fields'   => $fields,
-			'messages' => Nestform_Form_Config::default_messages(),
-			'mail'     => Nestform_Form_Config::default_mail(),
-			'settings' => Nestform_Form_Config::default_settings(),
+			'messages' => Thimbleform_Form_Config::default_messages(),
+			'mail'     => Thimbleform_Form_Config::default_mail(),
+			'settings' => Thimbleform_Form_Config::default_settings(),
 		);
 		if ( ! empty( $definition['submit_label'] ) ) {
 			$config['settings']['submit_label'] = sanitize_text_field( (string) $definition['submit_label'] );
 		}
 
-		Nestform_Form_Config::save( (int) $new_id, $config );
+		Thimbleform_Form_Config::save( (int) $new_id, $config );
 
 		return array(
 			'form_id'   => (int) $new_id,
@@ -354,7 +354,7 @@ class Nestform_Importer {
 				$row['options'] = implode( "\n", array_map( 'strval', $row['options'] ) );
 			}
 
-			$clean = Nestform_Form_Config::sanitize_field_row( $row );
+			$clean = Thimbleform_Form_Config::sanitize_field_row( $row );
 			if ( $clean ) {
 				$out[] = $clean;
 			}
@@ -371,12 +371,12 @@ class Nestform_Importer {
 		$post_id = absint( $reference );
 		$post    = $post_id ? get_post( $post_id ) : null;
 		if ( ! $post || 'wpcf7_contact_form' !== $post->post_type ) {
-			throw new Exception( esc_html__(  'That Contact Form 7 form could not be found.', 'nestform' ) );
+			throw new Exception( esc_html__(  'That Contact Form 7 form could not be found.', 'thimbleform' ) );
 		}
 
 		$template = (string) get_post_meta( $post_id, '_form', true );
 		if ( '' === trim( $template ) ) {
-			throw new Exception( esc_html__(  'That Contact Form 7 form has no questions in it.', 'nestform' ) );
+			throw new Exception( esc_html__(  'That Contact Form 7 form has no questions in it.', 'thimbleform' ) );
 		}
 
 		$type_map = array(
@@ -401,7 +401,7 @@ class Nestform_Importer {
 		$submit = '';
 
 		if ( ! preg_match_all( self::CF7_TAG_PATTERN, $template, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE ) ) {
-			throw new Exception( esc_html__(  'No Contact Form 7 tags were found in that form.', 'nestform' ) );
+			throw new Exception( esc_html__(  'No Contact Form 7 tags were found in that form.', 'thimbleform' ) );
 		}
 
 		$cursor = 0;
@@ -441,7 +441,7 @@ class Nestform_Importer {
 			if ( ! isset( $type_map[ $tag ] ) ) {
 				$notes[] = sprintf(
 					/* translators: 1: field label, 2: CF7 tag type */
-					__( 'Skipped “%1$s” (%2$s) — no Thimbleform equivalent.', 'nestform' ),
+					__( 'Skipped “%1$s” (%2$s) — no Thimbleform equivalent.', 'thimbleform' ),
 					$label,
 					$tag
 				);
@@ -559,7 +559,7 @@ class Nestform_Importer {
 		$post_id = absint( $reference );
 		$post    = $post_id ? get_post( $post_id ) : null;
 		if ( ! $post || 'wpforms' !== $post->post_type ) {
-			throw new Exception( esc_html__(  'That WPForms form could not be found.', 'nestform' ) );
+			throw new Exception( esc_html__(  'That WPForms form could not be found.', 'thimbleform' ) );
 		}
 
 		$data = json_decode( (string) $post->post_content, true );
@@ -567,7 +567,7 @@ class Nestform_Importer {
 			$data = json_decode( (string) wp_unslash( $post->post_content ), true );
 		}
 		if ( ! is_array( $data ) || empty( $data['fields'] ) || ! is_array( $data['fields'] ) ) {
-			throw new Exception( esc_html__(  'That WPForms form has no questions in it.', 'nestform' ) );
+			throw new Exception( esc_html__(  'That WPForms form has no questions in it.', 'thimbleform' ) );
 		}
 
 		$notes    = array();
@@ -621,25 +621,25 @@ class Nestform_Importer {
 			'name'          => 'text',
 			'address'       => 'textarea',
 		);
-		if ( class_exists( 'Nestform_Features' ) && Nestform_Features::can( Nestform_Features::PAYMENTS ) ) {
+		if ( class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::can( Thimbleform_Features::PAYMENTS ) ) {
 			$map['credit-card']        = 'payment';
 			$map['stripe-credit-card'] = 'payment';
 		}
 		$ignored = array( 'captcha', 'entry-preview', 'internal-information', 'pagebreak' );
 		$unsupported = array(
-			'signature'          => __( 'signature', 'nestform' ),
-			'payment-single'     => __( 'payment', 'nestform' ),
-			'payment-multiple'   => __( 'payment', 'nestform' ),
-			'payment-checkbox'   => __( 'payment', 'nestform' ),
-			'payment-select'     => __( 'payment', 'nestform' ),
-			'payment-total'      => __( 'payment total', 'nestform' ),
-			'rating'             => __( 'rating (Pro)', 'nestform' ),
-			'likert_scale'       => __( 'likert (Pro)', 'nestform' ),
-			'net_promoter_score' => __( 'NPS (Pro)', 'nestform' ),
+			'signature'          => __( 'signature', 'thimbleform' ),
+			'payment-single'     => __( 'payment', 'thimbleform' ),
+			'payment-multiple'   => __( 'payment', 'thimbleform' ),
+			'payment-checkbox'   => __( 'payment', 'thimbleform' ),
+			'payment-select'     => __( 'payment', 'thimbleform' ),
+			'payment-total'      => __( 'payment total', 'thimbleform' ),
+			'rating'             => __( 'rating (Pro)', 'thimbleform' ),
+			'likert_scale'       => __( 'likert (Pro)', 'thimbleform' ),
+			'net_promoter_score' => __( 'NPS (Pro)', 'thimbleform' ),
 		);
 		if ( empty( $map['credit-card'] ) ) {
-			$unsupported['credit-card']        = __( 'card payment', 'nestform' );
-			$unsupported['stripe-credit-card'] = __( 'card payment', 'nestform' );
+			$unsupported['credit-card']        = __( 'card payment', 'thimbleform' );
+			$unsupported['stripe-credit-card'] = __( 'card payment', 'thimbleform' );
 		}
 
 		$converted = array();
@@ -667,8 +667,8 @@ class Nestform_Importer {
 			if ( isset( $unsupported[ $type ] ) ) {
 				$notes[] = sprintf(
 					/* translators: 1: field label, 2: skipped kind */
-					__( 'Skipped “%1$s” (%2$s).', 'nestform' ),
-					$label ? $label : __( 'Untitled', 'nestform' ),
+					__( 'Skipped “%1$s” (%2$s).', 'thimbleform' ),
+					$label ? $label : __( 'Untitled', 'thimbleform' ),
 					$unsupported[ $type ]
 				);
 				continue;
@@ -677,8 +677,8 @@ class Nestform_Importer {
 			if ( ! isset( $type_map[ $type ] ) ) {
 				$notes[] = sprintf(
 					/* translators: 1: field label, 2: WPForms type */
-					__( 'Skipped “%1$s” (%2$s) — no Thimbleform equivalent.', 'nestform' ),
-					$label ? $label : __( 'Untitled', 'nestform' ),
+					__( 'Skipped “%1$s” (%2$s) — no Thimbleform equivalent.', 'thimbleform' ),
+					$label ? $label : __( 'Untitled', 'thimbleform' ),
 					$type
 				);
 				continue;
@@ -696,15 +696,15 @@ class Nestform_Importer {
 			if ( 'name' === $type ) {
 				$notes[] = sprintf(
 					/* translators: %s: field label */
-					__( '“%s” (Name) was imported as a single text field.', 'nestform' ),
-					$label ? $label : __( 'Name', 'nestform' )
+					__( '“%s” (Name) was imported as a single text field.', 'thimbleform' ),
+					$label ? $label : __( 'Name', 'thimbleform' )
 				);
 			}
 			if ( 'address' === $type ) {
 				$notes[] = sprintf(
 					/* translators: %s: field label */
-					__( '“%s” (Address) was imported as a textarea.', 'nestform' ),
-					$label ? $label : __( 'Address', 'nestform' )
+					__( '“%s” (Address) was imported as a textarea.', 'thimbleform' ),
+					$label ? $label : __( 'Address', 'thimbleform' )
 				);
 			}
 
@@ -739,7 +739,7 @@ class Nestform_Importer {
 				$row['label']   = '';
 			}
 			if ( 'acceptance' === $nf_type ) {
-				$row['label'] = $label ? $label : __( 'I agree to the terms', 'nestform' );
+				$row['label'] = $label ? $label : __( 'I agree to the terms', 'thimbleform' );
 			}
 
 			$converted[] = $row;
@@ -758,7 +758,7 @@ class Nestform_Importer {
 	 * @return string
 	 */
 	private static function report_key() {
-		return 'nestform_import_report_' . get_current_user_id();
+		return 'thimbleform_import_report_' . get_current_user_id();
 	}
 
 	private static function render_report() {
@@ -770,31 +770,31 @@ class Nestform_Importer {
 		delete_transient( $key );
 
 		if ( empty( $report['ok'] ) ) {
-			echo '<div class="notice notice-error is-dismissible"><p>' . esc_html( (string) ( $report['message'] ?? __( 'Import failed.', 'nestform' ) ) ) . '</p></div>';
+			echo '<div class="notice notice-error is-dismissible"><p>' . esc_html( (string) ( $report['message'] ?? __( 'Import failed.', 'thimbleform' ) ) ) . '</p></div>';
 			return;
 		}
 
 		$form_id = (int) ( $report['form_id'] ?? 0 );
 		$edit    = $form_id ? get_edit_post_link( $form_id, 'raw' ) : '';
 		?>
-		<div class="notice notice-success is-dismissible nestform-import__report">
+		<div class="notice notice-success is-dismissible thimbleform-import__report">
 			<p>
 				<?php
 				echo esc_html(
 					sprintf(
 						/* translators: 1: form title, 2: question count */
-						__( 'Imported “%1$s” with %2$d questions as a draft.', 'nestform' ),
+						__( 'Imported “%1$s” with %2$d questions as a draft.', 'thimbleform' ),
 						(string) ( $report['title'] ?? '' ),
 						(int) ( $report['questions'] ?? 0 )
 					)
 				);
 				?>
 				<?php if ( $edit ) : ?>
-					<a href="<?php echo esc_url( $edit ); ?>"><?php esc_html_e( 'Open in builder', 'nestform' ); ?></a>
+					<a href="<?php echo esc_url( $edit ); ?>"><?php esc_html_e( 'Open in builder', 'thimbleform' ); ?></a>
 				<?php endif; ?>
 			</p>
 			<?php if ( ! empty( $report['notes'] ) && is_array( $report['notes'] ) ) : ?>
-				<ul class="nestform-import__notes">
+				<ul class="thimbleform-import__notes">
 					<?php foreach ( $report['notes'] as $note ) : ?>
 						<li><?php echo esc_html( (string) $note ); ?></li>
 					<?php endforeach; ?>

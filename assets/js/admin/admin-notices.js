@@ -15,19 +15,19 @@
 		if (el.classList.contains('inline') || el.classList.contains('below-h2') || el.classList.contains('hidden') || el.classList.contains('update-nag')) {
 			return false;
 		}
-		if (el.closest('.postbox, .media-modal, #screen-meta, .nestform-toasts')) {
+		if (el.closest('.postbox, .media-modal, #screen-meta, .thimbleform-toasts')) {
 			return false;
 		}
 		return el.classList.contains('notice') || el.classList.contains('updated') || el.classList.contains('error');
 	}
 
 	function host() {
-		var el = document.querySelector('.nestform-toasts');
+		var el = document.querySelector('.thimbleform-toasts');
 		if (el) {
 			return el;
 		}
 		el = document.createElement('div');
-		el.className = 'nestform-toasts';
+		el.className = 'thimbleform-toasts';
 		el.setAttribute('aria-live', 'polite');
 		document.body.appendChild(el);
 		return el;
@@ -51,10 +51,10 @@
 				return;
 			}
 			armed.add(notice);
-		} else if (notice.getAttribute('data-nestform-toast') === '1') {
+		} else if (notice.getAttribute('data-thimbleform-toast') === '1') {
 			return;
 		} else {
-			notice.setAttribute('data-nestform-toast', '1');
+			notice.setAttribute('data-thimbleform-toast', '1');
 		}
 		var timer = window.setTimeout(function () {
 			hide(notice);

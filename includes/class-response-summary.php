@@ -9,14 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Response_Summary {
+class Thimbleform_Response_Summary {
 
-	const CACHE_PREFIX     = 'nestform_summary_v2_';
+	const CACHE_PREFIX     = 'thimbleform_summary_v2_';
 	const MAX_ENTRIES      = 10000;
 	const TEXT_SAMPLE_SIZE = 5;
 
 	public static function init() {
-		add_action( 'nestform_submitted', array( __CLASS__, 'on_submitted' ), 10, 3 );
+		add_action( 'thimbleform_submitted', array( __CLASS__, 'on_submitted' ), 10, 3 );
 	}
 
 	/**
@@ -49,7 +49,7 @@ class Nestform_Response_Summary {
 	 * @return string
 	 */
 	public static function url( $form_id ) {
-		return Nestform_Submissions::hub_url(
+		return Thimbleform_Submissions::hub_url(
 			array(
 				'form_id'  => (int) $form_id,
 				'summary'  => '1',
@@ -68,11 +68,11 @@ class Nestform_Response_Summary {
 		if ( $form_id <= 0 ) {
 			return false;
 		}
-		if ( class_exists( 'Nestform_Capabilities' ) && Nestform_Capabilities::can_view_entries() ) {
-			return Nestform_Submissions::user_can_manage_form_entries( $form_id )
+		if ( class_exists( 'Thimbleform_Capabilities' ) && Thimbleform_Capabilities::can_view_entries() ) {
+			return Thimbleform_Submissions::user_can_manage_form_entries( $form_id )
 				|| current_user_can( 'edit_post', $form_id );
 		}
-		return Nestform_Submissions::user_can_manage_form_entries( $form_id );
+		return Thimbleform_Submissions::user_can_manage_form_entries( $form_id );
 	}
 
 	/**
@@ -83,8 +83,8 @@ class Nestform_Response_Summary {
 	 */
 	public static function summarize( $form_id ) {
 		$form_id = (int) $form_id;
-		$count   = class_exists( 'Nestform_Submissions' )
-			? (int) Nestform_Submissions::count_entries(
+		$count   = class_exists( 'Thimbleform_Submissions' )
+			? (int) Thimbleform_Submissions::count_entries(
 				array(
 					'form_id'           => $form_id,
 					'skip_access_check' => true,
@@ -113,13 +113,13 @@ class Nestform_Response_Summary {
 	 * @return array{total:int,capped:bool,fields:array<int,array<string,mixed>>}
 	 */
 	private static function build_summary( $form_id ) {
-		$fields   = Nestform_Form_Config::get_fields( $form_id );
+		$fields   = Thimbleform_Form_Config::get_fields( $form_id );
 		$payloads = array();
 		$paged    = 1;
 		$pages    = 1;
 
 		do {
-			$result = Nestform_Submissions::query_entries(
+			$result = Thimbleform_Submissions::query_entries(
 				array(
 					'form_id'           => $form_id,
 					'limit'             => 100,
@@ -131,7 +131,7 @@ class Nestform_Response_Summary {
 			$pages = isset( $result['pages'] ) ? max( 1, (int) $result['pages'] ) : 1;
 
 			foreach ( $posts as $post ) {
-				$data       = get_post_meta( (int) $post->ID, Nestform_Submissions::META_DATA, true );
+				$data       = get_post_meta( (int) $post->ID, Thimbleform_Submissions::META_DATA, true );
 				$payloads[] = is_array( $data ) ? $data : array();
 				if ( count( $payloads ) >= self::MAX_ENTRIES ) {
 					break 2;
@@ -149,7 +149,7 @@ class Nestform_Response_Summary {
 			}
 			$type = (string) ( $field['type'] ?? '' );
 			$name = (string) ( $field['name'] ?? '' );
-			if ( $name === '' || Nestform_Form_Config::is_layout_field( $type ) ) {
+			if ( $name === '' || Thimbleform_Form_Config::is_layout_field( $type ) ) {
 				continue;
 			}
 			if ( in_array( $type, array( 'hidden', 'password', 'file', 'html', 'submit', 'signature' ), true ) ) {
@@ -344,11 +344,11 @@ class Nestform_Response_Summary {
 	 */
 	private static function type_label( $type ) {
 		$type   = (string) $type;
-		$labels = class_exists( 'Nestform_Form_Config' ) ? Nestform_Form_Config::field_type_labels() : array();
+		$labels = class_exists( 'Thimbleform_Form_Config' ) ? Thimbleform_Form_Config::field_type_labels() : array();
 		if ( isset( $labels[ $type ] ) && (string) $labels[ $type ] !== '' ) {
 			return (string) $labels[ $type ];
 		}
-		return $type !== '' ? ucfirst( $type ) : __( 'Field', 'nestform' );
+		return $type !== '' ? ucfirst( $type ) : __( 'Field', 'thimbleform' );
 	}
 
 	/**
@@ -360,33 +360,33 @@ class Nestform_Response_Summary {
 		$form_id = 0;
 		if ( isset( $_GET['form_id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$form_id = (int) $_GET['form_id']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		} elseif ( isset( $_GET['nestform_form_id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$form_id = (int) $_GET['nestform_form_id']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		} elseif ( isset( $_GET['thimbleform_form_id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$form_id = (int) $_GET['thimbleform_form_id']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		}
 
-		if ( $form_id <= 0 || Nestform_Post_Type::POST_TYPE !== get_post_type( $form_id ) ) {
+		if ( $form_id <= 0 || Thimbleform_Post_Type::POST_TYPE !== get_post_type( $form_id ) ) {
 			return false;
 		}
 
 		$can = false;
-		if ( class_exists( 'Nestform_Capabilities' ) ) {
-			$can = Nestform_Capabilities::can_view_entries() || current_user_can( 'edit_posts' );
+		if ( class_exists( 'Thimbleform_Capabilities' ) ) {
+			$can = Thimbleform_Capabilities::can_view_entries() || current_user_can( 'edit_posts' );
 		} else {
 			$can = current_user_can( 'edit_posts' );
 		}
 		if ( ! $can || ! self::user_can_view( $form_id ) ) {
-			wp_die( esc_html__( 'You do not have permission to view this summary.', 'nestform' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You do not have permission to view this summary.', 'thimbleform' ), '', array( 'response' => 403 ) );
 		}
 
 		$form    = get_post( $form_id );
 		$summary = self::summarize( $form_id );
-		$title   = ( $form && $form->post_title !== '' ) ? $form->post_title : __( 'Form', 'nestform' );
+		$title   = ( $form && $form->post_title !== '' ) ? $form->post_title : __( 'Form', 'thimbleform' );
 		$total   = (int) $summary['total'];
 		$fields  = isset( $summary['fields'] ) && is_array( $summary['fields'] ) ? $summary['fields'] : array();
-		$new_n   = (int) Nestform_Submissions::count_new_for_form( $form_id );
+		$new_n   = (int) Thimbleform_Submissions::count_new_for_form( $form_id );
 		$last_ts = 0;
-		if ( method_exists( 'Nestform_Submissions', 'latest_entry_times' ) ) {
-			$times   = Nestform_Submissions::latest_entry_times( array( $form_id ) );
+		if ( method_exists( 'Thimbleform_Submissions', 'latest_entry_times' ) ) {
+			$times   = Thimbleform_Submissions::latest_entry_times( array( $form_id ) );
 			$last_ts = isset( $times[ $form_id ] ) ? (int) $times[ $form_id ] : 0;
 		}
 
@@ -400,21 +400,21 @@ class Nestform_Response_Summary {
 			: 0;
 
 		$edit_url = get_edit_post_link( $form_id, 'raw' );
-		$inbox_url = Nestform_Submissions::list_url( $form_id );
+		$inbox_url = Thimbleform_Submissions::list_url( $form_id );
 		$new_url   = $new_n > 0
-			? Nestform_Submissions::list_url( $form_id, Nestform_Submissions::STATUS_NEW )
+			? Thimbleform_Submissions::list_url( $form_id, Thimbleform_Submissions::STATUS_NEW )
 			: $inbox_url;
 
-		$actions  = '<a class="nestform-btn nestform-btn--outline" href="' . esc_url( $inbox_url ) . '">';
-		$actions .= nestform_admin_icon_html( 'entries' ) . ' ' . esc_html__( 'Inbox', 'nestform' );
+		$actions  = '<a class="thimbleform-btn thimbleform-btn--outline" href="' . esc_url( $inbox_url ) . '">';
+		$actions .= thimbleform_admin_icon_html( 'entries' ) . ' ' . esc_html__( 'Inbox', 'thimbleform' );
 		$actions .= '</a>';
 		if ( $edit_url ) {
-			$actions .= ' <a class="nestform-btn nestform-btn--outline" href="' . esc_url( $edit_url ) . '">';
-			$actions .= nestform_admin_icon_html( 'forms' ) . ' ' . esc_html__( 'Edit form', 'nestform' );
+			$actions .= ' <a class="thimbleform-btn thimbleform-btn--outline" href="' . esc_url( $edit_url ) . '">';
+			$actions .= thimbleform_admin_icon_html( 'forms' ) . ' ' . esc_html__( 'Edit form', 'thimbleform' );
 			$actions .= '</a>';
 		}
-		if ( class_exists( 'Nestform_Export' ) ) {
-			$actions .= ' ' . Nestform_Export::dropdown_html(
+		if ( class_exists( 'Thimbleform_Export' ) ) {
+			$actions .= ' ' . Thimbleform_Export::dropdown_html(
 				$form_id,
 				array(
 					'variant' => 'outline',
@@ -425,60 +425,60 @@ class Nestform_Response_Summary {
 		$insights = self::insights( $fields, $total );
 
 		?>
-		<div class="wrap nestform-hub nestform-summary">
+		<div class="wrap thimbleform-hub thimbleform-summary">
 			<?php
-			nestform_render_page_head(
+			thimbleform_render_page_head(
 				array(
 					'title'        => sprintf(
 						/* translators: %s: form title */
-						__( 'Summary — %s', 'nestform' ),
+						__( 'Summary — %s', 'thimbleform' ),
 						$title
 					),
-					'description'  => __( 'How people answered this form — choices, ranges, and recent text.', 'nestform' ),
+					'description'  => __( 'How people answered this form — choices, ranges, and recent text.', 'thimbleform' ),
 					'actions_html' => $actions,
 					'icon'         => 'analytics',
 				)
 			);
 			?>
 
-			<div class="nestform-hub__stats nestform-summary__kpis" aria-label="<?php esc_attr_e( 'Response overview', 'nestform' ); ?>">
-				<a class="nestform-hub__stat" href="<?php echo esc_url( $inbox_url ); ?>">
-					<span class="nestform-hub__stat-value"><?php echo esc_html( number_format_i18n( $total ) ); ?></span>
-					<span class="nestform-hub__stat-label"><?php echo esc_html( _n( 'Entry', 'Entries', $total, 'nestform' ) ); ?></span>
+			<div class="thimbleform-hub__stats thimbleform-summary__kpis" aria-label="<?php esc_attr_e( 'Response overview', 'thimbleform' ); ?>">
+				<a class="thimbleform-hub__stat" href="<?php echo esc_url( $inbox_url ); ?>">
+					<span class="thimbleform-hub__stat-value"><?php echo esc_html( number_format_i18n( $total ) ); ?></span>
+					<span class="thimbleform-hub__stat-label"><?php echo esc_html( _n( 'Entry', 'Entries', $total, 'thimbleform' ) ); ?></span>
 				</a>
-				<a class="nestform-hub__stat<?php echo $new_n > 0 ? ' nestform-hub__stat--new' : ''; ?>" href="<?php echo esc_url( $new_url ); ?>">
-					<span class="nestform-hub__stat-value"><?php echo esc_html( number_format_i18n( $new_n ) ); ?></span>
-					<span class="nestform-hub__stat-label"><?php esc_html_e( 'New', 'nestform' ); ?></span>
+				<a class="thimbleform-hub__stat<?php echo $new_n > 0 ? ' thimbleform-hub__stat--new' : ''; ?>" href="<?php echo esc_url( $new_url ); ?>">
+					<span class="thimbleform-hub__stat-value"><?php echo esc_html( number_format_i18n( $new_n ) ); ?></span>
+					<span class="thimbleform-hub__stat-label"><?php esc_html_e( 'New', 'thimbleform' ); ?></span>
 				</a>
-				<div class="nestform-hub__stat">
-					<span class="nestform-hub__stat-value"><?php echo $field_n > 0 ? esc_html( (string) $completion . '%' ) : '—'; ?></span>
-					<span class="nestform-hub__stat-label"><?php esc_html_e( 'Answered', 'nestform' ); ?></span>
+				<div class="thimbleform-hub__stat">
+					<span class="thimbleform-hub__stat-value"><?php echo $field_n > 0 ? esc_html( (string) $completion . '%' ) : '—'; ?></span>
+					<span class="thimbleform-hub__stat-label"><?php esc_html_e( 'Answered', 'thimbleform' ); ?></span>
 				</div>
-				<div class="nestform-hub__stat">
-					<span class="nestform-hub__stat-value"><?php echo esc_html( (string) number_format_i18n( $field_n ) ); ?></span>
-					<span class="nestform-hub__stat-label"><?php echo esc_html( _n( 'Field', 'Fields', $field_n, 'nestform' ) ); ?></span>
+				<div class="thimbleform-hub__stat">
+					<span class="thimbleform-hub__stat-value"><?php echo esc_html( (string) number_format_i18n( $field_n ) ); ?></span>
+					<span class="thimbleform-hub__stat-label"><?php echo esc_html( _n( 'Field', 'Fields', $field_n, 'thimbleform' ) ); ?></span>
 				</div>
-				<div class="nestform-hub__stat">
-					<span class="nestform-hub__stat-value"><?php echo esc_html( self::format_when( $last_ts ) ); ?></span>
-					<span class="nestform-hub__stat-label"><?php esc_html_e( 'Last entry', 'nestform' ); ?></span>
+				<div class="thimbleform-hub__stat">
+					<span class="thimbleform-hub__stat-value"><?php echo esc_html( self::format_when( $last_ts ) ); ?></span>
+					<span class="thimbleform-hub__stat-label"><?php esc_html_e( 'Last entry', 'thimbleform' ); ?></span>
 				</div>
 			</div>
 
 			<?php if ( ! empty( $summary['capped'] ) ) : ?>
-				<p class="nestform-summary__note"><?php esc_html_e( 'Showing the newest 10,000 entries only.', 'nestform' ); ?></p>
+				<p class="thimbleform-summary__note"><?php esc_html_e( 'Showing the newest 10,000 entries only.', 'thimbleform' ); ?></p>
 			<?php endif; ?>
 
 			<?php if ( $total > 0 && ( ! empty( $insights['top'] ) || ! empty( $insights['skipped'] ) ) ) : ?>
-				<div class="nestform-summary__insights">
+				<div class="thimbleform-summary__insights">
 					<?php if ( ! empty( $insights['top'] ) ) : ?>
-						<div class="nestform-summary__insight">
-							<span class="nestform-summary__insight-kicker"><?php esc_html_e( 'Most chosen', 'nestform' ); ?></span>
-							<strong class="nestform-summary__insight-value"><?php echo esc_html( (string) $insights['top']['option'] ); ?></strong>
-							<span class="nestform-summary__insight-hint">
+						<div class="thimbleform-summary__insight">
+							<span class="thimbleform-summary__insight-kicker"><?php esc_html_e( 'Most chosen', 'thimbleform' ); ?></span>
+							<strong class="thimbleform-summary__insight-value"><?php echo esc_html( (string) $insights['top']['option'] ); ?></strong>
+							<span class="thimbleform-summary__insight-hint">
 								<?php
 								printf(
 									/* translators: 1: field label, 2: percentage */
-									esc_html__( '%1$s · %2$s%% of answers', 'nestform' ),
+									esc_html__( '%1$s · %2$s%% of answers', 'thimbleform' ),
 									esc_html( (string) $insights['top']['field'] ),
 									esc_html( (string) $insights['top']['pct'] )
 								);
@@ -487,14 +487,14 @@ class Nestform_Response_Summary {
 						</div>
 					<?php endif; ?>
 					<?php if ( ! empty( $insights['skipped'] ) ) : ?>
-						<div class="nestform-summary__insight">
-							<span class="nestform-summary__insight-kicker"><?php esc_html_e( 'Most skipped', 'nestform' ); ?></span>
-							<strong class="nestform-summary__insight-value"><?php echo esc_html( (string) $insights['skipped']['field'] ); ?></strong>
-							<span class="nestform-summary__insight-hint">
+						<div class="thimbleform-summary__insight">
+							<span class="thimbleform-summary__insight-kicker"><?php esc_html_e( 'Most skipped', 'thimbleform' ); ?></span>
+							<strong class="thimbleform-summary__insight-value"><?php echo esc_html( (string) $insights['skipped']['field'] ); ?></strong>
+							<span class="thimbleform-summary__insight-hint">
 								<?php
 								printf(
 									/* translators: %s: percentage left blank */
-									esc_html__( '%s%% left blank', 'nestform' ),
+									esc_html__( '%s%% left blank', 'thimbleform' ),
 									esc_html( (string) $insights['skipped']['pct'] )
 								);
 								?>
@@ -505,31 +505,31 @@ class Nestform_Response_Summary {
 			<?php endif; ?>
 
 			<?php if ( 0 === $total ) : ?>
-				<div class="nestform-hub__empty-state">
-					<p class="nestform-hub__empty-state-title"><?php esc_html_e( 'No entries yet', 'nestform' ); ?></p>
-					<p class="nestform-hub__empty-state-text"><?php esc_html_e( 'Once people submit this form, answers will roll up here — choices as bars, numbers as ranges, text as recent samples.', 'nestform' ); ?></p>
-					<div class="nestform-hub__empty-actions">
-						<a class="nestform-btn nestform-btn--outline" href="<?php echo esc_url( $inbox_url ); ?>">
-							<?php nestform_admin_icon( 'entries' ); ?>
-							<?php esc_html_e( 'Open inbox', 'nestform' ); ?>
+				<div class="thimbleform-hub__empty-state">
+					<p class="thimbleform-hub__empty-state-title"><?php esc_html_e( 'No entries yet', 'thimbleform' ); ?></p>
+					<p class="thimbleform-hub__empty-state-text"><?php esc_html_e( 'Once people submit this form, answers will roll up here — choices as bars, numbers as ranges, text as recent samples.', 'thimbleform' ); ?></p>
+					<div class="thimbleform-hub__empty-actions">
+						<a class="thimbleform-btn thimbleform-btn--outline" href="<?php echo esc_url( $inbox_url ); ?>">
+							<?php thimbleform_admin_icon( 'entries' ); ?>
+							<?php esc_html_e( 'Open inbox', 'thimbleform' ); ?>
 						</a>
 					</div>
 				</div>
 			<?php elseif ( array() === $fields ) : ?>
-				<div class="nestform-hub__empty-state">
-					<p class="nestform-hub__empty-state-title"><?php esc_html_e( 'Nothing to summarize', 'nestform' ); ?></p>
-					<p class="nestform-hub__empty-state-text"><?php esc_html_e( 'This form has no questions that can be aggregated yet. Add choice, number, or text fields, then come back.', 'nestform' ); ?></p>
+				<div class="thimbleform-hub__empty-state">
+					<p class="thimbleform-hub__empty-state-title"><?php esc_html_e( 'Nothing to summarize', 'thimbleform' ); ?></p>
+					<p class="thimbleform-hub__empty-state-text"><?php esc_html_e( 'This form has no questions that can be aggregated yet. Add choice, number, or text fields, then come back.', 'thimbleform' ); ?></p>
 					<?php if ( $edit_url ) : ?>
-						<div class="nestform-hub__empty-actions">
-							<a class="nestform-btn nestform-btn--primary" href="<?php echo esc_url( $edit_url ); ?>">
-								<?php nestform_admin_icon( 'forms' ); ?>
-								<?php esc_html_e( 'Edit form', 'nestform' ); ?>
+						<div class="thimbleform-hub__empty-actions">
+							<a class="thimbleform-btn thimbleform-btn--primary" href="<?php echo esc_url( $edit_url ); ?>">
+								<?php thimbleform_admin_icon( 'forms' ); ?>
+								<?php esc_html_e( 'Edit form', 'thimbleform' ); ?>
 							</a>
 						</div>
 					<?php endif; ?>
 				</div>
 			<?php else : ?>
-				<div class="nestform-summary__grid">
+				<div class="thimbleform-summary__grid">
 					<?php foreach ( $fields as $field_summary ) : ?>
 						<?php self::render_field_card( $field_summary, $total ); ?>
 					<?php endforeach; ?>
@@ -610,7 +610,7 @@ class Nestform_Response_Summary {
 		$local = $local ? (int) $local : $gmt_ts;
 		$diff  = human_time_diff( $local, current_time( 'timestamp' ) );
 		/* translators: %s: relative time, e.g. 3 hours */
-		return sprintf( __( '%s ago', 'nestform' ), $diff );
+		return sprintf( __( '%s ago', 'thimbleform' ), $diff );
 	}
 
 	/**
@@ -625,34 +625,34 @@ class Nestform_Response_Summary {
 		$total    = (int) $total;
 		$rate     = $total > 0 ? (int) round( ( $answered / $total ) * 100 ) : 0;
 		?>
-		<article class="nestform-summary__card">
-			<header class="nestform-summary__card-head">
-				<div class="nestform-summary__card-copy">
-					<span class="nestform-badge nestform-badge--draft"><?php echo esc_html( self::type_label( $type ) ); ?></span>
-					<h3 class="nestform-summary__card-title"><?php echo esc_html( $label ); ?></h3>
-					<p class="nestform-summary__card-meta">
+		<article class="thimbleform-summary__card">
+			<header class="thimbleform-summary__card-head">
+				<div class="thimbleform-summary__card-copy">
+					<span class="thimbleform-badge thimbleform-badge--draft"><?php echo esc_html( self::type_label( $type ) ); ?></span>
+					<h3 class="thimbleform-summary__card-title"><?php echo esc_html( $label ); ?></h3>
+					<p class="thimbleform-summary__card-meta">
 						<?php
 						echo esc_html(
 							sprintf(
 								/* translators: %d: answered count */
-								_n( '%d answer', '%d answers', $answered, 'nestform' ),
+								_n( '%d answer', '%d answers', $answered, 'thimbleform' ),
 								(int) $answered
 							)
 						);
 						?>
 					</p>
 				</div>
-				<div class="nestform-summary__rate" title="<?php esc_attr_e( 'Share of entries that filled this field', 'nestform' ); ?>">
-					<span class="nestform-summary__rate-value"><?php echo esc_html( (string) $rate ); ?>%</span>
-					<span class="nestform-summary__rate-label"><?php esc_html_e( 'filled', 'nestform' ); ?></span>
+				<div class="thimbleform-summary__rate" title="<?php esc_attr_e( 'Share of entries that filled this field', 'thimbleform' ); ?>">
+					<span class="thimbleform-summary__rate-value"><?php echo esc_html( (string) $rate ); ?>%</span>
+					<span class="thimbleform-summary__rate-label"><?php esc_html_e( 'filled', 'thimbleform' ); ?></span>
 				</div>
 			</header>
-			<div class="nestform-summary__rate-track" aria-hidden="true">
-				<span class="nestform-summary__rate-fill" style="width:<?php echo esc_attr( (string) $rate ); ?>%"></span>
+			<div class="thimbleform-summary__rate-track" aria-hidden="true">
+				<span class="thimbleform-summary__rate-fill" style="width:<?php echo esc_attr( (string) $rate ); ?>%"></span>
 			</div>
-			<div class="nestform-summary__card-body">
+			<div class="thimbleform-summary__card-body">
 				<?php if ( 0 === $answered ) : ?>
-					<p class="nestform-summary__empty"><?php esc_html_e( 'No answers yet.', 'nestform' ); ?></p>
+					<p class="thimbleform-summary__empty"><?php esc_html_e( 'No answers yet.', 'thimbleform' ); ?></p>
 				<?php elseif ( 'choice' === $kind ) : ?>
 					<?php
 					$counts = isset( $field['counts'] ) && is_array( $field['counts'] ) ? $field['counts'] : array();
@@ -666,19 +666,19 @@ class Nestform_Response_Summary {
 						}
 					}
 					?>
-					<ul class="nestform-summary__bars">
+					<ul class="thimbleform-summary__bars">
 						<?php foreach ( $counts as $option => $count ) : ?>
 							<?php
 							$count = (int) $count;
 							$pct   = $sum > 0 ? (int) round( ( $count / $sum ) * 100 ) : 0;
 							$is_on = ( (string) $option === $leader && $lead_n > 0 );
 							?>
-							<li class="nestform-summary__bar<?php echo $is_on ? ' nestform-summary__bar--lead' : ''; ?>">
-								<span class="nestform-summary__bar-label"><?php echo esc_html( (string) $option ); ?></span>
-								<span class="nestform-summary__bar-track" aria-hidden="true">
-									<span class="nestform-summary__bar-fill" style="width:<?php echo esc_attr( (string) $pct ); ?>%"></span>
+							<li class="thimbleform-summary__bar<?php echo $is_on ? ' thimbleform-summary__bar--lead' : ''; ?>">
+								<span class="thimbleform-summary__bar-label"><?php echo esc_html( (string) $option ); ?></span>
+								<span class="thimbleform-summary__bar-track" aria-hidden="true">
+									<span class="thimbleform-summary__bar-fill" style="width:<?php echo esc_attr( (string) $pct ); ?>%"></span>
 								</span>
-								<span class="nestform-summary__bar-count"><?php echo esc_html( (string) $pct ); ?>%</span>
+								<span class="thimbleform-summary__bar-count"><?php echo esc_html( (string) $pct ); ?>%</span>
 							</li>
 						<?php endforeach; ?>
 					</ul>
@@ -691,26 +691,26 @@ class Nestform_Response_Summary {
 						$span = $max - $min;
 						$avg_pct = $span > 0 ? (int) round( ( ( $avg - $min ) / $span ) * 100 ) : 50;
 						?>
-						<dl class="nestform-summary__nums">
+						<dl class="thimbleform-summary__nums">
 							<div>
-								<dt><?php esc_html_e( 'Min', 'nestform' ); ?></dt>
+								<dt><?php esc_html_e( 'Min', 'thimbleform' ); ?></dt>
 								<dd><?php echo esc_html( self::format_number( $min ) ); ?></dd>
 							</div>
 							<div>
-								<dt><?php esc_html_e( 'Avg', 'nestform' ); ?></dt>
+								<dt><?php esc_html_e( 'Avg', 'thimbleform' ); ?></dt>
 								<dd><?php echo esc_html( self::format_number( $avg ) ); ?></dd>
 							</div>
 							<div>
-								<dt><?php esc_html_e( 'Max', 'nestform' ); ?></dt>
+								<dt><?php esc_html_e( 'Max', 'thimbleform' ); ?></dt>
 								<dd><?php echo esc_html( self::format_number( $max ) ); ?></dd>
 							</div>
 						</dl>
-						<div class="nestform-summary__range" aria-hidden="true">
-							<span class="nestform-summary__range-fill" style="width:<?php echo esc_attr( (string) $avg_pct ); ?>%"></span>
-							<span class="nestform-summary__range-mark" style="left:<?php echo esc_attr( (string) $avg_pct ); ?>%"></span>
+						<div class="thimbleform-summary__range" aria-hidden="true">
+							<span class="thimbleform-summary__range-fill" style="width:<?php echo esc_attr( (string) $avg_pct ); ?>%"></span>
+							<span class="thimbleform-summary__range-mark" style="left:<?php echo esc_attr( (string) $avg_pct ); ?>%"></span>
 						</div>
 					<?php else : ?>
-						<p class="nestform-summary__empty"><?php esc_html_e( 'No numeric answers yet.', 'nestform' ); ?></p>
+						<p class="thimbleform-summary__empty"><?php esc_html_e( 'No numeric answers yet.', 'thimbleform' ); ?></p>
 					<?php endif; ?>
 				<?php else : ?>
 					<?php
@@ -718,19 +718,19 @@ class Nestform_Response_Summary {
 					$unique  = (int) ( $field['unique'] ?? 0 );
 					?>
 					<?php if ( $unique > 0 ) : ?>
-						<p class="nestform-summary__unique">
+						<p class="thimbleform-summary__unique">
 							<?php
 							echo esc_html(
 								sprintf(
 									/* translators: %d: distinct answers */
-									_n( '%d unique answer', '%d unique answers', $unique, 'nestform' ),
+									_n( '%d unique answer', '%d unique answers', $unique, 'thimbleform' ),
 									(int) $unique
 								)
 							);
 							?>
 						</p>
 					<?php endif; ?>
-					<ul class="nestform-summary__samples">
+					<ul class="thimbleform-summary__samples">
 						<?php foreach ( $samples as $sample ) : ?>
 							<li><?php echo esc_html( (string) $sample ); ?></li>
 						<?php endforeach; ?>

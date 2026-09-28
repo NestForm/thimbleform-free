@@ -9,13 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Spam_Filter {
+class Thimbleform_Spam_Filter {
 
 	/**
 	 * @return array{enabled:bool,max:int,window:int}
 	 */
 	public static function rate_limit_config() {
-		$s = class_exists( 'Nestform_Settings' ) ? Nestform_Settings::get() : array();
+		$s = class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::get() : array();
 		return array(
 			'enabled' => ! isset( $s['rate_limit_enabled'] ) || '1' === (string) ( $s['rate_limit_enabled'] ?? '1' ),
 			'max'     => isset( $s['rate_limit_max'] ) ? max( 1, (int) $s['rate_limit_max'] ) : 10,
@@ -27,7 +27,7 @@ class Nestform_Spam_Filter {
 	 * @return array{enabled:bool,window:int}
 	 */
 	public static function duplicate_config() {
-		$s = class_exists( 'Nestform_Settings' ) ? Nestform_Settings::get() : array();
+		$s = class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::get() : array();
 		return array(
 			'enabled' => ! isset( $s['duplicate_check_enabled'] ) || '1' === (string) ( $s['duplicate_check_enabled'] ?? '1' ),
 			'window'  => isset( $s['duplicate_check_window'] ) ? max( 30, (int) $s['duplicate_check_window'] ) : 300,
@@ -38,7 +38,7 @@ class Nestform_Spam_Filter {
 	 * @return bool
 	 */
 	public static function content_filter_enabled() {
-		$s = class_exists( 'Nestform_Settings' ) ? Nestform_Settings::get() : array();
+		$s = class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::get() : array();
 		return ! isset( $s['content_filter_enabled'] ) || '1' === (string) ( $s['content_filter_enabled'] ?? '1' );
 	}
 
@@ -51,7 +51,7 @@ class Nestform_Spam_Filter {
 		if ( $ip === '' ) {
 			return false;
 		}
-		$s    = class_exists( 'Nestform_Settings' ) ? Nestform_Settings::get() : array();
+		$s    = class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::get() : array();
 		$list = self::lines( (string) ( $s['blocked_ips'] ?? '' ) );
 		foreach ( $list as $entry ) {
 			if ( $entry === $ip ) {
@@ -77,7 +77,7 @@ class Nestform_Spam_Filter {
 			return false;
 		}
 		$bucket = $ip !== '' ? $ip : 'unknown';
-		$key    = 'nestform_rl_' . md5( $bucket );
+		$key    = 'thimbleform_rl_' . md5( $bucket );
 		$count  = (int) get_transient( $key );
 		return $count >= $cfg['max'];
 	}
@@ -91,7 +91,7 @@ class Nestform_Spam_Filter {
 			return;
 		}
 		$bucket = $ip !== '' ? $ip : 'unknown';
-		$key    = 'nestform_rl_' . md5( $bucket );
+		$key    = 'thimbleform_rl_' . md5( $bucket );
 		$count  = (int) get_transient( $key );
 		set_transient( $key, $count + 1, $cfg['window'] );
 	}
@@ -132,7 +132,7 @@ class Nestform_Spam_Filter {
 	 */
 	private static function duplicate_key( $form_id, array $data, $ip ) {
 		$payload = wp_json_encode( array( (int) $form_id, $data, (string) $ip ) );
-		return 'nestform_dup_' . md5( (string) $payload );
+		return 'thimbleform_dup_' . md5( (string) $payload );
 	}
 
 	/**
@@ -146,7 +146,7 @@ class Nestform_Spam_Filter {
 			return null;
 		}
 
-		$s    = class_exists( 'Nestform_Settings' ) ? Nestform_Settings::get() : array();
+		$s    = class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::get() : array();
 		$text = self::flatten( $data );
 
 		$max_links = isset( $s['max_links'] ) ? max( 0, (int) $s['max_links'] ) : 5;
@@ -156,7 +156,7 @@ class Nestform_Spam_Filter {
 				'reason' => 'links',
 				'detail' => sprintf(
 					/* translators: 1: link count, 2: max allowed */
-					__( '%1$d links, limit is %2$d', 'nestform' ),
+					__( '%1$d links, limit is %2$d', 'thimbleform' ),
 					$links,
 					$max_links
 				),
@@ -187,7 +187,7 @@ class Nestform_Spam_Filter {
 		 * @param string|array{reason?:string,detail?:string}|null $result Filter result.
 		 * @param array<string, mixed>                             $data   Submission data.
 		 */
-		$filtered = apply_filters( 'nestform_spam_filter_result', null, $data );
+		$filtered = apply_filters( 'thimbleform_spam_filter_result', null, $data );
 		if ( is_string( $filtered ) && $filtered !== '' ) {
 			return array(
 				'reason' => $filtered,

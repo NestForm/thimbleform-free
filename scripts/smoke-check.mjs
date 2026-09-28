@@ -1,5 +1,5 @@
 /**
- * Nestform smoke checks: PHP lint, build artifacts, dashboard wiring.
+ * Thimbleform smoke checks: PHP lint, build artifacts, dashboard wiring.
  *
  * Usage (from plugin root): npm test
  */
@@ -95,14 +95,14 @@ function assertNotContains(file, needle, label) {
 	}
 }
 
-console.log('\nNestform smoke check\n');
+console.log('\nThimbleform smoke check\n');
 
 const php = findPhp();
 if (!php) {
 	fail('PHP binary not found (set PHP_BIN)');
 } else {
 	ok(`PHP: ${php}`);
-	phpLintTree(php, path.join(root, 'includes'), 'nestform/includes');
+	phpLintTree(php, path.join(root, 'includes'), 'thimbleform/includes');
 	if (fs.existsSync(path.join(proRoot, 'includes'))) {
 		phpLintTree(php, path.join(proRoot, 'includes'), 'thimbleform-pro/includes');
 	} else {
@@ -128,8 +128,8 @@ const adminCss = path.join(root, 'assets', 'css', 'admin.css');
 const dashCss = path.join(root, 'assets', 'css', 'admin', '07-dashboard.css');
 const layoutCss = path.join(root, 'assets', 'css', 'admin', '11-screens-layout.css');
 
-assertContains(dash, 'nestform_dashboard_work_pulse_extra', 'dashboard exposes work_pulse_extra filter');
-assertContains(dash, 'nestform-dash__pulse', 'dashboard Work pulse markup');
+assertContains(dash, 'thimbleform_dashboard_work_pulse_extra', 'dashboard exposes work_pulse_extra filter');
+assertContains(dash, 'thimbleform-dash__pulse', 'dashboard Work pulse markup');
 assertNotContains(dash, 'chart-foot', 'dashboard has no chart-foot markup');
 assertNotContains(dash, 'Status mix', 'dashboard has no Status mix');
 
@@ -137,15 +137,15 @@ assertContains(leads, 'render_work_pulse', 'Pro Hot pulse handler');
 assertContains(leads, '$has_sources', 'Pro Sources empty guard');
 assertNotContains(leads, 'sources-tile--hours', 'Pro Sources no hours tile');
 
-assertContains(developers, 'nestform_dashboard_work_pulse_extra', 'Developers docs list work_pulse_extra');
+assertContains(developers, 'thimbleform_dashboard_work_pulse_extra', 'Developers docs list work_pulse_extra');
 
-assertContains(adminCss, 'nestform-dash__pulse', 'bundled CSS includes pulse');
-assertContains(adminCss, 'nestform-dash__quick-item', 'bundled CSS includes quick items');
-assertNotContains(adminCss, 'nestform-dash__chart-foot{', 'bundled CSS dropped chart-foot');
-assertNotContains(dashCss, '.nestform-dash__mix {', 'partial CSS dropped Status mix');
-assertNotContains(layoutCss, '.nestform-dash__hours {', 'partial CSS dropped hours chart');
-assertNotContains(layoutCss, '.nestform-dash__sources-foot {', 'partial CSS dropped sources-foot');
-assertNotContains(layoutCss, '.nestform-dash__insights-sources-title {', 'partial CSS dropped insights-sources');
+assertContains(adminCss, 'thimbleform-dash__pulse', 'bundled CSS includes pulse');
+assertContains(adminCss, 'thimbleform-dash__quick-item', 'bundled CSS includes quick items');
+assertNotContains(adminCss, 'thimbleform-dash__chart-foot{', 'bundled CSS dropped chart-foot');
+assertNotContains(dashCss, '.thimbleform-dash__mix {', 'partial CSS dropped Status mix');
+assertNotContains(layoutCss, '.thimbleform-dash__hours {', 'partial CSS dropped hours chart');
+assertNotContains(layoutCss, '.thimbleform-dash__sources-foot {', 'partial CSS dropped sources-foot');
+assertNotContains(layoutCss, '.thimbleform-dash__insights-sources-title {', 'partial CSS dropped insights-sources');
 
 console.log(`\n${passes.length} passed, ${fails.length} failed\n`);
 process.exit(fails.length ? 1 : 0);

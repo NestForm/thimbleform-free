@@ -1,17 +1,17 @@
 /* Captcha provider tabs (Integrations) */
-.nestform-captcha-integ__tabs {
-    margin: var(--nestform-space-1) 0 var(--nestform-space-2);
+.thimbleform-captcha-integ__tabs {
+    margin: var(--thimbleform-space-1) 0 var(--thimbleform-space-2);
     flex-wrap: wrap;
 }
 
-.nestform-captcha-integ__tabs-hint {
-    margin: 0 0 var(--nestform-space-4);
+.thimbleform-captcha-integ__tabs-hint {
+    margin: 0 0 var(--thimbleform-space-4);
 }
 
-.nestform-captcha-integ__tabs button.nestform-settings__subnav-item {
+.thimbleform-captcha-integ__tabs button.thimbleform-settings__subnav-item {
     display: inline-flex;
     align-items: center;
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
     margin: 0;
     border: 0;
     background: transparent;
@@ -20,283 +20,283 @@
     -webkit-appearance: none;
 }
 
-.nestform-captcha-integ__tab-badge {
+.thimbleform-captcha-integ__tab-badge {
     flex-shrink: 0;
 }
 
-.nestform-settings__card-foot {
+.thimbleform-settings__card-foot {
     position: sticky;
     bottom: 0;
     z-index: 2;
-    margin-top: var(--nestform-space-4);
-    padding-top: var(--nestform-space-4);
-    border-top: 1px solid var(--nestform-border);
-    background: var(--nestform-surface);
+    margin-top: var(--thimbleform-space-4);
+    padding-top: var(--thimbleform-space-4);
+    border-top: 1px solid var(--thimbleform-border);
+    background: var(--thimbleform-surface);
 }
 
-.nestform-captcha-integ__panel-lead {
-    margin: 0 0 var(--nestform-space-2);
-    color: var(--nestform-muted);
+.thimbleform-captcha-integ__panel-lead {
+    margin: 0 0 var(--thimbleform-space-2);
+    color: var(--thimbleform-muted);
     font-size: 13px;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
 }
 
-.nestform-captcha-integ__panel-lead a {
-    color: var(--nestform-accent);
+.thimbleform-captcha-integ__panel-lead a {
+    color: var(--thimbleform-accent);
     font-weight: 600;
     text-decoration: none;
 }
 
-.nestform-captcha-integ__panel-lead a:hover {
+.thimbleform-captcha-integ__panel-lead a:hover {
     text-decoration: underline;
 }
 
-.nestform-captcha-integ__panel[hidden] {
+.thimbleform-captcha-integ__panel[hidden] {
     display: none !important;
 }
 
-.nestform-admin__captcha-toggle {
+.thimbleform-admin__captcha-toggle {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--nestform-space-2) var(--nestform-space-2);
+    gap: var(--thimbleform-space-2) var(--thimbleform-space-2);
 }
 
-.nestform-admin__captcha-provider {
+.thimbleform-admin__captcha-provider {
     margin-left: 0;
 }
 
 /* Backup & restore (Privacy) */
-.nestform-backup-import__export {
-    margin: 0 0 var(--nestform-space-4);
+.thimbleform-backup-import__export {
+    margin: 0 0 var(--thimbleform-space-4);
 }
 
-.nestform-backup-import {
+.thimbleform-backup-import {
     margin: 0;
-    padding-top: var(--nestform-space-4);
-    border-top: 1px solid var(--nestform-border);
+    padding-top: var(--thimbleform-space-4);
+    border-top: 1px solid var(--thimbleform-border);
 }
 
-.nestform-backup-import__field {
+.thimbleform-backup-import__field {
     display: flex;
     flex-direction: column;
-    gap: var(--nestform-space-2);
-    margin: 0 0 var(--nestform-space-4);
+    gap: var(--thimbleform-space-2);
+    margin: 0 0 var(--thimbleform-space-4);
     max-width: 420px;
 }
 
-.nestform-backup-import__field .nestform-admin__label {
+.thimbleform-backup-import__field .thimbleform-admin__label {
     margin: 0;
-    color: var(--nestform-ink);
+    color: var(--thimbleform-ink);
     font-size: 13px;
     font-weight: 600;
 }
 
-body.wp-core-ui.nestform-settings-screen
-    .nestform-backup-import__file.nestform-admin__input,
-body.nestform-settings-screen
-    .nestform-backup-import__file.nestform-admin__input {
+body.wp-core-ui.thimbleform-settings-screen
+    .thimbleform-backup-import__file.thimbleform-admin__input,
+body.thimbleform-settings-screen
+    .thimbleform-backup-import__file.thimbleform-admin__input {
     width: 100%;
     max-width: 100%;
-    min-height: var(--nestform-control-h);
+    min-height: var(--thimbleform-control-h);
     height: auto;
     margin: 0;
-    padding: var(--nestform-space-2) var(--nestform-space-4);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
-    background-color: var(--nestform-surface);
-    color: var(--nestform-ink);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-4);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
+    background-color: var(--thimbleform-surface);
+    color: var(--thimbleform-ink);
     font-size: 13px;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     box-shadow: none;
     box-sizing: border-box;
     cursor: pointer;
-    transition: var(--nestform-transition);
+    transition: var(--thimbleform-transition);
 }
 
-body.wp-core-ui.nestform-settings-screen
-    .nestform-backup-import__file.nestform-admin__input:hover,
-body.nestform-settings-screen
-    .nestform-backup-import__file.nestform-admin__input:hover,
-body.wp-core-ui.nestform-settings-screen
-    .nestform-backup-import__file.nestform-admin__input:focus,
-body.nestform-settings-screen
-    .nestform-backup-import__file.nestform-admin__input:focus {
-    border-color: var(--nestform-border-strong, #c5c9d4);
+body.wp-core-ui.thimbleform-settings-screen
+    .thimbleform-backup-import__file.thimbleform-admin__input:hover,
+body.thimbleform-settings-screen
+    .thimbleform-backup-import__file.thimbleform-admin__input:hover,
+body.wp-core-ui.thimbleform-settings-screen
+    .thimbleform-backup-import__file.thimbleform-admin__input:focus,
+body.thimbleform-settings-screen
+    .thimbleform-backup-import__file.thimbleform-admin__input:focus {
+    border-color: var(--thimbleform-border-strong, #c5c9d4);
     outline: none;
-    box-shadow: 0 0 0 3px var(--nestform-accent-soft, var(--thimbleform-pro-soft));
+    box-shadow: 0 0 0 3px var(--thimbleform-accent-soft, var(--thimbleform-pro-soft));
 }
 
-body.wp-core-ui.nestform-settings-screen
-    .nestform-backup-import__file.nestform-admin__input::file-selector-button,
-body.nestform-settings-screen
-    .nestform-backup-import__file.nestform-admin__input::file-selector-button {
-    margin-right: var(--nestform-space-2);
-    padding: var(--nestform-space-2) var(--nestform-space-4);
-    border: 1px solid var(--nestform-border);
+body.wp-core-ui.thimbleform-settings-screen
+    .thimbleform-backup-import__file.thimbleform-admin__input::file-selector-button,
+body.thimbleform-settings-screen
+    .thimbleform-backup-import__file.thimbleform-admin__input::file-selector-button {
+    margin-right: var(--thimbleform-space-2);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-4);
+    border: 1px solid var(--thimbleform-border);
     border-radius: 4px;
-    background: var(--nestform-soft);
-    color: var(--nestform-ink);
+    background: var(--thimbleform-soft);
+    color: var(--thimbleform-ink);
     font-size: 12px;
     font-weight: 600;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     cursor: pointer;
-    transition: var(--nestform-transition);
+    transition: var(--thimbleform-transition);
 }
 
-body.wp-core-ui.nestform-settings-screen
-    .nestform-backup-import__file.nestform-admin__input::file-selector-button:hover,
-body.nestform-settings-screen
-    .nestform-backup-import__file.nestform-admin__input::file-selector-button:hover {
-    border-color: var(--nestform-hover-border, #bfdbfe);
-    background: var(--nestform-surface);
-    color: var(--nestform-accent-dark);
+body.wp-core-ui.thimbleform-settings-screen
+    .thimbleform-backup-import__file.thimbleform-admin__input::file-selector-button:hover,
+body.thimbleform-settings-screen
+    .thimbleform-backup-import__file.thimbleform-admin__input::file-selector-button:hover {
+    border-color: var(--thimbleform-hover-border, #bfdbfe);
+    background: var(--thimbleform-surface);
+    color: var(--thimbleform-accent-dark);
 }
 
-.nestform-backup-import__hint {
-    margin: var(--nestform-space-2) 0 0;
-    color: var(--nestform-muted);
+.thimbleform-backup-import__hint {
+    margin: var(--thimbleform-space-2) 0 0;
+    color: var(--thimbleform-muted);
     font-size: 12px;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
 }
 
-body.nestform-import-screen #wpcontent {
-    background: var(--nestform-canvas);
+body.thimbleform-import-screen #wpcontent {
+    background: var(--thimbleform-canvas);
 }
 
-body.nestform-import-screen .wrap.nestform-admin,
-body.nestform-import-screen .wrap.nestform-settings {
+body.thimbleform-import-screen .wrap.thimbleform-admin,
+body.thimbleform-import-screen .wrap.thimbleform-settings {
     margin: 0;
     max-width: 760px;
     background: transparent;
 }
 
-body.nestform-import-screen .nestform-import .nestform-settings__card {
-    padding: var(--nestform-space-4) var(--nestform-space-4);
+body.thimbleform-import-screen .thimbleform-import .thimbleform-settings__card {
+    padding: var(--thimbleform-space-4) var(--thimbleform-space-4);
 }
 
-.nestform-import__card + .nestform-import__card {
-    margin-top: var(--nestform-space-4);
+.thimbleform-import__card + .thimbleform-import__card {
+    margin-top: var(--thimbleform-space-4);
 }
 
-.nestform-import__form {
+.thimbleform-import__form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--nestform-space-4);
+    gap: var(--thimbleform-space-4);
     max-width: 480px;
 }
 
-.nestform-import__form .nestform-admin__field-control {
+.thimbleform-import__form .thimbleform-admin__field-control {
     width: 100%;
 }
 
-.nestform-import__empty {
+.thimbleform-import__empty {
     margin: 0;
-    color: var(--nestform-muted);
+    color: var(--thimbleform-muted);
     font-size: 13px;
 }
 
-.nestform-import__notes {
-    margin: var(--nestform-space-2) 0 0;
+.thimbleform-import__notes {
+    margin: var(--thimbleform-space-2) 0 0;
     padding-left: 1.25em;
-    color: var(--nestform-muted);
+    color: var(--thimbleform-muted);
 }
 
-.nestform-import__notes li {
-    margin: 0 0 var(--nestform-space-1);
+.thimbleform-import__notes li {
+    margin: 0 0 var(--thimbleform-space-1);
 }
 
-body.nestform-settings-screen .nestform-settings__form {
-    margin-bottom: var(--nestform-space-6);
+body.thimbleform-settings-screen .thimbleform-settings__form {
+    margin-bottom: var(--thimbleform-space-6);
 }
 
-body.nestform-settings-screen .nestform-settings__form:last-child {
+body.thimbleform-settings-screen .thimbleform-settings__form:last-child {
     margin-bottom: 0;
 }
 
-body.nestform-settings-screen .nestform-settings__card {
-    padding: var(--nestform-space-4) var(--nestform-space-4);
+body.thimbleform-settings-screen .thimbleform-settings__card {
+    padding: var(--thimbleform-space-4) var(--thimbleform-space-4);
 }
 
-body.nestform-settings-screen
-    .nestform-settings__card
+body.thimbleform-settings-screen
+    .thimbleform-settings__card
     .description
-    + .nestform-btn {
-    margin-top: var(--nestform-space-6);
+    + .thimbleform-btn {
+    margin-top: var(--thimbleform-space-6);
 }
 
-body.nestform-settings-screen .nestform-settings__table {
-    margin: 0 0 var(--nestform-space-6);
+body.thimbleform-settings-screen .thimbleform-settings__table {
+    margin: 0 0 var(--thimbleform-space-6);
 }
 
-body.nestform-settings-screen .nestform-settings__table th {
-    padding: var(--nestform-space-4) var(--nestform-space-4)
-        var(--nestform-space-4) 0;
+body.thimbleform-settings-screen .thimbleform-settings__table th {
+    padding: var(--thimbleform-space-4) var(--thimbleform-space-4)
+        var(--thimbleform-space-4) 0;
     width: 180px;
-    color: var(--nestform-ink);
+    color: var(--thimbleform-ink);
     font-weight: 600;
     vertical-align: top;
 }
 
-body.nestform-settings-screen .nestform-settings__table tr:last-child th,
-body.nestform-settings-screen .nestform-settings__table tr:last-child td {
+body.thimbleform-settings-screen .thimbleform-settings__table tr:last-child th,
+body.thimbleform-settings-screen .thimbleform-settings__table tr:last-child td {
     padding-bottom: 0;
 }
 
-body.nestform-settings-screen .nestform-settings__table td {
-    padding: var(--nestform-space-4) 0;
+body.thimbleform-settings-screen .thimbleform-settings__table td {
+    padding: var(--thimbleform-space-4) 0;
     vertical-align: top;
 }
 
-body.nestform-settings-screen .nestform-settings__table .nestform-admin__input {
+body.thimbleform-settings-screen .thimbleform-settings__table .thimbleform-admin__input {
     max-width: 100%;
 }
 
-body.nestform-settings-screen
-    .nestform-settings__table
-    .small-text.nestform-admin__input {
+body.thimbleform-settings-screen
+    .thimbleform-settings__table
+    .small-text.thimbleform-admin__input {
     width: 88px;
 }
 
 /* Number + unit groups (days / seconds) */
-.nestform-settings__qty-stack {
+.thimbleform-settings__qty-stack {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
 }
 
-.nestform-settings__qty {
+.thimbleform-settings__qty {
     display: inline-flex;
     align-items: stretch;
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
-    background: var(--nestform-surface);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
+    background: var(--thimbleform-surface);
     overflow: hidden;
-    transition: var(--nestform-transition);
+    transition: var(--thimbleform-transition);
     justify-content: space-between;
     max-width: 100%;
     width: 100%;
 }
 
-.nestform-settings__qty:focus-within {
-    border-color: var(--nestform-border-strong, #c5c9d4);
-    box-shadow: 0 0 0 3px var(--nestform-accent-soft, var(--thimbleform-pro-soft));
+.thimbleform-settings__qty:focus-within {
+    border-color: var(--thimbleform-border-strong, #c5c9d4);
+    box-shadow: 0 0 0 3px var(--thimbleform-accent-soft, var(--thimbleform-pro-soft));
 }
 
-body.wp-core-ui.nestform-settings-screen
-    .nestform-settings__qty
-    .nestform-settings__qty-input.nestform-admin__input,
-body.nestform-settings-screen
-    .nestform-settings__qty
-    .nestform-settings__qty-input.nestform-admin__input {
+body.wp-core-ui.thimbleform-settings-screen
+    .thimbleform-settings__qty
+    .thimbleform-settings__qty-input.thimbleform-admin__input,
+body.thimbleform-settings-screen
+    .thimbleform-settings__qty
+    .thimbleform-settings__qty-input.thimbleform-admin__input {
     width: 100%;
     min-width: 72px;
-    min-height: var(--nestform-control-h);
-    height: var(--nestform-control-h);
+    min-height: var(--thimbleform-control-h);
+    height: var(--thimbleform-control-h);
     margin: 0;
-    padding: var(--nestform-space-2) var(--nestform-space-2);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-2);
     border: 0 !important;
     border-radius: 0;
     background: transparent;
@@ -304,73 +304,73 @@ body.nestform-settings-screen
     font-variant-numeric: tabular-nums;
 }
 
-.nestform-settings__unit {
+.thimbleform-settings__unit {
     display: inline-flex;
     align-items: center;
     flex: 0 0 auto;
     min-width: 5.5em;
     justify-content: center;
-    padding: 0 var(--nestform-space-2);
-    border-left: 1px solid var(--nestform-border);
-    background: var(--nestform-soft);
-    color: var(--nestform-muted);
+    padding: 0 var(--thimbleform-space-2);
+    border-left: 1px solid var(--thimbleform-border);
+    background: var(--thimbleform-soft);
+    color: var(--thimbleform-muted);
     font-size: 12px;
     font-weight: 600;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     white-space: nowrap;
     user-select: none;
 }
 
-body.nestform-settings-screen .nestform-settings__table .description {
-    margin-top: var(--nestform-space-1);
-    color: var(--nestform-muted);
+body.thimbleform-settings-screen .thimbleform-settings__table .description {
+    margin-top: var(--thimbleform-space-1);
+    color: var(--thimbleform-muted);
     font-size: 12px;
 }
 
-body.nestform-settings-screen .wrap.nestform-admin {
+body.thimbleform-settings-screen .wrap.thimbleform-admin {
     background: transparent;
 }
 
-body.nestform-settings-screen .nestform-settings .nestform-admin__check {
+body.thimbleform-settings-screen .thimbleform-settings .thimbleform-admin__check {
     margin-top: 0 !important;
     display: flex;
 }
 
-.nestform-stripe-integ .nestform-admin__panel-head,
-.nestform-hubspot-integ .nestform-admin__panel-head {
+.thimbleform-stripe-integ .thimbleform-admin__panel-head,
+.thimbleform-hubspot-integ .thimbleform-admin__panel-head {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: var(--nestform-space-3);
+    gap: var(--thimbleform-space-3);
 }
 
-.nestform-stripe-integ .form-table th,
-.nestform-hubspot-integ .form-table th {
+.thimbleform-stripe-integ .form-table th,
+.thimbleform-hubspot-integ .form-table th {
     width: 160px;
 }
 
 /* Stacked keys in one cell — gap owns rhythm (input margin:0 elsewhere). */
-.nestform-integ-keys {
+.thimbleform-integ-keys {
     display: flex;
     flex-direction: column;
-    gap: var(--nestform-space-4);
+    gap: var(--thimbleform-space-4);
 }
 
-.nestform-integ-keys__field {
+.thimbleform-integ-keys__field {
     display: flex;
     flex-direction: column;
-    gap: var(--nestform-space-1);
+    gap: var(--thimbleform-space-1);
 }
 
-.nestform-integ-keys__field label {
+.thimbleform-integ-keys__field label {
     margin: 0;
     font-size: 13px;
     font-weight: 600;
-    line-height: var(--nestform-line-height);
-    color: var(--nestform-ink);
+    line-height: var(--thimbleform-line-height);
+    color: var(--thimbleform-ink);
 }
 
-.nestform-integ-keys__field .nestform-admin__input {
+.thimbleform-integ-keys__field .thimbleform-admin__input {
     width: 100%;
     max-width: 100%;
 }

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Phone {
+class Thimbleform_Phone {
 
 	/**
 	 * @return array<int, array{iso:string,dial:string,name:string,flag:string}>
@@ -20,66 +20,66 @@ class Nestform_Phone {
 			return $cached;
 		}
 		$rows = array(
-			array( 'iso' => 'RU', 'dial' => '7', 'name' => __( 'Russia', 'nestform' ) ),
-			array( 'iso' => 'BY', 'dial' => '375', 'name' => __( 'Belarus', 'nestform' ) ),
-			array( 'iso' => 'KZ', 'dial' => '7', 'name' => __( 'Kazakhstan', 'nestform' ) ),
-			array( 'iso' => 'UA', 'dial' => '380', 'name' => __( 'Ukraine', 'nestform' ) ),
-			array( 'iso' => 'UZ', 'dial' => '998', 'name' => __( 'Uzbekistan', 'nestform' ) ),
-			array( 'iso' => 'KG', 'dial' => '996', 'name' => __( 'Kyrgyzstan', 'nestform' ) ),
-			array( 'iso' => 'AM', 'dial' => '374', 'name' => __( 'Armenia', 'nestform' ) ),
-			array( 'iso' => 'GE', 'dial' => '995', 'name' => __( 'Georgia', 'nestform' ) ),
-			array( 'iso' => 'AZ', 'dial' => '994', 'name' => __( 'Azerbaijan', 'nestform' ) ),
-			array( 'iso' => 'MD', 'dial' => '373', 'name' => __( 'Moldova', 'nestform' ) ),
-			array( 'iso' => 'TJ', 'dial' => '992', 'name' => __( 'Tajikistan', 'nestform' ) ),
-			array( 'iso' => 'TM', 'dial' => '993', 'name' => __( 'Turkmenistan', 'nestform' ) ),
-			array( 'iso' => 'US', 'dial' => '1', 'name' => __( 'United States', 'nestform' ) ),
-			array( 'iso' => 'CA', 'dial' => '1', 'name' => __( 'Canada', 'nestform' ) ),
-			array( 'iso' => 'GB', 'dial' => '44', 'name' => __( 'United Kingdom', 'nestform' ) ),
-			array( 'iso' => 'DE', 'dial' => '49', 'name' => __( 'Germany', 'nestform' ) ),
-			array( 'iso' => 'FR', 'dial' => '33', 'name' => __( 'France', 'nestform' ) ),
-			array( 'iso' => 'IT', 'dial' => '39', 'name' => __( 'Italy', 'nestform' ) ),
-			array( 'iso' => 'ES', 'dial' => '34', 'name' => __( 'Spain', 'nestform' ) ),
-			array( 'iso' => 'PL', 'dial' => '48', 'name' => __( 'Poland', 'nestform' ) ),
-			array( 'iso' => 'NL', 'dial' => '31', 'name' => __( 'Netherlands', 'nestform' ) ),
-			array( 'iso' => 'BE', 'dial' => '32', 'name' => __( 'Belgium', 'nestform' ) ),
-			array( 'iso' => 'AT', 'dial' => '43', 'name' => __( 'Austria', 'nestform' ) ),
-			array( 'iso' => 'CH', 'dial' => '41', 'name' => __( 'Switzerland', 'nestform' ) ),
-			array( 'iso' => 'CZ', 'dial' => '420', 'name' => __( 'Czechia', 'nestform' ) ),
-			array( 'iso' => 'SK', 'dial' => '421', 'name' => __( 'Slovakia', 'nestform' ) ),
-			array( 'iso' => 'HU', 'dial' => '36', 'name' => __( 'Hungary', 'nestform' ) ),
-			array( 'iso' => 'RO', 'dial' => '40', 'name' => __( 'Romania', 'nestform' ) ),
-			array( 'iso' => 'BG', 'dial' => '359', 'name' => __( 'Bulgaria', 'nestform' ) ),
-			array( 'iso' => 'GR', 'dial' => '30', 'name' => __( 'Greece', 'nestform' ) ),
-			array( 'iso' => 'PT', 'dial' => '351', 'name' => __( 'Portugal', 'nestform' ) ),
-			array( 'iso' => 'IE', 'dial' => '353', 'name' => __( 'Ireland', 'nestform' ) ),
-			array( 'iso' => 'SE', 'dial' => '46', 'name' => __( 'Sweden', 'nestform' ) ),
-			array( 'iso' => 'NO', 'dial' => '47', 'name' => __( 'Norway', 'nestform' ) ),
-			array( 'iso' => 'FI', 'dial' => '358', 'name' => __( 'Finland', 'nestform' ) ),
-			array( 'iso' => 'DK', 'dial' => '45', 'name' => __( 'Denmark', 'nestform' ) ),
-			array( 'iso' => 'EE', 'dial' => '372', 'name' => __( 'Estonia', 'nestform' ) ),
-			array( 'iso' => 'LV', 'dial' => '371', 'name' => __( 'Latvia', 'nestform' ) ),
-			array( 'iso' => 'LT', 'dial' => '370', 'name' => __( 'Lithuania', 'nestform' ) ),
-			array( 'iso' => 'IL', 'dial' => '972', 'name' => __( 'Israel', 'nestform' ) ),
-			array( 'iso' => 'AE', 'dial' => '971', 'name' => __( 'United Arab Emirates', 'nestform' ) ),
-			array( 'iso' => 'SA', 'dial' => '966', 'name' => __( 'Saudi Arabia', 'nestform' ) ),
-			array( 'iso' => 'TR', 'dial' => '90', 'name' => __( 'Turkey', 'nestform' ) ),
-			array( 'iso' => 'IN', 'dial' => '91', 'name' => __( 'India', 'nestform' ) ),
-			array( 'iso' => 'CN', 'dial' => '86', 'name' => __( 'China', 'nestform' ) ),
-			array( 'iso' => 'JP', 'dial' => '81', 'name' => __( 'Japan', 'nestform' ) ),
-			array( 'iso' => 'KR', 'dial' => '82', 'name' => __( 'South Korea', 'nestform' ) ),
-			array( 'iso' => 'AU', 'dial' => '61', 'name' => __( 'Australia', 'nestform' ) ),
-			array( 'iso' => 'NZ', 'dial' => '64', 'name' => __( 'New Zealand', 'nestform' ) ),
-			array( 'iso' => 'BR', 'dial' => '55', 'name' => __( 'Brazil', 'nestform' ) ),
-			array( 'iso' => 'MX', 'dial' => '52', 'name' => __( 'Mexico', 'nestform' ) ),
-			array( 'iso' => 'AR', 'dial' => '54', 'name' => __( 'Argentina', 'nestform' ) ),
-			array( 'iso' => 'ZA', 'dial' => '27', 'name' => __( 'South Africa', 'nestform' ) ),
-			array( 'iso' => 'EG', 'dial' => '20', 'name' => __( 'Egypt', 'nestform' ) ),
-			array( 'iso' => 'TH', 'dial' => '66', 'name' => __( 'Thailand', 'nestform' ) ),
-			array( 'iso' => 'VN', 'dial' => '84', 'name' => __( 'Vietnam', 'nestform' ) ),
-			array( 'iso' => 'ID', 'dial' => '62', 'name' => __( 'Indonesia', 'nestform' ) ),
-			array( 'iso' => 'MY', 'dial' => '60', 'name' => __( 'Malaysia', 'nestform' ) ),
-			array( 'iso' => 'SG', 'dial' => '65', 'name' => __( 'Singapore', 'nestform' ) ),
-			array( 'iso' => 'PH', 'dial' => '63', 'name' => __( 'Philippines', 'nestform' ) ),
+			array( 'iso' => 'RU', 'dial' => '7', 'name' => __( 'Russia', 'thimbleform' ) ),
+			array( 'iso' => 'BY', 'dial' => '375', 'name' => __( 'Belarus', 'thimbleform' ) ),
+			array( 'iso' => 'KZ', 'dial' => '7', 'name' => __( 'Kazakhstan', 'thimbleform' ) ),
+			array( 'iso' => 'UA', 'dial' => '380', 'name' => __( 'Ukraine', 'thimbleform' ) ),
+			array( 'iso' => 'UZ', 'dial' => '998', 'name' => __( 'Uzbekistan', 'thimbleform' ) ),
+			array( 'iso' => 'KG', 'dial' => '996', 'name' => __( 'Kyrgyzstan', 'thimbleform' ) ),
+			array( 'iso' => 'AM', 'dial' => '374', 'name' => __( 'Armenia', 'thimbleform' ) ),
+			array( 'iso' => 'GE', 'dial' => '995', 'name' => __( 'Georgia', 'thimbleform' ) ),
+			array( 'iso' => 'AZ', 'dial' => '994', 'name' => __( 'Azerbaijan', 'thimbleform' ) ),
+			array( 'iso' => 'MD', 'dial' => '373', 'name' => __( 'Moldova', 'thimbleform' ) ),
+			array( 'iso' => 'TJ', 'dial' => '992', 'name' => __( 'Tajikistan', 'thimbleform' ) ),
+			array( 'iso' => 'TM', 'dial' => '993', 'name' => __( 'Turkmenistan', 'thimbleform' ) ),
+			array( 'iso' => 'US', 'dial' => '1', 'name' => __( 'United States', 'thimbleform' ) ),
+			array( 'iso' => 'CA', 'dial' => '1', 'name' => __( 'Canada', 'thimbleform' ) ),
+			array( 'iso' => 'GB', 'dial' => '44', 'name' => __( 'United Kingdom', 'thimbleform' ) ),
+			array( 'iso' => 'DE', 'dial' => '49', 'name' => __( 'Germany', 'thimbleform' ) ),
+			array( 'iso' => 'FR', 'dial' => '33', 'name' => __( 'France', 'thimbleform' ) ),
+			array( 'iso' => 'IT', 'dial' => '39', 'name' => __( 'Italy', 'thimbleform' ) ),
+			array( 'iso' => 'ES', 'dial' => '34', 'name' => __( 'Spain', 'thimbleform' ) ),
+			array( 'iso' => 'PL', 'dial' => '48', 'name' => __( 'Poland', 'thimbleform' ) ),
+			array( 'iso' => 'NL', 'dial' => '31', 'name' => __( 'Netherlands', 'thimbleform' ) ),
+			array( 'iso' => 'BE', 'dial' => '32', 'name' => __( 'Belgium', 'thimbleform' ) ),
+			array( 'iso' => 'AT', 'dial' => '43', 'name' => __( 'Austria', 'thimbleform' ) ),
+			array( 'iso' => 'CH', 'dial' => '41', 'name' => __( 'Switzerland', 'thimbleform' ) ),
+			array( 'iso' => 'CZ', 'dial' => '420', 'name' => __( 'Czechia', 'thimbleform' ) ),
+			array( 'iso' => 'SK', 'dial' => '421', 'name' => __( 'Slovakia', 'thimbleform' ) ),
+			array( 'iso' => 'HU', 'dial' => '36', 'name' => __( 'Hungary', 'thimbleform' ) ),
+			array( 'iso' => 'RO', 'dial' => '40', 'name' => __( 'Romania', 'thimbleform' ) ),
+			array( 'iso' => 'BG', 'dial' => '359', 'name' => __( 'Bulgaria', 'thimbleform' ) ),
+			array( 'iso' => 'GR', 'dial' => '30', 'name' => __( 'Greece', 'thimbleform' ) ),
+			array( 'iso' => 'PT', 'dial' => '351', 'name' => __( 'Portugal', 'thimbleform' ) ),
+			array( 'iso' => 'IE', 'dial' => '353', 'name' => __( 'Ireland', 'thimbleform' ) ),
+			array( 'iso' => 'SE', 'dial' => '46', 'name' => __( 'Sweden', 'thimbleform' ) ),
+			array( 'iso' => 'NO', 'dial' => '47', 'name' => __( 'Norway', 'thimbleform' ) ),
+			array( 'iso' => 'FI', 'dial' => '358', 'name' => __( 'Finland', 'thimbleform' ) ),
+			array( 'iso' => 'DK', 'dial' => '45', 'name' => __( 'Denmark', 'thimbleform' ) ),
+			array( 'iso' => 'EE', 'dial' => '372', 'name' => __( 'Estonia', 'thimbleform' ) ),
+			array( 'iso' => 'LV', 'dial' => '371', 'name' => __( 'Latvia', 'thimbleform' ) ),
+			array( 'iso' => 'LT', 'dial' => '370', 'name' => __( 'Lithuania', 'thimbleform' ) ),
+			array( 'iso' => 'IL', 'dial' => '972', 'name' => __( 'Israel', 'thimbleform' ) ),
+			array( 'iso' => 'AE', 'dial' => '971', 'name' => __( 'United Arab Emirates', 'thimbleform' ) ),
+			array( 'iso' => 'SA', 'dial' => '966', 'name' => __( 'Saudi Arabia', 'thimbleform' ) ),
+			array( 'iso' => 'TR', 'dial' => '90', 'name' => __( 'Turkey', 'thimbleform' ) ),
+			array( 'iso' => 'IN', 'dial' => '91', 'name' => __( 'India', 'thimbleform' ) ),
+			array( 'iso' => 'CN', 'dial' => '86', 'name' => __( 'China', 'thimbleform' ) ),
+			array( 'iso' => 'JP', 'dial' => '81', 'name' => __( 'Japan', 'thimbleform' ) ),
+			array( 'iso' => 'KR', 'dial' => '82', 'name' => __( 'South Korea', 'thimbleform' ) ),
+			array( 'iso' => 'AU', 'dial' => '61', 'name' => __( 'Australia', 'thimbleform' ) ),
+			array( 'iso' => 'NZ', 'dial' => '64', 'name' => __( 'New Zealand', 'thimbleform' ) ),
+			array( 'iso' => 'BR', 'dial' => '55', 'name' => __( 'Brazil', 'thimbleform' ) ),
+			array( 'iso' => 'MX', 'dial' => '52', 'name' => __( 'Mexico', 'thimbleform' ) ),
+			array( 'iso' => 'AR', 'dial' => '54', 'name' => __( 'Argentina', 'thimbleform' ) ),
+			array( 'iso' => 'ZA', 'dial' => '27', 'name' => __( 'South Africa', 'thimbleform' ) ),
+			array( 'iso' => 'EG', 'dial' => '20', 'name' => __( 'Egypt', 'thimbleform' ) ),
+			array( 'iso' => 'TH', 'dial' => '66', 'name' => __( 'Thailand', 'thimbleform' ) ),
+			array( 'iso' => 'VN', 'dial' => '84', 'name' => __( 'Vietnam', 'thimbleform' ) ),
+			array( 'iso' => 'ID', 'dial' => '62', 'name' => __( 'Indonesia', 'thimbleform' ) ),
+			array( 'iso' => 'MY', 'dial' => '60', 'name' => __( 'Malaysia', 'thimbleform' ) ),
+			array( 'iso' => 'SG', 'dial' => '65', 'name' => __( 'Singapore', 'thimbleform' ) ),
+			array( 'iso' => 'PH', 'dial' => '63', 'name' => __( 'Philippines', 'thimbleform' ) ),
 		);
 		$seen = array();
 		$out  = array();
@@ -100,7 +100,7 @@ class Nestform_Phone {
 		 *
 		 * @param array<int, array{iso:string,dial:string,name:string,flag:string}> $out Countries.
 		 */
-		$cached = array_values( (array) apply_filters( 'nestform_phone_countries', $out ) );
+		$cached = array_values( (array) apply_filters( 'thimbleform_phone_countries', $out ) );
 		return $cached;
 	}
 
@@ -140,8 +140,8 @@ class Nestform_Phone {
 		}
 
 		$rel  = 'assets/flags/' . $iso . '.svg';
-		$path = NESTFORM_PATH . $rel;
-		$url  = is_readable( $path ) ? NESTFORM_URL . $rel : '';
+		$path = THIMBLEFORM_PATH . $rel;
+		$url  = is_readable( $path ) ? THIMBLEFORM_URL . $rel : '';
 
 		/**
 		 * Filter phone flag image URL.
@@ -149,7 +149,7 @@ class Nestform_Phone {
 		 * @param string $url Flag URL (plugin-local SVG, or empty).
 		 * @param string $iso Lowercase ISO.
 		 */
-		return (string) apply_filters( 'nestform_phone_flag_url', $url, $iso );
+		return (string) apply_filters( 'thimbleform_phone_flag_url', $url, $iso );
 	}
 
 	/**
@@ -162,7 +162,7 @@ class Nestform_Phone {
 		if ( '' === $url ) {
 			return '';
 		}
-		$attr = 'nest-form-phone__flag' === $class ? ' data-nestform-phone-flag' : '';
+		$attr = 'nest-form-phone__flag' === $class ? ' data-thimbleform-phone-flag' : '';
 		return sprintf(
 			'<span class="%1$s"%2$s><img class="nest-form-phone__flag-img" src="%3$s" alt="" width="20" height="15" loading="lazy" decoding="async" /></span>',
 			esc_attr( $class ),
@@ -319,13 +319,13 @@ class Nestform_Phone {
 		$e164    = $split['e164'];
 		$national = $split['national'];
 
-		echo '<div class="nest-form-phone" data-nestform-phone data-iso="' . esc_attr( $iso ) . '" data-dial="' . esc_attr( $dial ) . '">';
-		echo '<button type="button" class="nest-form-phone__cc" data-nestform-phone-toggle aria-expanded="false" aria-haspopup="listbox">';
+		echo '<div class="nest-form-phone" data-thimbleform-phone data-iso="' . esc_attr( $iso ) . '" data-dial="' . esc_attr( $dial ) . '">';
+		echo '<button type="button" class="nest-form-phone__cc" data-thimbleform-phone-toggle aria-expanded="false" aria-haspopup="listbox">';
 		echo self::flag_html( $iso, 'nest-form-phone__flag' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo '<span class="nest-form-phone__dial" data-nestform-phone-dial>+' . esc_html( $dial ) . '</span>';
+		echo '<span class="nest-form-phone__dial" data-thimbleform-phone-dial>+' . esc_html( $dial ) . '</span>';
 		echo '</button>';
 		printf(
-			'<input type="tel" class="input nest-form__input nest-form-phone__national" name="%1$s" id="%2$s" value="%3$s" placeholder="%4$s" autocomplete="tel-national" inputmode="tel"%5$s data-nestform-phone-national />',
+			'<input type="tel" class="input nest-form__input nest-form-phone__national" name="%1$s" id="%2$s" value="%3$s" placeholder="%4$s" autocomplete="tel-national" inputmode="tel"%5$s data-thimbleform-phone-national />',
 			esc_attr( $name . '__national' ),
 			esc_attr( $id ),
 			esc_attr( $national ),
@@ -333,17 +333,17 @@ class Nestform_Phone {
 			$req ? ' required' : ''
 		);
 		printf(
-			'<input type="hidden" class="nest-form-phone__value" name="%1$s" value="%2$s" data-nestform-phone-value />',
+			'<input type="hidden" class="nest-form-phone__value" name="%1$s" value="%2$s" data-thimbleform-phone-value />',
 			esc_attr( $name ),
 			esc_attr( $e164 )
 		);
 		printf(
-			'<input type="hidden" name="%1$s" value="%2$s" data-nestform-phone-iso />',
+			'<input type="hidden" name="%1$s" value="%2$s" data-thimbleform-phone-iso />',
 			esc_attr( $name . '__iso' ),
 			esc_attr( $iso )
 		);
-		echo '<div class="nest-form-phone__panel" data-nestform-phone-panel hidden>';
-		echo '<input type="search" class="nest-form-phone__search" data-nestform-phone-search placeholder="' . esc_attr__( 'Search country', 'nestform' ) . '" autocomplete="off" />';
+		echo '<div class="nest-form-phone__panel" data-thimbleform-phone-panel hidden>';
+		echo '<input type="search" class="nest-form-phone__search" data-thimbleform-phone-search placeholder="' . esc_attr__( 'Search country', 'thimbleform' ) . '" autocomplete="off" />';
 		echo '<ul class="nest-form-phone__list" role="listbox">';
 		$preferred = self::preferred_isos();
 		$pref_map  = array_flip( $preferred );

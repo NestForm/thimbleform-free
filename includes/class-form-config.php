@@ -9,12 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Form_Config {
+class Thimbleform_Form_Config {
 
-	const META_FIELDS   = '_nestform_fields';
-	const META_MESSAGES = '_nestform_messages';
-	const META_MAIL     = '_nestform_mail';
-	const META_SETTINGS = '_nestform_settings';
+	const META_FIELDS   = '_thimbleform_fields';
+	const META_MESSAGES = '_thimbleform_messages';
+	const META_MAIL     = '_thimbleform_mail';
+	const META_SETTINGS = '_thimbleform_settings';
 
 	/** Posted / stored value for the "Other" choice option. */
 	const OTHER_VALUE = '__other';
@@ -124,7 +124,7 @@ class Nestform_Form_Config {
 			'cc'                      => '',
 			'bcc'                     => '',
 			'subject'                 => 'New form submission: {form_title}',
-			'from_name'               => class_exists( 'Nestform_Settings' ) ? Nestform_Settings::mail_from_name() : get_bloginfo( 'name' ),
+			'from_name'               => class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::mail_from_name() : get_bloginfo( 'name' ),
 			'reply_to_field'          => 'email',
 			'body_template'           => "New submission from {form_title}\n\n{all_fields}\n",
 			'html_enabled'            => '0',
@@ -213,11 +213,11 @@ class Nestform_Form_Config {
 	 */
 	public static function style_skins() {
 		return array(
-			'theme'   => __( 'Theme (default)', 'nestform' ),
-			'classic' => __( 'Classic', 'nestform' ),
-			'minimal' => __( 'Minimal underline', 'nestform' ),
-			'soft'    => __( 'Soft filled', 'nestform' ),
-			'card'    => __( 'Card', 'nestform' ),
+			'theme'   => __( 'Theme (default)', 'thimbleform' ),
+			'classic' => __( 'Classic', 'thimbleform' ),
+			'minimal' => __( 'Minimal underline', 'thimbleform' ),
+			'soft'    => __( 'Soft filled', 'thimbleform' ),
+			'card'    => __( 'Card', 'thimbleform' ),
 		);
 	}
 
@@ -226,10 +226,10 @@ class Nestform_Form_Config {
 	 */
 	public static function style_radius_options() {
 		return array(
-			'sm'   => __( 'Small', 'nestform' ),
-			'md'   => __( 'Medium', 'nestform' ),
-			'lg'   => __( 'Large', 'nestform' ),
-			'pill' => __( 'Pill', 'nestform' ),
+			'sm'   => __( 'Small', 'thimbleform' ),
+			'md'   => __( 'Medium', 'thimbleform' ),
+			'lg'   => __( 'Large', 'thimbleform' ),
+			'pill' => __( 'Pill', 'thimbleform' ),
 		);
 	}
 
@@ -238,9 +238,9 @@ class Nestform_Form_Config {
 	 */
 	public static function style_button_options() {
 		return array(
-			'solid'   => __( 'Solid', 'nestform' ),
-			'outline' => __( 'Outline', 'nestform' ),
-			'soft'    => __( 'Soft', 'nestform' ),
+			'solid'   => __( 'Solid', 'thimbleform' ),
+			'outline' => __( 'Outline', 'thimbleform' ),
+			'soft'    => __( 'Soft', 'thimbleform' ),
 		);
 	}
 
@@ -251,10 +251,10 @@ class Nestform_Form_Config {
 	 */
 	public static function style_font_size_options() {
 		return array(
-			'sm' => __( 'Small', 'nestform' ),
-			'md' => __( 'Default', 'nestform' ),
-			'lg' => __( 'Large', 'nestform' ),
-			'xl' => __( 'Extra large', 'nestform' ),
+			'sm' => __( 'Small', 'thimbleform' ),
+			'md' => __( 'Default', 'thimbleform' ),
+			'lg' => __( 'Large', 'thimbleform' ),
+			'xl' => __( 'Extra large', 'thimbleform' ),
 		);
 	}
 
@@ -265,9 +265,9 @@ class Nestform_Form_Config {
 	 */
 	public static function style_gap_options() {
 		return array(
-			'sm' => __( 'Tight', 'nestform' ),
-			'md' => __( 'Default', 'nestform' ),
-			'lg' => __( 'Relaxed', 'nestform' ),
+			'sm' => __( 'Tight', 'thimbleform' ),
+			'md' => __( 'Default', 'thimbleform' ),
+			'lg' => __( 'Relaxed', 'thimbleform' ),
 		);
 	}
 
@@ -278,9 +278,9 @@ class Nestform_Form_Config {
 	 */
 	public static function style_density_options() {
 		return array(
-			'sm' => __( 'Compact', 'nestform' ),
-			'md' => __( 'Default', 'nestform' ),
-			'lg' => __( 'Comfortable', 'nestform' ),
+			'sm' => __( 'Compact', 'thimbleform' ),
+			'md' => __( 'Default', 'thimbleform' ),
+			'lg' => __( 'Comfortable', 'thimbleform' ),
 		);
 	}
 
@@ -497,7 +497,7 @@ class Nestform_Form_Config {
 		 * @param string $css    Original sanitized CSS.
 		 * @param string $scope  Scope selector.
 		 */
-		return (string) apply_filters( 'nestform_scoped_custom_css', $scoped, $css, $scope );
+		return (string) apply_filters( 'thimbleform_scoped_custom_css', $scoped, $css, $scope );
 	}
 
 	/**
@@ -644,7 +644,7 @@ class Nestform_Form_Config {
 		 * @param array  $parts    "var:value" chunks.
 		 * @param array  $settings Settings.
 		 */
-		$parts = (array) apply_filters( 'nestform_style_inline_parts', $parts, $settings );
+		$parts = (array) apply_filters( 'thimbleform_style_inline_parts', $parts, $settings );
 		return implode( ';', $parts );
 	}
 
@@ -682,7 +682,7 @@ class Nestform_Form_Config {
 		 * @param array $classes  Classes.
 		 * @param array $settings Settings.
 		 */
-		return array_values( array_filter( (array) apply_filters( 'nestform_style_form_classes', $classes, $settings ) ) );
+		return array_values( array_filter( (array) apply_filters( 'thimbleform_style_form_classes', $classes, $settings ) ) );
 	}
 
 	/**
@@ -690,11 +690,11 @@ class Nestform_Form_Config {
 	 */
 	public static function condition_operators() {
 		return array(
-			'equals'     => __( 'equals', 'nestform' ),
-			'not_equals' => __( 'does not equal', 'nestform' ),
-			'empty'      => __( 'is empty', 'nestform' ),
-			'not_empty'  => __( 'is not empty', 'nestform' ),
-			'contains'   => __( 'contains', 'nestform' ),
+			'equals'     => __( 'equals', 'thimbleform' ),
+			'not_equals' => __( 'does not equal', 'thimbleform' ),
+			'empty'      => __( 'is empty', 'thimbleform' ),
+			'not_empty'  => __( 'is not empty', 'thimbleform' ),
+			'contains'   => __( 'contains', 'thimbleform' ),
 		);
 	}
 
@@ -775,7 +775,7 @@ class Nestform_Form_Config {
 		if ( ! is_array( $raw ) ) {
 			return array();
 		}
-		$max = class_exists( 'Nestform_Webhook' ) ? Nestform_Webhook::ENDPOINT_MAX : 5;
+		$max = class_exists( 'Thimbleform_Webhook' ) ? Thimbleform_Webhook::ENDPOINT_MAX : 5;
 		$out = array();
 		foreach ( $raw as $row ) {
 			if ( ! is_array( $row ) ) {
@@ -945,8 +945,8 @@ class Nestform_Form_Config {
 				'title'    => sanitize_text_field( $parts[2] ),
 				'message'  => isset( $parts[3] ) ? sanitize_text_field( $parts[3] ) : '',
 				'redirect' => isset( $parts[4] )
-					? ( class_exists( 'Nestform_Security' )
-						? Nestform_Security::sanitize_redirect_template( $parts[4] )
+					? ( class_exists( 'Thimbleform_Security' )
+						? Thimbleform_Security::sanitize_redirect_template( $parts[4] )
 						: esc_url_raw( $parts[4] ) )
 					: '',
 			);
@@ -977,8 +977,8 @@ class Nestform_Form_Config {
 			$max      = isset( $row['max'] ) && is_numeric( $row['max'] ) ? (string) ( 0 + $row['max'] ) : '100';
 			$message  = isset( $row['message'] ) ? sanitize_text_field( (string) $row['message'] ) : '';
 			$redirect = isset( $row['redirect'] )
-				? ( class_exists( 'Nestform_Security' )
-					? Nestform_Security::sanitize_redirect_template( (string) $row['redirect'] )
+				? ( class_exists( 'Thimbleform_Security' )
+					? Thimbleform_Security::sanitize_redirect_template( (string) $row['redirect'] )
 					: esc_url_raw( (string) $row['redirect'] ) )
 				: '';
 			$line     = $min . '|' . $max . '|' . $title;
@@ -1043,8 +1043,8 @@ class Nestform_Form_Config {
 				}
 			}
 		}
-		if ( class_exists( 'Nestform_Settings' ) ) {
-			$plugin_success = Nestform_Settings::default_success_message();
+		if ( class_exists( 'Thimbleform_Settings' ) ) {
+			$plugin_success = Thimbleform_Settings::default_success_message();
 			if ( $plugin_success !== '' && ( ! is_array( $raw ) || empty( $raw['success'] ) ) ) {
 				$out['success'] = $plugin_success;
 			}
@@ -1059,15 +1059,15 @@ class Nestform_Form_Config {
 	public static function get_mail( $form_id ) {
 		$raw = get_post_meta( (int) $form_id, self::META_MAIL, true );
 		$out = self::default_mail();
-		$can_html = class_exists( 'Nestform_Features' ) && Nestform_Features::can( Nestform_Features::EMAIL_DESIGNER );
+		$can_html = class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::can( Thimbleform_Features::EMAIL_DESIGNER );
 		if ( is_array( $raw ) ) {
 			foreach ( $out as $key => $default ) {
 				if ( ! isset( $raw[ $key ] ) || ! is_string( $raw[ $key ] ) ) {
 					continue;
 				}
 				if ( in_array( $key, array( 'body_template', 'user_mail_body', 'extra_body' ), true ) ) {
-					$out[ $key ] = class_exists( 'Nestform_Mail_Html' )
-						? Nestform_Mail_Html::sanitize_body( $raw[ $key ], $can_html && '1' === (string) ( $raw['html_enabled'] ?? $out['html_enabled'] ) )
+					$out[ $key ] = class_exists( 'Thimbleform_Mail_Html' )
+						? Thimbleform_Mail_Html::sanitize_body( $raw[ $key ], $can_html && '1' === (string) ( $raw['html_enabled'] ?? $out['html_enabled'] ) )
 						: sanitize_textarea_field( $raw[ $key ] );
 				} elseif ( in_array( $key, array( 'user_mail_enabled', 'extra_enabled', 'html_enabled', 'pdf_attach' ), true ) ) {
 					$out[ $key ] = ! empty( $raw[ $key ] ) && '0' !== $raw[ $key ] ? '1' : '0';
@@ -1084,7 +1084,7 @@ class Nestform_Form_Config {
 		if ( ! $can_html ) {
 			$out['html_enabled'] = '0';
 		}
-		if ( ! class_exists( 'Nestform_Features' ) || ! Nestform_Features::can( Nestform_Features::PDF_EXPORT ) ) {
+		if ( ! class_exists( 'Thimbleform_Features' ) || ! Thimbleform_Features::can( Thimbleform_Features::PDF_EXPORT ) ) {
 			$out['pdf_attach'] = '0';
 		}
 		return $out;
@@ -1108,7 +1108,7 @@ class Nestform_Form_Config {
 	 * @return array<string, string>
 	 */
 	public static function apply_feature_gates( array $settings ) {
-		if ( ! class_exists( 'Nestform_Features' ) || ! Nestform_Features::can( Nestform_Features::QUIZ_SURVEY ) ) {
+		if ( ! class_exists( 'Thimbleform_Features' ) || ! Thimbleform_Features::can( Thimbleform_Features::QUIZ_SURVEY ) ) {
 			$settings['form_mode']          = 'form';
 			$settings['quiz_show_score']    = '0';
 			$settings['quiz_show_answers']  = '0';
@@ -1119,7 +1119,7 @@ class Nestform_Form_Config {
 			$settings['share_results']      = '0';
 			$settings['quiz_cta_label']     = '';
 		}
-		if ( ! class_exists( 'Nestform_Features' ) || ! Nestform_Features::can( Nestform_Features::AUTOMATIONS ) ) {
+		if ( ! class_exists( 'Thimbleform_Features' ) || ! Thimbleform_Features::can( Thimbleform_Features::AUTOMATIONS ) ) {
 			$settings['automation_enabled']      = '0';
 			$settings['automation_match']        = 'all';
 			$settings['automation_rules']        = array();
@@ -1131,10 +1131,10 @@ class Nestform_Form_Config {
 			$settings['automation_then_webhook'] = '';
 			$settings['automation_skip_spam']    = '1';
 		}
-		if ( ! class_exists( 'Nestform_Features' ) || ! Nestform_Features::can( Nestform_Features::PAYMENTS ) ) {
+		if ( ! class_exists( 'Thimbleform_Features' ) || ! Thimbleform_Features::can( Thimbleform_Features::PAYMENTS ) ) {
 			$settings['enable_stripe'] = '0';
 		}
-		if ( ! class_exists( 'Nestform_Features' ) || ! Nestform_Features::can( Nestform_Features::HUBSPOT ) ) {
+		if ( ! class_exists( 'Thimbleform_Features' ) || ! Thimbleform_Features::can( Thimbleform_Features::HUBSPOT ) ) {
 			$settings['enable_hubspot'] = '0';
 			$settings['hubspot_map']    = self::sanitize_hubspot_map( array() );
 		}
@@ -1153,8 +1153,8 @@ class Nestform_Form_Config {
 				$out['submit_label'] = sanitize_text_field( $raw['submit_label'] );
 			}
 			if ( isset( $raw['redirect_url'] ) && is_string( $raw['redirect_url'] ) ) {
-				$out['redirect_url'] = class_exists( 'Nestform_Security' )
-					? Nestform_Security::sanitize_redirect_template( $raw['redirect_url'] )
+				$out['redirect_url'] = class_exists( 'Thimbleform_Security' )
+					? Thimbleform_Security::sanitize_redirect_template( $raw['redirect_url'] )
 					: esc_url_raw( $raw['redirect_url'] );
 			}
 			$display = isset( $raw['success_display'] ) ? sanitize_key( (string) $raw['success_display'] ) : 'inline';
@@ -1211,8 +1211,8 @@ class Nestform_Form_Config {
 
 			$out = self::apply_style_settings( $raw, $out );
 		}
-		if ( class_exists( 'Nestform_Settings' ) ) {
-			$plugin_label = Nestform_Settings::default_submit_label();
+		if ( class_exists( 'Thimbleform_Settings' ) ) {
+			$plugin_label = Thimbleform_Settings::default_submit_label();
 			if ( $plugin_label !== '' && ( ! is_array( $raw ) || empty( $raw['submit_label'] ) ) ) {
 				$out['submit_label'] = $plugin_label;
 			}
@@ -1248,8 +1248,8 @@ class Nestform_Form_Config {
 
 		$mail = self::default_mail();
 		if ( isset( $config['mail'] ) && is_array( $config['mail'] ) ) {
-			$can_html = class_exists( 'Nestform_Features' ) && Nestform_Features::can( Nestform_Features::EMAIL_DESIGNER );
-			$can_pdf  = class_exists( 'Nestform_Features' ) && Nestform_Features::can( Nestform_Features::PDF_EXPORT );
+			$can_html = class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::can( Thimbleform_Features::EMAIL_DESIGNER );
+			$can_pdf  = class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::can( Thimbleform_Features::PDF_EXPORT );
 			$existing_mail = get_post_meta( $form_id, self::META_MAIL, true );
 			$existing_mail = is_array( $existing_mail ) ? $existing_mail : array();
 
@@ -1268,8 +1268,8 @@ class Nestform_Form_Config {
 				}
 				if ( in_array( $key, array( 'body_template', 'user_mail_body', 'extra_body' ), true ) ) {
 					$html_flag = ! empty( $config['mail']['html_enabled'] ) && '0' !== (string) $config['mail']['html_enabled'];
-					$mail[ $key ] = class_exists( 'Nestform_Mail_Html' )
-						? Nestform_Mail_Html::sanitize_body( $val, $can_html && $html_flag )
+					$mail[ $key ] = class_exists( 'Thimbleform_Mail_Html' )
+						? Thimbleform_Mail_Html::sanitize_body( $val, $can_html && $html_flag )
 						: sanitize_textarea_field( $val );
 					continue;
 				}
@@ -1303,8 +1303,8 @@ class Nestform_Form_Config {
 				$settings['submit_label'] = sanitize_text_field( (string) $config['settings']['submit_label'] );
 			}
 			if ( isset( $config['settings']['redirect_url'] ) ) {
-				$settings['redirect_url'] = class_exists( 'Nestform_Security' )
-					? Nestform_Security::sanitize_redirect_template( (string) $config['settings']['redirect_url'] )
+				$settings['redirect_url'] = class_exists( 'Thimbleform_Security' )
+					? Thimbleform_Security::sanitize_redirect_template( (string) $config['settings']['redirect_url'] )
 					: esc_url_raw( (string) $config['settings']['redirect_url'] );
 			}
 			$display = isset( $config['settings']['success_display'] )
@@ -1324,7 +1324,7 @@ class Nestform_Form_Config {
 			$settings['next_label']   = isset( $existing['next_label'] ) ? (string) $existing['next_label'] : $settings['next_label'];
 			$settings['prev_label']   = isset( $existing['prev_label'] ) ? (string) $existing['prev_label'] : $settings['prev_label'];
 			$settings['branch_rules'] = isset( $existing['branch_rules'] ) ? (string) $existing['branch_rules'] : '';
-			$settings = apply_filters( 'nestform_settings_from_request', $settings, $config, $form_id );
+			$settings = apply_filters( 'thimbleform_settings_from_request', $settings, $config, $form_id );
 
 			$settings = self::merge_webhook_settings(
 				isset( $config['settings'] ) && is_array( $config['settings'] ) ? $config['settings'] : array(),
@@ -1337,7 +1337,7 @@ class Nestform_Form_Config {
 			$settings['enable_akismet'] = ! empty( $config['settings']['enable_akismet'] ) ? '1' : '0';
 			$settings['store_ip']       = ! isset( $config['settings']['store_ip'] ) || ! empty( $config['settings']['store_ip'] ) ? '1' : '0';
 
-			$can_quiz = class_exists( 'Nestform_Features' ) && Nestform_Features::can( Nestform_Features::QUIZ_SURVEY );
+			$can_quiz = class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::can( Thimbleform_Features::QUIZ_SURVEY );
 			if ( $can_quiz ) {
 				$mode = isset( $config['settings']['form_mode'] ) ? sanitize_key( (string) $config['settings']['form_mode'] ) : 'form';
 				$settings['form_mode'] = in_array( $mode, array( 'form', 'quiz', 'survey' ), true ) ? $mode : 'form';
@@ -1373,7 +1373,7 @@ class Nestform_Form_Config {
 				}
 			}
 
-			$can_auto = class_exists( 'Nestform_Features' ) && Nestform_Features::can( Nestform_Features::AUTOMATIONS );
+			$can_auto = class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::can( Thimbleform_Features::AUTOMATIONS );
 			if ( $can_auto ) {
 				$settings = self::merge_automation_settings( $config['settings'], $settings );
 			} else {
@@ -1400,7 +1400,7 @@ class Nestform_Form_Config {
 		$type = isset( $row['type'] ) ? sanitize_key( (string) $row['type'] ) : 'text';
 
 		// Reject Pro field types when capability is not registered (do not cast to text).
-		if ( class_exists( 'Nestform_Features' ) && Nestform_Features::is_pro_field_type( $type ) && ! Nestform_Features::can_use_field_type( $type ) ) {
+		if ( class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::is_pro_field_type( $type ) && ! Thimbleform_Features::can_use_field_type( $type ) ) {
 			return null;
 		}
 
@@ -1410,7 +1410,7 @@ class Nestform_Form_Config {
 		);
 		if ( ! in_array( $type, $allowed, true ) ) {
 			// Also reject unknown Pro keys even if labels filter was bypassed.
-			if ( class_exists( 'Nestform_Features' ) && Nestform_Features::is_pro_field_type( $type ) ) {
+			if ( class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::is_pro_field_type( $type ) ) {
 				return null;
 			}
 			$type = 'text';
@@ -1453,8 +1453,8 @@ class Nestform_Form_Config {
 		} elseif ( 'divider' === $type ) {
 			$options = '';
 		} elseif ( 'tel' === $type ) {
-			$options = class_exists( 'Nestform_Phone' )
-				? Nestform_Phone::parse_iso( $options_raw )
+			$options = class_exists( 'Thimbleform_Phone' )
+				? Thimbleform_Phone::parse_iso( $options_raw )
 				: '';
 		} elseif ( 'file' === $type ) {
 			$options = self::sanitize_file_extensions( $options_raw );
@@ -1521,7 +1521,7 @@ class Nestform_Form_Config {
 			'subfields'       => array(),
 		);
 
-		if ( 'repeater' === $type && class_exists( 'Nestform_Features' ) && Nestform_Features::can( Nestform_Features::REPEATERS ) ) {
+		if ( 'repeater' === $type && class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::can( Thimbleform_Features::REPEATERS ) ) {
 			$raw_subs = isset( $row['subfields'] ) && is_array( $row['subfields'] ) ? $row['subfields'] : array();
 			$out['subfields'] = self::sanitize_subfields( $raw_subs );
 		}
@@ -1532,7 +1532,7 @@ class Nestform_Form_Config {
 		 * @param array<string, mixed> $out Sanitized row.
 		 * @param array                $row Raw row.
 		 */
-		$filtered = apply_filters( 'nestform_sanitize_field_row', $out, $row );
+		$filtered = apply_filters( 'thimbleform_sanitize_field_row', $out, $row );
 		return is_array( $filtered ) ? $filtered : $out;
 	}
 
@@ -1665,7 +1665,7 @@ class Nestform_Form_Config {
 		 * @param array<string, string>            $settings Settings.
 		 * @param array<string, mixed>             $raw_map  Submitted values.
 		 */
-		$resolved = apply_filters( 'nestform_resolve_active_steps', array(), $fields, $settings, $raw_map );
+		$resolved = apply_filters( 'thimbleform_resolve_active_steps', array(), $fields, $settings, $raw_map );
 		return is_array( $resolved ) ? array_values( array_map( 'intval', $resolved ) ) : array();
 	}
 
@@ -1707,7 +1707,7 @@ class Nestform_Form_Config {
 		 * @param bool   $allowed Allowed.
 		 * @param string $url     URL.
 		 */
-		return (bool) apply_filters( 'nestform_is_safe_outbound_url', true, $url );
+		return (bool) apply_filters( 'thimbleform_is_safe_outbound_url', true, $url );
 	}
 
 	/**
@@ -1746,7 +1746,7 @@ class Nestform_Form_Config {
 		 * @param array<int, array<string, mixed>> $rules Default empty.
 		 * @param string                           $raw   Raw textarea.
 		 */
-		$rules = apply_filters( 'nestform_parse_branch_rules', array(), $raw );
+		$rules = apply_filters( 'thimbleform_parse_branch_rules', array(), $raw );
 		return is_array( $rules ) ? $rules : array();
 	}
 
@@ -1876,7 +1876,7 @@ class Nestform_Form_Config {
 	public static function resolve_form_id( array $atts ) {
 		if ( ! empty( $atts['id'] ) ) {
 			$id = (int) $atts['id'];
-			if ( $id > 0 && 'nestform' === get_post_type( $id ) && 'publish' === get_post_status( $id ) ) {
+			if ( $id > 0 && 'thimbleform' === get_post_type( $id ) && 'publish' === get_post_status( $id ) ) {
 				return $id;
 			}
 		}
@@ -1885,7 +1885,7 @@ class Nestform_Form_Config {
 			$posts = get_posts(
 				array(
 					'name'           => $slug,
-					'post_type'      => 'nestform',
+					'post_type'      => 'thimbleform',
 					'post_status'    => 'publish',
 					'posts_per_page' => 1,
 					'fields'         => 'ids',
@@ -1903,12 +1903,12 @@ class Nestform_Form_Config {
 	 */
 	public static function layout_field_type_labels() {
 		$labels = array(
-			'heading'   => __( 'Heading', 'nestform' ),
-			'paragraph' => __( 'Paragraph', 'nestform' ),
-			'image'     => __( 'Image', 'nestform' ),
-			'divider'   => __( 'Divider', 'nestform' ),
-			'spacer'    => __( 'Spacer', 'nestform' ),
-			'html'      => __( 'HTML block', 'nestform' ),
+			'heading'   => __( 'Heading', 'thimbleform' ),
+			'paragraph' => __( 'Paragraph', 'thimbleform' ),
+			'image'     => __( 'Image', 'thimbleform' ),
+			'divider'   => __( 'Divider', 'thimbleform' ),
+			'spacer'    => __( 'Spacer', 'thimbleform' ),
+			'html'      => __( 'HTML block', 'thimbleform' ),
 		);
 
 		/**
@@ -1916,7 +1916,7 @@ class Nestform_Form_Config {
 		 *
 		 * @param array<string, string> $labels Type => label.
 		 */
-		return (array) apply_filters( 'nestform_layout_field_types', $labels );
+		return (array) apply_filters( 'thimbleform_layout_field_types', $labels );
 	}
 
 	/**
@@ -1924,28 +1924,28 @@ class Nestform_Form_Config {
 	 */
 	public static function input_field_type_labels() {
 		$labels = array(
-			'text'       => __( 'Text', 'nestform' ),
-			'email'      => __( 'Email', 'nestform' ),
-			'tel'        => __( 'Phone', 'nestform' ),
-			'url'        => __( 'URL', 'nestform' ),
-			'password'   => __( 'Password', 'nestform' ),
-			'number'     => __( 'Number', 'nestform' ),
-			'range'      => __( 'Range', 'nestform' ),
-			'date'       => __( 'Date', 'nestform' ),
-			'time'       => __( 'Time', 'nestform' ),
-			'textarea'   => __( 'Textarea', 'nestform' ),
-			'select'     => __( 'Select', 'nestform' ),
-			'radio'      => __( 'Radio', 'nestform' ),
-			'checkboxes' => __( 'Checkboxes', 'nestform' ),
-			'checkbox'   => __( 'Checkbox', 'nestform' ),
-			'acceptance' => __( 'Acceptance', 'nestform' ),
-			'file'       => __( 'File upload', 'nestform' ),
-			'hidden'     => __( 'Hidden', 'nestform' ),
+			'text'       => __( 'Text', 'thimbleform' ),
+			'email'      => __( 'Email', 'thimbleform' ),
+			'tel'        => __( 'Phone', 'thimbleform' ),
+			'url'        => __( 'URL', 'thimbleform' ),
+			'password'   => __( 'Password', 'thimbleform' ),
+			'number'     => __( 'Number', 'thimbleform' ),
+			'range'      => __( 'Range', 'thimbleform' ),
+			'date'       => __( 'Date', 'thimbleform' ),
+			'time'       => __( 'Time', 'thimbleform' ),
+			'textarea'   => __( 'Textarea', 'thimbleform' ),
+			'select'     => __( 'Select', 'thimbleform' ),
+			'radio'      => __( 'Radio', 'thimbleform' ),
+			'checkboxes' => __( 'Checkboxes', 'thimbleform' ),
+			'checkbox'   => __( 'Checkbox', 'thimbleform' ),
+			'acceptance' => __( 'Acceptance', 'thimbleform' ),
+			'file'       => __( 'File upload', 'thimbleform' ),
+			'hidden'     => __( 'Hidden', 'thimbleform' ),
 		);
 
-		if ( class_exists( 'Nestform_Features' ) ) {
-			foreach ( Nestform_Features::specialty_field_teasers() as $type => $label ) {
-				if ( Nestform_Features::can_use_field_type( $type ) ) {
+		if ( class_exists( 'Thimbleform_Features' ) ) {
+			foreach ( Thimbleform_Features::specialty_field_teasers() as $type => $label ) {
+				if ( Thimbleform_Features::can_use_field_type( $type ) ) {
 					$labels[ $type ] = $label;
 				}
 			}
@@ -1956,12 +1956,12 @@ class Nestform_Form_Config {
 		 *
 		 * @param array<string, string> $labels Type => label.
 		 */
-		$labels = (array) apply_filters( 'nestform_input_field_types', $labels );
+		$labels = (array) apply_filters( 'thimbleform_input_field_types', $labels );
 
 		// Drop Pro types when capability is missing so they never enter the whitelist.
-		if ( class_exists( 'Nestform_Features' ) ) {
-			foreach ( Nestform_Features::pro_field_types() as $pro_type ) {
-				if ( ! Nestform_Features::can_use_field_type( $pro_type ) ) {
+		if ( class_exists( 'Thimbleform_Features' ) ) {
+			foreach ( Thimbleform_Features::pro_field_types() as $pro_type ) {
+				if ( ! Thimbleform_Features::can_use_field_type( $pro_type ) ) {
 					unset( $labels[ $pro_type ] );
 				}
 			}
@@ -2051,7 +2051,7 @@ class Nestform_Form_Config {
 		if ( $custom !== '' ) {
 			return $custom;
 		}
-		return __( 'Other', 'nestform' );
+		return __( 'Other', 'thimbleform' );
 	}
 
 	/**
@@ -2151,11 +2151,11 @@ class Nestform_Form_Config {
 	 */
 	public static function hubspot_map_labels() {
 		return array(
-			'email'     => __( 'Email', 'nestform' ),
-			'firstname' => __( 'First name', 'nestform' ),
-			'lastname'  => __( 'Last name', 'nestform' ),
-			'phone'     => __( 'Phone', 'nestform' ),
-			'company'   => __( 'Company', 'nestform' ),
+			'email'     => __( 'Email', 'thimbleform' ),
+			'firstname' => __( 'First name', 'thimbleform' ),
+			'lastname'  => __( 'Last name', 'thimbleform' ),
+			'phone'     => __( 'Phone', 'thimbleform' ),
+			'company'   => __( 'Company', 'thimbleform' ),
 		);
 	}
 
@@ -2166,12 +2166,12 @@ class Nestform_Form_Config {
 	 */
 	public static function field_width_presets() {
 		return array(
-			'full'       => __( 'Full', 'nestform' ),
-			'half'       => __( 'Half', 'nestform' ),
-			'third'      => __( 'One third', 'nestform' ),
-			'two_thirds' => __( 'Two thirds', 'nestform' ),
-			'quarter'    => __( 'Quarter', 'nestform' ),
-			'custom'     => __( 'Custom…', 'nestform' ),
+			'full'       => __( 'Full', 'thimbleform' ),
+			'half'       => __( 'Half', 'thimbleform' ),
+			'third'      => __( 'One third', 'thimbleform' ),
+			'two_thirds' => __( 'Two thirds', 'thimbleform' ),
+			'quarter'    => __( 'Quarter', 'thimbleform' ),
+			'custom'     => __( 'Custom…', 'thimbleform' ),
 		);
 	}
 

@@ -1,5 +1,5 @@
 /**
- * Minify Nestform JS sources into sibling *.min.js bundles.
+ * Minify Thimbleform JS sources into sibling *.min.js bundles.
  *
  * Usage (from plugin root):
  *   npm run build:js

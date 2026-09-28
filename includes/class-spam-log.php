@@ -12,13 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Spam_Log {
+class Thimbleform_Spam_Log {
 
-	const DB_VERSION_OPTION = 'nestform_spam_log_db_version';
+	const DB_VERSION_OPTION = 'thimbleform_spam_log_db_version';
 
 	const DB_VERSION = 1;
 
-	const CRON_HOOK = 'nestform_spam_log_cleanup';
+	const CRON_HOOK = 'thimbleform_spam_log_cleanup';
 
 	const REASONS = array(
 		'ip_blocked',
@@ -36,7 +36,7 @@ class Nestform_Spam_Log {
 	public static function init() {
 		add_action( 'admin_init', array( __CLASS__, 'maybe_install' ) );
 		add_action( self::CRON_HOOK, array( __CLASS__, 'cleanup' ) );
-		add_action( 'admin_post_nestform_clear_spam_log', array( __CLASS__, 'handle_clear' ) );
+		add_action( 'admin_post_thimbleform_clear_spam_log', array( __CLASS__, 'handle_clear' ) );
 		self::schedule_cleanup();
 	}
 
@@ -84,7 +84,7 @@ class Nestform_Spam_Log {
 	 */
 	public static function table() {
 		global $wpdb;
-		return $wpdb->prefix . 'nestform_spam_log';
+		return $wpdb->prefix . 'thimbleform_spam_log';
 	}
 
 	/**
@@ -103,10 +103,10 @@ class Nestform_Spam_Log {
 	 * @return bool
 	 */
 	public static function is_enabled() {
-		if ( ! class_exists( 'Nestform_Settings' ) ) {
+		if ( ! class_exists( 'Thimbleform_Settings' ) ) {
 			return true;
 		}
-		$s = Nestform_Settings::get();
+		$s = Thimbleform_Settings::get();
 		return ! isset( $s['spam_log_enabled'] ) || '1' === (string) ( $s['spam_log_enabled'] ?? '1' );
 	}
 
@@ -114,10 +114,10 @@ class Nestform_Spam_Log {
 	 * @return int
 	 */
 	public static function retention_days() {
-		if ( ! class_exists( 'Nestform_Settings' ) ) {
+		if ( ! class_exists( 'Thimbleform_Settings' ) ) {
 			return 30;
 		}
-		$s = Nestform_Settings::get();
+		$s = Thimbleform_Settings::get();
 		return max( 1, (int) ( $s['spam_log_retention_days'] ?? 30 ) );
 	}
 
@@ -169,7 +169,7 @@ class Nestform_Spam_Log {
 		if ( $ip === '' ) {
 			return '';
 		}
-		return hash_hmac( 'sha256', $ip, wp_salt( 'nestform_spam' ) );
+		return hash_hmac( 'sha256', $ip, wp_salt( 'thimbleform_spam' ) );
 	}
 
 	/**
@@ -275,16 +275,16 @@ class Nestform_Spam_Log {
 	 */
 	public static function reason_labels() {
 		return array(
-			'ip_blocked'   => __( 'Blocked IP address', 'nestform' ),
-			'honeypot'     => __( 'Honeypot filled in', 'nestform' ),
-			'too_fast'     => __( 'Submitted too quickly', 'nestform' ),
-			'rate_limited' => __( 'Rate limited', 'nestform' ),
-			'akismet'      => __( 'Flagged by Akismet', 'nestform' ),
-			'captcha'      => __( 'Failed captcha', 'nestform' ),
-			'links'        => __( 'Too many links', 'nestform' ),
-			'keyword'      => __( 'Blocked word', 'nestform' ),
-			'email_domain' => __( 'Blocked email domain', 'nestform' ),
-			'duplicate'    => __( 'Duplicate submission', 'nestform' ),
+			'ip_blocked'   => __( 'Blocked IP address', 'thimbleform' ),
+			'honeypot'     => __( 'Honeypot filled in', 'thimbleform' ),
+			'too_fast'     => __( 'Submitted too quickly', 'thimbleform' ),
+			'rate_limited' => __( 'Rate limited', 'thimbleform' ),
+			'akismet'      => __( 'Flagged by Akismet', 'thimbleform' ),
+			'captcha'      => __( 'Failed captcha', 'thimbleform' ),
+			'links'        => __( 'Too many links', 'thimbleform' ),
+			'keyword'      => __( 'Blocked word', 'thimbleform' ),
+			'email_domain' => __( 'Blocked email domain', 'thimbleform' ),
+			'duplicate'    => __( 'Duplicate submission', 'thimbleform' ),
 		);
 	}
 
@@ -335,9 +335,9 @@ class Nestform_Spam_Log {
 
 	public static function handle_clear() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Forbidden', 'nestform' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'Forbidden', 'thimbleform' ), '', array( 'response' => 403 ) );
 		}
-		check_admin_referer( 'nestform_clear_spam_log' );
+		check_admin_referer( 'thimbleform_clear_spam_log' );
 		self::clear();
 		wp_safe_redirect(
 			add_query_arg(
@@ -346,7 +346,7 @@ class Nestform_Spam_Log {
 					'sub'     => 'log',
 					'cleared' => '1',
 				),
-				class_exists( 'Nestform_Settings' ) ? Nestform_Settings::url() : admin_url()
+				class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::url() : admin_url()
 			)
 		);
 		exit;

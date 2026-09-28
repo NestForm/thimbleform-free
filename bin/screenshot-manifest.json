@@ -1,170 +1,170 @@
 [
   {
     "file": "screenshot-1.png",
-    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-dashboard",
-    "target": ".nestform-app",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=thimbleform&page=thimbleform-dashboard",
+    "target": ".thimbleform-app",
     "status": "captured"
   },
   {
     "file": "screenshot-2.png",
-    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform",
-    "target": ".nestform-app, #wpbody-content",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=thimbleform",
+    "target": ".thimbleform-app, #wpbody-content",
     "status": "captured"
   },
   {
     "file": "screenshot-3.png",
     "url": "https://wordpress-custom.local/wp-admin/post.php?post=556&action=edit",
-    "target": "[data-nestform-admin]",
+    "target": "[data-thimbleform-admin]",
     "status": "captured"
   },
   {
     "file": "screenshot-4.png",
-    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-entries",
-    "target": ".nestform-app",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=thimbleform&page=thimbleform-entries",
+    "target": ".thimbleform-app",
     "status": "captured"
   },
   {
     "file": "screenshot-5.png",
     "url": "https://wordpress-custom.local/#support",
-    "target": "[data-block=\"nestform-support\"], .nestform-support",
+    "target": "[data-block=\"thimbleform-support\"], .thimbleform-support",
     "status": "captured"
   },
   {
     "file": "screenshot-6.png",
-    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-integrations",
-    "target": ".nestform-app, #wpbody-content",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=thimbleform&page=thimbleform-integrations",
+    "target": ".thimbleform-app, #wpbody-content",
     "status": "captured"
   },
   {
     "file": "screenshot-7.png",
     "url": "https://wordpress-custom.local/wp-admin/post.php?post=756&action=edit",
-    "target": "[data-nestform-admin]",
+    "target": "[data-thimbleform-admin]",
     "status": "captured"
   },
   {
     "file": "docs/forms-new-form.png",
-    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform",
-    "target": ".nestform-app, #wpbody-content",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=thimbleform",
+    "target": ".thimbleform-app, #wpbody-content",
     "status": "captured"
   },
   {
     "file": "docs/builder-fields.png",
     "url": "https://wordpress-custom.local/wp-admin/post.php?post=556&action=edit",
-    "target": "[data-nestform-panel=\"fields\"]",
+    "target": "[data-thimbleform-panel=\"fields\"]",
     "status": "captured"
   },
   {
     "file": "docs/conditional-logic.png",
     "url": "https://wordpress-custom.local/wp-admin/post.php?post=556&action=edit",
-    "target": "[data-nestform-field]:has([data-nestform-section=\"condition\"][open])",
+    "target": "[data-thimbleform-field]:has([data-thimbleform-section=\"condition\"][open])",
     "status": "captured"
   },
   {
     "file": "docs/publish-embed.png",
     "url": "https://wordpress-custom.local/wp-admin/post.php?post=556&action=edit",
-    "target": ".nestform-editor__sidebar, .nestform-embed",
+    "target": ".thimbleform-editor__sidebar, .thimbleform-embed",
     "status": "captured"
   },
   {
     "file": "docs/entries-inbox.png",
-    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-entries",
-    "target": ".nestform-app",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=thimbleform&page=thimbleform-entries",
+    "target": ".thimbleform-app",
     "status": "captured"
   },
   {
     "file": "docs/export-controls.png",
-    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform_entry&nestform_form_id=556",
-    "target": ".nestform-export-menu__panel",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=thimbleform_entry&thimbleform_form_id=556",
+    "target": ".thimbleform-export-menu__panel",
     "status": "captured"
   },
   {
     "file": "docs/mail-settings.png",
     "url": "https://wordpress-custom.local/wp-admin/post.php?post=556&action=edit",
-    "target": "[data-nestform-panel=\"mail\"]",
+    "target": "[data-thimbleform-panel=\"mail\"]",
     "status": "captured"
   },
   {
     "file": "docs/security-settings.png",
-    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-settings&section=security",
-    "target": ".nestform-app",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=thimbleform&page=thimbleform-settings&section=security",
+    "target": ".thimbleform-app",
     "status": "captured"
   },
   {
     "file": "docs/captcha-integrations.png",
-    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-integrations&section=captcha",
-    "target": ".nestform-app",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=thimbleform&page=thimbleform-integrations&section=captcha",
+    "target": ".thimbleform-app",
     "status": "captured"
   },
   {
     "file": "docs/webhooks.png",
     "url": "https://wordpress-custom.local/wp-admin/post.php?post=556&action=edit",
-    "target": "[data-nestform-subpanel=\"webhooks\"]",
+    "target": "[data-thimbleform-subpanel=\"webhooks\"]",
     "status": "captured"
   },
   {
     "file": "docs/dashboard.png",
-    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-dashboard",
-    "target": ".nestform-app",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=thimbleform&page=thimbleform-dashboard",
+    "target": ".thimbleform-app",
     "status": "captured"
   },
   {
     "file": "docs/license.png",
-    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=thimbleform-pro-license",
-    "target": ".nestform-app",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=thimbleform&page=thimbleform-pro-license",
+    "target": ".thimbleform-app",
     "status": "captured"
   },
   {
     "file": "docs/multi-step-branching.png",
     "url": "https://wordpress-custom.local/wp-admin/post.php?post=756&action=edit",
-    "target": "[data-nestform-steps-setup]",
+    "target": "[data-thimbleform-steps-setup]",
     "status": "captured"
   },
   {
     "file": "docs/quiz-survey.png",
     "url": "https://wordpress-custom.local/wp-admin/post.php?post=756&action=edit",
-    "target": "[data-nestform-subpanel=\"quiz\"]",
+    "target": "[data-thimbleform-subpanel=\"quiz\"]",
     "status": "captured"
   },
   {
     "file": "docs/advanced-fields.png",
     "url": "https://wordpress-custom.local/wp-admin/post.php?post=756&action=edit",
-    "target": "[data-nestform-add-menu=\"more\"] [data-nestform-add-menu-panel]",
+    "target": "[data-thimbleform-add-menu=\"more\"] [data-thimbleform-add-menu-panel]",
     "status": "captured"
   },
   {
     "file": "docs/automations.png",
     "url": "https://wordpress-custom.local/wp-admin/post.php?post=756&action=edit",
-    "target": "[data-nestform-subpanel=\"automations\"]",
+    "target": "[data-thimbleform-subpanel=\"automations\"]",
     "status": "captured"
   },
   {
     "file": "docs/stripe-payments.png",
     "url": "https://wordpress-custom.local/wp-admin/post.php?post=756&action=edit",
-    "target": "[data-nestform-subpanel=\"payments\"]",
+    "target": "[data-thimbleform-subpanel=\"payments\"]",
     "status": "captured"
   },
   {
     "file": "docs/hubspot.png",
     "url": "https://wordpress-custom.local/wp-admin/post.php?post=756&action=edit",
-    "target": "[data-nestform-subpanel=\"hubspot\"]",
+    "target": "[data-thimbleform-subpanel=\"hubspot\"]",
     "status": "captured"
   },
   {
     "file": "docs/html-email-pdf.png",
     "url": "https://wordpress-custom.local/wp-admin/post.php?post=756&action=edit",
-    "target": "[data-nestform-mail-designer]",
+    "target": "[data-thimbleform-mail-designer]",
     "status": "captured"
   },
   {
     "file": "docs/insights.png",
-    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-dashboard",
-    "target": "[data-nestform-lead-insights], [data-nestform-survey-charts-root], .nestform-dash",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=thimbleform&page=thimbleform-dashboard",
+    "target": "[data-thimbleform-lead-insights], [data-thimbleform-survey-charts-root], .thimbleform-dash",
     "status": "captured"
   },
   {
     "file": "docs/recruiting.png",
-    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=nestform&page=nestform-recruiting",
-    "target": ".nestform-app",
+    "url": "https://wordpress-custom.local/wp-admin/edit.php?post_type=thimbleform&page=thimbleform-recruiting",
+    "target": ".thimbleform-app",
     "status": "captured"
   }
 ]

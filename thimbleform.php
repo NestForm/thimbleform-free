@@ -19,48 +19,48 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( defined( 'NESTFORM_VERSION' ) ) {
+if ( defined( 'THIMBLEFORM_VERSION' ) ) {
 	return;
 }
 
-define( 'NESTFORM_VERSION', '2.3.2' );
-define( 'NESTFORM_FILE', __FILE__ );
-define( 'NESTFORM_PATH', trailingslashit( dirname( __FILE__ ) ) );
-define( 'NESTFORM_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
+define( 'THIMBLEFORM_VERSION', '2.3.2' );
+define( 'THIMBLEFORM_FILE', __FILE__ );
+define( 'THIMBLEFORM_PATH', trailingslashit( dirname( __FILE__ ) ) );
+define( 'THIMBLEFORM_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 
-require_once NESTFORM_PATH . 'includes/uninstall-cleanup.php';
+require_once THIMBLEFORM_PATH . 'includes/uninstall-cleanup.php';
 
-register_uninstall_hook( NESTFORM_FILE, 'nestform_uninstall_cleanup' );
+register_uninstall_hook( THIMBLEFORM_FILE, 'thimbleform_uninstall_cleanup' );
 
 /**
  * Activation: install custom tables and schedule cleanup.
  */
-function nestform_activate() {
-	require_once NESTFORM_PATH . 'includes/class-spam-log.php';
-	Nestform_Spam_Log::install();
+function thimbleform_activate() {
+	require_once THIMBLEFORM_PATH . 'includes/class-spam-log.php';
+	Thimbleform_Spam_Log::install();
 
-	require_once NESTFORM_PATH . 'includes/class-email-log.php';
-	Nestform_Email_Log::install();
+	require_once THIMBLEFORM_PATH . 'includes/class-email-log.php';
+	Thimbleform_Email_Log::install();
 
-	require_once NESTFORM_PATH . 'includes/class-submissions.php';
-	Nestform_Submissions::schedule_retention_cleanup();
+	require_once THIMBLEFORM_PATH . 'includes/class-submissions.php';
+	Thimbleform_Submissions::schedule_retention_cleanup();
 
-	require_once NESTFORM_PATH . 'includes/class-settings.php';
-	require_once NESTFORM_PATH . 'includes/class-capabilities.php';
-	Nestform_Capabilities::install();
+	require_once THIMBLEFORM_PATH . 'includes/class-settings.php';
+	require_once THIMBLEFORM_PATH . 'includes/class-capabilities.php';
+	Thimbleform_Capabilities::install();
 
-	require_once NESTFORM_PATH . 'includes/class-onboarding.php';
-	Nestform_Onboarding::schedule_redirect();
+	require_once THIMBLEFORM_PATH . 'includes/class-onboarding.php';
+	Thimbleform_Onboarding::schedule_redirect();
 }
-register_activation_hook( __FILE__, 'nestform_activate' );
+register_activation_hook( __FILE__, 'thimbleform_activate' );
 
 /**
  * Plugin logo URL.
  *
  * @return string
  */
-function nestform_logo_url() {
-	return nestform_assets_url( 'images/logo.webp' );
+function thimbleform_logo_url() {
+	return thimbleform_assets_url( 'images/logo.webp' );
 }
 
 /**
@@ -68,7 +68,7 @@ function nestform_logo_url() {
  *
  * @return array<int, string>
  */
-function nestform_admin_style_deps() {
+function thimbleform_admin_style_deps() {
 	return array( 'dashicons' );
 }
 
@@ -78,9 +78,9 @@ function nestform_admin_style_deps() {
  * @param string $relative Relative path, e.g. admin.css or css/admin/01-tokens.css.
  * @return string
  */
-function nestform_assets_path( $relative = '' ) {
+function thimbleform_assets_path( $relative = '' ) {
 	$relative = ltrim( str_replace( '\\', '/', (string) $relative ), '/' );
-	return $relative === '' ? NESTFORM_PATH . 'assets/' : NESTFORM_PATH . 'assets/' . $relative;
+	return $relative === '' ? THIMBLEFORM_PATH . 'assets/' : THIMBLEFORM_PATH . 'assets/' . $relative;
 }
 
 /**
@@ -89,9 +89,9 @@ function nestform_assets_path( $relative = '' ) {
  * @param string $relative Relative path.
  * @return string
  */
-function nestform_assets_url( $relative = '' ) {
+function thimbleform_assets_url( $relative = '' ) {
 	$relative = ltrim( str_replace( '\\', '/', (string) $relative ), '/' );
-	return $relative === '' ? NESTFORM_URL . 'assets/' : NESTFORM_URL . 'assets/' . $relative;
+	return $relative === '' ? THIMBLEFORM_URL . 'assets/' : THIMBLEFORM_URL . 'assets/' . $relative;
 }
 
 /**
@@ -99,15 +99,15 @@ function nestform_assets_url( $relative = '' ) {
  *
  * @return string
  */
-function nestform_admin_css_path() {
-	return nestform_assets_path( 'css/admin.css' );
+function thimbleform_admin_css_path() {
+	return thimbleform_assets_path( 'css/admin.css' );
 }
 
 /**
  * @return string
  */
-function nestform_admin_css_url() {
-	return nestform_assets_url( 'css/admin.css' );
+function thimbleform_admin_css_url() {
+	return thimbleform_assets_url( 'css/admin.css' );
 }
 
 /**
@@ -115,15 +115,15 @@ function nestform_admin_css_url() {
  *
  * @return string
  */
-function nestform_front_css_path() {
-	return nestform_assets_path( 'css/front.css' );
+function thimbleform_front_css_path() {
+	return thimbleform_assets_path( 'css/front.css' );
 }
 
 /**
  * @return string
  */
-function nestform_front_css_url() {
-	return nestform_assets_url( 'css/front.css' );
+function thimbleform_front_css_url() {
+	return thimbleform_assets_url( 'css/front.css' );
 }
 
 /**
@@ -131,7 +131,7 @@ function nestform_front_css_url() {
  *
  * @return bool
  */
-function nestform_use_minified_js() {
+function thimbleform_use_minified_js() {
 	return ! ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG );
 }
 
@@ -142,13 +142,13 @@ function nestform_use_minified_js() {
  * @param bool   $minify Force min/non-min; null uses SCRIPT_DEBUG.
  * @return string
  */
-function nestform_js_basename( $file, $minify = null ) {
+function thimbleform_js_basename( $file, $minify = null ) {
 	$file = basename( str_replace( '\\', '/', (string) $file ) );
 	$file = preg_replace( '/\.min\.js$/i', '', $file );
 	$file = preg_replace( '/\.js$/i', '', $file ) . '.js';
 
 	if ( null === $minify ) {
-		$minify = nestform_use_minified_js();
+		$minify = thimbleform_use_minified_js();
 	}
 
 	if ( $minify ) {
@@ -164,16 +164,16 @@ function nestform_js_basename( $file, $minify = null ) {
  * @param string $relative Path from plugin root, e.g. assets/js/admin/admin.js.
  * @return string Absolute filesystem path.
  */
-function nestform_js_path( $relative ) {
+function thimbleform_js_path( $relative ) {
 	$relative = ltrim( str_replace( '\\', '/', (string) $relative ), '/' );
 	$dir      = dirname( $relative );
 	$base     = basename( $relative );
-	$resolved = ( '.' === $dir ? '' : $dir . '/' ) . nestform_js_basename( $base );
-	$path     = NESTFORM_PATH . $resolved;
+	$resolved = ( '.' === $dir ? '' : $dir . '/' ) . thimbleform_js_basename( $base );
+	$path     = THIMBLEFORM_PATH . $resolved;
 
-	if ( ! is_readable( $path ) && nestform_use_minified_js() && preg_match( '/\.min\.js$/', $resolved ) ) {
-		$fallback = ( '.' === $dir ? '' : $dir . '/' ) . nestform_js_basename( $base, false );
-		$path     = NESTFORM_PATH . $fallback;
+	if ( ! is_readable( $path ) && thimbleform_use_minified_js() && preg_match( '/\.min\.js$/', $resolved ) ) {
+		$fallback = ( '.' === $dir ? '' : $dir . '/' ) . thimbleform_js_basename( $base, false );
+		$path     = THIMBLEFORM_PATH . $fallback;
 	}
 
 	return $path;
@@ -183,17 +183,17 @@ function nestform_js_path( $relative ) {
  * @param string $relative Path from plugin root.
  * @return string
  */
-function nestform_js_url( $relative ) {
+function thimbleform_js_url( $relative ) {
 	$relative = ltrim( str_replace( '\\', '/', (string) $relative ), '/' );
 	$dir      = dirname( $relative );
 	$base     = basename( $relative );
-	$resolved = ( '.' === $dir ? '' : $dir . '/' ) . nestform_js_basename( $base );
+	$resolved = ( '.' === $dir ? '' : $dir . '/' ) . thimbleform_js_basename( $base );
 
-	if ( ! is_readable( NESTFORM_PATH . $resolved ) && nestform_use_minified_js() && preg_match( '/\.min\.js$/', $resolved ) ) {
-		$resolved = ( '.' === $dir ? '' : $dir . '/' ) . nestform_js_basename( $base, false );
+	if ( ! is_readable( THIMBLEFORM_PATH . $resolved ) && thimbleform_use_minified_js() && preg_match( '/\.min\.js$/', $resolved ) ) {
+		$resolved = ( '.' === $dir ? '' : $dir . '/' ) . thimbleform_js_basename( $base, false );
 	}
 
-	return NESTFORM_URL . $resolved;
+	return THIMBLEFORM_URL . $resolved;
 }
 
 /**
@@ -202,18 +202,18 @@ function nestform_js_url( $relative ) {
  * @param string $file Basename, e.g. admin.js or admin-notices.js.
  * @return string
  */
-function nestform_admin_js_path( $file = 'admin.js' ) {
+function thimbleform_admin_js_path( $file = 'admin.js' ) {
 	$file = ltrim( str_replace( '\\', '/', (string) $file ), '/' );
-	return nestform_js_path( 'assets/js/admin/' . $file );
+	return thimbleform_js_path( 'assets/js/admin/' . $file );
 }
 
 /**
  * @param string $file Basename.
  * @return string
  */
-function nestform_admin_js_url( $file = 'admin.js' ) {
+function thimbleform_admin_js_url( $file = 'admin.js' ) {
 	$file = ltrim( str_replace( '\\', '/', (string) $file ), '/' );
-	return nestform_js_url( 'assets/js/admin/' . $file );
+	return thimbleform_js_url( 'assets/js/admin/' . $file );
 }
 
 /**
@@ -221,15 +221,15 @@ function nestform_admin_js_url( $file = 'admin.js' ) {
  *
  * @return string
  */
-function nestform_front_js_path() {
-	return nestform_js_path( 'assets/js/front/front.js' );
+function thimbleform_front_js_path() {
+	return thimbleform_js_path( 'assets/js/front/front.js' );
 }
 
 /**
  * @return string
  */
-function nestform_front_js_url() {
-	return nestform_js_url( 'assets/js/front/front.js' );
+function thimbleform_front_js_url() {
+	return thimbleform_js_url( 'assets/js/front/front.js' );
 }
 
 /**
@@ -237,15 +237,15 @@ function nestform_front_js_url() {
  *
  * @return array{forms:int,new:int,entries:int,today:int}
  */
-function nestform_admin_stats() {
+function thimbleform_admin_stats() {
 	static $cache = null;
 	if ( null !== $cache ) {
 		return $cache;
 	}
 
 	$forms_n = 0;
-	if ( class_exists( 'Nestform_Post_Type' ) ) {
-		$counts = wp_count_posts( Nestform_Post_Type::POST_TYPE );
+	if ( class_exists( 'Thimbleform_Post_Type' ) ) {
+		$counts = wp_count_posts( Thimbleform_Post_Type::POST_TYPE );
 		if ( $counts ) {
 			$forms_n  = (int) $counts->publish;
 			$forms_n += isset( $counts->draft ) ? (int) $counts->draft : 0;
@@ -257,14 +257,14 @@ function nestform_admin_stats() {
 	$new_n     = 0;
 	$entries_n = 0;
 	$today_n   = 0;
-	if ( class_exists( 'Nestform_Submissions' ) ) {
-		$new_n     = (int) Nestform_Submissions::count_entries(
+	if ( class_exists( 'Thimbleform_Submissions' ) ) {
+		$new_n     = (int) Thimbleform_Submissions::count_entries(
 			array(
-				'status' => Nestform_Submissions::STATUS_NEW,
+				'status' => Thimbleform_Submissions::STATUS_NEW,
 			)
 		);
-		$entries_n = (int) Nestform_Submissions::count_entries();
-		$today_n   = (int) Nestform_Submissions::count_entries(
+		$entries_n = (int) Thimbleform_Submissions::count_entries();
+		$today_n   = (int) Thimbleform_Submissions::count_entries(
 			array(
 				'after'  => wp_date( 'Y-m-d' ) . ' 00:00:00',
 				'before' => wp_date( 'Y-m-d' ) . ' 23:59:59',
@@ -288,7 +288,7 @@ function nestform_admin_stats() {
  * @param string $variant Unused (kept for call-site compatibility).
  * @return string
  */
-function nestform_admin_icon_html( $name, $variant = '' ) {
+function thimbleform_admin_icon_html( $name, $variant = '' ) {
 	unset( $variant );
 	/*
 	 * Unified icon language: 24×24 grid, 1.75 stroke, round caps/joins.
@@ -321,9 +321,9 @@ function nestform_admin_icon_html( $name, $variant = '' ) {
 		 * Thimbleform Pro mark: nested form cards + spark (product DNA).
 		 * `crown` kept as alias for older call sites.
 		 */
-		'pro'          => '<svg class="nestform-icon-pro" ' . $a . '><rect x="8" y="3" width="12.5" height="14.5" rx="2.25"/><rect x="3.5" y="7.5" width="12.5" height="14.5" rx="2.25"/><path d="M19.2 2.2l.5 1.25 1.25.5-1.25.5-.5 1.25-.5-1.25-1.25-.5 1.25-.5z" fill="currentColor" stroke="none"/></svg>',
-		'crown'        => '<svg class="nestform-icon-pro" ' . $a . '><rect x="8" y="3" width="12.5" height="14.5" rx="2.25"/><rect x="3.5" y="7.5" width="12.5" height="14.5" rx="2.25"/><path d="M19.2 2.2l.5 1.25 1.25.5-1.25.5-.5 1.25-.5-1.25-1.25-.5 1.25-.5z" fill="currentColor" stroke="none"/></svg>',
-		'sparkle'      => '<svg class="nestform-icon-pro" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l1.2 4.1L17.5 8 13.2 9.4 12 13.5l-1.2-4.1L6.5 8l4.3-1.4L12 2.5zm6.8 8.2l.7 2.3 2.3.7-2.3.7-.7 2.3-.7-2.3-2.3-.7 2.3-.7.7-2.3zM5.5 14.2l.55 1.85 1.85.55-1.85.55-.55 1.85-.55-1.85-1.85-.55 1.85-.55.55-1.85z"/></svg>',
+		'pro'          => '<svg class="thimbleform-icon-pro" ' . $a . '><rect x="8" y="3" width="12.5" height="14.5" rx="2.25"/><rect x="3.5" y="7.5" width="12.5" height="14.5" rx="2.25"/><path d="M19.2 2.2l.5 1.25 1.25.5-1.25.5-.5 1.25-.5-1.25-1.25-.5 1.25-.5z" fill="currentColor" stroke="none"/></svg>',
+		'crown'        => '<svg class="thimbleform-icon-pro" ' . $a . '><rect x="8" y="3" width="12.5" height="14.5" rx="2.25"/><rect x="3.5" y="7.5" width="12.5" height="14.5" rx="2.25"/><path d="M19.2 2.2l.5 1.25 1.25.5-1.25.5-.5 1.25-.5-1.25-1.25-.5 1.25-.5z" fill="currentColor" stroke="none"/></svg>',
+		'sparkle'      => '<svg class="thimbleform-icon-pro" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l1.2 4.1L17.5 8 13.2 9.4 12 13.5l-1.2-4.1L6.5 8l4.3-1.4L12 2.5zm6.8 8.2l.7 2.3 2.3.7-2.3.7-.7 2.3-.7-2.3-2.3-.7 2.3-.7.7-2.3zM5.5 14.2l.55 1.85 1.85.55-1.85.55-.55 1.85-.55-1.85-1.85-.55 1.85-.55.55-1.85z"/></svg>',
 		'check'        => '<svg ' . $a . '><path d="M20 6 9 17l-5-5"/></svg>',
 		'developers'   => '<svg ' . $a . '><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="m8 10 2.5 2.5L8 15"/><path d="M13 15h4"/></svg>',
 		'docs'         => '<svg ' . $a . '><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8"/><path d="M8 11h6"/></svg>',
@@ -339,8 +339,8 @@ function nestform_admin_icon_html( $name, $variant = '' ) {
  *
  * @param string $name Icon key.
  */
-function nestform_admin_icon( $name ) {
-	echo nestform_admin_icon_html( $name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG
+function thimbleform_admin_icon( $name ) {
+	echo thimbleform_admin_icon_html( $name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG
 }
 
 /**
@@ -348,77 +348,77 @@ function nestform_admin_icon( $name ) {
  *
  * @param string $current Active nav: dashboard|forms|entries|settings|integrations|developers|upgrade|license|editor.
  */
-function nestform_render_app_open( $current ) {
-	$stats       = nestform_admin_stats();
+function thimbleform_render_app_open( $current ) {
+	$stats       = thimbleform_admin_stats();
 	$forms_n     = (int) $stats['forms'];
 	$new_n       = (int) $stats['new'];
 	$entries_n   = isset( $stats['entries'] ) ? (int) $stats['entries'] : 0;
 	$today_n     = isset( $stats['today'] ) ? (int) $stats['today'] : 0;
-	$entries_url = class_exists( 'Nestform_Submissions' ) ? Nestform_Submissions::hub_url() : '';
-	$new_url     = class_exists( 'Nestform_Submissions' )
-		? Nestform_Submissions::hub_url( array( 'nestform_status' => Nestform_Submissions::STATUS_NEW ) )
+	$entries_url = class_exists( 'Thimbleform_Submissions' ) ? Thimbleform_Submissions::hub_url() : '';
+	$new_url     = class_exists( 'Thimbleform_Submissions' )
+		? Thimbleform_Submissions::hub_url( array( 'thimbleform_status' => Thimbleform_Submissions::STATUS_NEW ) )
 		: $entries_url;
-	$analytics_url = class_exists( 'Nestform_Dashboard' ) ? Nestform_Dashboard::url() : '';
+	$analytics_url = class_exists( 'Thimbleform_Dashboard' ) ? Thimbleform_Dashboard::url() : '';
 
 	$can_edit_posts = current_user_can( 'edit_posts' );
 	$can_manage_opts = current_user_can( 'manage_options' );
-	$can_view_entries = class_exists( 'Nestform_Capabilities' )
-		? Nestform_Capabilities::can_view_entries()
+	$can_view_entries = class_exists( 'Thimbleform_Capabilities' )
+		? Thimbleform_Capabilities::can_view_entries()
 		: $can_edit_posts;
-	$can_manage_forms = class_exists( 'Nestform_Capabilities' )
-		? Nestform_Capabilities::can_manage()
+	$can_manage_forms = class_exists( 'Thimbleform_Capabilities' )
+		? Thimbleform_Capabilities::can_manage()
 		: $can_edit_posts;
 
 	$items = array(
 		array(
 			'id'    => 'dashboard',
-			'label' => __( 'Dashboard', 'nestform' ),
-			'url'   => ( $can_edit_posts && class_exists( 'Nestform_Dashboard' ) ) ? Nestform_Dashboard::url() : '',
+			'label' => __( 'Dashboard', 'thimbleform' ),
+			'url'   => ( $can_edit_posts && class_exists( 'Thimbleform_Dashboard' ) ) ? Thimbleform_Dashboard::url() : '',
 			'icon'  => 'analytics',
 			'group' => 'primary',
 		),
 		array(
 			'id'    => 'forms',
-			'label' => __( 'Forms', 'nestform' ),
-			'url'   => ( $can_manage_forms && class_exists( 'Nestform_Post_Type' ) ) ? Nestform_Post_Type::hub_url() : '',
+			'label' => __( 'Forms', 'thimbleform' ),
+			'url'   => ( $can_manage_forms && class_exists( 'Thimbleform_Post_Type' ) ) ? Thimbleform_Post_Type::hub_url() : '',
 			'icon'  => 'forms',
 			'group' => 'primary',
 		),
 		array(
 			'id'    => 'entries',
-			'label' => __( 'Entries', 'nestform' ),
-			'url'   => ( $can_view_entries && class_exists( 'Nestform_Submissions' ) ) ? Nestform_Submissions::hub_url() : '',
+			'label' => __( 'Entries', 'thimbleform' ),
+			'url'   => ( $can_view_entries && class_exists( 'Thimbleform_Submissions' ) ) ? Thimbleform_Submissions::hub_url() : '',
 			'icon'  => 'entries',
 			'group' => 'primary',
 		),
 		array(
 			'id'    => 'integrations',
-			'label' => __( 'Integrations', 'nestform' ),
-			'url'   => ( $can_manage_opts && class_exists( 'Nestform_Integrations' ) ) ? Nestform_Integrations::url() : '',
+			'label' => __( 'Integrations', 'thimbleform' ),
+			'url'   => ( $can_manage_opts && class_exists( 'Thimbleform_Integrations' ) ) ? Thimbleform_Integrations::url() : '',
 			'icon'  => 'integrations',
 			'group' => 'primary',
 		),
 		array(
 			'id'    => 'settings',
-			'label' => __( 'Settings', 'nestform' ),
-			'url'   => ( $can_manage_opts && class_exists( 'Nestform_Settings' ) ) ? Nestform_Settings::url() : '',
+			'label' => __( 'Settings', 'thimbleform' ),
+			'url'   => ( $can_manage_opts && class_exists( 'Thimbleform_Settings' ) ) ? Thimbleform_Settings::url() : '',
 			'icon'  => 'settings',
 			'group' => 'primary',
 		),
 		array(
 			'id'    => 'import',
-			'label' => __( 'Import forms', 'nestform' ),
-			'url'   => ( class_exists( 'Nestform_Importer' ) && Nestform_Importer::user_can_import() ) ? Nestform_Importer::url() : '',
+			'label' => __( 'Import forms', 'thimbleform' ),
+			'url'   => ( class_exists( 'Thimbleform_Importer' ) && Thimbleform_Importer::user_can_import() ) ? Thimbleform_Importer::url() : '',
 			'icon'  => 'download',
 			'group' => 'tools',
 		),
 	);
 
-	if ( class_exists( 'Nestform_Promotion' ) && Nestform_Promotion::should_promote() && $can_edit_posts ) {
+	if ( class_exists( 'Thimbleform_Promotion' ) && Thimbleform_Promotion::should_promote() && $can_edit_posts ) {
 		$items[] = array(
 			'id'    => 'pro',
-			'label' => __( 'Pro', 'nestform' ),
-			'url'   => Nestform_Promotion::url(),
+			'label' => __( 'Pro', 'thimbleform' ),
+			'url'   => Thimbleform_Promotion::url(),
 			'icon'  => 'pro',
 			'group' => 'account',
 		);
@@ -427,7 +427,7 @@ function nestform_render_app_open( $current ) {
 	if ( $can_manage_opts && class_exists( 'Thimbleform_Pro_License' ) ) {
 		$items[] = array(
 			'id'    => 'license',
-			'label' => __( 'License', 'nestform' ),
+			'label' => __( 'License', 'thimbleform' ),
 			'url'   => Thimbleform_Pro_License::url(),
 			'icon'  => 'license',
 			'group' => 'account',
@@ -442,7 +442,7 @@ function nestform_render_app_open( $current ) {
 	 * @param array<int, array{id:string,label:string,url:string,icon:string,group?:string}> $items   Nav items.
 	 * @param string                                                                         $current Active view id.
 	 */
-	$items = apply_filters( 'nestform_app_nav_items', $items, $current );
+	$items = apply_filters( 'thimbleform_app_nav_items', $items, $current );
 
 	$nav_current = ( 'editor' === $current ) ? 'forms' : $current;
 	$nav_groups  = array(
@@ -461,22 +461,22 @@ function nestform_render_app_open( $current ) {
 		$nav_groups[ $group ][] = $item;
 	}
 	?>
-	<div class="nestform-app" data-nestform-app>
-		<aside class="nestform-app__sidebar" id="nestform-app-sidebar">
-			<div class="nestform-app__brand">
+	<div class="thimbleform-app" data-thimbleform-app>
+		<aside class="thimbleform-app__sidebar" id="thimbleform-app-sidebar">
+			<div class="thimbleform-app__brand">
 				<img
-					class="nestform-app__logo"
-					src="<?php echo esc_url( nestform_logo_url() ); ?>"
-					alt="<?php esc_attr_e( 'Thimbleform', 'nestform' ); ?>"
+					class="thimbleform-app__logo"
+					src="<?php echo esc_url( thimbleform_logo_url() ); ?>"
+					alt="<?php esc_attr_e( 'Thimbleform', 'thimbleform' ); ?>"
 					width="48"
 					height="48"
 				/>
-				<div class="nestform-app__brand-copy">
-					<div class="nestform-app__name">Thimble<span class="nestform-app__name-accent">form</span></div>
-					<div class="nestform-app__ver">v<?php echo esc_html( NESTFORM_VERSION ); ?></div>
+				<div class="thimbleform-app__brand-copy">
+					<div class="thimbleform-app__name">Thimble<span class="thimbleform-app__name-accent">form</span></div>
+					<div class="thimbleform-app__ver">v<?php echo esc_html( THIMBLEFORM_VERSION ); ?></div>
 				</div>
 			</div>
-			<nav class="nestform-app__nav" aria-label="<?php esc_attr_e( 'Thimbleform', 'nestform' ); ?>">
+			<nav class="thimbleform-app__nav" aria-label="<?php esc_attr_e( 'Thimbleform', 'thimbleform' ); ?>">
 				<?php
 				$group_i = 0;
 				foreach ( $nav_groups as $group_id => $group_items ) :
@@ -485,13 +485,13 @@ function nestform_render_app_open( $current ) {
 					}
 					if ( $group_i > 0 ) :
 						?>
-						<span class="nestform-app__nav-sep" aria-hidden="true"></span>
+						<span class="thimbleform-app__nav-sep" aria-hidden="true"></span>
 						<?php
 					endif;
 					++$group_i;
 					foreach ( $group_items as $item ) :
 						$is_on = ( $nav_current === $item['id'] );
-						$class = 'nestform-app__nav-item' . ( $is_on ? ' nestform-app__nav-item--active' : '' );
+						$class = 'thimbleform-app__nav-item' . ( $is_on ? ' thimbleform-app__nav-item--active' : '' );
 						$label = (string) $item['label'];
 						?>
 						<a
@@ -499,10 +499,10 @@ function nestform_render_app_open( $current ) {
 							href="<?php echo esc_url( $item['url'] ); ?>"
 							title="<?php echo esc_attr( $label ); ?>"
 						>
-							<span class="nestform-app__nav-icon"><?php nestform_admin_icon( isset( $item['icon'] ) ? (string) $item['icon'] : 'forms' ); ?></span>
-							<span class="nestform-app__nav-label"><?php echo esc_html( $label ); ?></span>
+							<span class="thimbleform-app__nav-icon"><?php thimbleform_admin_icon( isset( $item['icon'] ) ? (string) $item['icon'] : 'forms' ); ?></span>
+							<span class="thimbleform-app__nav-label"><?php echo esc_html( $label ); ?></span>
 							<?php if ( 'entries' === $item['id'] && $new_n > 0 ) : ?>
-								<span class="nestform-app__nav-count"><?php echo esc_html( number_format_i18n( $new_n ) ); ?></span>
+								<span class="thimbleform-app__nav-count"><?php echo esc_html( number_format_i18n( $new_n ) ); ?></span>
 							<?php endif; ?>
 						</a>
 						<?php
@@ -510,77 +510,77 @@ function nestform_render_app_open( $current ) {
 				endforeach;
 				?>
 			</nav>
-			<div class="nestform-app__foot">
-				<?php if ( class_exists( 'Nestform_Upgrade' ) ) : ?>
-					<?php Nestform_Upgrade::render_sidebar( $forms_n ); ?>
+			<div class="thimbleform-app__foot">
+				<?php if ( class_exists( 'Thimbleform_Upgrade' ) ) : ?>
+					<?php Thimbleform_Upgrade::render_sidebar( $forms_n ); ?>
 				<?php endif; ?>
 
-				<div class="nestform-app__foot-card">
-					<div class="nestform-app__foot-card-head">
-						<span class="nestform-app__foot-card-title"><?php esc_html_e( 'Inbox', 'nestform' ); ?></span>
+				<div class="thimbleform-app__foot-card">
+					<div class="thimbleform-app__foot-card-head">
+						<span class="thimbleform-app__foot-card-title"><?php esc_html_e( 'Inbox', 'thimbleform' ); ?></span>
 						<?php if ( $entries_url !== '' ) : ?>
-							<a class="nestform-app__foot-card-link" href="<?php echo esc_url( $new_n > 0 ? $new_url : $entries_url ); ?>">
-								<?php echo esc_html( $new_n > 0 ? __( 'Review', 'nestform' ) : __( 'Open', 'nestform' ) ); ?>
-								<?php echo nestform_admin_icon_html( 'forward' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG ?>
+							<a class="thimbleform-app__foot-card-link" href="<?php echo esc_url( $new_n > 0 ? $new_url : $entries_url ); ?>">
+								<?php echo esc_html( $new_n > 0 ? __( 'Review', 'thimbleform' ) : __( 'Open', 'thimbleform' ) ); ?>
+								<?php echo thimbleform_admin_icon_html( 'forward' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG ?>
 							</a>
 						<?php endif; ?>
 					</div>
 
 					<?php if ( $new_n > 0 ) : ?>
-						<a class="nestform-app__foot-cta" href="<?php echo esc_url( $new_url ); ?>">
-							<span class="nestform-app__foot-cta-count"><?php echo esc_html( number_format_i18n( $new_n ) ); ?></span>
-							<span class="nestform-app__foot-cta-text">
+						<a class="thimbleform-app__foot-cta" href="<?php echo esc_url( $new_url ); ?>">
+							<span class="thimbleform-app__foot-cta-count"><?php echo esc_html( number_format_i18n( $new_n ) ); ?></span>
+							<span class="thimbleform-app__foot-cta-text">
 								<?php
 								echo esc_html(
-									_n( 'new entry to review', 'new entries to review', $new_n, 'nestform' )
+									_n( 'new entry to review', 'new entries to review', $new_n, 'thimbleform' )
 								);
 								?>
 							</span>
 						</a>
 					<?php else : ?>
-						<p class="nestform-app__foot-clear">
-							<?php esc_html_e( 'No new entries', 'nestform' ); ?>
+						<p class="thimbleform-app__foot-clear">
+							<?php esc_html_e( 'No new entries', 'thimbleform' ); ?>
 						</p>
 					<?php endif; ?>
 
-					<div class="nestform-app__foot-grid nestform-app__foot-grid--compact" aria-label="<?php esc_attr_e( 'Quick stats', 'nestform' ); ?>">
-						<a class="nestform-app__foot-cell" href="<?php echo esc_url( $analytics_url !== '' ? $analytics_url : $entries_url ); ?>">
-							<span class="nestform-app__foot-val"><?php echo esc_html( number_format_i18n( $today_n ) ); ?></span>
-							<span class="nestform-app__foot-label"><?php esc_html_e( 'Today', 'nestform' ); ?></span>
+					<div class="thimbleform-app__foot-grid thimbleform-app__foot-grid--compact" aria-label="<?php esc_attr_e( 'Quick stats', 'thimbleform' ); ?>">
+						<a class="thimbleform-app__foot-cell" href="<?php echo esc_url( $analytics_url !== '' ? $analytics_url : $entries_url ); ?>">
+							<span class="thimbleform-app__foot-val"><?php echo esc_html( number_format_i18n( $today_n ) ); ?></span>
+							<span class="thimbleform-app__foot-label"><?php esc_html_e( 'Today', 'thimbleform' ); ?></span>
 						</a>
-						<a class="nestform-app__foot-cell" href="<?php echo esc_url( $entries_url ); ?>">
-							<span class="nestform-app__foot-val"><?php echo esc_html( number_format_i18n( $entries_n ) ); ?></span>
-							<span class="nestform-app__foot-label"><?php esc_html_e( 'Entries', 'nestform' ); ?></span>
+						<a class="thimbleform-app__foot-cell" href="<?php echo esc_url( $entries_url ); ?>">
+							<span class="thimbleform-app__foot-val"><?php echo esc_html( number_format_i18n( $entries_n ) ); ?></span>
+							<span class="thimbleform-app__foot-label"><?php esc_html_e( 'Entries', 'thimbleform' ); ?></span>
 						</a>
 					</div>
 				</div>
 			</div>
 			<button
 				type="button"
-				class="nestform-app__sidebar-toggle"
-				data-nestform-sidebar-toggle
-				aria-controls="nestform-app-sidebar"
+				class="thimbleform-app__sidebar-toggle"
+				data-thimbleform-sidebar-toggle
+				aria-controls="thimbleform-app-sidebar"
 				aria-expanded="true"
-				title="<?php esc_attr_e( 'Collapse sidebar', 'nestform' ); ?>"
+				title="<?php esc_attr_e( 'Collapse sidebar', 'thimbleform' ); ?>"
 			>
-				<span class="nestform-app__sidebar-toggle-icon" aria-hidden="true">
+				<span class="thimbleform-app__sidebar-toggle-icon" aria-hidden="true">
 					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
 				</span>
-				<span class="nestform-app__sidebar-toggle-label"><?php esc_html_e( 'Collapse', 'nestform' ); ?></span>
+				<span class="thimbleform-app__sidebar-toggle-label"><?php esc_html_e( 'Collapse', 'thimbleform' ); ?></span>
 			</button>
-			<a class="nestform-app__wp" href="<?php echo esc_url( admin_url() ); ?>" title="<?php esc_attr_e( 'WordPress admin', 'nestform' ); ?>">
-				<span class="nestform-app__wp-icon"><?php nestform_admin_icon( 'external' ); ?></span>
-				<span class="nestform-app__wp-label"><?php esc_html_e( 'WordPress admin', 'nestform' ); ?></span>
+			<a class="thimbleform-app__wp" href="<?php echo esc_url( admin_url() ); ?>" title="<?php esc_attr_e( 'WordPress admin', 'thimbleform' ); ?>">
+				<span class="thimbleform-app__wp-icon"><?php thimbleform_admin_icon( 'external' ); ?></span>
+				<span class="thimbleform-app__wp-label"><?php esc_html_e( 'WordPress admin', 'thimbleform' ); ?></span>
 			</a>
 		</aside>
-		<div class="nestform-app__main">
+		<div class="thimbleform-app__main">
 	<?php
 }
 
 /**
  * Close Thimbleform app shell.
  */
-function nestform_render_app_close() {
+function thimbleform_render_app_close() {
 	echo '</div></div>';
 }
 
@@ -589,25 +589,25 @@ function nestform_render_app_close() {
  *
  * @return string dashboard|forms|entries|settings|integrations|developers|upgrade|license|editor|
  */
-function nestform_admin_current_view() {
+function thimbleform_admin_current_view() {
 	if ( ! is_admin() ) {
 		return '';
 	}
 	$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	$map  = array(
-		'nestform-forms'       => 'forms',
-		'nestform-import'      => 'import',
-		'nestform-dashboard'   => 'dashboard',
-		'nestform-entries'     => 'entries',
-		'nestform-settings'      => 'settings',
-		'nestform-integrations'  => 'integrations',
-		'nestform-developers'    => 'developers',
+		'thimbleform-forms'       => 'forms',
+		'thimbleform-import'      => 'import',
+		'thimbleform-dashboard'   => 'dashboard',
+		'thimbleform-entries'     => 'entries',
+		'thimbleform-settings'      => 'settings',
+		'thimbleform-integrations'  => 'integrations',
+		'thimbleform-developers'    => 'developers',
 		'thimbleform-pro'               => 'pro',
-		'nestform-upgrade'           => 'pro',
-		'nestform-account'           => 'license',
-		'nestform-forms-account'     => 'license',
+		'thimbleform-upgrade'           => 'pro',
+		'thimbleform-account'           => 'license',
+		'thimbleform-forms-account'     => 'license',
 		'thimbleform-pro-license'       => 'license',
-		'nestform-recruiting'        => 'recruiting',
+		'thimbleform-recruiting'        => 'recruiting',
 	);
 	if ( isset( $map[ $page ] ) ) {
 		return $map[ $page ];
@@ -616,10 +616,10 @@ function nestform_admin_current_view() {
 	if ( ! $screen ) {
 		return '';
 	}
-	if ( 'nestform' === $screen->post_type && in_array( $screen->base, array( 'post', 'post-new' ), true ) ) {
+	if ( 'thimbleform' === $screen->post_type && in_array( $screen->base, array( 'post', 'post-new' ), true ) ) {
 		return 'editor';
 	}
-	if ( 'nestform_entry' === $screen->post_type ) {
+	if ( 'thimbleform_entry' === $screen->post_type ) {
 		return 'entries';
 	}
 	return '';
@@ -629,22 +629,22 @@ function nestform_admin_current_view() {
  * Pin notices to the bottom before first paint (avoids WP default flash).
  * Hide core update nags on Thimbleform screens only.
  */
-function nestform_admin_notice_boot_css() {
-	if ( '' === nestform_admin_current_view() ) {
+function thimbleform_admin_notice_boot_css() {
+	if ( '' === thimbleform_admin_current_view() ) {
 		return;
 	}
 	remove_action( 'admin_notices', 'update_nag', 3 );
 	remove_action( 'network_admin_notices', 'update_nag', 3 );
-	if ( ! wp_style_is( 'nestform-admin', 'enqueued' ) ) {
+	if ( ! wp_style_is( 'thimbleform-admin', 'enqueued' ) ) {
 		return;
 	}
-	$css = 'body.nestform-admin-screen .update-nag,'
-		. 'body.nestform-admin-screen div.notice.update-nag,'
-		. 'body.nestform-editor-app .update-nag,'
-		. 'body.nestform-editor-app div.notice.update-nag{display:none!important;}'
-		. 'body.nestform-admin-screen div.notice:not(.inline):not(.hidden):not(.update-nag),'
-		. 'body.nestform-admin-screen div.updated:not(.inline):not(.hidden),'
-		. 'body.nestform-admin-screen div.error:not(.inline):not(.hidden){'
+	$css = 'body.thimbleform-admin-screen .update-nag,'
+		. 'body.thimbleform-admin-screen div.notice.update-nag,'
+		. 'body.thimbleform-editor-app .update-nag,'
+		. 'body.thimbleform-editor-app div.notice.update-nag{display:none!important;}'
+		. 'body.thimbleform-admin-screen div.notice:not(.inline):not(.hidden):not(.update-nag),'
+		. 'body.thimbleform-admin-screen div.updated:not(.inline):not(.hidden),'
+		. 'body.thimbleform-admin-screen div.error:not(.inline):not(.hidden){'
 		. 'position:fixed!important;top:auto!important;right:0!important;bottom:24px!important;'
 		. 'left:200px!important;width:min(440px,calc(100vw - 248px))!important;margin:0 auto!important;'
 		. 'z-index:100000!important;box-sizing:border-box!important;'
@@ -652,60 +652,60 @@ function nestform_admin_notice_boot_css() {
 		. 'border-radius:8px!important;background:#eff6ff!important;box-shadow:0 4px 24px rgba(0,0,0,.06)!important;'
 		. 'color:#1d4ed8!important;font-size:13px!important;line-height:1.45!important;'
 		. '}'
-		. 'body.nestform-admin-screen .nestform-toasts div.notice:not(.inline):not(.hidden):not(.update-nag),'
-		. 'body.nestform-admin-screen .nestform-toasts div.updated:not(.inline):not(.hidden),'
-		. 'body.nestform-admin-screen .nestform-toasts div.error:not(.inline):not(.hidden),'
-		. 'body.nestform-editor-app .nestform-toasts div.notice:not(.inline):not(.hidden):not(.update-nag),'
-		. 'body.nestform-editor-app .nestform-toasts div.updated:not(.inline):not(.hidden),'
-		. 'body.nestform-editor-app .nestform-toasts div.error:not(.inline):not(.hidden){'
+		. 'body.thimbleform-admin-screen .thimbleform-toasts div.notice:not(.inline):not(.hidden):not(.update-nag),'
+		. 'body.thimbleform-admin-screen .thimbleform-toasts div.updated:not(.inline):not(.hidden),'
+		. 'body.thimbleform-admin-screen .thimbleform-toasts div.error:not(.inline):not(.hidden),'
+		. 'body.thimbleform-editor-app .thimbleform-toasts div.notice:not(.inline):not(.hidden):not(.update-nag),'
+		. 'body.thimbleform-editor-app .thimbleform-toasts div.updated:not(.inline):not(.hidden),'
+		. 'body.thimbleform-editor-app .thimbleform-toasts div.error:not(.inline):not(.hidden){'
 		. 'position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;top:auto!important;'
 		. 'width:min(440px,100%)!important;margin:0!important;'
 		. '}'
-		. 'body.nestform-admin-screen div.notice.notice-success:not(.inline):not(.hidden),'
-		. 'body.nestform-admin-screen div.updated:not(.inline):not(.hidden),'
-		. 'body.nestform-admin-screen div.notice.updated:not(.inline):not(.hidden){'
+		. 'body.thimbleform-admin-screen div.notice.notice-success:not(.inline):not(.hidden),'
+		. 'body.thimbleform-admin-screen div.updated:not(.inline):not(.hidden),'
+		. 'body.thimbleform-admin-screen div.notice.updated:not(.inline):not(.hidden){'
 		. 'border-color:#b5e5dc!important;background:#e8f8f5!important;color:#0d9b87!important;'
 		. '}'
-		. 'body.nestform-admin-screen div.notice.notice-error:not(.inline):not(.hidden),'
-		. 'body.nestform-admin-screen div.error:not(.inline):not(.hidden){'
+		. 'body.thimbleform-admin-screen div.notice.notice-error:not(.inline):not(.hidden),'
+		. 'body.thimbleform-admin-screen div.error:not(.inline):not(.hidden){'
 		. 'border-color:#f0c5ce!important;background:#fdf0f3!important;color:#d14b63!important;'
 		. '}'
-		. 'body.nestform-admin-screen div.notice.notice-warning:not(.inline):not(.hidden){'
+		. 'body.thimbleform-admin-screen div.notice.notice-warning:not(.inline):not(.hidden){'
 		. 'border-color:#bfdbfe!important;background:#eff6ff!important;color:#3b82f6!important;'
 		. '}'
-		. 'body.nestform-admin-screen div.notice.notice-info:not(.inline):not(.hidden){'
+		. 'body.thimbleform-admin-screen div.notice.notice-info:not(.inline):not(.hidden){'
 		. 'border-color:#bfdbfe!important;background:#eff6ff!important;color:#1d4ed8!important;'
 		. '}'
-		. 'body.nestform-admin-screen .postbox div.notice,'
-		. 'body.nestform-admin-screen .postbox div.updated,'
-		. 'body.nestform-admin-screen .postbox div.error,'
-		. 'body.nestform-admin-screen #screen-meta div.notice,'
-		. 'body.nestform-admin-screen .media-modal div.notice{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;width:auto!important;margin:0 0 12px!important;}'
-		. 'body.nestform-editor-app div.notice:not(.inline):not(.hidden):not(.update-nag),'
-		. 'body.nestform-editor-app div.updated:not(.inline),'
-		. 'body.nestform-editor-app div.error:not(.inline){right:240px!important;}'
-		. '@media screen and (max-width:782px){body.nestform-admin-screen div.notice:not(.inline):not(.hidden):not(.update-nag),body.nestform-admin-screen div.updated:not(.inline),body.nestform-admin-screen div.error:not(.inline){left:16px!important;right:16px!important;width:auto!important;}}';
-	wp_add_inline_style( 'nestform-admin', $css );
+		. 'body.thimbleform-admin-screen .postbox div.notice,'
+		. 'body.thimbleform-admin-screen .postbox div.updated,'
+		. 'body.thimbleform-admin-screen .postbox div.error,'
+		. 'body.thimbleform-admin-screen #screen-meta div.notice,'
+		. 'body.thimbleform-admin-screen .media-modal div.notice{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;width:auto!important;margin:0 0 12px!important;}'
+		. 'body.thimbleform-editor-app div.notice:not(.inline):not(.hidden):not(.update-nag),'
+		. 'body.thimbleform-editor-app div.updated:not(.inline),'
+		. 'body.thimbleform-editor-app div.error:not(.inline){right:240px!important;}'
+		. '@media screen and (max-width:782px){body.thimbleform-admin-screen div.notice:not(.inline):not(.hidden):not(.update-nag),body.thimbleform-admin-screen div.updated:not(.inline),body.thimbleform-admin-screen div.error:not(.inline){left:16px!important;right:16px!important;width:auto!important;}}';
+	wp_add_inline_style( 'thimbleform-admin', $css );
 }
 
-add_action( 'admin_enqueue_scripts', 'nestform_admin_notice_boot_css', 20 );
+add_action( 'admin_enqueue_scripts', 'thimbleform_admin_notice_boot_css', 20 );
 
 add_filter(
 	'admin_body_class',
 	static function ( $classes ) {
-		$view = nestform_admin_current_view();
+		$view = thimbleform_admin_current_view();
 		if ( '' === $view ) {
 			return $classes;
 		}
-		$classes .= ' nestform-admin-screen nestform-app-screen';
+		$classes .= ' thimbleform-admin-screen thimbleform-app-screen';
 		if ( 'editor' === $view ) {
-			$classes .= ' nestform-editor-app';
+			$classes .= ' thimbleform-editor-app';
 		}
 		if ( 'license' === $view ) {
-			$classes .= ' nestform-license-screen';
+			$classes .= ' thimbleform-license-screen';
 		}
 		if ( 'pro' === $view ) {
-			$classes .= ' nestform-upgrade-screen';
+			$classes .= ' thimbleform-upgrade-screen';
 		}
 		return $classes;
 	}
@@ -714,21 +714,21 @@ add_filter(
 add_action(
 	'in_admin_header',
 	static function () {
-		$view = nestform_admin_current_view();
+		$view = thimbleform_admin_current_view();
 		if ( '' === $view ) {
 			return;
 		}
-		nestform_render_app_open( $view );
+		thimbleform_render_app_open( $view );
 	}
 );
 
 add_action(
 	'admin_footer',
 	static function () {
-		if ( '' === nestform_admin_current_view() ) {
+		if ( '' === thimbleform_admin_current_view() ) {
 			return;
 		}
-		nestform_render_app_close();
+		thimbleform_render_app_close();
 	},
 	1
 );
@@ -744,7 +744,7 @@ add_action(
  *     @type string $icon          Optional lead icon key (forms|analytics|entries|settings|developers|pro).
  * }
  */
-function nestform_render_page_head( array $args ) {
+function thimbleform_render_page_head( array $args ) {
 	$args = wp_parse_args(
 		$args,
 		array(
@@ -758,7 +758,7 @@ function nestform_render_page_head( array $args ) {
 
 	$icon = sanitize_key( (string) $args['icon'] );
 	if ( $icon === '' ) {
-		$view = nestform_admin_current_view();
+		$view = thimbleform_admin_current_view();
 		$map  = array(
 			'forms'        => 'forms',
 			'editor'       => 'forms',
@@ -775,31 +775,31 @@ function nestform_render_page_head( array $args ) {
 		);
 		$icon = isset( $map[ $view ] ) ? $map[ $view ] : '';
 	}
-	$icon_html = $icon !== '' ? nestform_admin_icon_html( $icon ) : '';
+	$icon_html = $icon !== '' ? thimbleform_admin_icon_html( $icon ) : '';
 	$actions   = (string) $args['actions_html'];
 	$meta      = (string) $args['meta_html'];
 	?>
-	<header class="nestform-page-head">
-		<div class="nestform-page-head__lead">
+	<header class="thimbleform-page-head">
+		<div class="thimbleform-page-head__lead">
 			<?php if ( $icon_html !== '' ) : ?>
-				<span class="nestform-page-head__icon nestform-page-head__icon--<?php echo esc_attr( $icon ); ?>" aria-hidden="true"><?php echo $icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG ?></span>
+				<span class="thimbleform-page-head__icon thimbleform-page-head__icon--<?php echo esc_attr( $icon ); ?>" aria-hidden="true"><?php echo $icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG ?></span>
 			<?php endif; ?>
-			<div class="nestform-page-head__copy">
-				<h1 class="nestform-page-head__title"><?php echo esc_html( (string) $args['title'] ); ?></h1>
+			<div class="thimbleform-page-head__copy">
+				<h1 class="thimbleform-page-head__title"><?php echo esc_html( (string) $args['title'] ); ?></h1>
 				<?php if ( (string) $args['description'] !== '' ) : ?>
-					<p class="nestform-page-head__desc"><?php echo esc_html( (string) $args['description'] ); ?></p>
+					<p class="thimbleform-page-head__desc"><?php echo esc_html( (string) $args['description'] ); ?></p>
 				<?php endif; ?>
 			</div>
 		</div>
 		<?php if ( $meta !== '' || $actions !== '' ) : ?>
-			<div class="nestform-page-head__aside">
+			<div class="thimbleform-page-head__aside">
 				<?php if ( $meta !== '' ) : ?>
-					<div class="nestform-page-head__meta">
+					<div class="thimbleform-page-head__meta">
 						<?php echo $meta; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built by trusted admin screens / Pro filters ?>
 					</div>
 				<?php endif; ?>
 				<?php if ( $actions !== '' ) : ?>
-					<div class="nestform-page-head__actions">
+					<div class="thimbleform-page-head__actions">
 						<?php echo $actions; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built by trusted admin screens ?>
 					</div>
 				<?php endif; ?>
@@ -810,91 +810,91 @@ function nestform_render_page_head( array $args ) {
 	<?php
 }
 
-require_once NESTFORM_PATH . 'includes/class-migration.php';
-require_once NESTFORM_PATH . 'includes/class-compat.php';
-require_once NESTFORM_PATH . 'includes/class-features.php';
-require_once NESTFORM_PATH . 'includes/class-form-config.php';
-require_once NESTFORM_PATH . 'includes/class-security.php';
-require_once NESTFORM_PATH . 'includes/class-spam-filter.php';
-require_once NESTFORM_PATH . 'includes/class-spam-log.php';
-require_once NESTFORM_PATH . 'includes/class-email-log.php';
-require_once NESTFORM_PATH . 'includes/class-phone.php';
-require_once NESTFORM_PATH . 'includes/class-capabilities.php';
-require_once NESTFORM_PATH . 'includes/class-post-type.php';
-require_once NESTFORM_PATH . 'includes/class-submissions.php';
-require_once NESTFORM_PATH . 'includes/class-response-summary.php';
-require_once NESTFORM_PATH . 'includes/class-qr-code.php';
-require_once NESTFORM_PATH . 'includes/class-dashboard.php';
-require_once NESTFORM_PATH . 'includes/class-settings.php';
-require_once NESTFORM_PATH . 'includes/class-integrations.php';
-require_once NESTFORM_PATH . 'includes/class-developers.php';
-require_once NESTFORM_PATH . 'includes/class-webhook.php';
-require_once NESTFORM_PATH . 'includes/class-upgrade.php';
-require_once NESTFORM_PATH . 'includes/class-promotion.php';
-require_once NESTFORM_PATH . 'includes/class-review-request.php';
-require_once NESTFORM_PATH . 'includes/class-privacy.php';
-require_once NESTFORM_PATH . 'includes/class-onboarding.php';
-require_once NESTFORM_PATH . 'includes/class-admin-ui.php';
-require_once NESTFORM_PATH . 'includes/class-admin-theme.php';
-require_once NESTFORM_PATH . 'includes/class-renderer.php';
-require_once NESTFORM_PATH . 'includes/class-submit.php';
-require_once NESTFORM_PATH . 'includes/class-captcha.php';
-require_once NESTFORM_PATH . 'includes/class-xlsx-export.php';
-require_once NESTFORM_PATH . 'includes/class-export.php';
-require_once NESTFORM_PATH . 'includes/class-entry-print.php';
-require_once NESTFORM_PATH . 'includes/class-form-io.php';
-require_once NESTFORM_PATH . 'includes/class-importer.php';
-require_once NESTFORM_PATH . 'includes/class-backup.php';
-require_once NESTFORM_PATH . 'includes/class-templates.php';
-require_once NESTFORM_PATH . 'includes/class-block.php';
-require_once NESTFORM_PATH . 'includes/class-elementor.php';
+require_once THIMBLEFORM_PATH . 'includes/class-migration.php';
+require_once THIMBLEFORM_PATH . 'includes/class-compat.php';
+require_once THIMBLEFORM_PATH . 'includes/class-features.php';
+require_once THIMBLEFORM_PATH . 'includes/class-form-config.php';
+require_once THIMBLEFORM_PATH . 'includes/class-security.php';
+require_once THIMBLEFORM_PATH . 'includes/class-spam-filter.php';
+require_once THIMBLEFORM_PATH . 'includes/class-spam-log.php';
+require_once THIMBLEFORM_PATH . 'includes/class-email-log.php';
+require_once THIMBLEFORM_PATH . 'includes/class-phone.php';
+require_once THIMBLEFORM_PATH . 'includes/class-capabilities.php';
+require_once THIMBLEFORM_PATH . 'includes/class-post-type.php';
+require_once THIMBLEFORM_PATH . 'includes/class-submissions.php';
+require_once THIMBLEFORM_PATH . 'includes/class-response-summary.php';
+require_once THIMBLEFORM_PATH . 'includes/class-qr-code.php';
+require_once THIMBLEFORM_PATH . 'includes/class-dashboard.php';
+require_once THIMBLEFORM_PATH . 'includes/class-settings.php';
+require_once THIMBLEFORM_PATH . 'includes/class-integrations.php';
+require_once THIMBLEFORM_PATH . 'includes/class-developers.php';
+require_once THIMBLEFORM_PATH . 'includes/class-webhook.php';
+require_once THIMBLEFORM_PATH . 'includes/class-upgrade.php';
+require_once THIMBLEFORM_PATH . 'includes/class-promotion.php';
+require_once THIMBLEFORM_PATH . 'includes/class-review-request.php';
+require_once THIMBLEFORM_PATH . 'includes/class-privacy.php';
+require_once THIMBLEFORM_PATH . 'includes/class-onboarding.php';
+require_once THIMBLEFORM_PATH . 'includes/class-admin-ui.php';
+require_once THIMBLEFORM_PATH . 'includes/class-admin-theme.php';
+require_once THIMBLEFORM_PATH . 'includes/class-renderer.php';
+require_once THIMBLEFORM_PATH . 'includes/class-submit.php';
+require_once THIMBLEFORM_PATH . 'includes/class-captcha.php';
+require_once THIMBLEFORM_PATH . 'includes/class-xlsx-export.php';
+require_once THIMBLEFORM_PATH . 'includes/class-export.php';
+require_once THIMBLEFORM_PATH . 'includes/class-entry-print.php';
+require_once THIMBLEFORM_PATH . 'includes/class-form-io.php';
+require_once THIMBLEFORM_PATH . 'includes/class-importer.php';
+require_once THIMBLEFORM_PATH . 'includes/class-backup.php';
+require_once THIMBLEFORM_PATH . 'includes/class-templates.php';
+require_once THIMBLEFORM_PATH . 'includes/class-block.php';
+require_once THIMBLEFORM_PATH . 'includes/class-elementor.php';
 
 add_action(
 	'plugins_loaded',
 	static function () {
-		Nestform_Migration::init();
-		Nestform_Compat::init();
-		Nestform_Capabilities::init();
-		Nestform_Post_Type::init();
-		if ( class_exists( 'Nestform_Security' ) ) {
-			Nestform_Security::init();
+		Thimbleform_Migration::init();
+		Thimbleform_Compat::init();
+		Thimbleform_Capabilities::init();
+		Thimbleform_Post_Type::init();
+		if ( class_exists( 'Thimbleform_Security' ) ) {
+			Thimbleform_Security::init();
 		}
-		if ( class_exists( 'Nestform_Spam_Log' ) ) {
-			Nestform_Spam_Log::init();
+		if ( class_exists( 'Thimbleform_Spam_Log' ) ) {
+			Thimbleform_Spam_Log::init();
 		}
-		if ( class_exists( 'Nestform_Email_Log' ) ) {
-			Nestform_Email_Log::init();
+		if ( class_exists( 'Thimbleform_Email_Log' ) ) {
+			Thimbleform_Email_Log::init();
 		}
-		Nestform_Submissions::init();
-		Nestform_Response_Summary::init();
-		Nestform_Dashboard::init();
-		Nestform_Settings::init();
-		Nestform_Integrations::init();
-		Nestform_Developers::init();
-		Nestform_Webhook::init();
-		Nestform_Upgrade::init();
-		Nestform_Promotion::init();
-		Nestform_Review_Request::init();
-		Nestform_Privacy::init();
-		Nestform_Onboarding::init();
-		Nestform_Admin_UI::init();
-		Nestform_Admin_Theme::init();
-		Nestform_Renderer::init();
-		Nestform_Submit::init();
-		Nestform_Captcha::init();
-		Nestform_Export::init();
-		Nestform_Entry_Print::init();
-		Nestform_Form_IO::init();
-		Nestform_Importer::init();
-		Nestform_Backup::init();
-		Nestform_Templates::init();
-		Nestform_Block::init();
-		Nestform_Elementor::init();
+		Thimbleform_Submissions::init();
+		Thimbleform_Response_Summary::init();
+		Thimbleform_Dashboard::init();
+		Thimbleform_Settings::init();
+		Thimbleform_Integrations::init();
+		Thimbleform_Developers::init();
+		Thimbleform_Webhook::init();
+		Thimbleform_Upgrade::init();
+		Thimbleform_Promotion::init();
+		Thimbleform_Review_Request::init();
+		Thimbleform_Privacy::init();
+		Thimbleform_Onboarding::init();
+		Thimbleform_Admin_UI::init();
+		Thimbleform_Admin_Theme::init();
+		Thimbleform_Renderer::init();
+		Thimbleform_Submit::init();
+		Thimbleform_Captcha::init();
+		Thimbleform_Export::init();
+		Thimbleform_Entry_Print::init();
+		Thimbleform_Form_IO::init();
+		Thimbleform_Importer::init();
+		Thimbleform_Backup::init();
+		Thimbleform_Templates::init();
+		Thimbleform_Block::init();
+		Thimbleform_Elementor::init();
 
 		/**
 		 * Fires after Thimbleform Free is loaded. Pro registers features here.
 		 */
-		do_action( 'nestform_loaded' );
+		do_action( 'thimbleform_loaded' );
 	},
 	5
 );
@@ -902,67 +902,67 @@ add_action(
 add_action(
 	'admin_enqueue_scripts',
 	static function () {
-		if ( '' === nestform_admin_current_view() ) {
+		if ( '' === thimbleform_admin_current_view() ) {
 			return;
 		}
-		$ver = (string) filemtime( nestform_admin_css_path() );
+		$ver = (string) filemtime( thimbleform_admin_css_path() );
 		wp_enqueue_style(
-			'nestform-admin',
-			nestform_admin_css_url(),
-			nestform_admin_style_deps(),
-			$ver ? $ver : NESTFORM_VERSION
+			'thimbleform-admin',
+			thimbleform_admin_css_url(),
+			thimbleform_admin_style_deps(),
+			$ver ? $ver : THIMBLEFORM_VERSION
 		);
-		$ver_js = (string) filemtime( nestform_admin_js_path( 'admin-notices.js' ) );
+		$ver_js = (string) filemtime( thimbleform_admin_js_path( 'admin-notices.js' ) );
 		wp_enqueue_script(
-			'nestform-admin-notices',
-			nestform_admin_js_url( 'admin-notices.js' ),
+			'thimbleform-admin-notices',
+			thimbleform_admin_js_url( 'admin-notices.js' ),
 			array( 'jquery', 'common' ),
-			$ver_js ? $ver_js : NESTFORM_VERSION,
+			$ver_js ? $ver_js : THIMBLEFORM_VERSION,
 			true
 		);
-		$ver_export = (string) filemtime( nestform_admin_js_path( 'admin-export-menu.js' ) );
+		$ver_export = (string) filemtime( thimbleform_admin_js_path( 'admin-export-menu.js' ) );
 		wp_enqueue_script(
-			'nestform-admin-export-menu',
-			nestform_admin_js_url( 'admin-export-menu.js' ),
+			'thimbleform-admin-export-menu',
+			thimbleform_admin_js_url( 'admin-export-menu.js' ),
 			array(),
-			$ver_export ? $ver_export : NESTFORM_VERSION,
+			$ver_export ? $ver_export : THIMBLEFORM_VERSION,
 			true
 		);
-		$ver_boot = (string) filemtime( nestform_admin_js_path( 'sidebar-boot.js' ) );
+		$ver_boot = (string) filemtime( thimbleform_admin_js_path( 'sidebar-boot.js' ) );
 		wp_enqueue_script(
-			'nestform-sidebar-boot',
-			nestform_admin_js_url( 'sidebar-boot.js' ),
+			'thimbleform-sidebar-boot',
+			thimbleform_admin_js_url( 'sidebar-boot.js' ),
 			array(),
-			$ver_boot ? $ver_boot : NESTFORM_VERSION,
+			$ver_boot ? $ver_boot : THIMBLEFORM_VERSION,
 			false
 		);
-		$ver_pro = (string) filemtime( nestform_admin_js_path( 'admin-pro.js' ) );
+		$ver_pro = (string) filemtime( thimbleform_admin_js_path( 'admin-pro.js' ) );
 		wp_enqueue_script(
-			'nestform-admin-pro',
-			nestform_admin_js_url( 'admin-pro.js' ),
-			array( 'nestform-sidebar-boot' ),
-			$ver_pro ? $ver_pro : NESTFORM_VERSION,
+			'thimbleform-admin-pro',
+			thimbleform_admin_js_url( 'admin-pro.js' ),
+			array( 'thimbleform-sidebar-boot' ),
+			$ver_pro ? $ver_pro : THIMBLEFORM_VERSION,
 			true
 		);
 		$features = array();
-		if ( class_exists( 'Nestform_Features' ) ) {
-			foreach ( Nestform_Features::all_keys() as $key ) {
-				$features[ $key ] = Nestform_Features::can( $key );
+		if ( class_exists( 'Thimbleform_Features' ) ) {
+			foreach ( Thimbleform_Features::all_keys() as $key ) {
+				$features[ $key ] = Thimbleform_Features::can( $key );
 			}
 		}
 
 		wp_localize_script(
-			'nestform-admin-pro',
-			'nestformPro',
+			'thimbleform-admin-pro',
+			'thimbleformPro',
 			array(
-				'isPro'     => class_exists( 'Nestform_Upgrade' ) ? Nestform_Upgrade::is_pro() : false,
-				'url'       => class_exists( 'Nestform_Promotion' ) ? Nestform_Promotion::url() : '',
-				'storeUrl'  => class_exists( 'Nestform_Promotion' ) ? Nestform_Promotion::store_url() : 'https://thimbleform.app/pro',
+				'isPro'     => class_exists( 'Thimbleform_Upgrade' ) ? Thimbleform_Upgrade::is_pro() : false,
+				'url'       => class_exists( 'Thimbleform_Promotion' ) ? Thimbleform_Promotion::url() : '',
+				'storeUrl'  => class_exists( 'Thimbleform_Promotion' ) ? Thimbleform_Promotion::store_url() : 'https://thimbleform.app/pro',
 				'features'  => $features,
 				'i18n'      => array(
 					'sidebar'         => array(
-						'collapse' => __( 'Collapse', 'nestform' ),
-						'expand'   => __( 'Expand', 'nestform' ),
+						'collapse' => __( 'Collapse', 'thimbleform' ),
+						'expand'   => __( 'Expand', 'thimbleform' ),
 					),
 				),
 			)

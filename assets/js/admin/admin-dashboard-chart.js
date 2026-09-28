@@ -5,7 +5,7 @@
 	'use strict';
 
 	var ChartLib = window.Chart;
-	var i18n = (window.nestformDashChart && window.nestformDashChart.i18n) || {};
+	var i18n = (window.thimbleformDashChart && window.thimbleformDashChart.i18n) || {};
 
 	var LOCALE = 'en-US';
 
@@ -36,10 +36,10 @@
 		if (!body) {
 			return false;
 		}
-		if (body.classList.contains('nestform-theme-dark')) {
+		if (body.classList.contains('thimbleform-theme-dark')) {
 			return true;
 		}
-		if (body.classList.contains('nestform-theme-light')) {
+		if (body.classList.contains('thimbleform-theme-light')) {
 			return false;
 		}
 		return (
@@ -158,9 +158,9 @@
 		if (!state.wrap || !data) {
 			return;
 		}
-		var labelEl = state.wrap.querySelector('[data-nestform-chart-legend-label]');
-		var peakEl = state.wrap.querySelector('[data-nestform-chart-peak]');
-		var avgEl = state.wrap.querySelector('[data-nestform-chart-avg]');
+		var labelEl = state.wrap.querySelector('[data-thimbleform-chart-legend-label]');
+		var peakEl = state.wrap.querySelector('[data-thimbleform-chart-peak]');
+		var avgEl = state.wrap.querySelector('[data-thimbleform-chart-avg]');
 		if (labelEl) {
 			labelEl.textContent = seriesLabel(state.active, data);
 		}
@@ -185,7 +185,7 @@
 		var label = seriesLabel(state.active, data);
 
 		if (state.wrap) {
-			state.wrap.setAttribute('data-nestform-chart-metric', state.active);
+			state.wrap.setAttribute('data-thimbleform-chart-metric', state.active);
 		}
 
 		if (state.chart) {
@@ -323,13 +323,13 @@
 	}
 
 	function boot() {
-		state.wrap = document.querySelector('[data-nestform-chart-wrap]');
+		state.wrap = document.querySelector('[data-thimbleform-chart-wrap]');
 		if (!state.wrap || !ChartLib) {
 			return;
 		}
-		state.canvas = state.wrap.querySelector('[data-nestform-chart-canvas]');
+		state.canvas = state.wrap.querySelector('[data-thimbleform-chart-canvas]');
 
-		var free = parseJson(state.wrap.querySelector('[data-nestform-chart]'));
+		var free = parseJson(state.wrap.querySelector('[data-thimbleform-chart]'));
 		var pro = parseJson(state.wrap.querySelector('[data-thimbleform-pro-chart]'));
 		if (pro && typeof pro === 'object') {
 			state.series = pro;
@@ -353,7 +353,7 @@
 		updateLegend(activeSeries());
 		buildChart(activeSeries());
 
-		var plot = state.wrap.querySelector('[data-nestform-chart-plot]');
+		var plot = state.wrap.querySelector('[data-thimbleform-chart-plot]');
 		if (plot && typeof ResizeObserver !== 'undefined') {
 			var resizeTimer = null;
 			var ro = new ResizeObserver(function () {
@@ -382,7 +382,7 @@
 		}
 	}
 
-	window.nestformDashChartApi = {
+	window.thimbleformDashChartApi = {
 		applyMetric: applyMetric,
 		setActive: applyMetric,
 		getSeries: function () {

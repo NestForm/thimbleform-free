@@ -1,115 +1,115 @@
 /* Entries list + single entry — Make light */
-body.nestform-entries-screen.edit-php #wpbody-content > .wrap {
+body.thimbleform-entries-screen.edit-php #wpbody-content > .wrap {
     margin: 0;
     padding: 0;
     max-width: none;
 }
 
-body.nestform-entries-screen.edit-php .wrap > h1,
-body.nestform-entries-screen.edit-php .wrap > .wp-heading-inline,
-body.nestform-entries-screen.edit-php .wrap > a.page-title-action,
-body.nestform-entries-screen.edit-php .wrap > .subtitle {
+body.thimbleform-entries-screen.edit-php .wrap > h1,
+body.thimbleform-entries-screen.edit-php .wrap > .wp-heading-inline,
+body.thimbleform-entries-screen.edit-php .wrap > a.page-title-action,
+body.thimbleform-entries-screen.edit-php .wrap > .subtitle {
     display: none !important;
 }
 
-body.nestform-entries-screen.edit-php .wrap > hr.wp-header-end {
+body.thimbleform-entries-screen.edit-php .wrap > hr.wp-header-end {
     display: none;
 }
 
-.nestform-entries-screen.edit-php .subsubsub {
+.thimbleform-entries-screen.edit-php .subsubsub {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
     float: none;
-    margin: 0 0 var(--nestform-space-4);
+    margin: 0 0 var(--thimbleform-space-4);
     padding: 0;
     list-style: none;
     font-size: 13px;
     color: transparent;
 }
 
-.nestform-entries-screen.edit-php .subsubsub li {
+.thimbleform-entries-screen.edit-php .subsubsub li {
     margin: 0;
     display: inline-flex;
 }
 
-.nestform-entries-screen.edit-php .subsubsub a {
+.thimbleform-entries-screen.edit-php .subsubsub a {
     display: inline-flex;
     align-items: center;
-    gap: var(--nestform-space-1);
+    gap: var(--thimbleform-space-1);
     margin: 0;
-    padding: var(--nestform-space-2) var(--nestform-space-4);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
-    background: var(--nestform-surface);
-    color: var(--nestform-muted);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-4);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
+    background: var(--thimbleform-surface);
+    color: var(--thimbleform-muted);
     font-size: 12.5px;
     font-weight: 500;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     text-decoration: none;
     box-shadow: none;
-    transition: var(--nestform-transition);
+    transition: var(--thimbleform-transition);
 }
 
-.nestform-entries-screen.edit-php .subsubsub a .count {
-    color: var(--nestform-faint);
+.thimbleform-entries-screen.edit-php .subsubsub a .count {
+    color: var(--thimbleform-faint);
     font-weight: 600;
 }
 
-.nestform-entries-screen.edit-php .subsubsub a:hover {
-    color: var(--nestform-ink);
-    border-color: var(--nestform-border-strong);
+.thimbleform-entries-screen.edit-php .subsubsub a:hover {
+    color: var(--thimbleform-ink);
+    border-color: var(--thimbleform-border-strong);
 }
 
-.nestform-entries-screen.edit-php .subsubsub a.current {
-    color: var(--nestform-on-accent);
-    background: var(--nestform-primary);
-    border-color: var(--nestform-primary);
+.thimbleform-entries-screen.edit-php .subsubsub a.current {
+    color: var(--thimbleform-on-accent);
+    background: var(--thimbleform-primary);
+    border-color: var(--thimbleform-primary);
     font-weight: 600;
 }
 
-.nestform-entries-screen.edit-php .subsubsub a.current .count {
+.thimbleform-entries-screen.edit-php .subsubsub a.current .count {
     color: rgba(255, 255, 255, 0.82);
 }
 
-.nestform-entries-screen.edit-php #posts-filter .search-box {
+.thimbleform-entries-screen.edit-php #posts-filter .search-box {
     float: none;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
     margin: 0;
-    padding: var(--nestform-space-2) var(--nestform-space-4);
-    background: var(--nestform-surface);
-    border: 1px solid var(--nestform-border);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-4);
+    background: var(--thimbleform-surface);
+    border: 1px solid var(--thimbleform-border);
     border-bottom: 0;
-    border-radius: var(--nestform-radius) var(--nestform-radius) 0 0;
+    border-radius: var(--thimbleform-radius) var(--thimbleform-radius) 0 0;
     box-sizing: border-box;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     #posts-filter
     .search-box
     input[type="search"],
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     #posts-filter
     .search-box
     input[name="s"] {
     float: none;
     width: min(280px, 100%);
-    min-height: var(--nestform-control-h);
+    min-height: var(--thimbleform-control-h);
     margin: 0;
-    padding: var(--nestform-space-2) var(--nestform-space-2);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
-    background: var(--nestform-surface);
-    color: var(--nestform-ink);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-2);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
+    background: var(--thimbleform-surface);
+    color: var(--thimbleform-ink);
     box-shadow: none;
     font-size: 13px;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     #posts-filter
     .search-box
     .button {
@@ -117,79 +117,79 @@ body.wp-core-ui.nestform-entries-screen.edit-php
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--nestform-control-h);
+    min-height: var(--thimbleform-control-h);
     margin: 0;
-    padding: 0 var(--nestform-space-2);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
-    background: var(--nestform-surface);
-    color: var(--nestform-muted);
+    padding: 0 var(--thimbleform-space-2);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
+    background: var(--thimbleform-surface);
+    color: var(--thimbleform-muted);
     font-size: 13px;
     font-weight: 500;
     box-shadow: none !important;
     text-shadow: none;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     #posts-filter
     .search-box
     .button:hover,
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     #posts-filter
     .search-box
     .button:focus {
-    border-color: var(--nestform-hover-border);
-    color: var(--nestform-accent-dark);
-    background: var(--nestform-surface);
+    border-color: var(--thimbleform-hover-border);
+    color: var(--thimbleform-accent-dark);
+    background: var(--thimbleform-surface);
     outline: none;
-    box-shadow: var(--nestform-shadow);
+    box-shadow: var(--thimbleform-shadow);
 }
 
-.nestform-entries-screen.edit-php .tablenav {
+.thimbleform-entries-screen.edit-php .tablenav {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--nestform-space-2) var(--nestform-space-2);
+    gap: var(--thimbleform-space-2) var(--thimbleform-space-2);
     height: auto;
     min-height: 0;
-    margin: 0 0 var(--nestform-space-4);
-    padding: var(--nestform-space-2) var(--nestform-space-4);
+    margin: 0 0 var(--thimbleform-space-4);
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-4);
     clear: both;
-    background: var(--nestform-surface);
-    border: 1px solid var(--nestform-border);
-    border-radius: 0 0 var(--nestform-radius) var(--nestform-radius);
+    background: var(--thimbleform-surface);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: 0 0 var(--thimbleform-radius) var(--thimbleform-radius);
     box-sizing: border-box;
 }
 
-.nestform-entries-screen.edit-php .tablenav.bottom {
-    margin-top: var(--nestform-space-4);
+.thimbleform-entries-screen.edit-php .tablenav.bottom {
+    margin-top: var(--thimbleform-space-4);
     margin-bottom: 0;
-    border-radius: var(--nestform-radius);
+    border-radius: var(--thimbleform-radius);
 }
 
 /* Status/form filters live in subsubsub tabs; hide empty Filter submit. */
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .tablenav
     #post-query-submit {
     display: none !important;
 }
 
-.nestform-entries-screen.edit-php .tablenav .alignleft.actions {
+.thimbleform-entries-screen.edit-php .tablenav .alignleft.actions {
     float: none;
     display: inline-flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--nestform-space-2) var(--nestform-space-2);
+    gap: var(--thimbleform-space-2) var(--thimbleform-space-2);
     margin: 0;
     padding: 0;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .tablenav
     .alignleft.actions
     select,
-body.wp-core-ui.nestform-entries-screen.edit-php
-    .nestform-entries-toolbar__select {
+body.wp-core-ui.thimbleform-entries-screen.edit-php
+    .thimbleform-entries-toolbar__select {
     float: none;
     display: inline-block;
     max-width: 220px;
@@ -197,105 +197,105 @@ body.wp-core-ui.nestform-entries-screen.edit-php
     height: auto;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .tablenav
     .alignleft.actions
     .button,
-body.wp-core-ui.nestform-entries-screen.edit-php .tablenav #post-query-submit,
-body.wp-core-ui.nestform-entries-screen.edit-php
-    .nestform-entries-toolbar
+body.wp-core-ui.thimbleform-entries-screen.edit-php .tablenav #post-query-submit,
+body.wp-core-ui.thimbleform-entries-screen.edit-php
+    .thimbleform-entries-toolbar
     .button {
     float: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--nestform-space-1);
-    height: var(--nestform-control-h);
-    min-height: var(--nestform-control-h);
+    gap: var(--thimbleform-space-1);
+    height: var(--thimbleform-control-h);
+    min-height: var(--thimbleform-control-h);
     margin: 0;
-    padding: 0 var(--nestform-space-2);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
-    background: var(--nestform-surface);
-    color: var(--nestform-muted);
+    padding: 0 var(--thimbleform-space-2);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
+    background: var(--thimbleform-surface);
+    color: var(--thimbleform-muted);
     font-size: 13px;
     font-weight: 500;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     box-shadow: none !important;
     text-shadow: none;
     vertical-align: middle;
     box-sizing: border-box;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .tablenav
     .alignleft.actions
     .button:hover,
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .tablenav
     #post-query-submit:hover,
-body.wp-core-ui.nestform-entries-screen.edit-php
-    .nestform-entries-toolbar
+body.wp-core-ui.thimbleform-entries-screen.edit-php
+    .thimbleform-entries-toolbar
     .button:hover,
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .tablenav
     .alignleft.actions
     .button:focus,
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .tablenav
     #post-query-submit:focus,
-body.wp-core-ui.nestform-entries-screen.edit-php
-    .nestform-entries-toolbar
+body.wp-core-ui.thimbleform-entries-screen.edit-php
+    .thimbleform-entries-toolbar
     .button:focus {
-    border-color: var(--nestform-hover-border);
-    background: var(--nestform-surface);
-    color: var(--nestform-accent-dark);
-    box-shadow: var(--nestform-shadow);
+    border-color: var(--thimbleform-hover-border);
+    background: var(--thimbleform-surface);
+    color: var(--thimbleform-accent-dark);
+    box-shadow: var(--thimbleform-shadow);
 }
 
-.nestform-entries-screen.edit-php .tablenav .tablenav-pages {
+.thimbleform-entries-screen.edit-php .tablenav .tablenav-pages {
     float: none;
     display: inline-flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--nestform-space-2) var(--nestform-space-2);
+    gap: var(--thimbleform-space-2) var(--thimbleform-space-2);
     margin: 0 0 0 auto;
     height: auto;
 }
 
-.nestform-entries-screen.edit-php .tablenav .displaying-num {
+.thimbleform-entries-screen.edit-php .tablenav .displaying-num {
     float: none;
     display: inline-flex;
     align-items: center;
     margin: 0;
-    color: var(--nestform-muted);
+    color: var(--thimbleform-muted);
     font-size: 13px;
     font-weight: 500;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     white-space: nowrap;
 }
 
-.nestform-entries-screen.edit-php .tablenav .pagination-links {
+.thimbleform-entries-screen.edit-php .tablenav .pagination-links {
     float: none;
     display: inline-flex;
     align-items: center;
-    gap: var(--nestform-space-1);
+    gap: var(--thimbleform-space-1);
     margin: 0;
     vertical-align: middle;
 }
 
-.nestform-entries-screen.edit-php .tablenav .tablenav-pages .paging-input {
+.thimbleform-entries-screen.edit-php .tablenav .tablenav-pages .paging-input {
     display: inline-flex;
     align-items: center;
-    gap: var(--nestform-space-1);
+    gap: var(--thimbleform-space-1);
     margin: 0;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .tablenav
     .tablenav-pages
     .button,
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .tablenav
     .tablenav-pages
     .tablenav-pages-navspan {
@@ -305,36 +305,36 @@ body.wp-core-ui.nestform-entries-screen.edit-php
     float: none;
     width: 34px;
     min-width: 34px;
-    height: var(--nestform-control-h);
-    min-height: var(--nestform-control-h);
+    height: var(--thimbleform-control-h);
+    min-height: var(--thimbleform-control-h);
     margin: 0;
     padding: 0 !important;
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
-    background: var(--nestform-surface);
-    color: var(--nestform-muted);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
+    background: var(--thimbleform-surface);
+    color: var(--thimbleform-muted);
     font-size: 16px;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     text-align: center;
     box-shadow: none !important;
     text-shadow: none;
     box-sizing: border-box;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .tablenav
     .tablenav-pages
     .button:hover,
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .tablenav
     .tablenav-pages
     .button:focus {
-    border-color: var(--nestform-border-strong);
-    background: var(--nestform-raised);
-    color: var(--nestform-ink);
+    border-color: var(--thimbleform-border-strong);
+    background: var(--thimbleform-raised);
+    color: var(--thimbleform-ink);
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .tablenav
     .tablenav-pages
     .tablenav-pages-navspan {
@@ -342,7 +342,7 @@ body.wp-core-ui.nestform-entries-screen.edit-php
     cursor: default;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .tablenav
     .tablenav-pages
     .current-page {
@@ -354,152 +354,152 @@ body.wp-core-ui.nestform-entries-screen.edit-php
     min-width: 44px;
     max-width: 44px;
     margin: 0;
-    padding: 0 var(--nestform-space-1);
+    padding: 0 var(--thimbleform-space-1);
     font-weight: 600;
     text-align: center;
 }
 
-.nestform-entries-screen.edit-php .tablenav .tablenav-paging-text {
+.thimbleform-entries-screen.edit-php .tablenav .tablenav-paging-text {
     margin: 0;
-    color: var(--nestform-muted);
+    color: var(--thimbleform-muted);
     font-size: 13px;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     white-space: nowrap;
 }
 
-.nestform-entries-screen.edit-php .tablenav .tablenav-pages .total-pages {
+.thimbleform-entries-screen.edit-php .tablenav .tablenav-pages .total-pages {
     margin: 0;
-    color: var(--nestform-ink);
+    color: var(--thimbleform-ink);
     font-weight: 600;
 }
 
-.nestform-entries-toolbar {
+.thimbleform-entries-toolbar {
     display: inline-flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--nestform-space-2) var(--nestform-space-2);
+    gap: var(--thimbleform-space-2) var(--thimbleform-space-2);
     margin: 0;
     padding: 0;
     vertical-align: middle;
     box-sizing: border-box;
 }
 
-.nestform-entries-toolbar__back {
+.thimbleform-entries-toolbar__back {
     margin: 0 !important;
 }
 
-.nestform-entries-toolbar__pick {
+.thimbleform-entries-toolbar__pick {
     display: inline-flex;
     align-items: center;
     margin: 0;
 }
 
-.nestform-entries-toolbar__select {
+.thimbleform-entries-toolbar__select {
     min-width: 160px;
     max-width: 240px;
     width: auto;
     margin: 0;
 }
 
-.nestform-entries-toolbar__meta {
+.thimbleform-entries-toolbar__meta {
     display: inline-flex;
     align-items: center;
     margin: 0;
-    padding: 0 var(--nestform-space-1);
-    color: var(--nestform-muted);
+    padding: 0 var(--thimbleform-space-1);
+    color: var(--thimbleform-muted);
     font-size: 13px;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     white-space: nowrap;
 }
 
 /* Entries list table — Thimbleform tokens (override WP widefat/striped) */
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table,
-.nestform-entries-screen.edit-php .wp-list-table {
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table,
+.thimbleform-entries-screen.edit-php .wp-list-table {
     width: 100%;
     margin: 0;
-    border: 1px solid var(--nestform-border) !important;
-    border-radius: var(--nestform-radius);
+    border: 1px solid var(--thimbleform-border) !important;
+    border-radius: var(--thimbleform-radius);
     border-collapse: separate;
     border-spacing: 0;
-    background: var(--nestform-surface) !important;
-    color: var(--nestform-ink);
+    background: var(--thimbleform-surface) !important;
+    color: var(--thimbleform-ink);
     overflow: hidden;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table *,
-.nestform-entries-screen.edit-php .wp-list-table * {
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table *,
+.thimbleform-entries-screen.edit-php .wp-list-table * {
     box-shadow: none;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table thead th,
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table thead td,
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table tfoot th,
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table tfoot td,
-.nestform-entries-screen.edit-php .wp-list-table thead th,
-.nestform-entries-screen.edit-php .wp-list-table thead td,
-.nestform-entries-screen.edit-php .wp-list-table tfoot th,
-.nestform-entries-screen.edit-php .wp-list-table tfoot td {
-    padding: var(--nestform-space-2) var(--nestform-space-4) !important;
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table thead th,
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table thead td,
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table tfoot th,
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table tfoot td,
+.thimbleform-entries-screen.edit-php .wp-list-table thead th,
+.thimbleform-entries-screen.edit-php .wp-list-table thead td,
+.thimbleform-entries-screen.edit-php .wp-list-table tfoot th,
+.thimbleform-entries-screen.edit-php .wp-list-table tfoot td {
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-4) !important;
     border: 0 !important;
-    border-bottom: 1px solid var(--nestform-border) !important;
-    background: var(--nestform-soft) !important;
-    color: var(--nestform-faint) !important;
+    border-bottom: 1px solid var(--thimbleform-border) !important;
+    background: var(--thimbleform-soft) !important;
+    color: var(--thimbleform-faint) !important;
     font-size: 10px !important;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     vertical-align: middle;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table tfoot th,
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table tfoot td,
-.nestform-entries-screen.edit-php .wp-list-table tfoot th,
-.nestform-entries-screen.edit-php .wp-list-table tfoot td {
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table tfoot th,
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table tfoot td,
+.thimbleform-entries-screen.edit-php .wp-list-table tfoot th,
+.thimbleform-entries-screen.edit-php .wp-list-table tfoot td {
     border-bottom: 0 !important;
-    border-top: 1px solid var(--nestform-border) !important;
+    border-top: 1px solid var(--thimbleform-border) !important;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table thead a,
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table tfoot a,
-.nestform-entries-screen.edit-php .wp-list-table thead a,
-.nestform-entries-screen.edit-php .wp-list-table tfoot a {
-    color: var(--nestform-muted);
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table thead a,
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table tfoot a,
+.thimbleform-entries-screen.edit-php .wp-list-table thead a,
+.thimbleform-entries-screen.edit-php .wp-list-table tfoot a {
+    color: var(--thimbleform-muted);
     text-decoration: none;
     padding: 0;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table thead a:hover,
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table tfoot a:hover,
-.nestform-entries-screen.edit-php .wp-list-table thead a:hover,
-.nestform-entries-screen.edit-php .wp-list-table tfoot a:hover {
-    color: var(--nestform-ink);
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table thead a:hover,
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table tfoot a:hover,
+.thimbleform-entries-screen.edit-php .wp-list-table thead a:hover,
+.thimbleform-entries-screen.edit-php .wp-list-table tfoot a:hover {
+    color: var(--thimbleform-ink);
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     thead
     .sorting-indicators,
-.nestform-entries-screen.edit-php .wp-list-table thead .sorting-indicators,
-body.wp-core-ui.nestform-entries-screen.edit-php
+.thimbleform-entries-screen.edit-php .wp-list-table thead .sorting-indicators,
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     tr
     .sorting-indicators,
-.nestform-entries-screen.edit-php .wp-list-table thead .sorting-indicators {
+.thimbleform-entries-screen.edit-php .wp-list-table thead .sorting-indicators {
     display: none !important;
 }
 
 /* Sorting chevrons — shared stroke SVG masks */
-body.nestform-admin-screen .wp-list-table .sorting-indicator,
-body.nestform-entries-screen .wp-list-table .sorting-indicator {
+body.thimbleform-admin-screen .wp-list-table .sorting-indicator,
+body.thimbleform-entries-screen .wp-list-table .sorting-indicator {
     width: 14px;
     height: 14px;
     margin-top: 1px;
-    margin-left: var(--nestform-space-1);
+    margin-left: var(--thimbleform-space-1);
 }
 
-body.nestform-admin-screen .wp-list-table .sorting-indicator:before,
-body.nestform-entries-screen .wp-list-table .sorting-indicator:before {
+body.thimbleform-admin-screen .wp-list-table .sorting-indicator:before,
+body.thimbleform-entries-screen .wp-list-table .sorting-indicator:before {
     content: "" !important;
     font: none !important;
     font-family: none !important;
@@ -518,297 +518,297 @@ body.nestform-entries-screen .wp-list-table .sorting-indicator:before {
     mask: no-repeat center / 14px 14px;
 }
 
-body.nestform-admin-screen .wp-list-table .sorting-indicator.asc:before,
-body.nestform-entries-screen .wp-list-table .sorting-indicator.asc:before {
-    -webkit-mask-image: var(--nestform-chevron-mask-up);
-    mask-image: var(--nestform-chevron-mask-up);
+body.thimbleform-admin-screen .wp-list-table .sorting-indicator.asc:before,
+body.thimbleform-entries-screen .wp-list-table .sorting-indicator.asc:before {
+    -webkit-mask-image: var(--thimbleform-chevron-mask-up);
+    mask-image: var(--thimbleform-chevron-mask-up);
 }
 
-body.nestform-admin-screen .wp-list-table .sorting-indicator.desc:before,
-body.nestform-entries-screen .wp-list-table .sorting-indicator.desc:before {
-    -webkit-mask-image: var(--nestform-chevron-mask-down);
-    mask-image: var(--nestform-chevron-mask-down);
+body.thimbleform-admin-screen .wp-list-table .sorting-indicator.desc:before,
+body.thimbleform-entries-screen .wp-list-table .sorting-indicator.desc:before {
+    -webkit-mask-image: var(--thimbleform-chevron-mask-down);
+    mask-image: var(--thimbleform-chevron-mask-down);
 }
 
-body.nestform-admin-screen
+body.thimbleform-admin-screen
     .wp-list-table
     th.sorted.asc
     .sorting-indicator.asc:before,
-body.nestform-admin-screen
+body.thimbleform-admin-screen
     .wp-list-table
     th.sorted.desc
     .sorting-indicator.desc:before,
-body.nestform-entries-screen
+body.thimbleform-entries-screen
     .wp-list-table
     th.sorted.asc
     .sorting-indicator.asc:before,
-body.nestform-entries-screen
+body.thimbleform-entries-screen
     .wp-list-table
     th.sorted.desc
     .sorting-indicator.desc:before {
-    color: var(--nestform-accent);
+    color: var(--thimbleform-accent);
 }
 
-body.nestform-admin-screen
+body.thimbleform-admin-screen
     .wp-list-table
     th.sorted.asc:hover
     .sorting-indicator.asc:before,
-body.nestform-admin-screen
+body.thimbleform-admin-screen
     .wp-list-table
     th.sorted.desc:hover
     .sorting-indicator.desc:before,
-body.nestform-admin-screen
+body.thimbleform-admin-screen
     .wp-list-table
     th.sorted.asc
     a:focus
     .sorting-indicator.asc:before,
-body.nestform-admin-screen
+body.thimbleform-admin-screen
     .wp-list-table
     th.sorted.desc
     a:focus
     .sorting-indicator.desc:before,
-body.nestform-entries-screen
+body.thimbleform-entries-screen
     .wp-list-table
     th.sorted.asc:hover
     .sorting-indicator.asc:before,
-body.nestform-entries-screen
+body.thimbleform-entries-screen
     .wp-list-table
     th.sorted.desc:hover
     .sorting-indicator.desc:before {
-    color: var(--nestform-faint);
+    color: var(--thimbleform-faint);
 }
 
-body.nestform-admin-screen
+body.thimbleform-admin-screen
     .wp-list-table
     th.sorted.asc:hover
     .sorting-indicator.desc:before,
-body.nestform-admin-screen
+body.thimbleform-admin-screen
     .wp-list-table
     th.sorted.desc:hover
     .sorting-indicator.asc:before,
-body.nestform-admin-screen
+body.thimbleform-admin-screen
     .wp-list-table
     th.sorted.asc
     a:focus
     .sorting-indicator.desc:before,
-body.nestform-admin-screen
+body.thimbleform-admin-screen
     .wp-list-table
     th.sorted.desc
     a:focus
     .sorting-indicator.asc:before,
-body.nestform-entries-screen
+body.thimbleform-entries-screen
     .wp-list-table
     th.sorted.asc:hover
     .sorting-indicator.desc:before,
-body.nestform-entries-screen
+body.thimbleform-entries-screen
     .wp-list-table
     th.sorted.desc:hover
     .sorting-indicator.asc:before {
-    color: var(--nestform-accent);
+    color: var(--thimbleform-accent);
 }
 
-body.nestform-admin-screen .dashicons,
-body.nestform-entries-screen .dashicons {
+body.thimbleform-admin-screen .dashicons,
+body.thimbleform-entries-screen .dashicons {
     font-family: dashicons !important;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table tbody td,
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table tbody th,
-.nestform-entries-screen.edit-php .wp-list-table tbody td,
-.nestform-entries-screen.edit-php .wp-list-table tbody th {
-    padding: var(--nestform-space-2) !important;
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table tbody td,
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table tbody th,
+.thimbleform-entries-screen.edit-php .wp-list-table tbody td,
+.thimbleform-entries-screen.edit-php .wp-list-table tbody th {
+    padding: var(--thimbleform-space-2) !important;
     border: 0 !important;
-    border-bottom: 1px solid var(--nestform-border) !important;
-    background: var(--nestform-surface) !important;
-    color: var(--nestform-ink);
+    border-bottom: 1px solid var(--thimbleform-border) !important;
+    background: var(--thimbleform-surface) !important;
+    color: var(--thimbleform-ink);
     font-size: 13px;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
     vertical-align: middle;
     transition: .25s ease-in-out;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
     tr:nth-child(even)
     td,
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
     tr:nth-child(even)
     th,
-.nestform-entries-screen.edit-php .wp-list-table tbody tr:nth-child(even) td,
-.nestform-entries-screen.edit-php .wp-list-table tbody tr:nth-child(even) th {
-    background: var(--nestform-soft) !important;
+.thimbleform-entries-screen.edit-php .wp-list-table tbody tr:nth-child(even) td,
+.thimbleform-entries-screen.edit-php .wp-list-table tbody tr:nth-child(even) th {
+    background: var(--thimbleform-soft) !important;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table.striped
     > tbody
     > :nth-child(odd),
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table.striped
     > tbody
     > :nth-child(even),
-.nestform-entries-screen.edit-php
+.thimbleform-entries-screen.edit-php
     .wp-list-table.striped
     > tbody
     > :nth-child(odd),
-.nestform-entries-screen.edit-php
+.thimbleform-entries-screen.edit-php
     .wp-list-table.striped
     > tbody
     > :nth-child(even) {
     background-color: transparent !important;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
     tr:last-child
     td,
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
     tr:last-child
     th,
-.nestform-entries-screen.edit-php .wp-list-table tbody tr:last-child td,
-.nestform-entries-screen.edit-php .wp-list-table tbody tr:last-child th {
+.thimbleform-entries-screen.edit-php .wp-list-table tbody tr:last-child td,
+.thimbleform-entries-screen.edit-php .wp-list-table tbody tr:last-child th {
     border-bottom: 0 !important;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
     tr:hover
     td,
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
     tr:hover
     th,
-.nestform-entries-screen.edit-php .wp-list-table tbody tr:hover td,
-.nestform-entries-screen.edit-php .wp-list-table tbody tr:hover th {
-    background: var(--nestform-hover) !important;
+.thimbleform-entries-screen.edit-php .wp-list-table tbody tr:hover td,
+.thimbleform-entries-screen.edit-php .wp-list-table tbody tr:hover th {
+    background: var(--thimbleform-hover) !important;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
     tr:hover
     .button,
-.nestform-entries-screen.edit-php .wp-list-table tbody tr:hover .button {
-    background: var(--nestform-surface);
+.thimbleform-entries-screen.edit-php .wp-list-table tbody tr:hover .button {
+    background: var(--thimbleform-surface);
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
     tr:hover
     .button:hover,
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
     tr:hover
     .button:focus,
-.nestform-entries-screen.edit-php .wp-list-table tbody tr:hover .button:hover,
-.nestform-entries-screen.edit-php .wp-list-table tbody tr:hover .button:focus {
-    border-color: var(--nestform-hover-border);
-    color: var(--nestform-accent-dark);
-    background: var(--nestform-surface);
-    box-shadow: var(--nestform-shadow);
+.thimbleform-entries-screen.edit-php .wp-list-table tbody tr:hover .button:hover,
+.thimbleform-entries-screen.edit-php .wp-list-table tbody tr:hover .button:focus {
+    border-color: var(--thimbleform-hover-border);
+    color: var(--thimbleform-accent-dark);
+    background: var(--thimbleform-surface);
+    box-shadow: var(--thimbleform-shadow);
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
-    tr.nestform-entry--new
+    tr.thimbleform-entry--new
     td.check-column,
-.nestform-entries-screen.edit-php
+.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
-    tr.nestform-entry--new
+    tr.thimbleform-entry--new
     td.check-column {
-    box-shadow: inset 3px 0 0 var(--nestform-accent) !important;
+    box-shadow: inset 3px 0 0 var(--thimbleform-accent) !important;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
-    tr.nestform-entry--new:hover
+    tr.thimbleform-entry--new:hover
     td,
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
-    tr.nestform-entry--new:hover
+    tr.thimbleform-entry--new:hover
     th,
-.nestform-entries-screen.edit-php
+.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
-    tr.nestform-entry--new:hover
+    tr.thimbleform-entry--new:hover
     td,
-.nestform-entries-screen.edit-php
+.thimbleform-entries-screen.edit-php
     .wp-list-table
     tbody
-    tr.nestform-entry--new:hover
+    tr.thimbleform-entry--new:hover
     th {
-    background: var(--nestform-accent-soft) !important;
+    background: var(--thimbleform-accent-soft) !important;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table .row-title,
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table .row-title,
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     .row-title:hover,
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     .row-title:focus,
-.nestform-entries-screen.edit-php .wp-list-table .row-title,
-.nestform-entries-screen.edit-php .wp-list-table .row-title:hover,
-.nestform-entries-screen.edit-php .wp-list-table .row-title:focus {
-    color: var(--nestform-ink);
+.thimbleform-entries-screen.edit-php .wp-list-table .row-title,
+.thimbleform-entries-screen.edit-php .wp-list-table .row-title:hover,
+.thimbleform-entries-screen.edit-php .wp-list-table .row-title:focus {
+    color: var(--thimbleform-ink);
     font-weight: 600;
     text-decoration: none;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table .row-actions,
-.nestform-entries-screen.edit-php .wp-list-table .row-actions {
-    color: var(--nestform-faint);
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table .row-actions,
+.thimbleform-entries-screen.edit-php .wp-list-table .row-actions {
+    color: var(--thimbleform-faint);
     font-size: 12px;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table .row-actions a,
-.nestform-entries-screen.edit-php .wp-list-table .row-actions a {
-    color: var(--nestform-muted);
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table .row-actions a,
+.thimbleform-entries-screen.edit-php .wp-list-table .row-actions a {
+    color: var(--thimbleform-muted);
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
     .row-actions
     a:hover,
-.nestform-entries-screen.edit-php .wp-list-table .row-actions a:hover {
-    color: var(--nestform-accent);
+.thimbleform-entries-screen.edit-php .wp-list-table .row-actions a:hover {
+    color: var(--thimbleform-accent);
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table .column-date,
-.nestform-entries-screen.edit-php .wp-list-table .column-date {
-    color: var(--nestform-muted);
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table .column-date,
+.thimbleform-entries-screen.edit-php .wp-list-table .column-date {
+    color: var(--thimbleform-muted);
     font-size: 12px;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table td a,
-.nestform-entries-screen.edit-php .wp-list-table td a {
-    color: var(--nestform-accent);
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table td a,
+.thimbleform-entries-screen.edit-php .wp-list-table td a {
+    color: var(--thimbleform-accent);
     text-decoration: none;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table td a:hover,
-.nestform-entries-screen.edit-php .wp-list-table td a:hover {
-    color: var(--nestform-accent-dark);
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table td a:hover,
+.thimbleform-entries-screen.edit-php .wp-list-table td a:hover {
+    color: var(--thimbleform-accent-dark);
     text-decoration: underline;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table td a.row-title,
-.nestform-entries-screen.edit-php .wp-list-table td a.row-title {
-    color: var(--nestform-ink);
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table td a.row-title,
+.thimbleform-entries-screen.edit-php .wp-list-table td a.row-title {
+    color: var(--thimbleform-ink);
     display: inline-block;
     max-width: 100%;
     overflow: hidden;
@@ -817,107 +817,107 @@ body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table td a.row-title,
     vertical-align: bottom;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
-    .column-nestform_status
-    .nestform-entry-status,
-.nestform-entries-screen.edit-php
+    .column-thimbleform_status
+    .thimbleform-entry-status,
+.thimbleform-entries-screen.edit-php
     .wp-list-table
-    .column-nestform_status
-    .nestform-entry-status {
-    padding: var(--nestform-space-1) var(--nestform-space-2);
-    border-radius: var(--nestform-radius);
+    .column-thimbleform_status
+    .thimbleform-entry-status {
+    padding: var(--thimbleform-space-1) var(--thimbleform-space-2);
+    border-radius: var(--thimbleform-radius);
     font-size: 12px;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
-    .column-nestform_status,
-.nestform-entries-screen.edit-php .wp-list-table .column-nestform_status {
+    .column-thimbleform_status,
+.thimbleform-entries-screen.edit-php .wp-list-table .column-thimbleform_status {
     width: 88px;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
-    .column-nestform_date,
-.nestform-entries-screen.edit-php .wp-list-table .column-nestform_date {
+    .column-thimbleform_date,
+.thimbleform-entries-screen.edit-php .wp-list-table .column-thimbleform_date {
     width: 120px;
     white-space: nowrap;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
-    .column-nestform_preview,
-.nestform-entries-screen.edit-php .wp-list-table .column-nestform_preview {
+    .column-thimbleform_preview,
+.thimbleform-entries-screen.edit-php .wp-list-table .column-thimbleform_preview {
     width: 36%;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php
+body.wp-core-ui.thimbleform-entries-screen.edit-php
     .wp-list-table
-    .nestform-entry-date,
-.nestform-entries-screen.edit-php .wp-list-table .nestform-entry-date {
-    color: var(--nestform-muted);
+    .thimbleform-entry-date,
+.thimbleform-entries-screen.edit-php .wp-list-table .thimbleform-entry-date {
+    color: var(--thimbleform-muted);
     font-size: 12px;
     white-space: nowrap;
 }
 
-body.wp-core-ui.nestform-entries-screen.edit-php .wp-list-table .check-column,
-.nestform-entries-screen.edit-php .wp-list-table .check-column {
+body.wp-core-ui.thimbleform-entries-screen.edit-php .wp-list-table .check-column,
+.thimbleform-entries-screen.edit-php .wp-list-table .check-column {
     width: 40px;
-    padding-left: var(--nestform-space-4) !important;
+    padding-left: var(--thimbleform-space-4) !important;
     padding-right: 0 !important;
 }
 
-.nestform-entries-screen .tablenav {
-    margin: 0 0 var(--nestform-space-2);
+.thimbleform-entries-screen .tablenav {
+    margin: 0 0 var(--thimbleform-space-2);
 }
 
-.nestform-entries-toolbar__meta {
+.thimbleform-entries-toolbar__meta {
     display: inline-flex;
     align-items: center;
     margin: 0;
-    color: var(--nestform-muted);
+    color: var(--thimbleform-muted);
     font-size: 13px;
     font-weight: 500;
     white-space: nowrap;
 }
 
 /* Single entry view (post.php) */
-body.nestform-entries-screen.post-php #wpbody-content > .wrap {
+body.thimbleform-entries-screen.post-php #wpbody-content > .wrap {
     margin: 0;
     padding: 0;
     max-width: none;
 }
 
-body.nestform-entries-screen.post-php .wrap > h1,
-body.nestform-entries-screen.post-php .wrap > .wp-heading-inline,
-body.nestform-entries-screen.post-php .wrap > a.page-title-action,
-body.nestform-entries-screen.post-php .wrap > .subtitle {
+body.thimbleform-entries-screen.post-php .wrap > h1,
+body.thimbleform-entries-screen.post-php .wrap > .wp-heading-inline,
+body.thimbleform-entries-screen.post-php .wrap > a.page-title-action,
+body.thimbleform-entries-screen.post-php .wrap > .subtitle {
     display: none !important;
 }
 
-body.nestform-entries-screen.post-php .wrap > hr.wp-header-end {
+body.thimbleform-entries-screen.post-php .wrap > hr.wp-header-end {
     display: none;
 }
 
-body.nestform-entries-screen.post-php #poststuff {
+body.thimbleform-entries-screen.post-php #poststuff {
     padding-top: 0;
     min-width: 0;
 }
 
 /* Two columns via grid — WP float layout breaks inside app shell */
-body.nestform-entries-screen.post-php #poststuff #post-body.columns-2 {
+body.thimbleform-entries-screen.post-php #poststuff #post-body.columns-2 {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(280px, 320px);
-    gap: var(--nestform-space-4);
+    gap: var(--thimbleform-space-4);
     margin-right: 0 !important;
 }
 
-body.nestform-entries-screen.post-php  #post-body.columns-2 #side-sortables {
+body.thimbleform-entries-screen.post-php  #post-body.columns-2 #side-sortables {
   width: auto !important;
 }
 
-body.nestform-entries-screen.post-php #post-body.columns-2 #post-body-content {
+body.thimbleform-entries-screen.post-php #post-body.columns-2 #post-body-content {
     grid-column: 1;
     grid-row: 1;
     float: none;
@@ -926,13 +926,13 @@ body.nestform-entries-screen.post-php #post-body.columns-2 #post-body-content {
     min-width: 0;
 }
 
-body.nestform-entries-screen.post-php
+body.thimbleform-entries-screen.post-php
     #post-body.columns-2
     #postbox-container-2 {
     display: none;
 }
 
-body.nestform-entries-screen.post-php
+body.thimbleform-entries-screen.post-php
     #post-body.columns-2
     #postbox-container-1 {
     grid-column: 2;
@@ -944,11 +944,11 @@ body.nestform-entries-screen.post-php
 }
 
 @media only screen and (max-width: 960px) {
-    body.nestform-entries-screen.post-php #poststuff #post-body.columns-2 {
+    body.thimbleform-entries-screen.post-php #poststuff #post-body.columns-2 {
         grid-template-columns: 1fr;
     }
 
-    body.nestform-entries-screen.post-php
+    body.thimbleform-entries-screen.post-php
         #post-body.columns-2
         #postbox-container-1 {
         grid-column: 1;
@@ -956,88 +956,88 @@ body.nestform-entries-screen.post-php
     }
 }
 
-.nestform-entry-main {
+.thimbleform-entry-main {
     margin: 0;
-    background: var(--nestform-surface);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
+    background: var(--thimbleform-surface);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
     overflow: hidden;
 }
 
-.nestform-entry-main__head {
+.thimbleform-entry-main__head {
     display: flex;
     align-items: center;
     min-height: 48px;
-    padding: var(--nestform-space-4) var(--nestform-space-6);
-    border-bottom: 1px solid var(--nestform-border);
+    padding: var(--thimbleform-space-4) var(--thimbleform-space-6);
+    border-bottom: 1px solid var(--thimbleform-border);
     box-sizing: border-box;
 }
 
-.nestform-entry-main__title {
+.thimbleform-entry-main__title {
     margin: 0;
     padding: 0 !important;
     font-size: 14px;
     font-weight: 700;
-    color: var(--nestform-ink);
+    color: var(--thimbleform-ink);
     letter-spacing: -0.01em;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
 }
 
-.nestform-entry-main__body {
-    padding: var(--nestform-space-6);
+.thimbleform-entry-main__body {
+    padding: var(--thimbleform-space-6);
 }
 
-.nestform-entries-screen.post-php #poststuff .postbox {
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
-    background: var(--nestform-surface);
+.thimbleform-entries-screen.post-php #poststuff .postbox {
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
+    background: var(--thimbleform-surface);
     overflow: hidden;
 }
 
-.nestform-entries-screen.post-php #poststuff .postbox .postbox-header {
-    border-bottom: 1px solid var(--nestform-border);
-    background: var(--nestform-surface);
+.thimbleform-entries-screen.post-php #poststuff .postbox .postbox-header {
+    border-bottom: 1px solid var(--thimbleform-border);
+    background: var(--thimbleform-surface);
     min-height: 48px;
     box-sizing: border-box;
 }
 
-.nestform-entries-screen.post-php #poststuff .postbox .hndle {
-    padding: var(--nestform-space-4) var(--nestform-space-6);
+.thimbleform-entries-screen.post-php #poststuff .postbox .hndle {
+    padding: var(--thimbleform-space-4) var(--thimbleform-space-6);
     font-size: 14px;
     font-weight: 700;
-    color: var(--nestform-ink);
+    color: var(--thimbleform-ink);
     letter-spacing: -0.01em;
 }
 
-.nestform-entries-screen.post-php #poststuff .postbox .inside {
+.thimbleform-entries-screen.post-php #poststuff .postbox .inside {
     margin: 0;
-    padding: var(--nestform-space-6);
+    padding: var(--thimbleform-space-6);
 }
 
-.nestform-entries-screen.post-php #poststuff .postbox .handlediv {
-    color: var(--nestform-faint);
+.thimbleform-entries-screen.post-php #poststuff .postbox .handlediv {
+    color: var(--thimbleform-faint);
 }
 
-.nestform-entry-payload {
+.thimbleform-entry-payload {
     width: 100%;
     margin: 0;
-    border: 1px solid var(--nestform-border);
+    border: 1px solid var(--thimbleform-border);
     border-collapse: separate;
     border-spacing: 0;
-    border-radius: var(--nestform-radius);
+    border-radius: var(--thimbleform-radius);
     overflow: hidden;
-    background: var(--nestform-surface);
+    background: var(--thimbleform-surface);
     box-shadow: none;
-    color: var(--nestform-ink);
+    color: var(--thimbleform-ink);
     font-size: 13px;
-    line-height: var(--nestform-line-height);
+    line-height: var(--thimbleform-line-height);
 }
 
-.nestform-entry-payload thead th {
-    padding: var(--nestform-space-2) var(--nestform-space-4);
-    background: var(--nestform-soft);
-    border-bottom: 1px solid var(--nestform-border);
-    color: var(--nestform-faint);
+.thimbleform-entry-payload thead th {
+    padding: var(--thimbleform-space-2) var(--thimbleform-space-4);
+    background: var(--thimbleform-soft);
+    border-bottom: 1px solid var(--thimbleform-border);
+    color: var(--thimbleform-faint);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.06em;
@@ -1046,29 +1046,29 @@ body.nestform-entries-screen.post-php
     vertical-align: middle;
 }
 
-.nestform-entry-payload thead th + th {
-    border-left: 1px solid var(--nestform-border);
+.thimbleform-entry-payload thead th + th {
+    border-left: 1px solid var(--thimbleform-border);
 }
 
-.nestform-entry-payload tbody th,
-.nestform-entry-payload tbody td {
-    padding: var(--nestform-space-4);
+.thimbleform-entry-payload tbody th,
+.thimbleform-entry-payload tbody td {
+    padding: var(--thimbleform-space-4);
     vertical-align: top;
-    border-bottom: 1px solid var(--nestform-border);
-    background: var(--nestform-surface);
+    border-bottom: 1px solid var(--thimbleform-border);
+    background: var(--thimbleform-surface);
 }
 
-.nestform-entry-payload tbody tr:last-child th,
-.nestform-entry-payload tbody tr:last-child td {
+.thimbleform-entry-payload tbody tr:last-child th,
+.thimbleform-entry-payload tbody tr:last-child td {
     border-bottom: 0;
 }
 
-.nestform-entry-payload tbody tr:nth-child(even) th,
-.nestform-entry-payload tbody tr:nth-child(even) td {
-    background: var(--nestform-soft);
+.thimbleform-entry-payload tbody tr:nth-child(even) th,
+.thimbleform-entry-payload tbody tr:nth-child(even) td {
+    background: var(--thimbleform-soft);
 }
 
-.nestform-entry-payload tbody th {
+.thimbleform-entry-payload tbody th {
     width: 32%;
     max-width: 280px;
     white-space: normal;
@@ -1076,106 +1076,106 @@ body.nestform-entries-screen.post-php
     text-align: left;
 }
 
-.nestform-entry-payload tbody th + td {
-    border-left: 1px solid var(--nestform-border);
+.thimbleform-entry-payload tbody th + td {
+    border-left: 1px solid var(--thimbleform-border);
 }
 
-.nestform-entry-payload tbody td {
-    color: var(--nestform-ink);
+.thimbleform-entry-payload tbody td {
+    color: var(--thimbleform-ink);
     word-break: break-word;
 }
 
-.nestform-entry-payload tbody td a {
-    color: var(--nestform-accent);
+.thimbleform-entry-payload tbody td a {
+    color: var(--thimbleform-accent);
     text-decoration: none;
 }
 
-.nestform-entry-payload tbody td a:hover {
-    color: var(--nestform-accent-dark);
+.thimbleform-entry-payload tbody td a:hover {
+    color: var(--thimbleform-accent-dark);
     text-decoration: underline;
 }
 
-.nestform-entry-payload__label {
+.thimbleform-entry-payload__label {
     display: inline;
     font-weight: 600;
-    color: var(--nestform-ink);
+    color: var(--thimbleform-ink);
     letter-spacing: -0.01em;
 }
 
-.nestform-entry-meta {
+.thimbleform-entry-meta {
     font-size: 13px;
-    color: var(--nestform-ink);
+    color: var(--thimbleform-ink);
 }
 
-.nestform-btn svg,
-.nestform-admin__chip svg {
+.thimbleform-btn svg,
+.thimbleform-admin__chip svg {
     flex-shrink: 0;
     display: block;
     width: 16px;
     height: 16px;
 }
 
-.nestform-entry-meta__rows {
+.thimbleform-entry-meta__rows {
     display: flex;
     flex-direction: column;
-    gap: var(--nestform-space-4);
+    gap: var(--thimbleform-space-4);
 }
 
-.nestform-entry-meta__row {
+.thimbleform-entry-meta__row {
     display: flex;
     flex-direction: column;
-    gap: var(--nestform-space-1);
+    gap: var(--thimbleform-space-1);
     margin: 0;
-    padding: 0 0 var(--nestform-space-4);
-    border-bottom: 1px solid var(--nestform-border);
+    padding: 0 0 var(--thimbleform-space-4);
+    border-bottom: 1px solid var(--thimbleform-border);
 }
 
-.nestform-entry-meta__row:last-child {
+.thimbleform-entry-meta__row:last-child {
     padding-bottom: 0;
     border-bottom: 0;
 }
 
-.nestform-entry-meta__label {
+.thimbleform-entry-meta__label {
     display: block;
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--nestform-faint);
+    color: var(--thimbleform-faint);
 }
 
-.nestform-entry-meta__value {
-    color: var(--nestform-ink);
+.thimbleform-entry-meta__value {
+    color: var(--thimbleform-ink);
     word-break: break-word;
 }
 
-.nestform-entry-meta a:not(.nestform-btn) {
-    color: var(--nestform-accent);
+.thimbleform-entry-meta a:not(.thimbleform-btn) {
+    color: var(--thimbleform-accent);
     text-decoration: none;
 }
 
-.nestform-entry-meta code {
+.thimbleform-entry-meta code {
     display: inline-block;
-    padding: 2px var(--nestform-space-2);
-    background: var(--nestform-soft);
-    border: 1px solid var(--nestform-border);
-    border-radius: var(--nestform-radius);
+    padding: 2px var(--thimbleform-space-2);
+    background: var(--thimbleform-soft);
+    border: 1px solid var(--thimbleform-border);
+    border-radius: var(--thimbleform-radius);
     font-size: 12px;
 }
 
-.nestform-entry-notes {
+.thimbleform-entry-notes {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: var(--nestform-space-4);
+    gap: var(--thimbleform-space-4);
 }
 
-.nestform-entry-notes__field {
+.thimbleform-entry-notes__field {
     display: flex;
     flex-direction: column;
-    gap: var(--nestform-space-2);
+    gap: var(--thimbleform-space-2);
 }
 
-.nestform-entry-notes__star {
+.thimbleform-entry-notes__star {
     margin: 0;
 }

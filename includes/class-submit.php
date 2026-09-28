@@ -9,28 +9,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Submit {
+class Thimbleform_Submit {
 
 	const RATE_LIMIT_SECONDS = 60;
 
 	public static function init() {
-		add_action( 'wp_ajax_nestform_submit', array( __CLASS__, 'handle' ) );
-		add_action( 'wp_ajax_nopriv_nestform_submit', array( __CLASS__, 'handle' ) );
+		add_action( 'wp_ajax_thimbleform_submit', array( __CLASS__, 'handle' ) );
+		add_action( 'wp_ajax_nopriv_thimbleform_submit', array( __CLASS__, 'handle' ) );
 	}
 
 	public static function handle() {
 		$form_id = isset( $_POST['form_id'] ) ? (int) $_POST['form_id'] : 0;
 		$pt = get_post_type( $form_id );
-		if ( $form_id <= 0 || ! in_array( $pt, array( 'nestform', 'liteform', 'vite_form' ), true ) || 'publish' !== get_post_status( $form_id ) ) {
+		if ( $form_id <= 0 || ! in_array( $pt, array( 'thimbleform', 'liteform', 'vite_form' ), true ) || 'publish' !== get_post_status( $form_id ) ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'Invalid form.', 'nestform' ),
+					'message' => __( 'Invalid form.', 'thimbleform' ),
 				),
 				400
 			);
 		}
 
-		$nonce = isset( $_POST['nestform_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nestform_nonce'] ) ) : '';
+		$nonce = isset( $_POST['thimbleform_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['thimbleform_nonce'] ) ) : '';
 		if ( '' === $nonce && isset( $_POST['liteforms_nonce'] ) ) {
 			$nonce = sanitize_text_field( wp_unslash( $_POST['liteforms_nonce'] ) );
 		}
@@ -38,28 +38,28 @@ class Nestform_Submit {
 			$nonce = sanitize_text_field( wp_unslash( $_POST['vite_forms_nonce'] ) );
 		}
 		if (
-			! wp_verify_nonce( $nonce, 'nestform_submit_' . $form_id )
+			! wp_verify_nonce( $nonce, 'thimbleform_submit_' . $form_id )
 			&& ! wp_verify_nonce( $nonce, 'liteforms_submit_' . $form_id )
 			&& ! wp_verify_nonce( $nonce, 'vite_forms_submit_' . $form_id )
 		) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'Security check failed. Please refresh and try again.', 'nestform' ),
+					'message' => __( 'Security check failed. Please refresh and try again.', 'thimbleform' ),
 				),
 				403
 			);
 		}
 
-		$config   = Nestform_Form_Config::get( $form_id );
+		$config   = Thimbleform_Form_Config::get( $form_id );
 		$messages = $config['messages'];
 		$is_preview = self::is_preview_submit( $form_id );
 
-		if ( class_exists( 'Nestform_Security' ) ) {
-			Nestform_Security::set_upload_form_id( $form_id );
+		if ( class_exists( 'Thimbleform_Security' ) ) {
+			Thimbleform_Security::set_upload_form_id( $form_id );
 		}
 
 		// Honeypot.
-		$hp = isset( $_POST['nestform_hp'] ) ? sanitize_text_field( wp_unslash( $_POST['nestform_hp'] ) ) : '';
+		$hp = isset( $_POST['thimbleform_hp'] ) ? sanitize_text_field( wp_unslash( $_POST['thimbleform_hp'] ) ) : '';
 		if ( '' === $hp && isset( $_POST['liteforms_hp'] ) ) {
 			$hp = sanitize_text_field( wp_unslash( $_POST['liteforms_hp'] ) );
 		}
@@ -81,7 +81,7 @@ class Nestform_Submit {
 		// Time trap (too-fast bots).
 		$trap_seconds = isset( $config['settings']['time_trap_seconds'] ) ? (int) $config['settings']['time_trap_seconds'] : 3;
 		if ( $trap_seconds > 0 ) {
-			$loaded_at = isset( $_POST['nestform_loaded_at'] ) ? (int) $_POST['nestform_loaded_at'] : 0;
+			$loaded_at = isset( $_POST['thimbleform_loaded_at'] ) ? (int) $_POST['thimbleform_loaded_at'] : 0;
 			if ( $loaded_at <= 0 && isset( $_POST['liteforms_loaded_at'] ) ) {
 				$loaded_at = (int) $_POST['liteforms_loaded_at'];
 			}
@@ -100,7 +100,7 @@ class Nestform_Submit {
 			}
 		}
 
-		if ( ! $is_preview && class_exists( 'Nestform_Spam_Filter' ) && Nestform_Spam_Filter::is_blocked_ip( $ip ) ) {
+		if ( ! $is_preview && class_exists( 'Thimbleform_Spam_Filter' ) && Thimbleform_Spam_Filter::is_blocked_ip( $ip ) ) {
 			self::log_spam( $form_id, 'ip_blocked', '', $ip );
 			wp_send_json_error(
 				array(
@@ -136,25 +136,25 @@ class Nestform_Submit {
 		 * Captcha / bot checks before field validation.
 		 * When Thimbleform captcha is enabled for the form, verification is always
 		 * enforced here — a late filter returning true cannot bypass it.
-		 * Custom captcha providers use nestform_verify_captcha when Thimbleform captcha is off.
+		 * Custom captcha providers use thimbleform_verify_captcha when Thimbleform captcha is off.
 		 *
 		 * @param true|WP_Error $result Verification result.
 		 * @param int           $form_id Form ID.
 		 * @param array         $messages Form messages.
 		 */
-		if ( class_exists( 'Nestform_Captcha' ) && Nestform_Captcha::enabled_for_form( $form_id ) ) {
-			$captcha = Nestform_Captcha::verify();
+		if ( class_exists( 'Thimbleform_Captcha' ) && Thimbleform_Captcha::enabled_for_form( $form_id ) ) {
+			$captcha = Thimbleform_Captcha::verify();
 			if ( ! is_wp_error( $captcha ) ) {
 				// Allow additional restrictions only (cannot skip Thimbleform verify).
-				$extra = apply_filters( 'nestform_verify_captcha', true, $form_id, $messages );
+				$extra = apply_filters( 'thimbleform_verify_captcha', true, $form_id, $messages );
 				if ( is_wp_error( $extra ) ) {
 					$captcha = $extra;
 				} elseif ( false === $extra ) {
-					$captcha = new WP_Error( 'nestform_captcha', $messages['invalid_captcha'] );
+					$captcha = new WP_Error( 'thimbleform_captcha', $messages['invalid_captcha'] );
 				}
 			}
 		} else {
-			$captcha = apply_filters( 'nestform_verify_captcha', true, $form_id, $messages );
+			$captcha = apply_filters( 'thimbleform_verify_captcha', true, $form_id, $messages );
 		}
 		if ( is_wp_error( $captcha ) ) {
 			self::log_spam( $form_id, 'captcha', '', $ip );
@@ -181,7 +181,7 @@ class Nestform_Submit {
 		 * @param int   $form_id Form ID.
 		 * @param array $config  Config.
 		 */
-		do_action( 'nestform_before_validate', $form_id, $config );
+		do_action( 'thimbleform_before_validate', $form_id, $config );
 
 		$validated = self::validate( $config['fields'], $messages, $config['settings'] );
 		if ( is_wp_error( $validated ) ) {
@@ -198,8 +198,8 @@ class Nestform_Submit {
 		/** @var array<string, mixed> $data */
 		$data = $validated;
 
-		if ( ! $is_preview && class_exists( 'Nestform_Spam_Filter' ) ) {
-			if ( Nestform_Spam_Filter::is_duplicate( $form_id, $data, $ip ) ) {
+		if ( ! $is_preview && class_exists( 'Thimbleform_Spam_Filter' ) ) {
+			if ( Thimbleform_Spam_Filter::is_duplicate( $form_id, $data, $ip ) ) {
 				self::log_spam( $form_id, 'duplicate', '', $ip );
 				wp_send_json_error(
 					array(
@@ -208,7 +208,7 @@ class Nestform_Submit {
 					429
 				);
 			}
-			$content_hit = Nestform_Spam_Filter::check_content( $data );
+			$content_hit = Thimbleform_Spam_Filter::check_content( $data );
 			if ( is_array( $content_hit ) && ! empty( $content_hit['reason'] ) ) {
 				self::log_spam(
 					$form_id,
@@ -226,7 +226,7 @@ class Nestform_Submit {
 		}
 
 		// Recalculate calculated fields server-side (Pro add-on).
-		$data = apply_filters( 'nestform_apply_calculated_fields', $data, $config['fields'] );
+		$data = apply_filters( 'thimbleform_apply_calculated_fields', $data, $config['fields'] );
 
 		/**
 		 * Filter sanitized entry payload before store/mail.
@@ -235,14 +235,14 @@ class Nestform_Submit {
 		 * @param int   $form_id Form ID.
 		 * @param array $config  Config.
 		 */
-		$data = (array) apply_filters( 'nestform_entry_data', $data, $form_id, $config );
+		$data = (array) apply_filters( 'thimbleform_entry_data', $data, $form_id, $config );
 
 		if ( $is_preview ) {
 			self::send_preview_success( $form_id, $data, $config );
 		}
 
 		$store_ip = ! isset( $config['settings']['store_ip'] ) || '0' !== (string) $config['settings']['store_ip'];
-		$entry_id = Nestform_Submissions::create( $form_id, $data, $store_ip ? $ip : '' );
+		$entry_id = Thimbleform_Submissions::create( $form_id, $data, $store_ip ? $ip : '' );
 
 		/**
 		 * Fires after a successful form submission is stored.
@@ -251,7 +251,7 @@ class Nestform_Submit {
 		 * @param array<string, mixed> $data     Sanitized data.
 		 * @param int                  $entry_id Entry ID (0 if store failed).
 		 */
-		do_action( 'nestform_submitted', $form_id, $data, $entry_id );
+		do_action( 'thimbleform_submitted', $form_id, $data, $entry_id );
 
 		$mail_result = self::send_mail( $form_id, $data, $config['mail'] );
 
@@ -262,11 +262,11 @@ class Nestform_Submit {
 		 * @param array<string, mixed> $data        Data.
 		 * @param bool                 $mail_result Mail result.
 		 */
-		do_action( 'nestform_mail_sent', $form_id, $data, $mail_result );
+		do_action( 'thimbleform_mail_sent', $form_id, $data, $mail_result );
 
 		$extra_result = self::send_extra_mail( $form_id, $data, $config['mail'] );
 		if ( null !== $extra_result ) {
-			do_action( 'nestform_extra_mail_sent', $form_id, $data, $extra_result );
+			do_action( 'thimbleform_extra_mail_sent', $form_id, $data, $extra_result );
 		}
 
 		$user_mail_result = self::send_user_mail( $form_id, $data, $config['mail'] );
@@ -278,12 +278,12 @@ class Nestform_Submit {
 			 * @param array $data    Data.
 			 * @param bool  $result  Mail result.
 			 */
-			do_action( 'nestform_user_mail_sent', $form_id, $data, $user_mail_result );
+			do_action( 'thimbleform_user_mail_sent', $form_id, $data, $user_mail_result );
 		}
 
 		self::bump_rate_limit( $ip );
-		if ( class_exists( 'Nestform_Spam_Filter' ) ) {
-			Nestform_Spam_Filter::remember_submission( $form_id, $data, $ip );
+		if ( class_exists( 'Thimbleform_Spam_Filter' ) ) {
+			Thimbleform_Spam_Filter::remember_submission( $form_id, $data, $ip );
 		}
 
 		$success_message = self::apply_success_merge_tags( (string) $messages['success'], $data, $form_id );
@@ -295,7 +295,7 @@ class Nestform_Submit {
 		 * @param int                  $form_id  Form ID.
 		 * @param int                  $entry_id Entry ID.
 		 */
-		$success_message = (string) apply_filters( 'nestform_success_message', $success_message, $data, $form_id, $entry_id );
+		$success_message = (string) apply_filters( 'thimbleform_success_message', $success_message, $data, $form_id, $entry_id );
 
 		$redirect = isset( $config['settings']['redirect_url'] ) ? (string) $config['settings']['redirect_url'] : '';
 		$redirect = self::resolve_redirect_url( $redirect, $form_id, $data, $entry_id );
@@ -315,9 +315,9 @@ class Nestform_Submit {
 		 * @param int                  $entry_id Entry ID.
 		 * @param array                $config   Form config.
 		 */
-		$payload = (array) apply_filters( 'nestform_submit_success_data', $payload, $data, $form_id, $entry_id, $config );
-		if ( isset( $payload['redirect'] ) && class_exists( 'Nestform_Security' ) ) {
-			$payload['redirect'] = Nestform_Security::sanitize_redirect_url( (string) $payload['redirect'] );
+		$payload = (array) apply_filters( 'thimbleform_submit_success_data', $payload, $data, $form_id, $entry_id, $config );
+		if ( isset( $payload['redirect'] ) && class_exists( 'Thimbleform_Security' ) ) {
+			$payload['redirect'] = Thimbleform_Security::sanitize_redirect_url( (string) $payload['redirect'] );
 		}
 
 		wp_send_json_success( $payload );
@@ -330,12 +330,12 @@ class Nestform_Submit {
 	 * @return bool
 	 */
 	private static function is_preview_submit( $form_id ) {
-		if ( empty( $_POST['nestform_preview'] ) || '1' !== sanitize_text_field( wp_unslash( (string) $_POST['nestform_preview'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( empty( $_POST['thimbleform_preview'] ) || '1' !== sanitize_text_field( wp_unslash( (string) $_POST['thimbleform_preview'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			return false;
 		}
 
-		$nonce = isset( $_POST['nestform_preview_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nestform_preview_nonce'] ) ) : '';
-		if ( ! wp_verify_nonce( $nonce, 'nestform_preview_submit_' . $form_id ) ) {
+		$nonce = isset( $_POST['thimbleform_preview_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['thimbleform_preview_nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'thimbleform_preview_submit_' . $form_id ) ) {
 			return false;
 		}
 
@@ -360,7 +360,7 @@ class Nestform_Submit {
 		 * @param int                  $form_id  Form ID.
 		 * @param int                  $entry_id Entry ID (always 0 in preview).
 		 */
-		$success_message = (string) apply_filters( 'nestform_success_message', $success_message, $data, $form_id, 0 );
+		$success_message = (string) apply_filters( 'thimbleform_success_message', $success_message, $data, $form_id, 0 );
 
 		$payload = array(
 			'message'  => $success_message,
@@ -378,9 +378,9 @@ class Nestform_Submit {
 		 * @param int                  $entry_id Entry ID (0).
 		 * @param array                $config   Form config.
 		 */
-		$payload = (array) apply_filters( 'nestform_submit_success_data', $payload, $data, $form_id, 0, $config );
-		if ( isset( $payload['redirect'] ) && class_exists( 'Nestform_Security' ) ) {
-			$payload['redirect'] = Nestform_Security::sanitize_redirect_url( (string) $payload['redirect'] );
+		$payload = (array) apply_filters( 'thimbleform_submit_success_data', $payload, $data, $form_id, 0, $config );
+		if ( isset( $payload['redirect'] ) && class_exists( 'Thimbleform_Security' ) ) {
+			$payload['redirect'] = Thimbleform_Security::sanitize_redirect_url( (string) $payload['redirect'] );
 		}
 
 		wp_send_json_success( $payload );
@@ -396,17 +396,17 @@ class Nestform_Submit {
 		$data         = array();
 		$errors       = array();
 		$raw_map      = self::collect_condition_values( $fields );
-		$active_steps = Nestform_Form_Config::resolve_active_steps( $fields, $settings, $raw_map );
+		$active_steps = Thimbleform_Form_Config::resolve_active_steps( $fields, $settings, $raw_map );
 
 		foreach ( $fields as $field ) {
 			$name = $field['name'];
 			$type = $field['type'];
 
-			if ( Nestform_Form_Config::is_layout_field( $type ) ) {
+			if ( Thimbleform_Form_Config::is_layout_field( $type ) ) {
 				continue;
 			}
 
-			if ( ! Nestform_Form_Config::is_field_enabled( $field ) ) {
+			if ( ! Thimbleform_Form_Config::is_field_enabled( $field ) ) {
 				continue;
 			}
 
@@ -424,7 +424,7 @@ class Nestform_Submit {
 				}
 			}
 
-			if ( ! Nestform_Form_Config::is_field_visible( $field, $raw_map ) ) {
+			if ( ! Thimbleform_Form_Config::is_field_visible( $field, $raw_map ) ) {
 				continue;
 			}
 
@@ -458,13 +458,13 @@ class Nestform_Submit {
 			 * @param bool                 $required Required.
 			 */
 			$early = null;
-			if ( class_exists( 'Nestform_Features' ) ) {
+			if ( class_exists( 'Thimbleform_Features' ) ) {
 				if (
-					Nestform_Features::can( Nestform_Features::ADVANCED_FIELDS )
-					|| Nestform_Features::can( Nestform_Features::REPEATERS )
-					|| Nestform_Features::can( Nestform_Features::PAYMENTS )
+					Thimbleform_Features::can( Thimbleform_Features::ADVANCED_FIELDS )
+					|| Thimbleform_Features::can( Thimbleform_Features::REPEATERS )
+					|| Thimbleform_Features::can( Thimbleform_Features::PAYMENTS )
 				) {
-					$early = apply_filters( 'nestform_pre_validate_field', null, $field, $raw, $messages, $req );
+					$early = apply_filters( 'thimbleform_pre_validate_field', null, $field, $raw, $messages, $req );
 				}
 			}
 			if ( is_array( $early ) && ! empty( $early['handled'] ) ) {
@@ -496,9 +496,9 @@ class Nestform_Submit {
 			}
 
 			if ( 'checkboxes' === $type ) {
-				$options = Nestform_Form_Config::parse_choice_values( (string) ( $field['options'] ?? '' ) );
+				$options = Thimbleform_Form_Config::parse_choice_values( (string) ( $field['options'] ?? '' ) );
 				if ( ! empty( $field['allow_other'] ) ) {
-					$options[] = Nestform_Form_Config::OTHER_VALUE;
+					$options[] = Thimbleform_Form_Config::OTHER_VALUE;
 				}
 				$picked  = array();
 				if ( is_array( $raw ) ) {
@@ -513,7 +513,7 @@ class Nestform_Submit {
 					}
 				}
 				$picked = array_values( array_unique( $picked ) );
-				if ( ! empty( $field['allow_other'] ) && in_array( Nestform_Form_Config::OTHER_VALUE, $picked, true ) ) {
+				if ( ! empty( $field['allow_other'] ) && in_array( Thimbleform_Form_Config::OTHER_VALUE, $picked, true ) ) {
 					$other_text = self::posted_other_text( $name );
 					if ( $other_text === '' ) {
 						$errors[ $name ] = $messages['required'];
@@ -521,7 +521,7 @@ class Nestform_Submit {
 					}
 					$picked = array_map(
 						static function ( $v ) use ( $other_text ) {
-							return Nestform_Form_Config::OTHER_VALUE === $v ? $other_text : $v;
+							return Thimbleform_Form_Config::OTHER_VALUE === $v ? $other_text : $v;
 						},
 						$picked
 					);
@@ -534,15 +534,15 @@ class Nestform_Submit {
 				continue;
 			}
 
-			if ( 'tel' === $type && class_exists( 'Nestform_Phone' ) && Nestform_Phone::is_picker_enabled( $field ) ) {
+			if ( 'tel' === $type && class_exists( 'Thimbleform_Phone' ) && Thimbleform_Phone::is_picker_enabled( $field ) ) {
 				$iso_key      = $name . '__iso';
 				$national_key = $name . '__national';
 				$iso          = isset( $_POST[ $iso_key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $iso_key ] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
-				$iso          = Nestform_Phone::sanitize_iso( $iso );
+				$iso          = Thimbleform_Phone::sanitize_iso( $iso );
 				$national     = isset( $_POST[ $national_key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $national_key ] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 				$posted       = is_string( $raw ) ? trim( $raw ) : '';
 				$source       = $national !== '' ? $national : $posted;
-				$e164         = Nestform_Phone::to_e164( $iso, $source );
+				$e164         = Thimbleform_Phone::to_e164( $iso, $source );
 				if ( '' === $e164 ) {
 					if ( $req ) {
 						$errors[ $name ] = $messages['required'];
@@ -551,7 +551,7 @@ class Nestform_Submit {
 					}
 					continue;
 				}
-				if ( ! Nestform_Phone::is_valid_e164( $e164 ) ) {
+				if ( ! Thimbleform_Phone::is_valid_e164( $e164 ) ) {
 					$errors[ $name ] = $messages['invalid_tel'];
 					continue;
 				}
@@ -609,7 +609,7 @@ class Nestform_Submit {
 					continue;
 				}
 				if ( 'range' === $type ) {
-					$range = Nestform_Form_Config::parse_range_options( (string) ( $field['options'] ?? '' ) );
+					$range = Thimbleform_Form_Config::parse_range_options( (string) ( $field['options'] ?? '' ) );
 					$num   = (float) $value;
 					if ( $num < $range['min'] || $num > $range['max'] ) {
 						$errors[ $name ] = $messages['invalid_number'] ?? $messages['error_generic'];
@@ -673,7 +673,7 @@ class Nestform_Submit {
 				 * @param string               $plain  Plaintext password.
 				 * @param array<string, mixed> $field  Field config.
 				 */
-				$data[ $name ] = (string) apply_filters( 'nestform_store_password_value', '[redacted]', $plain, $field );
+				$data[ $name ] = (string) apply_filters( 'thimbleform_store_password_value', '[redacted]', $plain, $field );
 				continue;
 			}
 
@@ -687,15 +687,15 @@ class Nestform_Submit {
 			}
 
 			if ( 'select' === $type || 'radio' === $type ) {
-				$options = Nestform_Form_Config::parse_choice_values( (string) ( $field['options'] ?? '' ) );
+				$options = Thimbleform_Form_Config::parse_choice_values( (string) ( $field['options'] ?? '' ) );
 				if ( ! empty( $field['allow_other'] ) ) {
-					$options[] = Nestform_Form_Config::OTHER_VALUE;
+					$options[] = Thimbleform_Form_Config::OTHER_VALUE;
 				}
 				if ( ! in_array( $value, $options, true ) ) {
 					$errors[ $name ] = $messages['error_generic'];
 					continue;
 				}
-				if ( ! empty( $field['allow_other'] ) && Nestform_Form_Config::OTHER_VALUE === $value ) {
+				if ( ! empty( $field['allow_other'] ) && Thimbleform_Form_Config::OTHER_VALUE === $value ) {
 					$other_text = self::posted_other_text( $name );
 					if ( $other_text === '' ) {
 						$errors[ $name ] = $messages['required'];
@@ -723,7 +723,7 @@ class Nestform_Submit {
 			 * @param array $field    Field config.
 			 * @param array $messages Messages.
 			 */
-			$filtered = apply_filters( 'nestform_validate_field', $data[ $name ], $field, $messages );
+			$filtered = apply_filters( 'thimbleform_validate_field', $data[ $name ], $field, $messages );
 			if ( is_wp_error( $filtered ) ) {
 				$errors[ $name ] = $filtered->get_error_message();
 				continue;
@@ -732,7 +732,7 @@ class Nestform_Submit {
 		}
 
 		if ( array() !== $errors ) {
-			$error = new WP_Error( 'nestform_validation', $messages['error_generic'], $errors );
+			$error = new WP_Error( 'thimbleform_validation', $messages['error_generic'], $errors );
 			return $error;
 		}
 
@@ -757,7 +757,7 @@ class Nestform_Submit {
 			}
 		}
 
-		$is_html = class_exists( 'Nestform_Mail_Html' ) && Nestform_Mail_Html::is_html_mail( (string) ( $mail['body_template'] ?? '' ), $mail );
+		$is_html = class_exists( 'Thimbleform_Mail_Html' ) && Thimbleform_Mail_Html::is_html_mail( (string) ( $mail['body_template'] ?? '' ), $mail );
 		$subject = self::replace_placeholders( $mail['subject'], $form_id, $data, false );
 		$body    = self::replace_placeholders( $mail['body_template'], $form_id, $data, $is_html );
 
@@ -766,8 +766,8 @@ class Nestform_Submit {
 				? 'Content-Type: text/html; charset=UTF-8'
 				: 'Content-Type: text/plain; charset=UTF-8',
 		);
-		$from_name  = $mail['from_name'] !== '' ? $mail['from_name'] : ( class_exists( 'Nestform_Settings' ) ? Nestform_Settings::mail_from_name() : get_bloginfo( 'name' ) );
-		$from_email = class_exists( 'Nestform_Settings' ) ? Nestform_Settings::mail_from_email() : get_option( 'admin_email' );
+		$from_name  = $mail['from_name'] !== '' ? $mail['from_name'] : ( class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::mail_from_name() : get_bloginfo( 'name' ) );
+		$from_email = class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::mail_from_email() : get_option( 'admin_email' );
 		if ( is_string( $from_email ) && is_email( $from_email ) ) {
 			$headers[] = 'From: ' . self::format_from( $from_name, $from_email );
 		}
@@ -794,8 +794,8 @@ class Nestform_Submit {
 		 * @param array<string, mixed> $data        Data.
 		 * @param array                $mail        Mail config.
 		 */
-		if ( class_exists( 'Nestform_Features' ) && Nestform_Features::can( Nestform_Features::PDF_EXPORT ) ) {
-			$attachments = (array) apply_filters( 'nestform_mail_attachments', $attachments, $form_id, $data, $mail );
+		if ( class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::can( Thimbleform_Features::PDF_EXPORT ) ) {
+			$attachments = (array) apply_filters( 'thimbleform_mail_attachments', $attachments, $form_id, $data, $mail );
 		}
 
 		/**
@@ -806,7 +806,7 @@ class Nestform_Submit {
 		 * @param array $data Data.
 		 */
 		$args = apply_filters(
-			'nestform_mail_args',
+			'thimbleform_mail_args',
 			array(
 				'to'          => $to,
 				'subject'     => $subject,
@@ -819,8 +819,8 @@ class Nestform_Submit {
 		);
 
 		$attach = isset( $args['attachments'] ) && is_array( $args['attachments'] ) ? $args['attachments'] : array();
-		if ( class_exists( 'Nestform_Email_Log' ) ) {
-			return Nestform_Email_Log::send( 'admin', $args['to'], $args['subject'], $args['body'], $args['headers'], $attach, $form_id, 0 );
+		if ( class_exists( 'Thimbleform_Email_Log' ) ) {
+			return Thimbleform_Email_Log::send( 'admin', $args['to'], $args['subject'], $args['body'], $args['headers'], $attach, $form_id, 0 );
 		}
 		return (bool) wp_mail( $args['to'], $args['subject'], $args['body'], $args['headers'], $attach );
 	}
@@ -843,7 +843,7 @@ class Nestform_Submit {
 			'condition_op'    => (string) ( $mail['extra_condition_op'] ?? 'equals' ),
 			'condition_value' => (string) ( $mail['extra_condition_value'] ?? '' ),
 		);
-		if ( $probe['condition_field'] !== '' && ! Nestform_Form_Config::is_field_visible( $probe, $data ) ) {
+		if ( $probe['condition_field'] !== '' && ! Thimbleform_Form_Config::is_field_visible( $probe, $data ) ) {
 			return null;
 		}
 
@@ -853,25 +853,25 @@ class Nestform_Submit {
 		}
 
 		$subject = self::replace_placeholders( (string) ( $mail['extra_subject'] ?? '' ), $form_id, $data, false );
-		$body    = self::replace_placeholders( (string) ( $mail['extra_body'] ?? '' ), $form_id, $data, class_exists( 'Nestform_Mail_Html' ) && Nestform_Mail_Html::is_html_mail( (string) ( $mail['extra_body'] ?? '' ), $mail ) );
+		$body    = self::replace_placeholders( (string) ( $mail['extra_body'] ?? '' ), $form_id, $data, class_exists( 'Thimbleform_Mail_Html' ) && Thimbleform_Mail_Html::is_html_mail( (string) ( $mail['extra_body'] ?? '' ), $mail ) );
 		if ( $subject === '' || $body === '' ) {
 			return null;
 		}
 
-		$is_html = class_exists( 'Nestform_Mail_Html' ) && Nestform_Mail_Html::is_html_mail( $body, $mail );
+		$is_html = class_exists( 'Thimbleform_Mail_Html' ) && Thimbleform_Mail_Html::is_html_mail( $body, $mail );
 		$headers   = array(
 			$is_html
 				? 'Content-Type: text/html; charset=UTF-8'
 				: 'Content-Type: text/plain; charset=UTF-8',
 		);
-		$from_name  = $mail['from_name'] !== '' ? $mail['from_name'] : ( class_exists( 'Nestform_Settings' ) ? Nestform_Settings::mail_from_name() : get_bloginfo( 'name' ) );
-		$from_email = class_exists( 'Nestform_Settings' ) ? Nestform_Settings::mail_from_email() : get_option( 'admin_email' );
+		$from_name  = $mail['from_name'] !== '' ? $mail['from_name'] : ( class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::mail_from_name() : get_bloginfo( 'name' ) );
+		$from_email = class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::mail_from_email() : get_option( 'admin_email' );
 		if ( is_string( $from_email ) && is_email( $from_email ) ) {
 			$headers[] = 'From: ' . self::format_from( $from_name, $from_email );
 		}
 
 		$args = apply_filters(
-			'nestform_extra_mail_args',
+			'thimbleform_extra_mail_args',
 			array(
 				'to'      => $to,
 				'subject' => $subject,
@@ -882,8 +882,8 @@ class Nestform_Submit {
 			$data
 		);
 
-		return class_exists( 'Nestform_Email_Log' )
-			? Nestform_Email_Log::send( 'extra', $args['to'], $args['subject'], $args['body'], $args['headers'], array(), $form_id, 0 )
+		return class_exists( 'Thimbleform_Email_Log' )
+			? Thimbleform_Email_Log::send( 'extra', $args['to'], $args['subject'], $args['body'], $args['headers'], array(), $form_id, 0 )
 			: (bool) wp_mail( $args['to'], $args['subject'], $args['body'], $args['headers'] );
 	}
 
@@ -907,19 +907,19 @@ class Nestform_Submit {
 		}
 
 		$subject = self::replace_placeholders( (string) ( $mail['user_mail_subject'] ?? '' ), $form_id, $data, false );
-		$body    = self::replace_placeholders( (string) ( $mail['user_mail_body'] ?? '' ), $form_id, $data, class_exists( 'Nestform_Mail_Html' ) && Nestform_Mail_Html::is_html_mail( (string) ( $mail['user_mail_body'] ?? '' ), $mail ) );
+		$body    = self::replace_placeholders( (string) ( $mail['user_mail_body'] ?? '' ), $form_id, $data, class_exists( 'Thimbleform_Mail_Html' ) && Thimbleform_Mail_Html::is_html_mail( (string) ( $mail['user_mail_body'] ?? '' ), $mail ) );
 		if ( $subject === '' || $body === '' ) {
 			return null;
 		}
 
-		$is_html = class_exists( 'Nestform_Mail_Html' ) && Nestform_Mail_Html::is_html_mail( $body, $mail );
+		$is_html = class_exists( 'Thimbleform_Mail_Html' ) && Thimbleform_Mail_Html::is_html_mail( $body, $mail );
 		$headers   = array(
 			$is_html
 				? 'Content-Type: text/html; charset=UTF-8'
 				: 'Content-Type: text/plain; charset=UTF-8',
 		);
-		$from_name  = $mail['from_name'] !== '' ? $mail['from_name'] : ( class_exists( 'Nestform_Settings' ) ? Nestform_Settings::mail_from_name() : get_bloginfo( 'name' ) );
-		$from_email = class_exists( 'Nestform_Settings' ) ? Nestform_Settings::mail_from_email() : get_option( 'admin_email' );
+		$from_name  = $mail['from_name'] !== '' ? $mail['from_name'] : ( class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::mail_from_name() : get_bloginfo( 'name' ) );
+		$from_email = class_exists( 'Thimbleform_Settings' ) ? Thimbleform_Settings::mail_from_email() : get_option( 'admin_email' );
 		if ( is_string( $from_email ) && is_email( $from_email ) ) {
 			$headers[] = 'From: ' . self::format_from( $from_name, $from_email );
 		}
@@ -932,7 +932,7 @@ class Nestform_Submit {
 		 * @param array $data    Data.
 		 */
 		$args = apply_filters(
-			'nestform_user_mail_args',
+			'thimbleform_user_mail_args',
 			array(
 				'to'      => $to,
 				'subject' => $subject,
@@ -943,8 +943,8 @@ class Nestform_Submit {
 			$data
 		);
 
-		return class_exists( 'Nestform_Email_Log' )
-			? Nestform_Email_Log::send( 'user', $args['to'], $args['subject'], $args['body'], $args['headers'], array(), $form_id, 0 )
+		return class_exists( 'Thimbleform_Email_Log' )
+			? Thimbleform_Email_Log::send( 'user', $args['to'], $args['subject'], $args['body'], $args['headers'], array(), $form_id, 0 )
 			: (bool) wp_mail( $args['to'], $args['subject'], $args['body'], $args['headers'] );
 	}
 
@@ -959,10 +959,10 @@ class Nestform_Submit {
 		$form_title = get_the_title( $form_id );
 		$template   = (string) $template;
 
-		if ( class_exists( 'Nestform_Mail_Html' ) ) {
-			$template = Nestform_Mail_Html::expand_loops( $template, $data, $html );
-			$all      = Nestform_Mail_Html::format_all_fields( $data, $html );
-			$template = Nestform_Mail_Html::replace_simple_tokens( $template, $data, $html );
+		if ( class_exists( 'Thimbleform_Mail_Html' ) ) {
+			$template = Thimbleform_Mail_Html::expand_loops( $template, $data, $html );
+			$all      = Thimbleform_Mail_Html::format_all_fields( $data, $html );
+			$template = Thimbleform_Mail_Html::replace_simple_tokens( $template, $data, $html );
 		} else {
 			$all_lines = array();
 			foreach ( $data as $key => $value ) {
@@ -1083,10 +1083,10 @@ class Nestform_Submit {
 		 * @param array<string, mixed> $data     Entry data.
 		 * @param int                  $entry_id Entry ID.
 		 */
-		$url = (string) apply_filters( 'nestform_redirect_url', $url, $template, $form_id, $data, $entry_id );
+		$url = (string) apply_filters( 'thimbleform_redirect_url', $url, $template, $form_id, $data, $entry_id );
 
-		if ( class_exists( 'Nestform_Security' ) ) {
-			return Nestform_Security::sanitize_redirect_url( $url );
+		if ( class_exists( 'Thimbleform_Security' ) ) {
+			return Thimbleform_Security::sanitize_redirect_url( $url );
 		}
 		return esc_url_raw( $url );
 	}
@@ -1119,8 +1119,8 @@ class Nestform_Submit {
 	 * @return string
 	 */
 	private static function format_data_value( $value ) {
-		if ( class_exists( 'Nestform_Mail_Html' ) ) {
-			return Nestform_Mail_Html::format_value( $value, false );
+		if ( class_exists( 'Thimbleform_Mail_Html' ) ) {
+			return Thimbleform_Mail_Html::format_value( $value, false );
 		}
 		if ( is_bool( $value ) ) {
 			return $value ? 'yes' : 'no';
@@ -1132,12 +1132,12 @@ class Nestform_Submit {
 		if ( is_array( $value ) && isset( $value['intent_id'], $value['amount'], $value['currency'] ) ) {
 			$line = sprintf(
 				/* translators: 1: amount, 2: currency */
-				__( 'Paid %1$s %2$s', 'nestform' ),
+				__( 'Paid %1$s %2$s', 'thimbleform' ),
 				(string) $value['amount'],
 				(string) $value['currency']
 			);
 			if ( ! empty( $value['mode'] ) && 'test' === (string) $value['mode'] ) {
-				$line .= ' · ' . __( 'test', 'nestform' );
+				$line .= ' · ' . __( 'test', 'thimbleform' );
 			}
 			if ( ! empty( $value['intent_id'] ) ) {
 				$line .= ' (' . (string) $value['intent_id'] . ')';
@@ -1186,7 +1186,7 @@ class Nestform_Submit {
 	private static function handle_file_upload( array $field, array $messages ) {
 		$name      = (string) $field['name'];
 		$req       = ! empty( $field['required'] );
-		$max_count = Nestform_Form_Config::file_max_count( $field );
+		$max_count = Thimbleform_Form_Config::file_max_count( $field );
 		$file      = isset( $_FILES[ $name ] ) ? $_FILES[ $name ] : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		if ( ! is_array( $file ) || empty( $file['name'] ) ) {
@@ -1252,19 +1252,19 @@ class Nestform_Submit {
 			return new WP_Error( 'invalid_file', $messages['invalid_file'] ?? $messages['error_generic'] );
 		}
 
-		$max_mb    = max( 1, min( 50, (int) ( $field['placeholder'] ?? Nestform_Form_Config::file_default_max_mb() ) ) );
+		$max_mb    = max( 1, min( 50, (int) ( $field['placeholder'] ?? Thimbleform_Form_Config::file_default_max_mb() ) ) );
 		$max_bytes = $max_mb * 1024 * 1024;
 		if ( ! empty( $file['size'] ) && (int) $file['size'] > $max_bytes ) {
 			return new WP_Error( 'file_too_large', $messages['file_too_large'] ?? $messages['error_generic'] );
 		}
 
-		$allowed_ext = Nestform_Form_Config::parse_file_extensions( (string) ( $field['options'] ?? '' ) );
+		$allowed_ext = Thimbleform_Form_Config::parse_file_extensions( (string) ( $field['options'] ?? '' ) );
 		$check       = wp_check_filetype_and_ext( $file['tmp_name'], $file['name'] );
 		$file_ext    = isset( $check['ext'] ) ? strtolower( (string) $check['ext'] ) : '';
 		if ( $file_ext === '' || ! in_array( $file_ext, $allowed_ext, true ) ) {
 			return new WP_Error( 'invalid_file', $messages['invalid_file'] ?? $messages['error_generic'] );
 		}
-		if ( Nestform_Form_Config::is_dangerous_file_extension( $file_ext ) ) {
+		if ( Thimbleform_Form_Config::is_dangerous_file_extension( $file_ext ) ) {
 			return new WP_Error( 'invalid_file', $messages['invalid_file'] ?? $messages['error_generic'] );
 		}
 
@@ -1290,8 +1290,8 @@ class Nestform_Submit {
 			);
 		};
 
-		$upload = class_exists( 'Nestform_Security' )
-			? Nestform_Security::with_private_uploads( $do_upload )
+		$upload = class_exists( 'Thimbleform_Security' )
+			? Thimbleform_Security::with_private_uploads( $do_upload )
 			: $do_upload();
 
 		if ( isset( $upload['error'] ) ) {
@@ -1317,8 +1317,8 @@ class Nestform_Submit {
 			$attach_id = 0;
 		}
 
-		if ( class_exists( 'Nestform_Security' ) && $attach_id > 0 ) {
-			return Nestform_Security::finalize_private_attachment(
+		if ( class_exists( 'Thimbleform_Security' ) && $attach_id > 0 ) {
+			return Thimbleform_Security::finalize_private_attachment(
 				(int) $attach_id,
 				(string) $upload['file'],
 				(string) ( $upload['type'] ?? '' ),
@@ -1356,7 +1356,7 @@ class Nestform_Submit {
 		if ( ! class_exists( 'Akismet' ) || ! method_exists( 'Akismet', 'http_post' ) ) {
 			return true;
 		}
-		$api_key = apply_filters( 'nestform_akismet_key', defined( 'WPCOM_API_KEY' ) ? WPCOM_API_KEY : get_option( 'wordpress_api_key' ) );
+		$api_key = apply_filters( 'thimbleform_akismet_key', defined( 'WPCOM_API_KEY' ) ? WPCOM_API_KEY : get_option( 'wordpress_api_key' ) );
 		if ( ! is_string( $api_key ) || $api_key === '' ) {
 			return true;
 		}
@@ -1367,7 +1367,7 @@ class Nestform_Submit {
 		foreach ( (array) ( $config['fields'] ?? array() ) as $field ) {
 			$name = (string) ( $field['name'] ?? '' );
 			$type = (string) ( $field['type'] ?? '' );
-			if ( $name === '' || Nestform_Form_Config::is_layout_field( $type ) ) {
+			if ( $name === '' || Thimbleform_Form_Config::is_layout_field( $type ) ) {
 				continue;
 			}
 			$raw = isset( $_POST[ $name ] ) ? wp_unslash( $_POST[ $name ] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -1418,7 +1418,7 @@ class Nestform_Submit {
 		foreach ( $fields as $field ) {
 			$name = isset( $field['name'] ) ? (string) $field['name'] : '';
 			$type = isset( $field['type'] ) ? (string) $field['type'] : '';
-			if ( $name === '' || Nestform_Form_Config::is_layout_field( $type ) || 'file' === $type ) {
+			if ( $name === '' || Thimbleform_Form_Config::is_layout_field( $type ) || 'file' === $type ) {
 				continue;
 			}
 			$raw = isset( $_POST[ $name ] ) ? wp_unslash( $_POST[ $name ] ) : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -1434,14 +1434,14 @@ class Nestform_Submit {
 				}
 				continue;
 			}
-			if ( 'tel' === $type && class_exists( 'Nestform_Phone' ) && Nestform_Phone::is_picker_enabled( $field ) ) {
+			if ( 'tel' === $type && class_exists( 'Thimbleform_Phone' ) && Thimbleform_Phone::is_picker_enabled( $field ) ) {
 				$iso_key      = $name . '__iso';
 				$national_key = $name . '__national';
 				$iso          = isset( $_POST[ $iso_key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $iso_key ] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 				$national     = isset( $_POST[ $national_key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $national_key ] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 				$posted       = is_string( $raw ) ? trim( $raw ) : '';
 				$source       = $national !== '' ? $national : $posted;
-				$map[ $name ] = Nestform_Phone::to_e164( Nestform_Phone::sanitize_iso( $iso ), $source );
+				$map[ $name ] = Thimbleform_Phone::to_e164( Thimbleform_Phone::sanitize_iso( $iso ), $source );
 				continue;
 			}
 			if ( is_array( $raw ) ) {
@@ -1472,8 +1472,8 @@ class Nestform_Submit {
 	 * @param string $ip      Client IP.
 	 */
 	private static function log_spam( $form_id, $reason, $detail = '', $ip = '' ) {
-		if ( class_exists( 'Nestform_Spam_Log' ) ) {
-			Nestform_Spam_Log::record( (int) $form_id, (string) $reason, (string) $detail, (string) $ip );
+		if ( class_exists( 'Thimbleform_Spam_Log' ) ) {
+			Thimbleform_Spam_Log::record( (int) $form_id, (string) $reason, (string) $detail, (string) $ip );
 		}
 	}
 
@@ -1490,11 +1490,11 @@ class Nestform_Submit {
 	 * @return bool
 	 */
 	private static function is_rate_limited( $ip ) {
-		if ( class_exists( 'Nestform_Spam_Filter' ) ) {
-			return Nestform_Spam_Filter::is_rate_limited( $ip );
+		if ( class_exists( 'Thimbleform_Spam_Filter' ) ) {
+			return Thimbleform_Spam_Filter::is_rate_limited( $ip );
 		}
 		$bucket = $ip !== '' ? $ip : 'unknown';
-		$key    = 'nestform_rl_' . md5( $bucket );
+		$key    = 'thimbleform_rl_' . md5( $bucket );
 		return (bool) get_transient( $key );
 	}
 
@@ -1502,12 +1502,12 @@ class Nestform_Submit {
 	 * @param string $ip IP.
 	 */
 	private static function bump_rate_limit( $ip ) {
-		if ( class_exists( 'Nestform_Spam_Filter' ) ) {
-			Nestform_Spam_Filter::bump_rate_limit( $ip );
+		if ( class_exists( 'Thimbleform_Spam_Filter' ) ) {
+			Thimbleform_Spam_Filter::bump_rate_limit( $ip );
 			return;
 		}
 		$bucket = $ip !== '' ? $ip : 'unknown';
-		$key    = 'nestform_rl_' . md5( $bucket );
+		$key    = 'thimbleform_rl_' . md5( $bucket );
 		set_transient( $key, 1, self::RATE_LIMIT_SECONDS );
 	}
 }

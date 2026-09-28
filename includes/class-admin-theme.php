@@ -9,16 +9,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Admin_Theme {
+class Thimbleform_Admin_Theme {
 
-	const META_KEY = 'nestform_admin_theme';
+	const META_KEY = 'thimbleform_admin_theme';
 
 	/**
 	 * @return void
 	 */
 	public static function init() {
 		add_filter( 'admin_body_class', array( __CLASS__, 'body_class' ), 20 );
-		add_action( 'admin_post_nestform_save_admin_theme', array( __CLASS__, 'handle_save' ) );
+		add_action( 'admin_post_thimbleform_save_admin_theme', array( __CLASS__, 'handle_save' ) );
 	}
 
 	/**
@@ -26,9 +26,9 @@ class Nestform_Admin_Theme {
 	 */
 	public static function choices() {
 		return array(
-			'auto'  => __( 'Match system', 'nestform' ),
-			'light' => __( 'Light', 'nestform' ),
-			'dark'  => __( 'Dark', 'nestform' ),
+			'auto'  => __( 'Match system', 'thimbleform' ),
+			'light' => __( 'Light', 'thimbleform' ),
+			'dark'  => __( 'Dark', 'thimbleform' ),
 		);
 	}
 
@@ -90,15 +90,15 @@ class Nestform_Admin_Theme {
 	 * @return string
 	 */
 	public static function body_class( $classes ) {
-		if ( '' === nestform_admin_current_view() ) {
+		if ( '' === thimbleform_admin_current_view() ) {
 			return $classes;
 		}
 
 		$theme = self::get();
 		if ( 'light' === $theme ) {
-			$classes .= ' nestform-theme-light';
+			$classes .= ' thimbleform-theme-light';
 		} elseif ( 'dark' === $theme ) {
-			$classes .= ' nestform-theme-dark';
+			$classes .= ' thimbleform-theme-dark';
 		}
 
 		return $classes;
@@ -109,17 +109,17 @@ class Nestform_Admin_Theme {
 	 */
 	public static function handle_save() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to change this setting.', 'nestform' ) );
+			wp_die( esc_html__( 'You do not have permission to change this setting.', 'thimbleform' ) );
 		}
 
-		check_admin_referer( 'nestform_save_admin_theme' );
+		check_admin_referer( 'thimbleform_save_admin_theme' );
 
 		$theme = isset( $_POST['admin_theme'] ) ? sanitize_key( wp_unslash( (string) $_POST['admin_theme'] ) ) : 'auto'; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		self::set( $theme );
 
-		$redirect = class_exists( 'Nestform_Settings' )
-			? Nestform_Settings::url( array( 'section' => 'general', 'theme-updated' => '1' ) )
-			: admin_url( 'edit.php?post_type=nestform&page=nestform-settings&section=general&theme-updated=1' );
+		$redirect = class_exists( 'Thimbleform_Settings' )
+			? Thimbleform_Settings::url( array( 'section' => 'general', 'theme-updated' => '1' ) )
+			: admin_url( 'edit.php?post_type=thimbleform&page=thimbleform-settings&section=general&theme-updated=1' );
 
 		wp_safe_redirect( $redirect );
 		exit;
@@ -137,35 +137,35 @@ class Nestform_Admin_Theme {
 
 		$current = self::get();
 		?>
-		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="nestform-settings__form">
-			<?php wp_nonce_field( 'nestform_save_admin_theme' ); ?>
-			<input type="hidden" name="action" value="nestform_save_admin_theme" />
-			<div class="nestform-admin__surface nestform-settings__card">
-				<div class="nestform-admin__panel-head">
+		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="thimbleform-settings__form">
+			<?php wp_nonce_field( 'thimbleform_save_admin_theme' ); ?>
+			<input type="hidden" name="action" value="thimbleform_save_admin_theme" />
+			<div class="thimbleform-admin__surface thimbleform-settings__card">
+				<div class="thimbleform-admin__panel-head">
 					<div>
-						<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Admin appearance', 'nestform' ); ?></h3>
-						<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Choose how the Thimbleform admin looks for your account. WordPress menu and toolbar stay unchanged.', 'nestform' ); ?></p>
+						<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Admin appearance', 'thimbleform' ); ?></h3>
+						<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Choose how the Thimbleform admin looks for your account. WordPress menu and toolbar stay unchanged.', 'thimbleform' ); ?></p>
 					</div>
 				</div>
-				<fieldset class="nestform-settings__theme-fieldset">
-					<legend class="screen-reader-text"><?php esc_html_e( 'Admin theme', 'nestform' ); ?></legend>
-					<div class="nestform-settings__theme-options">
+				<fieldset class="thimbleform-settings__theme-fieldset">
+					<legend class="screen-reader-text"><?php esc_html_e( 'Admin theme', 'thimbleform' ); ?></legend>
+					<div class="thimbleform-settings__theme-options">
 						<?php foreach ( self::choices() as $value => $label ) : ?>
-							<label class="nestform-settings__theme-option">
+							<label class="thimbleform-settings__theme-option">
 								<input
 									type="radio"
 									name="admin_theme"
 									value="<?php echo esc_attr( $value ); ?>"
 									<?php checked( $current, $value ); ?>
 								/>
-								<span class="nestform-settings__theme-option-label"><?php echo esc_html( $label ); ?></span>
+								<span class="thimbleform-settings__theme-option-label"><?php echo esc_html( $label ); ?></span>
 							</label>
 						<?php endforeach; ?>
 					</div>
 				</fieldset>
-				<button type="submit" class="nestform-btn nestform-btn--primary" name="submit" value="1">
-					<?php nestform_admin_icon( 'save' ); ?>
-					<?php esc_html_e( 'Save appearance', 'nestform' ); ?>
+				<button type="submit" class="thimbleform-btn thimbleform-btn--primary" name="submit" value="1">
+					<?php thimbleform_admin_icon( 'save' ); ?>
+					<?php esc_html_e( 'Save appearance', 'thimbleform' ); ?>
 				</button>
 			</div>
 		</form>

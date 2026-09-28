@@ -4,7 +4,7 @@
 (function () {
 	'use strict';
 
-	var cfg = window.nestformAdmin || {};
+	var cfg = window.thimbleformAdmin || {};
 	var i18n = cfg.i18n || {};
 	var typeLabels = cfg.typeLabels || {};
 	var dragState = { card: null };
@@ -27,7 +27,7 @@
 			if (exceptCard && card === exceptCard) {
 				return;
 			}
-			var el = card.querySelector('[data-nestform-name]');
+			var el = card.querySelector('[data-thimbleform-name]');
 			var v = el && String(el.value || '').trim();
 			if (v) {
 				used[v] = true;
@@ -51,9 +51,9 @@
 		var q = String(query || '')
 			.trim()
 			.toLowerCase();
-		panel.querySelectorAll('.nestform-add-menu__group').forEach(function (group) {
+		panel.querySelectorAll('.thimbleform-add-menu__group').forEach(function (group) {
 			var visible = 0;
-			group.querySelectorAll('.nestform-add-menu__item').forEach(function (item) {
+			group.querySelectorAll('.thimbleform-add-menu__item').forEach(function (item) {
 				var label = (item.textContent || '').trim().toLowerCase();
 				var show = !q || label.indexOf(q) !== -1;
 				item.hidden = !show;
@@ -69,8 +69,8 @@
 		if (!menu) {
 			return;
 		}
-		var toggle = menu.querySelector('[data-nestform-add-menu-toggle]');
-		var panel = menu.querySelector('[data-nestform-add-menu-panel]');
+		var toggle = menu.querySelector('[data-thimbleform-add-menu-toggle]');
+		var panel = menu.querySelector('[data-thimbleform-add-menu-panel]');
 		closeAllAddMenus(root);
 		menu.classList.add('is-open');
 		if (toggle) {
@@ -78,7 +78,7 @@
 		}
 		if (panel) {
 			panel.hidden = false;
-			var search = panel.querySelector('[data-nestform-add-search]');
+			var search = panel.querySelector('[data-thimbleform-add-search]');
 			if (search) {
 				search.value = '';
 				filterAddMenu(panel, '');
@@ -87,20 +87,20 @@
 				}, 0);
 			}
 		}
-		var browse = root.querySelector('[data-nestform-add-browse]');
+		var browse = root.querySelector('[data-thimbleform-add-browse]');
 		if (browse) {
 			browse.setAttribute(
 				'aria-expanded',
-				menu.getAttribute('data-nestform-add-menu') === 'more' ? 'true' : 'false'
+				menu.getAttribute('data-thimbleform-add-menu') === 'more' ? 'true' : 'false'
 			);
 		}
 	}
 
 	function closeAllAddMenus(root) {
-		root.querySelectorAll('[data-nestform-add-menu]').forEach(function (menu) {
+		root.querySelectorAll('[data-thimbleform-add-menu]').forEach(function (menu) {
 			menu.classList.remove('is-open');
-			var toggle = menu.querySelector('[data-nestform-add-menu-toggle]');
-			var panel = menu.querySelector('[data-nestform-add-menu-panel]');
+			var toggle = menu.querySelector('[data-thimbleform-add-menu-toggle]');
+			var panel = menu.querySelector('[data-thimbleform-add-menu-panel]');
 			if (toggle) {
 				toggle.setAttribute('aria-expanded', 'false');
 			}
@@ -108,18 +108,18 @@
 				panel.hidden = true;
 			}
 		});
-		var browse = root.querySelector('[data-nestform-add-browse]');
+		var browse = root.querySelector('[data-thimbleform-add-browse]');
 		if (browse) {
 			browse.setAttribute('aria-expanded', 'false');
 		}
 	}
 
 	function initAddMenus(root) {
-		root.querySelectorAll('[data-nestform-add-menu-toggle]').forEach(function (toggle) {
+		root.querySelectorAll('[data-thimbleform-add-menu-toggle]').forEach(function (toggle) {
 			toggle.addEventListener('click', function (event) {
 				event.preventDefault();
 				event.stopPropagation();
-				var menu = toggle.closest('[data-nestform-add-menu]');
+				var menu = toggle.closest('[data-thimbleform-add-menu]');
 				if (!menu) {
 					return;
 				}
@@ -132,12 +132,12 @@
 			});
 		});
 
-		var browseButtons = root.querySelectorAll('[data-nestform-add-browse]');
+		var browseButtons = root.querySelectorAll('[data-thimbleform-add-browse]');
 		browseButtons.forEach(function (browse) {
 			browse.addEventListener('click', function (event) {
 				event.preventDefault();
 				event.stopPropagation();
-				var more = root.querySelector('[data-nestform-add-menu="more"]');
+				var more = root.querySelector('[data-thimbleform-add-menu="more"]');
 				if (!more) {
 					return;
 				}
@@ -150,7 +150,7 @@
 		});
 
 		document.addEventListener('click', function (event) {
-			if (event.target.closest('[data-nestform-add-menu], [data-nestform-add-browse]')) {
+			if (event.target.closest('[data-thimbleform-add-menu], [data-thimbleform-add-browse]')) {
 				return;
 			}
 			closeAllAddMenus(root);
@@ -162,9 +162,9 @@
 			}
 		});
 
-		root.querySelectorAll('[data-nestform-add-search]').forEach(function (input) {
+		root.querySelectorAll('[data-thimbleform-add-search]').forEach(function (input) {
 			input.addEventListener('input', function () {
-				var panel = input.closest('[data-nestform-add-menu-panel]');
+				var panel = input.closest('[data-thimbleform-add-menu-panel]');
 				filterAddMenu(panel, input.value);
 			});
 			input.addEventListener('click', function (event) {
@@ -198,13 +198,13 @@
 		};
 
 		function settingValue(name) {
-			var el = root.querySelector('[name="nestform[settings][' + name + ']"]');
+			var el = root.querySelector('[name="thimbleform[settings][' + name + ']"]');
 			if (!el) {
 				return '';
 			}
 			if (el.type === 'radio') {
 				var checked = root.querySelector(
-					'[name="nestform[settings][' + name + ']"]:checked'
+					'[name="thimbleform[settings][' + name + ']"]:checked'
 				);
 				return checked ? String(checked.value || '') : '';
 			}
@@ -212,7 +212,7 @@
 		}
 
 		function colorValue(key) {
-			var hex = root.querySelector('[data-nestform-style-hex][data-color-key="' + key + '"]');
+			var hex = root.querySelector('[data-thimbleform-style-hex][data-color-key="' + key + '"]');
 			var raw = hex ? String(hex.value || '').trim() : '';
 			var normalized = normalizeHex(raw);
 			if (normalized) {
@@ -222,11 +222,11 @@
 		}
 
 		function syncSkinChrome() {
-			var checked = root.querySelector('.nestform-style-skins__item input[type="radio"]:checked');
+			var checked = root.querySelector('.thimbleform-style-skins__item input[type="radio"]:checked');
 			var skin = checked ? String(checked.value || 'theme') : 'theme';
-			var chrome = root.querySelector('[data-nestform-style-chrome]');
-			var note = root.querySelector('[data-nestform-style-chrome-note]');
-			var liveNote = root.querySelector('[data-nestform-live-theme-note]');
+			var chrome = root.querySelector('[data-thimbleform-style-chrome]');
+			var note = root.querySelector('[data-thimbleform-style-chrome-note]');
+			var liveNote = root.querySelector('[data-thimbleform-live-theme-note]');
 			if (chrome) {
 				chrome.classList.toggle('is-disabled', skin === 'theme');
 			}
@@ -250,11 +250,11 @@
 		}
 
 		function syncColorPreview() {
-			root.querySelectorAll('[data-nestform-color-preview]').forEach(function (chip) {
-				var key = chip.getAttribute('data-nestform-color-preview');
-				var hex = root.querySelector('[data-nestform-style-hex][data-color-key="' + key + '"]');
-				var wrap = hex ? hex.closest('[data-nestform-style-color-wrap]') : null;
-				var swatch = wrap ? wrap.querySelector('[data-nestform-style-color]') : null;
+			root.querySelectorAll('[data-thimbleform-color-preview]').forEach(function (chip) {
+				var key = chip.getAttribute('data-thimbleform-color-preview');
+				var hex = root.querySelector('[data-thimbleform-style-hex][data-color-key="' + key + '"]');
+				var wrap = hex ? hex.closest('[data-thimbleform-style-color-wrap]') : null;
+				var swatch = wrap ? wrap.querySelector('[data-thimbleform-style-color]') : null;
 				var color = hex && hex.value ? normalizeHex(hex.value) : '';
 				if (!color && swatch) {
 					color = swatch.getAttribute('data-fallback') || swatch.value;
@@ -266,9 +266,9 @@
 		}
 
 		function syncLivePreview() {
-			var form = root.querySelector('[data-nestform-live-form]');
+			var form = root.querySelector('[data-thimbleform-live-form]');
 			var fieldStages = root.querySelectorAll(
-				'[data-nestform-field-preview-stage]'
+				'[data-thimbleform-field-preview-stage]'
 			);
 
 			var skin = settingValue('style_skin') || 'theme';
@@ -322,16 +322,16 @@
 
 			if (form) {
 				var classes = [
-					'nestform-live-preview',
-					'nestform-live-preview--skin-' + skin,
+					'thimbleform-live-preview',
+					'thimbleform-live-preview--skin-' + skin,
 				];
 				if (skin !== 'theme') {
-					classes.push('nestform-live-preview--btn-' + button);
+					classes.push('thimbleform-live-preview--btn-' + button);
 				}
 				form.className = classes.join(' ');
 				form.setAttribute('style', styleAttr);
 
-				var submitBtn = form.querySelector('[data-nestform-live-submit]');
+				var submitBtn = form.querySelector('[data-thimbleform-live-submit]');
 				var submitLabel = settingValue('submit_label');
 				if (submitBtn && submitLabel) {
 					submitBtn.textContent = submitLabel;
@@ -345,8 +345,8 @@
 		}
 
 		function syncColorWrap(wrap) {
-			var hex = wrap.querySelector('[data-nestform-style-hex]');
-			var clear = wrap.querySelector('[data-nestform-style-clear]');
+			var hex = wrap.querySelector('[data-thimbleform-style-hex]');
+			var clear = wrap.querySelector('[data-thimbleform-style-clear]');
 			var set = !!(hex && String(hex.value || '').trim());
 			wrap.classList.toggle('is-set', set);
 			if (clear) {
@@ -360,9 +360,9 @@
 			syncLivePreview();
 		}
 
-		root.querySelectorAll('.nestform-style-skins__item input[type="radio"]').forEach(function (radio) {
+		root.querySelectorAll('.thimbleform-style-skins__item input[type="radio"]').forEach(function (radio) {
 			radio.addEventListener('change', function () {
-				root.querySelectorAll('.nestform-style-skins__item').forEach(function (item) {
+				root.querySelectorAll('.thimbleform-style-skins__item').forEach(function (item) {
 					var input = item.querySelector('input[type="radio"]');
 					item.classList.toggle('is-active', !!(input && input.checked));
 				});
@@ -370,10 +370,10 @@
 			});
 		});
 
-		root.querySelectorAll('[data-nestform-style-color-wrap]').forEach(function (wrap) {
-			var swatch = wrap.querySelector('[data-nestform-style-color]');
-			var hex = wrap.querySelector('[data-nestform-style-hex]');
-			var clear = wrap.querySelector('[data-nestform-style-clear]');
+		root.querySelectorAll('[data-thimbleform-style-color-wrap]').forEach(function (wrap) {
+			var swatch = wrap.querySelector('[data-thimbleform-style-color]');
+			var hex = wrap.querySelector('[data-thimbleform-style-hex]');
+			var clear = wrap.querySelector('[data-thimbleform-style-clear]');
 			if (!swatch || !hex) {
 				return;
 			}
@@ -409,7 +409,7 @@
 
 		root
 			.querySelectorAll(
-				'[name="nestform[settings][style_font_size]"], [name="nestform[settings][style_gap]"], [name="nestform[settings][style_density]"], [name="nestform[settings][style_radius]"], [name="nestform[settings][style_button]"], [name="nestform[settings][submit_label]"]'
+				'[name="thimbleform[settings][style_font_size]"], [name="thimbleform[settings][style_gap]"], [name="thimbleform[settings][style_density]"], [name="thimbleform[settings][style_radius]"], [name="thimbleform[settings][style_button]"], [name="thimbleform[settings][submit_label]"]'
 			)
 			.forEach(function (el) {
 				el.addEventListener('change', refreshAppearance);
@@ -420,22 +420,22 @@
 	}
 
 	function initAutomationsUi(root) {
-		var wrap = root.querySelector('[data-nestform-auto]');
+		var wrap = root.querySelector('[data-thimbleform-auto]');
 		if (!wrap) {
 			return;
 		}
-		var rulesEl = wrap.querySelector('[data-nestform-auto-rules]');
-		var tpl = wrap.querySelector('[data-nestform-auto-rule-tpl]');
-		var addBtn = wrap.querySelector('[data-nestform-auto-add]');
-		var warn = wrap.querySelector('[data-nestform-auto-warn]');
-		var enabled = wrap.querySelector('[data-nestform-auto-enabled]');
+		var rulesEl = wrap.querySelector('[data-thimbleform-auto-rules]');
+		var tpl = wrap.querySelector('[data-thimbleform-auto-rule-tpl]');
+		var addBtn = wrap.querySelector('[data-thimbleform-auto-add]');
+		var warn = wrap.querySelector('[data-thimbleform-auto-warn]');
+		var enabled = wrap.querySelector('[data-thimbleform-auto-enabled]');
 		var maxRules = 3;
 
 		function reindexRules() {
 			if (!rulesEl) {
 				return;
 			}
-			var rows = rulesEl.querySelectorAll('[data-nestform-auto-rule]');
+			var rows = rulesEl.querySelectorAll('[data-thimbleform-auto-rule]');
 			rows.forEach(function (row, i) {
 				row.querySelectorAll('[name]').forEach(function (el) {
 					var name = String(el.getAttribute('name') || '');
@@ -451,15 +451,15 @@
 		}
 
 		function syncOpValue(row) {
-			var op = row.querySelector('[data-nestform-auto-op]');
-			var valueWrap = row.querySelector('[data-nestform-auto-value-wrap]');
+			var op = row.querySelector('[data-thimbleform-auto-op]');
+			var valueWrap = row.querySelector('[data-thimbleform-auto-value-wrap]');
 			if (!op || !valueWrap) {
 				return;
 			}
 			var hide = op.value === 'empty' || op.value === 'not_empty';
 			valueWrap.hidden = hide;
 			if (hide) {
-				var input = valueWrap.querySelector('[data-nestform-auto-value]');
+				var input = valueWrap.querySelector('[data-thimbleform-auto-value]');
 				if (input) {
 					input.value = '';
 				}
@@ -471,9 +471,9 @@
 				return;
 			}
 			var on = enabled && enabled.checked;
-			var status = wrap.querySelector('[name="nestform[settings][automation_then_status]"]');
-			var email = wrap.querySelector('[name="nestform[settings][automation_then_email]"]');
-			var webhook = wrap.querySelector('[name="nestform[settings][automation_then_webhook]"]');
+			var status = wrap.querySelector('[name="thimbleform[settings][automation_then_status]"]');
+			var email = wrap.querySelector('[name="thimbleform[settings][automation_then_email]"]');
+			var webhook = wrap.querySelector('[name="thimbleform[settings][automation_then_webhook]"]');
 			var hasThen =
 				(status && String(status.value || '') !== '') ||
 				(email && String(email.value || '').trim() !== '') ||
@@ -482,20 +482,20 @@
 		}
 
 		function bindRow(row) {
-			var op = row.querySelector('[data-nestform-auto-op]');
+			var op = row.querySelector('[data-thimbleform-auto-op]');
 			if (op) {
 				op.addEventListener('change', function () {
 					syncOpValue(row);
 				});
 			}
-			var remove = row.querySelector('[data-nestform-auto-remove]');
+			var remove = row.querySelector('[data-thimbleform-auto-remove]');
 			if (remove) {
 				remove.addEventListener('click', function (event) {
 					event.preventDefault();
-					var rows = rulesEl ? rulesEl.querySelectorAll('[data-nestform-auto-rule]') : [];
+					var rows = rulesEl ? rulesEl.querySelectorAll('[data-thimbleform-auto-rule]') : [];
 					if (rows.length <= 1) {
-						var field = row.querySelector('[data-nestform-auto-field]');
-						var value = row.querySelector('[data-nestform-auto-value]');
+						var field = row.querySelector('[data-thimbleform-auto-field]');
+						var value = row.querySelector('[data-thimbleform-auto-value]');
 						if (field) {
 							field.value = '';
 						}
@@ -516,13 +516,13 @@
 		}
 
 		if (rulesEl) {
-			rulesEl.querySelectorAll('[data-nestform-auto-rule]').forEach(bindRow);
+			rulesEl.querySelectorAll('[data-thimbleform-auto-rule]').forEach(bindRow);
 		}
 
 		if (addBtn && tpl && rulesEl) {
 			addBtn.addEventListener('click', function (event) {
 				event.preventDefault();
-				var count = rulesEl.querySelectorAll('[data-nestform-auto-rule]').length;
+				var count = rulesEl.querySelectorAll('[data-thimbleform-auto-rule]').length;
 				if (count >= maxRules) {
 					return;
 				}
@@ -542,7 +542,7 @@
 		if (enabled) {
 			enabled.addEventListener('change', syncWarn);
 		}
-		wrap.querySelectorAll('[data-nestform-auto-then]').forEach(function (el) {
+		wrap.querySelectorAll('[data-thimbleform-auto-then]').forEach(function (el) {
 			el.addEventListener('input', syncWarn);
 			el.addEventListener('change', syncWarn);
 		});
@@ -552,20 +552,20 @@
 	}
 
 	function initQuizBandsUi(root) {
-		var wrap = root.querySelector('[data-nestform-bands]');
+		var wrap = root.querySelector('[data-thimbleform-bands]');
 		if (!wrap) {
 			return;
 		}
-		var listEl = wrap.querySelector('[data-nestform-bands-list]');
-		var tpl = wrap.querySelector('[data-nestform-bands-tpl]');
-		var addBtn = wrap.querySelector('[data-nestform-bands-add]');
+		var listEl = wrap.querySelector('[data-thimbleform-bands-list]');
+		var tpl = wrap.querySelector('[data-thimbleform-bands-tpl]');
+		var addBtn = wrap.querySelector('[data-thimbleform-bands-add]');
 		var maxBands = 8;
 
 		function reindexBands() {
 			if (!listEl) {
 				return;
 			}
-			var rows = listEl.querySelectorAll('[data-nestform-bands-row]');
+			var rows = listEl.querySelectorAll('[data-thimbleform-bands-row]');
 			rows.forEach(function (row, i) {
 				row.querySelectorAll('[name]').forEach(function (el) {
 					var name = String(el.getAttribute('name') || '');
@@ -581,11 +581,11 @@
 		}
 
 		function clearRow(row) {
-			var min = row.querySelector('[data-nestform-bands-min]');
-			var max = row.querySelector('[data-nestform-bands-max]');
-			var title = row.querySelector('[data-nestform-bands-title]');
-			var message = row.querySelector('[data-nestform-bands-message]');
-			var redirect = row.querySelector('[data-nestform-bands-redirect]');
+			var min = row.querySelector('[data-thimbleform-bands-min]');
+			var max = row.querySelector('[data-thimbleform-bands-max]');
+			var title = row.querySelector('[data-thimbleform-bands-title]');
+			var message = row.querySelector('[data-thimbleform-bands-message]');
+			var redirect = row.querySelector('[data-thimbleform-bands-redirect]');
 			if (min) {
 				min.value = '0';
 			}
@@ -604,13 +604,13 @@
 		}
 
 		function bindRow(row) {
-			var remove = row.querySelector('[data-nestform-bands-remove]');
+			var remove = row.querySelector('[data-thimbleform-bands-remove]');
 			if (!remove) {
 				return;
 			}
 			remove.addEventListener('click', function (event) {
 				event.preventDefault();
-				var rows = listEl ? listEl.querySelectorAll('[data-nestform-bands-row]') : [];
+				var rows = listEl ? listEl.querySelectorAll('[data-thimbleform-bands-row]') : [];
 				if (rows.length <= 1) {
 					clearRow(row);
 					return;
@@ -621,13 +621,13 @@
 		}
 
 		if (listEl) {
-			listEl.querySelectorAll('[data-nestform-bands-row]').forEach(bindRow);
+			listEl.querySelectorAll('[data-thimbleform-bands-row]').forEach(bindRow);
 		}
 
 		if (addBtn && tpl && listEl) {
 			addBtn.addEventListener('click', function (event) {
 				event.preventDefault();
-				var count = listEl.querySelectorAll('[data-nestform-bands-row]').length;
+				var count = listEl.querySelectorAll('[data-thimbleform-bands-row]').length;
 				if (count >= maxBands) {
 					return;
 				}
@@ -648,20 +648,20 @@
 	}
 
 	function initWebhooksUi(root) {
-		var wrap = root.querySelector('[data-nestform-webhooks]');
+		var wrap = root.querySelector('[data-thimbleform-webhooks]');
 		if (!wrap) {
 			return;
 		}
-		var listEl = wrap.querySelector('[data-nestform-webhooks-list]');
-		var tpl = wrap.querySelector('[data-nestform-webhooks-tpl]');
-		var addBtn = wrap.querySelector('[data-nestform-webhooks-add]');
+		var listEl = wrap.querySelector('[data-thimbleform-webhooks-list]');
+		var tpl = wrap.querySelector('[data-thimbleform-webhooks-tpl]');
+		var addBtn = wrap.querySelector('[data-thimbleform-webhooks-add]');
 		var maxEndpoints = 5;
 
 		function reindexEndpoints() {
 			if (!listEl) {
 				return;
 			}
-			var rows = listEl.querySelectorAll('[data-nestform-webhooks-row]');
+			var rows = listEl.querySelectorAll('[data-thimbleform-webhooks-row]');
 			rows.forEach(function (row, i) {
 				row.querySelectorAll('[name]').forEach(function (el) {
 					var name = String(el.getAttribute('name') || '');
@@ -680,8 +680,8 @@
 		}
 
 		function clearRow(row) {
-			var url = row.querySelector('[data-nestform-webhooks-url]');
-			var secret = row.querySelector('[data-nestform-webhooks-secret]');
+			var url = row.querySelector('[data-thimbleform-webhooks-url]');
+			var secret = row.querySelector('[data-thimbleform-webhooks-secret]');
 			if (url) {
 				url.value = '';
 			}
@@ -691,13 +691,13 @@
 		}
 
 		function bindRow(row) {
-			var remove = row.querySelector('[data-nestform-webhooks-remove]');
+			var remove = row.querySelector('[data-thimbleform-webhooks-remove]');
 			if (!remove) {
 				return;
 			}
 			remove.addEventListener('click', function (event) {
 				event.preventDefault();
-				var rows = listEl ? listEl.querySelectorAll('[data-nestform-webhooks-row]') : [];
+				var rows = listEl ? listEl.querySelectorAll('[data-thimbleform-webhooks-row]') : [];
 				if (rows.length <= 1) {
 					clearRow(row);
 					return;
@@ -708,13 +708,13 @@
 		}
 
 		if (listEl) {
-			listEl.querySelectorAll('[data-nestform-webhooks-row]').forEach(bindRow);
+			listEl.querySelectorAll('[data-thimbleform-webhooks-row]').forEach(bindRow);
 		}
 
 		if (addBtn && tpl && listEl) {
 			addBtn.addEventListener('click', function (event) {
 				event.preventDefault();
-				var count = listEl.querySelectorAll('[data-nestform-webhooks-row]').length;
+				var count = listEl.querySelectorAll('[data-thimbleform-webhooks-row]').length;
 				if (count >= maxEndpoints) {
 					return;
 				}
@@ -735,7 +735,7 @@
 	}
 
 	function getWorkspace(root) {
-		return root.querySelector('[data-nestform-workspace]');
+		return root.querySelector('[data-thimbleform-workspace]');
 	}
 
 	function isStepsMode(root) {
@@ -744,7 +744,7 @@
 	}
 
 	function getActiveStep(root) {
-		var active = root.querySelector('[data-nestform-step-group].is-active');
+		var active = root.querySelector('[data-thimbleform-step-group].is-active');
 		if (active) {
 			return parseInt(active.getAttribute('data-step') || '1', 10) || 1;
 		}
@@ -753,23 +753,23 @@
 
 	function getActiveList(root) {
 		if (isStepsMode(root)) {
-			var group = root.querySelector('[data-nestform-step-group].is-active');
-			return group ? group.querySelector('[data-nestform-fields]') : null;
+			var group = root.querySelector('[data-thimbleform-step-group].is-active');
+			return group ? group.querySelector('[data-thimbleform-fields]') : null;
 		}
-		var first = root.querySelector('[data-nestform-step-group][data-step="1"] [data-nestform-fields]');
-		return first || root.querySelector('[data-nestform-fields]');
+		var first = root.querySelector('[data-thimbleform-step-group][data-step="1"] [data-thimbleform-fields]');
+		return first || root.querySelector('[data-thimbleform-fields]');
 	}
 
 	function allFieldCards(root) {
-		return Array.prototype.slice.call(root.querySelectorAll('[data-nestform-field]'));
+		return Array.prototype.slice.call(root.querySelectorAll('[data-thimbleform-field]'));
 	}
 
 	function reindex(root) {
 		allFieldCards(root).forEach(function (row, index) {
 			row.querySelectorAll('[name]').forEach(function (input) {
 				input.name = input.name.replace(
-					/nestform\[fields\]\[[^\]]+\]/,
-					'nestform[fields][' + index + ']'
+					/thimbleform\[fields\]\[[^\]]+\]/,
+					'thimbleform[fields][' + index + ']'
 				);
 			});
 		});
@@ -777,11 +777,11 @@
 
 	function setCollapsed(card, collapsed) {
 		card.classList.toggle('is-collapsed', collapsed);
-		var body = card.querySelector('[data-nestform-card-body]');
+		var body = card.querySelector('[data-thimbleform-card-body]');
 		if (body) {
 			body.hidden = collapsed;
 		}
-		card.querySelectorAll('[data-nestform-toggle]').forEach(function (btn) {
+		card.querySelectorAll('[data-thimbleform-toggle]').forEach(function (btn) {
 			btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
 		});
 		if (!collapsed) {
@@ -790,11 +790,11 @@
 	}
 
 	function isLayoutType(type) {
-		return (window.nestformAdmin && window.nestformAdmin.layoutTypes || []).indexOf(type) >= 0;
+		return (window.thimbleformAdmin && window.thimbleformAdmin.layoutTypes || []).indexOf(type) >= 0;
 	}
 
 	/**
-	 * Map data-nestform-show → field types that own that control.
+	 * Map data-thimbleform-show → field types that own that control.
 	 * Used to disable inactive inputs so shared name keys (options/default/placeholder)
 	 * do not overwrite each other on save. `name` is never disabled (always submitted).
 	 */
@@ -897,7 +897,7 @@
 			return;
 		}
 		root.querySelectorAll('input, select, textarea, button').forEach(function (el) {
-			if (el.hasAttribute('data-nestform-type') || el.hasAttribute('data-nestform-move-step')) {
+			if (el.hasAttribute('data-thimbleform-type') || el.hasAttribute('data-thimbleform-move-step')) {
 				return;
 			}
 			el.disabled = !!disabled;
@@ -905,8 +905,8 @@
 	}
 
 	function syncShowControls(card, type) {
-		card.querySelectorAll('[data-nestform-show]').forEach(function (el) {
-			var key = el.getAttribute('data-nestform-show');
+		card.querySelectorAll('[data-thimbleform-show]').forEach(function (el) {
+			var key = el.getAttribute('data-thimbleform-show');
 			if (key === 'name') {
 				// Always submit the slug; only hide the control for layout blocks.
 				var showName = !isLayoutType(type);
@@ -926,15 +926,15 @@
 		syncTypeSectionTitle(card, type);
 		syncDescriptionLabel(card, type);
 		syncSections(card);
-		var subWrap = card.querySelector('[data-nestform-subfields]');
+		var subWrap = card.querySelector('[data-thimbleform-subfields]');
 		if (subWrap && !subWrap.hidden) {
 			syncSubfieldsUi(subWrap);
 		}
 	}
 
 	function syncTypeSectionTitle(card, type) {
-		var wrap = card.querySelector('[data-nestform-section="type"]');
-		var titleEl = card.querySelector('[data-nestform-type-section-title]');
+		var wrap = card.querySelector('[data-thimbleform-section="type"]');
+		var titleEl = card.querySelector('[data-thimbleform-type-section-title]');
 		if (!wrap) {
 			return;
 		}
@@ -948,8 +948,8 @@
 	}
 
 	function syncDescriptionLabel(card, type) {
-		var label = card.querySelector('[data-nestform-description-label]');
-		var input = card.querySelector('[data-nestform-description]');
+		var label = card.querySelector('[data-thimbleform-description-label]');
+		var input = card.querySelector('[data-thimbleform-description]');
 		if (label) {
 			label.textContent =
 				type === 'image'
@@ -965,10 +965,10 @@
 	}
 
 	function syncOptionsHelp(card, type) {
-		var labelEl = card.querySelector('[data-nestform-options-label]');
-		var hintEl = card.querySelector('[data-nestform-options-hint]');
-		var inputEl = card.querySelector('[data-nestform-options-input]');
-		var tipEl = card.querySelector('[data-nestform-options-tip]');
+		var labelEl = card.querySelector('[data-thimbleform-options-label]');
+		var hintEl = card.querySelector('[data-thimbleform-options-hint]');
+		var inputEl = card.querySelector('[data-thimbleform-options-input]');
+		var tipEl = card.querySelector('[data-thimbleform-options-tip]');
 		if (!labelEl && !hintEl && !inputEl) {
 			return;
 		}
@@ -1023,8 +1023,8 @@
 	 * Show Other label only when Allow “Other” is checked (and options UI is active).
 	 */
 	function syncOtherLabel(card) {
-		var wrap = card.querySelector('[data-nestform-other-label]');
-		var toggle = card.querySelector('[data-nestform-allow-other]');
+		var wrap = card.querySelector('[data-thimbleform-other-label]');
+		var toggle = card.querySelector('[data-thimbleform-allow-other]');
 		if (!wrap || !toggle) {
 			return;
 		}
@@ -1066,8 +1066,8 @@
 		if (!card) {
 			return;
 		}
-		card.querySelectorAll('[data-nestform-section]').forEach(function (section) {
-			var key = section.getAttribute('data-nestform-section');
+		card.querySelectorAll('[data-thimbleform-section]').forEach(function (section) {
+			var key = section.getAttribute('data-thimbleform-section');
 			// Primary Field block always stays visible (Type + Label).
 			if (key === 'field' || key === 'advanced') {
 				section.hidden = false;
@@ -1079,7 +1079,7 @@
 			}
 			section.hidden = false;
 			var controls = section.querySelectorAll(
-				'.nestform-admin__field-control, .nestform-admin__field-control--full'
+				'.thimbleform-admin__field-control, .thimbleform-admin__field-control--full'
 			);
 			var anyVisible = false;
 			controls.forEach(function (el) {
@@ -1093,9 +1093,9 @@
 	}
 
 	function clearCondition(card) {
-		var field = card.querySelector('[data-nestform-condition-field]');
-		var op = card.querySelector('[data-nestform-condition-op]');
-		var val = card.querySelector('[data-nestform-condition-value]');
+		var field = card.querySelector('[data-thimbleform-condition-field]');
+		var op = card.querySelector('[data-thimbleform-condition-op]');
+		var val = card.querySelector('[data-thimbleform-condition-value]');
 		if (field) {
 			field.value = '';
 		}
@@ -1105,14 +1105,14 @@
 		if (val) {
 			val.value = '';
 		}
-		var details = card.querySelector('[data-nestform-section="condition"]');
+		var details = card.querySelector('[data-thimbleform-section="condition"]');
 		if (details && details.tagName === 'DETAILS') {
 			details.open = false;
 		}
 	}
 
 	function syncConditionSection(card, type) {
-		var section = card.querySelector('[data-nestform-section="condition"]');
+		var section = card.querySelector('[data-thimbleform-section="condition"]');
 		if (!section) {
 			return;
 		}
@@ -1125,8 +1125,8 @@
 	}
 
 	function syncConditionValue(card) {
-		var op = card.querySelector('[data-nestform-condition-op]');
-		var wrap = card.querySelector('[data-nestform-condition-value-wrap]');
+		var op = card.querySelector('[data-thimbleform-condition-op]');
+		var wrap = card.querySelector('[data-thimbleform-condition-value-wrap]');
 		if (!op || !wrap) {
 			return;
 		}
@@ -1135,13 +1135,13 @@
 	}
 
 	function syncTypeUi(card) {
-		var select = card.querySelector('[data-nestform-type]');
+		var select = card.querySelector('[data-thimbleform-type]');
 		if (!select) {
 			return;
 		}
 		var type = select.value;
 		card.setAttribute('data-field-type', type);
-		var badge = card.querySelector('[data-nestform-type-badge]');
+		var badge = card.querySelector('[data-thimbleform-type-badge]');
 		if (badge) {
 			badge.textContent =
 				(select.options[select.selectedIndex] && select.options[select.selectedIndex].text) ||
@@ -1152,8 +1152,8 @@
 		syncPhonePicker(card);
 		syncOptionsHelp(card, type);
 		if (type === 'payment') {
-			var payAmount = card.querySelector('[data-nestform-payment-amount]');
-			var payCurrency = card.querySelector('[data-nestform-payment-currency]');
+			var payAmount = card.querySelector('[data-thimbleform-payment-amount]');
+			var payCurrency = card.querySelector('[data-thimbleform-payment-currency]');
 			if (payAmount && !String(payAmount.value || '').trim()) {
 				payAmount.value = '9.99';
 			}
@@ -1162,20 +1162,20 @@
 			}
 			syncCardSummary(card);
 		}
-		var phInput = card.querySelector('[data-nestform-placeholder]');
+		var phInput = card.querySelector('[data-thimbleform-placeholder]');
 		if (phInput) {
 			phInput.placeholder =
 				type === 'select'
 					? i18n.selectPlaceholder || 'Select...'
 					: i18n.fieldPlaceholder || 'Optional hint';
 		}
-		var reqWrap = card.querySelector('[data-nestform-required-wrap]');
+		var reqWrap = card.querySelector('[data-thimbleform-required-wrap]');
 		if (reqWrap) {
 			var hideReq = isLayoutType(type);
 			reqWrap.hidden = hideReq;
 			if (hideReq) {
 				reqWrap.removeAttribute('title');
-				var req = card.querySelector('[data-nestform-required]');
+				var req = card.querySelector('[data-thimbleform-required]');
 				if (req) {
 					req.checked = false;
 				}
@@ -1188,10 +1188,10 @@
 	}
 
 	function syncTitle(card) {
-		var label = card.querySelector('[data-nestform-label]');
-		var name = card.querySelector('[data-nestform-name]');
-		var title = card.querySelector('[data-nestform-card-title]');
-		var meta = card.querySelector('[data-nestform-card-meta]');
+		var label = card.querySelector('[data-thimbleform-label]');
+		var name = card.querySelector('[data-thimbleform-name]');
+		var title = card.querySelector('[data-thimbleform-card-title]');
+		var meta = card.querySelector('[data-thimbleform-card-meta]');
 		if (title) {
 			title.textContent =
 				(label && stripTags(label.value)) ||
@@ -1211,18 +1211,18 @@
 	}
 
 	function operatorLabel(op) {
-		var ops = (window.nestformAdmin && window.nestformAdmin.operators) || {};
+		var ops = (window.thimbleformAdmin && window.thimbleformAdmin.operators) || {};
 		return ops[op] || op;
 	}
 
 	function syncCardSummary(card) {
-		var summary = card.querySelector('[data-nestform-card-summary]');
+		var summary = card.querySelector('[data-thimbleform-card-summary]');
 		if (!summary) {
 			return;
 		}
 		var type = card.getAttribute('data-field-type') || '';
 		var chips = [];
-		var enabledInput = card.querySelector('[data-nestform-enabled]');
+		var enabledInput = card.querySelector('[data-thimbleform-enabled]');
 		if (enabledInput && !enabledInput.checked) {
 			chips.push({
 				text: i18n.fieldHiddenChip || 'Hidden',
@@ -1230,15 +1230,15 @@
 			});
 		}
 		if (type === 'payment') {
-			var sumAmount = card.querySelector('[data-nestform-payment-amount]');
-			var sumCurrency = card.querySelector('[data-nestform-payment-currency]');
+			var sumAmount = card.querySelector('[data-thimbleform-payment-amount]');
+			var sumCurrency = card.querySelector('[data-thimbleform-payment-currency]');
 			var sumA = sumAmount ? String(sumAmount.value || '').trim() : '';
 			var sumC = sumCurrency ? String(sumCurrency.value || '').trim().toUpperCase() : '';
 			if (sumA || sumC) {
 				chips.push({ text: (sumA || '9.99') + ' ' + (sumC || 'USD') });
 			}
 		}
-		var width = card.querySelector('[data-nestform-width], select[name*="[width]"]');
+		var width = card.querySelector('[data-thimbleform-width], select[name*="[width]"]');
 		var widthVal = width ? String(width.value || 'full') : 'full';
 		if (widthVal === 'half') {
 			chips.push({ text: '½' });
@@ -1249,7 +1249,7 @@
 		} else if (widthVal === 'quarter') {
 			chips.push({ text: '¼' });
 		} else if (widthVal === 'custom') {
-			var customInput = card.querySelector('[data-nestform-width-custom]');
+			var customInput = card.querySelector('[data-thimbleform-width-custom]');
 			var pct = customInput ? parseInt(String(customInput.value || '50'), 10) : 50;
 			if (!isFinite(pct) || pct < 1 || pct > 100) {
 				pct = 50;
@@ -1257,9 +1257,9 @@
 			chips.push({ text: pct + '%' });
 		}
 		if (!isLayoutType(type)) {
-			var condField = card.querySelector('[data-nestform-condition-field]');
-			var condOp = card.querySelector('[data-nestform-condition-op]');
-			var condVal = card.querySelector('[data-nestform-condition-value]');
+			var condField = card.querySelector('[data-thimbleform-condition-field]');
+			var condOp = card.querySelector('[data-thimbleform-condition-op]');
+			var condVal = card.querySelector('[data-thimbleform-condition-value]');
 			var watch = condField ? condField.value : '';
 			if (watch) {
 				var op = condOp ? condOp.value : 'equals';
@@ -1281,7 +1281,7 @@
 			var item = typeof chip === 'string' ? { text: chip } : chip || {};
 			var span = document.createElement('span');
 			span.className =
-				'nestform-card__chip' + (item.mod ? ' nestform-card__chip--' + item.mod : '');
+				'thimbleform-card__chip' + (item.mod ? ' thimbleform-card__chip--' + item.mod : '');
 			span.textContent = item.text || '';
 			summary.appendChild(span);
 		});
@@ -1314,7 +1314,7 @@
 		if (!el || el.disabled || el.hidden) {
 			return '';
 		}
-		var wrap = el.closest('[data-nestform-show], [hidden]');
+		var wrap = el.closest('[data-thimbleform-show], [hidden]');
 		if (wrap && wrap.hidden) {
 			return '';
 		}
@@ -1336,12 +1336,12 @@
 
 	function previewLabelNode(label, required) {
 		var el = document.createElement('span');
-		el.className = 'nestform-live-preview__label';
+		el.className = 'thimbleform-live-preview__label';
 		el.textContent = label || (i18n.untitled || 'Untitled field');
 		if (required) {
 			var req = document.createElement('em');
 			req.style.fontStyle = 'normal';
-			req.style.color = 'var(--nestform-danger, #b32d2e)';
+			req.style.color = 'var(--thimbleform-danger, #b32d2e)';
 			req.style.marginLeft = '4px';
 			req.textContent = '*';
 			req.title = i18n.fieldPreviewRequired || 'required';
@@ -1353,7 +1353,7 @@
 	function previewControlNode(text, area) {
 		var el = document.createElement('span');
 		el.className =
-			'nestform-live-preview__control' + (area ? ' nestform-live-preview__control--area' : '');
+			'thimbleform-live-preview__control' + (area ? ' thimbleform-live-preview__control--area' : '');
 		el.textContent = text || '';
 		return el;
 	}
@@ -1363,21 +1363,21 @@
 			return null;
 		}
 		var el = document.createElement('span');
-		el.className = 'nestform-live-preview__hint';
+		el.className = 'thimbleform-live-preview__hint';
 		el.textContent = text;
 		return el;
 	}
 
 	function previewChoicesNode(options, mode) {
 		var list = document.createElement('ul');
-		list.className = 'nestform-card__preview-choices';
+		list.className = 'thimbleform-card__preview-choices';
 		var items = options.length ? options.slice(0, 6) : ['Yes', 'No'];
 		items.forEach(function (opt) {
 			var li = document.createElement('li');
-			li.className = 'nestform-card__preview-choice';
+			li.className = 'thimbleform-card__preview-choice';
 			var mark = document.createElement('span');
 			mark.className =
-				'nestform-card__preview-choice-mark nestform-card__preview-choice-mark--' +
+				'thimbleform-card__preview-choice-mark thimbleform-card__preview-choice-mark--' +
 				(mode === 'check' ? 'check' : 'radio');
 			mark.setAttribute('aria-hidden', 'true');
 			var label = document.createElement('span');
@@ -1388,7 +1388,7 @@
 		});
 		if (options.length > 6) {
 			var more = document.createElement('li');
-			more.className = 'nestform-card__preview-choice';
+			more.className = 'thimbleform-card__preview-choice';
 			more.textContent = '…';
 			list.appendChild(more);
 		}
@@ -1397,13 +1397,13 @@
 
 	function previewStarsNode(count, active) {
 		var wrap = document.createElement('div');
-		wrap.className = 'nestform-card__preview-stars';
+		wrap.className = 'thimbleform-card__preview-stars';
 		var n = Math.max(1, Math.min(10, count || 5));
 		var on = Math.max(0, Math.min(n, active == null ? 0 : active));
 		for (var i = 1; i <= n; i++) {
 			var star = document.createElement('span');
 			star.className =
-				'nestform-card__preview-star' + (i <= on ? ' is-on' : '');
+				'thimbleform-card__preview-star' + (i <= on ? ' is-on' : '');
 			star.textContent = '★';
 			star.setAttribute('aria-hidden', 'true');
 			wrap.appendChild(star);
@@ -1413,16 +1413,16 @@
 
 	function previewScaleNode(min, max, minLabel, maxLabel, value) {
 		var wrap = document.createElement('div');
-		wrap.className = 'nestform-card__preview-scale';
+		wrap.className = 'thimbleform-card__preview-scale';
 		var row = document.createElement('div');
-		row.className = 'nestform-card__preview-scale-row';
+		row.className = 'thimbleform-card__preview-scale-row';
 		var a = Math.min(min, max);
 		var b = Math.max(min, max);
 		var active = value != null && value !== '' ? Number(value) : NaN;
 		for (var i = a; i <= b; i++) {
 			var btn = document.createElement('span');
 			btn.className =
-				'nestform-card__preview-scale-btn' +
+				'thimbleform-card__preview-scale-btn' +
 				(!isNaN(active) && active === i ? ' is-on' : '');
 			btn.textContent = String(i);
 			row.appendChild(btn);
@@ -1430,7 +1430,7 @@
 		wrap.appendChild(row);
 		if (minLabel || maxLabel) {
 			var caps = document.createElement('div');
-			caps.className = 'nestform-card__preview-scale-caps';
+			caps.className = 'thimbleform-card__preview-scale-caps';
 			var left = document.createElement('span');
 			left.textContent = minLabel || '';
 			var right = document.createElement('span');
@@ -1444,11 +1444,11 @@
 
 	function previewRangeNode(min, max, value) {
 		var wrap = document.createElement('div');
-		wrap.className = 'nestform-card__preview-range';
+		wrap.className = 'thimbleform-card__preview-range';
 		var track = document.createElement('span');
-		track.className = 'nestform-card__preview-range-track';
+		track.className = 'thimbleform-card__preview-range-track';
 		var fill = document.createElement('span');
-		fill.className = 'nestform-card__preview-range-fill';
+		fill.className = 'thimbleform-card__preview-range-fill';
 		var a = Number(min);
 		var b = Number(max);
 		if (!isFinite(a)) a = 0;
@@ -1459,12 +1459,12 @@
 		fill.style.width = pct + '%';
 		track.appendChild(fill);
 		var thumb = document.createElement('span');
-		thumb.className = 'nestform-card__preview-range-thumb';
+		thumb.className = 'thimbleform-card__preview-range-thumb';
 		thumb.style.left = pct + '%';
 		track.appendChild(thumb);
 		wrap.appendChild(track);
 		var meta = document.createElement('div');
-		meta.className = 'nestform-card__preview-scale-caps';
+		meta.className = 'thimbleform-card__preview-scale-caps';
 		meta.appendChild(document.createTextNode(String(a)));
 		var val = document.createElement('strong');
 		val.textContent = String(v);
@@ -1476,20 +1476,20 @@
 
 	function previewSignatureNode() {
 		var pad = document.createElement('div');
-		pad.className = 'nestform-card__preview-signature';
+		pad.className = 'thimbleform-card__preview-signature';
 		pad.textContent = i18n.fieldPreviewSignature || 'Sign here';
 		return pad;
 	}
 
 	function previewRankingNode(options) {
 		var list = document.createElement('ol');
-		list.className = 'nestform-card__preview-ranking';
+		list.className = 'thimbleform-card__preview-ranking';
 		var items = options.length ? options.slice(0, 6) : ['First', 'Second', 'Third'];
 		items.forEach(function (opt, index) {
 			var li = document.createElement('li');
-			li.className = 'nestform-card__preview-ranking-item';
+			li.className = 'thimbleform-card__preview-ranking-item';
 			var num = document.createElement('span');
-			num.className = 'nestform-card__preview-ranking-num';
+			num.className = 'thimbleform-card__preview-ranking-num';
 			num.textContent = String(index + 1);
 			var text = document.createElement('span');
 			text.textContent = opt;
@@ -1502,7 +1502,7 @@
 
 	function previewMatrixNode(raw) {
 		var wrap = document.createElement('div');
-		wrap.className = 'nestform-card__preview-matrix';
+		wrap.className = 'thimbleform-card__preview-matrix';
 		var parts = String(raw || '').split(/\n---\n|\n---\r?\n|\r?\n---\r?\n/);
 		var rows = parsePreviewOptions(parts[0] || '');
 		var cols = parsePreviewOptions(parts[1] || '');
@@ -1515,31 +1515,31 @@
 		rows = rows.slice(0, 4);
 		cols = cols.slice(0, 5);
 		var table = document.createElement('div');
-		table.className = 'nestform-card__preview-matrix-table';
+		table.className = 'thimbleform-card__preview-matrix-table';
 		var colsTemplate = 'minmax(72px, 1.4fr) repeat(' + cols.length + ', minmax(28px, 1fr))';
 		var head = document.createElement('div');
-		head.className = 'nestform-card__preview-matrix-row nestform-card__preview-matrix-row--head';
+		head.className = 'thimbleform-card__preview-matrix-row thimbleform-card__preview-matrix-row--head';
 		head.style.gridTemplateColumns = colsTemplate;
 		head.appendChild(document.createElement('span'));
 		cols.forEach(function (col) {
 			var cell = document.createElement('span');
-			cell.className = 'nestform-card__preview-matrix-col';
+			cell.className = 'thimbleform-card__preview-matrix-col';
 			cell.textContent = col;
 			head.appendChild(cell);
 		});
 		table.appendChild(head);
 		rows.forEach(function (rowLabel) {
 			var row = document.createElement('div');
-			row.className = 'nestform-card__preview-matrix-row';
+			row.className = 'thimbleform-card__preview-matrix-row';
 			row.style.gridTemplateColumns = colsTemplate;
 			var label = document.createElement('span');
-			label.className = 'nestform-card__preview-matrix-label';
+			label.className = 'thimbleform-card__preview-matrix-label';
 			label.textContent = rowLabel;
 			row.appendChild(label);
 			cols.forEach(function () {
 				var mark = document.createElement('span');
 				mark.className =
-					'nestform-card__preview-choice-mark nestform-card__preview-choice-mark--radio';
+					'thimbleform-card__preview-choice-mark thimbleform-card__preview-choice-mark--radio';
 				mark.setAttribute('aria-hidden', 'true');
 				row.appendChild(mark);
 			});
@@ -1601,30 +1601,30 @@
 		if (!card) {
 			return;
 		}
-		var stage = card.querySelector('[data-nestform-field-preview-stage]');
+		var stage = card.querySelector('[data-thimbleform-field-preview-stage]');
 		if (!stage) {
 			return;
 		}
 		stage.textContent = '';
 		var type = card.getAttribute('data-field-type') || 'text';
-		var labelInput = card.querySelector('[data-nestform-label]');
+		var labelInput = card.querySelector('[data-thimbleform-label]');
 		var label = labelInput ? stripTags(labelInput.value) : '';
-		var requiredEl = card.querySelector('[data-nestform-required]');
+		var requiredEl = card.querySelector('[data-thimbleform-required]');
 		var required = !!(requiredEl && requiredEl.checked && !isLayoutType(type));
-		var placeholder = readVisibleControlValue(card, '[data-nestform-placeholder]');
+		var placeholder = readVisibleControlValue(card, '[data-thimbleform-placeholder]');
 		var help = '';
-		var helpInput = card.querySelector('[data-nestform-description]');
+		var helpInput = card.querySelector('[data-thimbleform-description]');
 		if (helpInput && !helpInput.disabled) {
 			help = String(helpInput.value || '').trim();
 		}
 		var defaultVal = '';
 		var defaultInput = card.querySelector(
-			'[data-nestform-show="default"] input, input[name*="[default]"]:not([data-nestform-image-id]):not([data-nestform-file-max])'
+			'[data-thimbleform-show="default"] input, input[name*="[default]"]:not([data-thimbleform-image-id]):not([data-thimbleform-file-max])'
 		);
 		if (defaultInput && !defaultInput.disabled && defaultInput.type !== 'hidden') {
 			defaultVal = String(defaultInput.value || '').trim();
 		}
-		var width = card.querySelector('[data-nestform-width], select[name*="[width]"]');
+		var width = card.querySelector('[data-thimbleform-width], select[name*="[width]"]');
 		var widthVal = width ? String(width.value || 'full') : 'full';
 		var widthClass = 'full';
 		var widthStyle = '';
@@ -1643,7 +1643,7 @@
 			widthStyle = '--nest-form-field-basis:25%;--nest-form-field-ratio:0.25';
 		} else if (widthVal === 'custom') {
 			widthClass = 'custom';
-			var customW = card.querySelector('[data-nestform-width-custom]');
+			var customW = card.querySelector('[data-thimbleform-width-custom]');
 			var customPct = customW ? parseInt(String(customW.value || '50'), 10) : 50;
 			if (!isFinite(customPct) || customPct < 1 || customPct > 100) {
 				customPct = 50;
@@ -1656,15 +1656,15 @@
 		}
 		var field = document.createElement('div');
 		field.className =
-			'nestform-live-preview__field' +
-			(widthClass !== 'full' ? ' nestform-live-preview__field--' + widthClass : '');
+			'thimbleform-live-preview__field' +
+			(widthClass !== 'full' ? ' thimbleform-live-preview__field--' + widthClass : '');
 		if (widthStyle) {
 			field.setAttribute('style', widthStyle);
 		}
 
 		if (type === 'hidden') {
 			var hiddenNote = document.createElement('p');
-			hiddenNote.className = 'nestform-card__preview-empty';
+			hiddenNote.className = 'thimbleform-card__preview-empty';
 			hiddenNote.textContent = i18n.fieldPreviewHidden || 'Hidden field — not shown on the form';
 			stage.appendChild(hiddenNote);
 			return;
@@ -1672,35 +1672,35 @@
 
 		if (type === 'divider') {
 			var hr = document.createElement('hr');
-			hr.className = 'nestform-card__preview-divider';
+			hr.className = 'thimbleform-card__preview-divider';
 			hr.setAttribute('aria-label', i18n.fieldPreviewDivider || 'Divider');
 			stage.appendChild(hr);
 			return;
 		}
 
 		if (type === 'spacer') {
-			var spacerSize = readVisibleControlValue(card, '[data-nestform-show="spacer-size"] select') || 'm';
+			var spacerSize = readVisibleControlValue(card, '[data-thimbleform-show="spacer-size"] select') || 'm';
 			var spacer = document.createElement('span');
-			spacer.className = 'nestform-card__preview-spacer nestform-card__preview-spacer--' + spacerSize;
+			spacer.className = 'thimbleform-card__preview-spacer thimbleform-card__preview-spacer--' + spacerSize;
 			spacer.title = i18n.fieldPreviewSpacer || 'Spacer';
 			stage.appendChild(spacer);
 			return;
 		}
 
 		if (type === 'heading') {
-			var level = readVisibleControlValue(card, '[data-nestform-show="heading-level"] select') || 'h2';
+			var level = readVisibleControlValue(card, '[data-thimbleform-show="heading-level"] select') || 'h2';
 			var heading = document.createElement('p');
 			heading.className =
-				'nestform-card__preview-heading nestform-card__preview-heading--' + level;
+				'thimbleform-card__preview-heading thimbleform-card__preview-heading--' + level;
 			heading.textContent = label || (i18n.untitled || 'Untitled field');
 			stage.appendChild(heading);
 			return;
 		}
 
 		if (type === 'paragraph') {
-			var paraRaw = readVisibleControlValue(card, '[data-nestform-show="paragraph-text"] textarea');
+			var paraRaw = readVisibleControlValue(card, '[data-thimbleform-show="paragraph-text"] textarea');
 			var para = document.createElement('p');
-			para.className = 'nestform-card__preview-paragraph';
+			para.className = 'thimbleform-card__preview-paragraph';
 			para.textContent = paraRaw || label || (i18n.fieldPreviewEmpty || '');
 			stage.appendChild(para);
 			return;
@@ -1708,7 +1708,7 @@
 
 		if (type === 'html') {
 			var htmlNote = document.createElement('p');
-			htmlNote.className = 'nestform-card__preview-empty';
+			htmlNote.className = 'thimbleform-card__preview-empty';
 			htmlNote.textContent =
 				(label ? label + ' — ' : '') + (i18n.fieldPreviewHtml || 'HTML block');
 			stage.appendChild(htmlNote);
@@ -1717,8 +1717,8 @@
 
 		if (type === 'image') {
 			var imgWrap = document.createElement('div');
-			imgWrap.className = 'nestform-card__preview-image';
-			var previewImg = card.querySelector('[data-nestform-image-preview] img');
+			imgWrap.className = 'thimbleform-card__preview-image';
+			var previewImg = card.querySelector('[data-thimbleform-image-preview] img');
 			if (previewImg && previewImg.getAttribute('src')) {
 				var clone = document.createElement('img');
 				clone.src = previewImg.getAttribute('src');
@@ -1734,19 +1734,19 @@
 		if (type === 'repeater') {
 			field.appendChild(previewLabelNode(label, required));
 			var row = document.createElement('div');
-			row.className = 'nestform-card__preview-repeater';
-			var subs = card.querySelectorAll('[data-nestform-subfield]');
+			row.className = 'thimbleform-card__preview-repeater';
+			var subs = card.querySelectorAll('[data-thimbleform-subfield]');
 			if (!subs.length) {
 				var emptyRep = document.createElement('p');
-				emptyRep.className = 'nestform-card__preview-empty';
+				emptyRep.className = 'thimbleform-card__preview-empty';
 				emptyRep.textContent = i18n.fieldPreviewEmpty || '';
 				field.appendChild(emptyRep);
 			} else {
 				Array.prototype.forEach.call(subs, function (sub, index) {
 					var col = document.createElement('div');
-					col.className = 'nestform-card__preview-repeater-col';
-					var subLabel = sub.querySelector('[data-nestform-subfield-label]');
-					var subName = sub.querySelector('[data-nestform-subfield-name]');
+					col.className = 'thimbleform-card__preview-repeater-col';
+					var subLabel = sub.querySelector('[data-thimbleform-subfield-label]');
+					var subName = sub.querySelector('[data-thimbleform-subfield-name]');
 					var title =
 						(subLabel && String(subLabel.value || '').trim()) ||
 						(subName && String(subName.value || '').trim()) ||
@@ -1773,14 +1773,14 @@
 			field.appendChild(
 				previewControlNode(
 					placeholder ||
-						parsePreviewOptions(readVisibleControlValue(card, '[data-nestform-show="options"] textarea'))[0] ||
+						parsePreviewOptions(readVisibleControlValue(card, '[data-thimbleform-show="options"] textarea'))[0] ||
 						(i18n.selectPlaceholder || 'Select...')
 				)
 			);
 		} else if (type === 'radio' || type === 'checkboxes') {
 			field.appendChild(
 				previewChoicesNode(
-					parsePreviewOptions(readVisibleControlValue(card, '[data-nestform-show="options"] textarea')),
+					parsePreviewOptions(readVisibleControlValue(card, '[data-thimbleform-show="options"] textarea')),
 					type === 'checkboxes' ? 'check' : 'radio'
 				)
 			);
@@ -1790,7 +1790,7 @@
 		} else if (type === 'file') {
 			field.appendChild(previewControlNode(i18n.fieldPreviewFile || 'Choose files…'));
 		} else if (type === 'rating') {
-			var ratingOpts = readVisibleControlValue(card, '[data-nestform-show="options"] textarea');
+			var ratingOpts = readVisibleControlValue(card, '[data-thimbleform-show="options"] textarea');
 			var ratingMax = parseRatingMax(ratingOpts);
 			var ratingActive =
 				defaultVal !== '' && isFinite(Number(defaultVal))
@@ -1801,7 +1801,7 @@
 			field.appendChild(previewScaleNode(0, 10, 'Not likely', 'Very likely', defaultVal));
 		} else if (type === 'scale') {
 			var scaleCfg = parseScaleConfig(
-				readVisibleControlValue(card, '[data-nestform-show="options"] textarea')
+				readVisibleControlValue(card, '[data-thimbleform-show="options"] textarea')
 			);
 			field.appendChild(
 				previewScaleNode(
@@ -1814,27 +1814,27 @@
 			);
 		} else if (type === 'range') {
 			var rangeCfg = parseRangeConfig(
-				readVisibleControlValue(card, '[data-nestform-show="options"] textarea')
+				readVisibleControlValue(card, '[data-thimbleform-show="options"] textarea')
 			);
 			field.appendChild(previewRangeNode(rangeCfg.min, rangeCfg.max, defaultVal));
 		} else if (type === 'ranking') {
 			field.appendChild(
 				previewRankingNode(
-					parsePreviewOptions(readVisibleControlValue(card, '[data-nestform-show="options"] textarea'))
+					parsePreviewOptions(readVisibleControlValue(card, '[data-thimbleform-show="options"] textarea'))
 				)
 			);
 		} else if (type === 'calculated') {
-			var formula = readVisibleControlValue(card, '[data-nestform-show="formula"] textarea');
+			var formula = readVisibleControlValue(card, '[data-thimbleform-show="formula"] textarea');
 			field.appendChild(previewControlNode(formula || (i18n.fieldPreviewCalc || 'Calculated value')));
 		} else if (type === 'matrix') {
 			field.appendChild(
-				previewMatrixNode(readVisibleControlValue(card, '[data-nestform-show="options"] textarea'))
+				previewMatrixNode(readVisibleControlValue(card, '[data-thimbleform-show="options"] textarea'))
 			);
 		} else if (type === 'signature') {
 			field.appendChild(previewSignatureNode());
 		} else if (type === 'payment') {
-			var payAmountEl = card.querySelector('[data-nestform-payment-amount]');
-			var payCurrencyEl = card.querySelector('[data-nestform-payment-currency]');
+			var payAmountEl = card.querySelector('[data-thimbleform-payment-amount]');
+			var payCurrencyEl = card.querySelector('[data-thimbleform-payment-currency]');
 			var payAmount = payAmountEl ? String(payAmountEl.value || '').trim() : '';
 			var payCurrency = payCurrencyEl ? String(payCurrencyEl.value || '').trim().toUpperCase() : '';
 			if (!payAmount) {
@@ -1867,8 +1867,8 @@
 			if (isLayoutType(type)) {
 				return;
 			}
-			var nameInput = card.querySelector('[data-nestform-name]');
-			var labelInput = card.querySelector('[data-nestform-label]');
+			var nameInput = card.querySelector('[data-thimbleform-name]');
+			var labelInput = card.querySelector('[data-thimbleform-label]');
 			var name = nameInput ? nameInput.value.trim() : '';
 			if (!name || seen[name] || name === excludeName) {
 				return;
@@ -1911,13 +1911,13 @@
 	function syncAllFieldNameSelects(root) {
 		var options = collectFieldNameOptions(root, '');
 		allFieldCards(root).forEach(function (card) {
-			var nameInput = card.querySelector('[data-nestform-name]');
+			var nameInput = card.querySelector('[data-thimbleform-name]');
 			var selfName = nameInput ? nameInput.value.trim() : '';
 			var filtered = options.filter(function (opt) {
 				return opt.value !== selfName;
 			});
 			fillSelectOptions(
-				card.querySelector('[data-nestform-condition-field]'),
+				card.querySelector('[data-thimbleform-condition-field]'),
 				filtered,
 				i18n.alwaysShow || '— Always show —',
 				null
@@ -1925,15 +1925,15 @@
 			syncCardSummary(card);
 		});
 		fillSelectOptions(
-			root.querySelector('[data-nestform-extra-condition-field]'),
+			root.querySelector('[data-thimbleform-extra-condition-field]'),
 			options,
 			i18n.alwaysShow || '— Always show —',
 			null
 		);
-		root.querySelectorAll('[data-nestform-auto-field]').forEach(function (sel) {
+		root.querySelectorAll('[data-thimbleform-auto-field]').forEach(function (sel) {
 			fillSelectOptions(sel, options, '— Select —', null);
 		});
-		var branchField = root.querySelector('[data-nestform-branch-field]');
+		var branchField = root.querySelector('[data-thimbleform-branch-field]');
 		if (branchField) {
 			fillSelectOptions(branchField, options, i18n.pickField || '— Field —', null);
 		}
@@ -1964,7 +1964,7 @@
 	}
 
 	function writeBranchRules(root, rules) {
-		var ta = root.querySelector('[data-nestform-branch-rules]');
+		var ta = root.querySelector('[data-thimbleform-branch-rules]');
 		if (!ta) {
 			return;
 		}
@@ -1991,26 +1991,26 @@
 	}
 
 	function refreshBranchList(root) {
-		var list = root.querySelector('[data-nestform-branch-list]');
-		var ta = root.querySelector('[data-nestform-branch-rules]');
+		var list = root.querySelector('[data-thimbleform-branch-list]');
+		var ta = root.querySelector('[data-thimbleform-branch-rules]');
 		if (!list || !ta) {
 			return;
 		}
 		var rules = parseBranchRules(ta.value);
-		var ops = (window.nestformAdmin && window.nestformAdmin.operators) || {};
+		var ops = (window.thimbleformAdmin && window.thimbleformAdmin.operators) || {};
 		list.textContent = '';
 		if (!rules.length) {
 			var empty = document.createElement('li');
-			empty.className = 'nestform-branch__empty';
+			empty.className = 'thimbleform-branch__empty';
 			empty.textContent = i18n.noRules || 'No branch rules yet.';
 			list.appendChild(empty);
 			return;
 		}
 		rules.forEach(function (rule, index) {
 			var li = document.createElement('li');
-			li.className = 'nestform-branch__item';
+			li.className = 'thimbleform-branch__item';
 			var text = document.createElement('span');
-			text.className = 'nestform-branch__text';
+			text.className = 'thimbleform-branch__text';
 			text.textContent =
 				(i18n.fromStep || 'From') +
 				' ' +
@@ -2026,9 +2026,9 @@
 				rule.to;
 			var btn = document.createElement('button');
 			btn.type = 'button';
-			btn.className = 'nestform-btn nestform-btn--ghost nestform-btn--danger-text nestform-branch__remove';
+			btn.className = 'thimbleform-btn thimbleform-btn--ghost thimbleform-btn--danger-text thimbleform-branch__remove';
 			btn.textContent = i18n.removeRule || 'Remove';
-			btn.setAttribute('data-nestform-branch-remove', String(index));
+			btn.setAttribute('data-thimbleform-branch-remove', String(index));
 			li.appendChild(text);
 			li.appendChild(btn);
 			list.appendChild(li);
@@ -2036,13 +2036,13 @@
 	}
 
 	function syncBranchStepSelects(root) {
-		var max = Math.max(2, root.querySelectorAll('[data-nestform-step-group]').length || 1);
-		fillStepSelect(root.querySelector('[data-nestform-branch-from]'), max, null);
-		fillStepSelect(root.querySelector('[data-nestform-branch-to]'), max, null);
+		var max = Math.max(2, root.querySelectorAll('[data-thimbleform-step-group]').length || 1);
+		fillStepSelect(root.querySelector('[data-thimbleform-branch-from]'), max, null);
+		fillStepSelect(root.querySelector('[data-thimbleform-branch-to]'), max, null);
 	}
 
 	function initBranchUi(root) {
-		var ui = root.querySelector('[data-nestform-branch-ui]');
+		var ui = root.querySelector('[data-thimbleform-branch-ui]');
 		if (!ui) {
 			return;
 		}
@@ -2077,18 +2077,18 @@
 			if (!target) {
 				return;
 			}
-			var add = target.closest('[data-nestform-branch-add]');
+			var add = target.closest('[data-thimbleform-branch-add]');
 			if (add) {
 				event.preventDefault();
 				event.stopPropagation();
 				syncBranchStepSelects(root);
 				syncAllFieldNameSelects(root);
-				var from = ui.querySelector('[data-nestform-branch-from]');
-				var field = ui.querySelector('[data-nestform-branch-field]');
-				var op = ui.querySelector('[data-nestform-branch-op]');
-				var value = ui.querySelector('[data-nestform-branch-value]');
-				var to = ui.querySelector('[data-nestform-branch-to]');
-				var hint = ui.querySelector('[data-nestform-branch-hint]');
+				var from = ui.querySelector('[data-thimbleform-branch-from]');
+				var field = ui.querySelector('[data-thimbleform-branch-field]');
+				var op = ui.querySelector('[data-thimbleform-branch-op]');
+				var value = ui.querySelector('[data-thimbleform-branch-value]');
+				var to = ui.querySelector('[data-thimbleform-branch-to]');
+				var hint = ui.querySelector('[data-thimbleform-branch-hint]');
 				markInvalid(field, false);
 				if (hint) {
 					hint.hidden = true;
@@ -2108,7 +2108,7 @@
 					}
 					return;
 				}
-				var ta = root.querySelector('[data-nestform-branch-rules]');
+				var ta = root.querySelector('[data-thimbleform-branch-rules]');
 				var rules = parseBranchRules(ta ? ta.value : '');
 				rules.push({
 					from: from.value || '1',
@@ -2125,11 +2125,11 @@
 				refreshBranchList(root);
 				return;
 			}
-			var remove = target.closest('[data-nestform-branch-remove]');
+			var remove = target.closest('[data-thimbleform-branch-remove]');
 			if (remove) {
 				event.preventDefault();
-				var idx = parseInt(remove.getAttribute('data-nestform-branch-remove') || '-1', 10);
-				var ta2 = root.querySelector('[data-nestform-branch-rules]');
+				var idx = parseInt(remove.getAttribute('data-thimbleform-branch-remove') || '-1', 10);
+				var ta2 = root.querySelector('[data-thimbleform-branch-rules]');
 				var rules2 = parseBranchRules(ta2 ? ta2.value : '');
 				if (idx >= 0 && idx < rules2.length) {
 					rules2.splice(idx, 1);
@@ -2139,11 +2139,11 @@
 			}
 		});
 
-		var fieldSelect = ui.querySelector('[data-nestform-branch-field]');
+		var fieldSelect = ui.querySelector('[data-thimbleform-branch-field]');
 		if (fieldSelect) {
 			fieldSelect.addEventListener('change', function () {
 				markInvalid(fieldSelect, false);
-				var hint = ui.querySelector('[data-nestform-branch-hint]');
+				var hint = ui.querySelector('[data-thimbleform-branch-hint]');
 				if (hint) {
 					hint.hidden = true;
 				}
@@ -2155,7 +2155,7 @@
 		if (!window.tinymce) {
 			return;
 		}
-		var id = 'nestform_mail_body_template';
+		var id = 'thimbleform_mail_body_template';
 		var ed = tinymce.get(id);
 		if (ed && !ed.isHidden()) {
 			ed.save();
@@ -2163,7 +2163,7 @@
 	}
 
 	function initMailBodyEditor() {
-		var id = 'nestform_mail_body_template';
+		var id = 'thimbleform_mail_body_template';
 		var wrap = document.getElementById('wp-' + id + '-wrap');
 		if (!wrap) {
 			return;
@@ -2177,7 +2177,7 @@
 	}
 
 	function initStickySave(root) {
-		var dirtyEl = root.querySelector('[data-nestform-dirty]');
+		var dirtyEl = root.querySelector('[data-thimbleform-dirty]');
 		var form = root.closest('form') || document.getElementById('post');
 		var dirty = false;
 
@@ -2186,7 +2186,7 @@
 			if (dirtyEl) {
 				dirtyEl.hidden = !dirty;
 			}
-			document.body.classList.toggle('nestform-is-dirty', dirty);
+			document.body.classList.toggle('thimbleform-is-dirty', dirty);
 		}
 
 		if (form) {
@@ -2215,7 +2215,7 @@
 			if (String(event.key).toLowerCase() !== 's') {
 				return;
 			}
-			if (!document.body.classList.contains('post-type-nestform')) {
+			if (!document.body.classList.contains('post-type-thimbleform')) {
 				return;
 			}
 			var target = event.target;
@@ -2224,8 +2224,8 @@
 			}
 			event.preventDefault();
 			var btn =
-				root.querySelector('[data-nestform-save].nestform-btn--primary') ||
-				root.querySelector('[data-nestform-save]');
+				root.querySelector('[data-thimbleform-save].thimbleform-btn--primary') ||
+				root.querySelector('[data-thimbleform-save]');
 			if (btn) {
 				btn.click();
 			}
@@ -2233,8 +2233,8 @@
 	}
 
 	function syncRequiredPill(card) {
-		var checkbox = card.querySelector('[data-nestform-required]');
-		var wrap = card.querySelector('[data-nestform-required-wrap]');
+		var checkbox = card.querySelector('[data-thimbleform-required]');
+		var wrap = card.querySelector('[data-thimbleform-required-wrap]');
 		var on = !!(checkbox && checkbox.checked);
 		if (wrap) {
 			wrap.classList.toggle('is-on', on);
@@ -2242,8 +2242,8 @@
 	}
 
 	function syncWidthCustomWrap(card) {
-		var select = card.querySelector('[data-nestform-width]');
-		var wrap = card.querySelector('[data-nestform-width-custom-wrap]');
+		var select = card.querySelector('[data-thimbleform-width]');
+		var wrap = card.querySelector('[data-thimbleform-width-custom-wrap]');
 		if (!wrap) {
 			return;
 		}
@@ -2252,8 +2252,8 @@
 	}
 
 	function syncEnabledState(card) {
-		var checkbox = card.querySelector('[data-nestform-enabled]');
-		var wrap = card.querySelector('[data-nestform-enabled-wrap]');
+		var checkbox = card.querySelector('[data-thimbleform-enabled]');
+		var wrap = card.querySelector('[data-thimbleform-enabled-wrap]');
 		var on = !(checkbox && !checkbox.checked);
 		card.classList.toggle('is-disabled', !on);
 		if (wrap) {
@@ -2261,7 +2261,7 @@
 			var tip = on
 				? i18n.hideField || 'Hide from form'
 				: i18n.showField || 'Show on form';
-			wrap.setAttribute('data-nestform-tooltip', tip);
+			wrap.setAttribute('data-thimbleform-tooltip', tip);
 			wrap.setAttribute('aria-label', tip);
 			wrap.removeAttribute('title');
 			var sr = wrap.querySelector('.screen-reader-text');
@@ -2273,9 +2273,9 @@
 	}
 
 	function syncStepBadge(card) {
-		var stepInput = card.querySelector('[data-nestform-step]');
-		var badge = card.querySelector('[data-nestform-step-badge]');
-		var move = card.querySelector('[data-nestform-move-step]');
+		var stepInput = card.querySelector('[data-thimbleform-step]');
+		var badge = card.querySelector('[data-thimbleform-step-badge]');
+		var move = card.querySelector('[data-thimbleform-move-step]');
 		if (!stepInput) {
 			return;
 		}
@@ -2290,9 +2290,9 @@
 	}
 
 	function syncEmpty(root) {
-		root.querySelectorAll('[data-nestform-step-group]').forEach(function (group) {
-			var list = group.querySelector('[data-nestform-fields]');
-			var empty = group.querySelector('[data-nestform-empty]');
+		root.querySelectorAll('[data-thimbleform-step-group]').forEach(function (group) {
+			var list = group.querySelector('[data-thimbleform-fields]');
+			var empty = group.querySelector('[data-thimbleform-empty]');
 			if (list && empty) {
 				empty.hidden = list.children.length > 0;
 			}
@@ -2300,13 +2300,13 @@
 	}
 
 	function syncStepLabelsTextarea(root) {
-		var ta = root.querySelector('[data-nestform-step-labels]');
+		var ta = root.querySelector('[data-thimbleform-step-labels]');
 		if (!ta) {
 			return;
 		}
 		var lines = [];
-		root.querySelectorAll('[data-nestform-step-group]').forEach(function (group) {
-			var title = group.querySelector('[data-nestform-step-title]');
+		root.querySelectorAll('[data-thimbleform-step-group]').forEach(function (group) {
+			var title = group.querySelector('[data-thimbleform-step-title]');
 			lines.push(title ? title.value.trim() : '');
 		});
 		while (lines.length && lines[lines.length - 1] === '') {
@@ -2316,34 +2316,34 @@
 	}
 
 	function syncNav(root) {
-		var nav = root.querySelector('[data-nestform-step-nav]');
+		var nav = root.querySelector('[data-thimbleform-step-nav]');
 		if (!nav) {
 			return;
 		}
 		nav.innerHTML = '';
 		var active = getActiveStep(root);
-		root.querySelectorAll('[data-nestform-step-group]').forEach(function (group) {
+		root.querySelectorAll('[data-thimbleform-step-group]').forEach(function (group) {
 			var step = group.getAttribute('data-step') || '1';
-			var titleInput = group.querySelector('[data-nestform-step-title]');
-			var list = group.querySelector('[data-nestform-fields]');
+			var titleInput = group.querySelector('[data-thimbleform-step-title]');
+			var list = group.querySelector('[data-thimbleform-fields]');
 			var title =
 				(titleInput && titleInput.value.trim()) ||
 				(i18n.step || 'Step') + ' ' + step;
 			var btn = document.createElement('button');
 			btn.type = 'button';
 			btn.className =
-				'nestform-step-nav__btn' + (String(active) === String(step) ? ' is-active' : '');
-			btn.setAttribute('data-nestform-step-tab', step);
+				'thimbleform-step-nav__btn' + (String(active) === String(step) ? ' is-active' : '');
+			btn.setAttribute('data-thimbleform-step-tab', step);
 			btn.setAttribute('role', 'tab');
 			btn.setAttribute('aria-selected', String(active) === String(step) ? 'true' : 'false');
 			btn.innerHTML =
-				'<span class="nestform-step-nav__index">' +
+				'<span class="thimbleform-step-nav__index">' +
 				step +
 				'</span>' +
-				'<span class="nestform-step-nav__title" data-nestform-step-nav-title></span>' +
-				'<span class="nestform-step-nav__count" data-nestform-step-nav-count></span>';
-			btn.querySelector('[data-nestform-step-nav-title]').textContent = title;
-			btn.querySelector('[data-nestform-step-nav-count]').textContent = list
+				'<span class="thimbleform-step-nav__title" data-thimbleform-step-nav-title></span>' +
+				'<span class="thimbleform-step-nav__count" data-thimbleform-step-nav-count></span>';
+			btn.querySelector('[data-thimbleform-step-nav-title]').textContent = title;
+			btn.querySelector('[data-thimbleform-step-nav-count]').textContent = list
 				? String(list.children.length)
 				: '0';
 			nav.appendChild(btn);
@@ -2351,10 +2351,10 @@
 	}
 
 	function refreshMoveOptions(root) {
-		var count = root.querySelectorAll('[data-nestform-step-group]').length;
+		var count = root.querySelectorAll('[data-thimbleform-step-group]').length;
 		allFieldCards(root).forEach(function (card) {
-			var move = card.querySelector('[data-nestform-move-step]');
-			var wrap = card.querySelector('[data-nestform-move-step-wrap]');
+			var move = card.querySelector('[data-thimbleform-move-step]');
+			var wrap = card.querySelector('[data-thimbleform-move-step-wrap]');
 			if (wrap) {
 				wrap.hidden = !isStepsMode(root) || count < 2;
 			}
@@ -2362,7 +2362,7 @@
 				syncSections(card);
 				return;
 			}
-			var current = card.querySelector('[data-nestform-step]');
+			var current = card.querySelector('[data-thimbleform-step]');
 			var curVal = current ? current.value : '1';
 			move.innerHTML = '';
 			for (var s = 1; s <= count; s++) {
@@ -2379,7 +2379,7 @@
 	}
 
 	function setFieldStep(card, step) {
-		var input = card.querySelector('[data-nestform-step]');
+		var input = card.querySelector('[data-thimbleform-step]');
 		if (input) {
 			input.value = String(step);
 		}
@@ -2388,7 +2388,7 @@
 
 	function activateStep(root, step) {
 		step = String(step);
-		root.querySelectorAll('[data-nestform-step-group]').forEach(function (group) {
+		root.querySelectorAll('[data-thimbleform-step-group]').forEach(function (group) {
 			var match = group.getAttribute('data-step') === step;
 			group.classList.toggle('is-active', match);
 			group.hidden = isStepsMode(root) ? !match : group.getAttribute('data-step') !== '1';
@@ -2397,25 +2397,25 @@
 	}
 
 	function renumberGroups(root) {
-		root.querySelectorAll('[data-nestform-step-group]').forEach(function (group, index) {
+		root.querySelectorAll('[data-thimbleform-step-group]').forEach(function (group, index) {
 			var step = index + 1;
 			group.setAttribute('data-step', String(step));
-			var list = group.querySelector('[data-nestform-fields]');
+			var list = group.querySelector('[data-thimbleform-fields]');
 			if (list) {
 				list.setAttribute('data-step', String(step));
 			}
-			var badge = group.querySelector('.nestform-step-group__badge');
+			var badge = group.querySelector('.thimbleform-step-group__badge');
 			if (badge) {
 				badge.textContent = (i18n.step || 'Step') + ' ' + step;
 			}
 			list &&
-				list.querySelectorAll('[data-nestform-field]').forEach(function (card) {
+				list.querySelectorAll('[data-thimbleform-field]').forEach(function (card) {
 					setFieldStep(card, step);
 				});
 		});
-		var removers = root.querySelectorAll('[data-nestform-remove-step]');
+		var removers = root.querySelectorAll('[data-thimbleform-remove-step]');
 		removers.forEach(function (btn) {
-			btn.hidden = root.querySelectorAll('[data-nestform-step-group]').length <= 1;
+			btn.hidden = root.querySelectorAll('[data-thimbleform-step-group]').length <= 1;
 		});
 		syncStepLabelsTextarea(root);
 		refreshMoveOptions(root);
@@ -2425,12 +2425,12 @@
 	}
 
 	function addStep(root) {
-		var tpl = root.querySelector('[data-nestform-step-group-template]');
-		var groups = root.querySelector('[data-nestform-step-groups]');
+		var tpl = root.querySelector('[data-thimbleform-step-group-template]');
+		var groups = root.querySelector('[data-thimbleform-step-groups]');
 		if (!tpl || !groups) {
 			return;
 		}
-		var next = groups.querySelectorAll('[data-nestform-step-group]').length + 1;
+		var next = groups.querySelectorAll('[data-thimbleform-step-group]').length + 1;
 		var html = tpl.innerHTML.replace(/__STEP__/g, String(next));
 		var wrap = document.createElement('div');
 		wrap.innerHTML = html.trim();
@@ -2445,12 +2445,12 @@
 	}
 
 	function removeStep(root, group) {
-		var groups = root.querySelectorAll('[data-nestform-step-group]');
+		var groups = root.querySelectorAll('[data-thimbleform-step-group]');
 		if (groups.length <= 1) {
 			return;
 		}
-		var list = group.querySelector('[data-nestform-fields]');
-		var fieldCount = list ? list.querySelectorAll('[data-nestform-field]').length : 0;
+		var list = group.querySelector('[data-thimbleform-fields]');
+		var fieldCount = list ? list.querySelectorAll('[data-thimbleform-field]').length : 0;
 		var msg =
 			fieldCount > 0
 				? (i18n.confirmDelStepFields || 'Remove this step and its %d field(s)?').replace(
@@ -2463,7 +2463,7 @@
 		}
 		var step = parseInt(group.getAttribute('data-step') || '1', 10);
 		if (list) {
-			list.querySelectorAll('[data-nestform-field]').forEach(function (card) {
+			list.querySelectorAll('[data-thimbleform-field]').forEach(function (card) {
 				card.remove();
 			});
 		}
@@ -2475,18 +2475,18 @@
 		refreshMoveOptions(root);
 		syncAllFieldNameSelects(root);
 		syncBranchStepSelects(root);
-		var remaining = root.querySelectorAll('[data-nestform-step-group]').length;
+		var remaining = root.querySelectorAll('[data-thimbleform-step-group]').length;
 		activateStep(root, Math.min(Math.max(1, step - 1), remaining));
 	}
 
 	function setStepsMode(root, on) {
 		var ws = getWorkspace(root);
-		var extra = root.querySelector('[data-nestform-steps-extra]');
-		var branch = root.querySelector('[data-nestform-steps-branch]');
-		var setup = root.querySelector('[data-nestform-steps-setup]');
-		var nav = root.querySelector('[data-nestform-step-nav]');
-		var hint = root.querySelector('[data-nestform-add-hint]');
-		var toggle = root.querySelector('.nestform-steps-setup__toggle');
+		var extra = root.querySelector('[data-thimbleform-steps-extra]');
+		var branch = root.querySelector('[data-thimbleform-steps-branch]');
+		var setup = root.querySelector('[data-thimbleform-steps-setup]');
+		var nav = root.querySelector('[data-thimbleform-step-nav]');
+		var hint = root.querySelector('[data-thimbleform-add-hint]');
+		var toggle = root.querySelector('.thimbleform-steps-setup__toggle');
 		if (ws) {
 			ws.setAttribute('data-mode', on ? 'steps' : 'flat');
 		}
@@ -2516,20 +2516,20 @@
 			hint.hidden = !on;
 		}
 
-		root.querySelectorAll('[data-nestform-step-head]').forEach(function (head) {
+		root.querySelectorAll('[data-thimbleform-step-head]').forEach(function (head) {
 			head.hidden = !on;
 		});
 
 		if (on) {
-			var groups = root.querySelectorAll('[data-nestform-step-group]');
+			var groups = root.querySelectorAll('[data-thimbleform-step-group]');
 			if (groups.length < 2) {
 				addStep(root);
 			}
 			allFieldCards(root).forEach(function (card) {
-				var stepInput = card.querySelector('[data-nestform-step]');
+				var stepInput = card.querySelector('[data-thimbleform-step]');
 				var step = stepInput ? stepInput.value : '1';
 				var dest = root.querySelector(
-					'[data-nestform-step-group][data-step="' + step + '"] [data-nestform-fields]'
+					'[data-thimbleform-step-group][data-step="' + step + '"] [data-thimbleform-fields]'
 				);
 				if (dest && card.parentElement !== dest) {
 					dest.appendChild(card);
@@ -2538,7 +2538,7 @@
 			activateStep(root, 1);
 		} else {
 			var flatList = root.querySelector(
-				'[data-nestform-step-group][data-step="1"] [data-nestform-fields]'
+				'[data-thimbleform-step-group][data-step="1"] [data-thimbleform-fields]'
 			);
 			if (flatList) {
 				allFieldCards(root).forEach(function (card) {
@@ -2549,7 +2549,7 @@
 				});
 			}
 			// Drop extra step groups — only step 1 remains when wizard is off.
-			root.querySelectorAll('[data-nestform-step-group]').forEach(function (group, index) {
+			root.querySelectorAll('[data-thimbleform-step-group]').forEach(function (group, index) {
 				if (index === 0) {
 					group.hidden = false;
 					group.classList.add('is-active');
@@ -2558,7 +2558,7 @@
 					group.remove();
 				}
 			});
-			var firstHead = root.querySelector('[data-nestform-step-group] [data-nestform-step-head]');
+			var firstHead = root.querySelector('[data-thimbleform-step-group] [data-thimbleform-step-head]');
 			if (firstHead) {
 				firstHead.hidden = true;
 			}
@@ -2575,7 +2575,7 @@
 
 	function moveCardToStep(root, card, step) {
 		var dest = root.querySelector(
-			'[data-nestform-step-group][data-step="' + step + '"] [data-nestform-fields]'
+			'[data-thimbleform-step-group][data-step="' + step + '"] [data-thimbleform-fields]'
 		);
 		if (!dest) {
 			return;
@@ -2604,10 +2604,10 @@
 	}
 
 	function syncPhonePicker(card) {
-		var picker = card.querySelector('[data-nestform-phone-picker]');
-		var isoWrap = card.querySelector('[data-nestform-phone-iso-wrap]');
-		var isoSelect = card.querySelector('[data-nestform-phone-iso]');
-		var offInput = card.querySelector('[data-nestform-phone-off]');
+		var picker = card.querySelector('[data-thimbleform-phone-picker]');
+		var isoWrap = card.querySelector('[data-thimbleform-phone-iso-wrap]');
+		var isoSelect = card.querySelector('[data-thimbleform-phone-iso]');
+		var offInput = card.querySelector('[data-thimbleform-phone-off]');
 		if (!picker) {
 			return;
 		}
@@ -2626,7 +2626,7 @@
 	}
 
 	function bindPhonePicker(card) {
-		var picker = card.querySelector('[data-nestform-phone-picker]');
+		var picker = card.querySelector('[data-thimbleform-phone-picker]');
 		if (!picker || picker.dataset.bound === '1') {
 			return;
 		}
@@ -2638,15 +2638,15 @@
 	}
 
 	function bindImagePicker(card) {
-		var picker = card.querySelector('[data-nestform-image-picker]');
+		var picker = card.querySelector('[data-thimbleform-image-picker]');
 		if (!picker || picker.dataset.bound === '1') {
 			return;
 		}
 		picker.dataset.bound = '1';
-		var idInput = card.querySelector('[data-nestform-image-id]');
-		var preview = picker.querySelector('[data-nestform-image-preview]');
-		var pickBtn = picker.querySelector('[data-nestform-image-pick]');
-		var clearBtn = picker.querySelector('[data-nestform-image-clear]');
+		var idInput = card.querySelector('[data-thimbleform-image-id]');
+		var preview = picker.querySelector('[data-thimbleform-image-preview]');
+		var pickBtn = picker.querySelector('[data-thimbleform-image-pick]');
+		var clearBtn = picker.querySelector('[data-thimbleform-image-clear]');
 		if (!idInput || !preview || !pickBtn) {
 			return;
 		}
@@ -2667,8 +2667,8 @@
 				var img = attachment.sizes && attachment.sizes.medium ? attachment.sizes.medium.url : attachment.url;
 				preview.classList.toggle('has-image', !!img);
 				preview.innerHTML = img
-					? '<img class="nestform-image-picker__img" src="' + img + '" alt="" />'
-					: '<span class="nestform-image-picker__empty">' +
+					? '<img class="thimbleform-image-picker__img" src="' + img + '" alt="" />'
+					: '<span class="thimbleform-image-picker__empty">' +
 							(i18n.noImage || 'No image selected') +
 							'</span>';
 				if (clearBtn) {
@@ -2683,7 +2683,7 @@
 				idInput.value = '';
 				preview.classList.remove('has-image');
 				preview.innerHTML =
-					'<span class="nestform-image-picker__empty">' +
+					'<span class="thimbleform-image-picker__empty">' +
 					(i18n.noImage || 'No image selected') +
 					'</span>';
 				clearBtn.hidden = true;
@@ -2707,7 +2707,7 @@
 	}
 
 	function bindDrag(card) {
-		var handle = card.querySelector('[data-nestform-drag-handle]');
+		var handle = card.querySelector('[data-thimbleform-drag-handle]');
 		if (!handle || handle.dataset.bound) {
 			return;
 		}
@@ -2734,7 +2734,7 @@
 			card.classList.add('is-dragging');
 			event.dataTransfer.effectAllowed = 'move';
 			try {
-				event.dataTransfer.setData('text/plain', 'nestform-field');
+				event.dataTransfer.setData('text/plain', 'thimbleform-field');
 			} catch (e) {}
 		});
 
@@ -2742,7 +2742,7 @@
 			card.classList.remove('is-dragging');
 			card.setAttribute('draggable', 'false');
 			dragState.card = null;
-			document.querySelectorAll('.nestform-card.is-drop-target').forEach(function (el) {
+			document.querySelectorAll('.thimbleform-card.is-drop-target').forEach(function (el) {
 				el.classList.remove('is-drop-target');
 			});
 		});
@@ -2750,7 +2750,7 @@
 
 	function addField(root, type) {
 		var list = getActiveList(root);
-		var tpl = root.querySelector('[data-nestform-field-template]');
+		var tpl = root.querySelector('[data-thimbleform-field-template]');
 		if (!list || !tpl) {
 			return null;
 		}
@@ -2765,12 +2765,12 @@
 		list.appendChild(node);
 		setFieldStep(node, step);
 		if (type) {
-			var typeSelect = node.querySelector('[data-nestform-type]');
+			var typeSelect = node.querySelector('[data-thimbleform-type]');
 			if (typeSelect) {
 				typeSelect.value = type;
 			}
-			var label = node.querySelector('[data-nestform-label]');
-			var name = node.querySelector('[data-nestform-name]');
+			var label = node.querySelector('[data-thimbleform-label]');
+			var name = node.querySelector('[data-thimbleform-name]');
 			var pretty = typeLabels[type] || type;
 			if (label && !label.value) {
 				label.value = pretty;
@@ -2780,38 +2780,38 @@
 				name.dataset.touched = '1';
 			}
 			if (type === 'ranking') {
-				var rankOpts = node.querySelector('[data-nestform-show="options"] textarea');
+				var rankOpts = node.querySelector('[data-thimbleform-show="options"] textarea');
 				if (rankOpts && !String(rankOpts.value || '').trim()) {
 					rankOpts.value = 'First\nSecond\nThird';
 				}
 			}
 			if (type === 'range') {
-				var opts = node.querySelector('[data-nestform-show="options"] textarea');
+				var opts = node.querySelector('[data-thimbleform-show="options"] textarea');
 				if (opts && !String(opts.value || '').trim()) {
 					opts.value = '0\n100\n1';
 				}
 			}
 			if (type === 'rating') {
-				var ratingOpts = node.querySelector('[data-nestform-show="options"] textarea');
+				var ratingOpts = node.querySelector('[data-thimbleform-show="options"] textarea');
 				if (ratingOpts && !String(ratingOpts.value || '').trim()) {
 					ratingOpts.value = '5';
 				}
 			}
 			if (type === 'scale') {
-				var scaleOpts = node.querySelector('[data-nestform-show="options"] textarea');
+				var scaleOpts = node.querySelector('[data-thimbleform-show="options"] textarea');
 				if (scaleOpts && !String(scaleOpts.value || '').trim()) {
 					scaleOpts.value = i18n.optionsPhScale || "1\n5\nVery dissatisfied\nVery satisfied";
 				}
 			}
 			if (type === 'matrix') {
-				var matrixOpts = node.querySelector('[data-nestform-show="options"] textarea');
+				var matrixOpts = node.querySelector('[data-thimbleform-show="options"] textarea');
 				if (matrixOpts && !String(matrixOpts.value || '').trim()) {
 					matrixOpts.value = i18n.optionsPhMatrix || "Support\nProduct\n---\nPoor\nFair\nGood";
 				}
 			}
 			if (type === 'payment') {
-				var payAmount = node.querySelector('[data-nestform-payment-amount]');
-				var payCurrency = node.querySelector('[data-nestform-payment-currency]');
+				var payAmount = node.querySelector('[data-thimbleform-payment-amount]');
+				var payCurrency = node.querySelector('[data-thimbleform-payment-currency]');
 				if (payAmount && !String(payAmount.value || '').trim()) {
 					payAmount.value = '9.99';
 				}
@@ -2820,19 +2820,19 @@
 				}
 			}
 			if (type === 'select' || type === 'radio' || type === 'checkboxes') {
-				var choiceOpts = node.querySelector('[data-nestform-show="options"] textarea');
+				var choiceOpts = node.querySelector('[data-thimbleform-show="options"] textarea');
 				if (choiceOpts && !String(choiceOpts.value || '').trim()) {
 					choiceOpts.value = i18n.optionsPhChoices || "Yes\nNo\nMaybe";
 				}
 			}
 			if (type === 'calculated') {
-				var calcOpts = node.querySelector('[data-nestform-show="formula"] textarea');
+				var calcOpts = node.querySelector('[data-thimbleform-show="formula"] textarea');
 				if (calcOpts && !String(calcOpts.value || '').trim()) {
 					calcOpts.value = '{price} * {qty}';
 				}
 			}
 			if (type === 'select') {
-				var phInput = node.querySelector('[data-nestform-placeholder]');
+				var phInput = node.querySelector('[data-thimbleform-placeholder]');
 				if (phInput && !String(phInput.value || '').trim()) {
 					phInput.value = i18n.selectPlaceholder || 'Select...';
 				}
@@ -2846,7 +2846,7 @@
 		refreshMoveOptions(root);
 		syncAllFieldNameSelects(root);
 		node.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-		var focusEl = node.querySelector('[data-nestform-label]');
+		var focusEl = node.querySelector('[data-thimbleform-label]');
 		if (focusEl) {
 			focusEl.focus();
 		}
@@ -2860,13 +2860,13 @@
 			delete el.dataset.bound;
 		});
 		card.after(clone);
-		var nameInput = clone.querySelector('[data-nestform-name]');
+		var nameInput = clone.querySelector('[data-thimbleform-name]');
 		if (nameInput) {
 			var base = String(nameInput.value || 'field').replace(/_\d+$/, '');
 			nameInput.value = uniqueFieldName(root, base, clone);
 			nameInput.dataset.touched = '1';
 		}
-		var labelInput = clone.querySelector('[data-nestform-label]');
+		var labelInput = clone.querySelector('[data-thimbleform-label]');
 		if (labelInput && labelInput.value) {
 			labelInput.value = labelInput.value + ' (' + (i18n.duplicate || 'copy') + ')';
 		}
@@ -2892,8 +2892,8 @@
 				return;
 			}
 			event.preventDefault();
-			var target = event.target.closest('[data-nestform-field]');
-			var group = list.closest('[data-nestform-step-group]');
+			var target = event.target.closest('[data-thimbleform-field]');
+			var group = list.closest('[data-thimbleform-step-group]');
 			var step = group ? group.getAttribute('data-step') || '1' : '1';
 			setFieldStep(dragState.card, step);
 
@@ -2903,7 +2903,7 @@
 				}
 				return;
 			}
-			document.querySelectorAll('.nestform-card.is-drop-target').forEach(function (el) {
+			document.querySelectorAll('.thimbleform-card.is-drop-target').forEach(function (el) {
 				el.classList.remove('is-drop-target');
 			});
 			target.classList.add('is-drop-target');
@@ -2921,14 +2921,14 @@
 			reindex(root);
 			syncEmpty(root);
 			syncNav(root);
-			document.querySelectorAll('.nestform-card.is-drop-target').forEach(function (el) {
+			document.querySelectorAll('.thimbleform-card.is-drop-target').forEach(function (el) {
 				el.classList.remove('is-drop-target');
 			});
 		});
 	}
 
 	function onReady() {
-		var root = document.querySelector('[data-nestform-admin]');
+		var root = document.querySelector('[data-thimbleform-admin]');
 		if (!root) {
 			return;
 		}
@@ -2937,7 +2937,7 @@
 
 		function editorTabStorageKey() {
 			var id = root.getAttribute('data-form-id') || '0';
-			return 'nestform_editor_tab_' + id;
+			return 'thimbleform_editor_tab_' + id;
 		}
 
 		function readEditorTab() {
@@ -2959,9 +2959,9 @@
 			} catch (err) {
 				/* ignore */
 			}
-			var active = root.querySelector('[data-nestform-tab].is-active');
+			var active = root.querySelector('[data-thimbleform-tab].is-active');
 			if (active) {
-				var current = active.getAttribute('data-nestform-tab') || '';
+				var current = active.getAttribute('data-thimbleform-tab') || '';
 				if (editorTabs.indexOf(current) !== -1) {
 					return current;
 				}
@@ -3005,14 +3005,14 @@
 			if (editorTabs.indexOf(id) === -1) {
 				id = 'fields';
 			}
-			root.querySelectorAll('[data-nestform-tab]').forEach(function (t) {
-				var active = t.getAttribute('data-nestform-tab') === id;
+			root.querySelectorAll('[data-thimbleform-tab]').forEach(function (t) {
+				var active = t.getAttribute('data-thimbleform-tab') === id;
 				t.classList.toggle('is-active', active);
 				t.setAttribute('aria-selected', active ? 'true' : 'false');
 				t.setAttribute('tabindex', active ? '0' : '-1');
 			});
-			root.querySelectorAll('[data-nestform-panel]').forEach(function (panel) {
-				var match = panel.getAttribute('data-nestform-panel') === id;
+			root.querySelectorAll('[data-thimbleform-panel]').forEach(function (panel) {
+				var match = panel.getAttribute('data-thimbleform-panel') === id;
 				panel.classList.toggle('is-active', match);
 				panel.hidden = !match;
 			});
@@ -3030,37 +3030,37 @@
 
 		function editorSubtabStorageKey(scope) {
 			var formId = root.getAttribute('data-form-id') || '0';
-			return 'nestform_subtab_' + formId + '_' + scope;
+			return 'thimbleform_subtab_' + formId + '_' + scope;
 		}
 
 		function activateSubtabs(wrap, id) {
 			if (!wrap) {
 				return;
 			}
-			var tabs = wrap.querySelectorAll('[data-nestform-subtab]');
-			var panels = wrap.querySelectorAll('[data-nestform-subpanel]');
+			var tabs = wrap.querySelectorAll('[data-thimbleform-subtab]');
+			var panels = wrap.querySelectorAll('[data-thimbleform-subpanel]');
 			var ids = [];
 			tabs.forEach(function (tab) {
-				var tid = tab.getAttribute('data-nestform-subtab') || '';
+				var tid = tab.getAttribute('data-thimbleform-subtab') || '';
 				if (tid) {
 					ids.push(tid);
 				}
 			});
 			if (ids.indexOf(id) === -1) {
-				id = wrap.getAttribute('data-nestform-subtabs-default') || ids[0] || '';
+				id = wrap.getAttribute('data-thimbleform-subtabs-default') || ids[0] || '';
 			}
 			tabs.forEach(function (tab) {
-				var on = tab.getAttribute('data-nestform-subtab') === id;
-				tab.classList.toggle('nestform-settings__subnav-item--active', on);
+				var on = tab.getAttribute('data-thimbleform-subtab') === id;
+				tab.classList.toggle('thimbleform-settings__subnav-item--active', on);
 				tab.setAttribute('aria-selected', on ? 'true' : 'false');
 				tab.tabIndex = on ? 0 : -1;
 			});
 			panels.forEach(function (panel) {
-				var on = panel.getAttribute('data-nestform-subpanel') === id;
+				var on = panel.getAttribute('data-thimbleform-subpanel') === id;
 				panel.hidden = !on;
 				panel.classList.toggle('is-active', on);
 			});
-			var key = wrap.getAttribute('data-nestform-subtabs-key') || '';
+			var key = wrap.getAttribute('data-thimbleform-subtabs-key') || '';
 			if (key) {
 				try {
 					window.sessionStorage.setItem(editorSubtabStorageKey(key), id);
@@ -3074,21 +3074,21 @@
 		}
 
 		function refreshVisibleSubtabs(scope) {
-			scope.querySelectorAll('[data-nestform-subtabs]').forEach(function (wrap) {
-				var panel = wrap.closest('[data-nestform-panel]');
+			scope.querySelectorAll('[data-thimbleform-subtabs]').forEach(function (wrap) {
+				var panel = wrap.closest('[data-thimbleform-panel]');
 				if (panel && panel.hidden) {
 					return;
 				}
-				var active = wrap.querySelector('[data-nestform-subtab].nestform-settings__subnav-item--active');
-				var id = active ? active.getAttribute('data-nestform-subtab') : '';
-				activateSubtabs(wrap, id || wrap.getAttribute('data-nestform-subtabs-default') || '');
+				var active = wrap.querySelector('[data-thimbleform-subtab].thimbleform-settings__subnav-item--active');
+				var id = active ? active.getAttribute('data-thimbleform-subtab') : '';
+				activateSubtabs(wrap, id || wrap.getAttribute('data-thimbleform-subtabs-default') || '');
 			});
 		}
 
 		function initEditorSubtabs() {
-			root.querySelectorAll('[data-nestform-subtabs]').forEach(function (wrap) {
-				var key = wrap.getAttribute('data-nestform-subtabs-key') || '';
-				var initial = wrap.getAttribute('data-nestform-subtabs-default') || '';
+			root.querySelectorAll('[data-thimbleform-subtabs]').forEach(function (wrap) {
+				var key = wrap.getAttribute('data-thimbleform-subtabs-key') || '';
+				var initial = wrap.getAttribute('data-thimbleform-subtabs-default') || '';
 				if (key) {
 					try {
 						var stored = window.sessionStorage.getItem(editorSubtabStorageKey(key));
@@ -3100,11 +3100,11 @@
 					}
 				}
 				activateSubtabs(wrap, initial);
-				var tabs = wrap.querySelectorAll('[data-nestform-subtab]');
+				var tabs = wrap.querySelectorAll('[data-thimbleform-subtab]');
 				tabs.forEach(function (tab) {
 					tab.addEventListener('click', function (event) {
 						event.preventDefault();
-						activateSubtabs(wrap, tab.getAttribute('data-nestform-subtab') || '');
+						activateSubtabs(wrap, tab.getAttribute('data-thimbleform-subtab') || '');
 					});
 					tab.addEventListener('keydown', function (event) {
 						if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
@@ -3121,15 +3121,15 @@
 								? list[(idx + 1) % list.length]
 								: list[(idx - 1 + list.length) % list.length];
 						next.focus();
-						activateSubtabs(wrap, next.getAttribute('data-nestform-subtab') || '');
+						activateSubtabs(wrap, next.getAttribute('data-thimbleform-subtab') || '');
 					});
 				});
 			});
 		}
 
-		root.querySelectorAll('[data-nestform-tab]').forEach(function (tab) {
+		root.querySelectorAll('[data-thimbleform-tab]').forEach(function (tab) {
 			tab.addEventListener('click', function () {
-				activateEditorTab(tab.getAttribute('data-nestform-tab'));
+				activateEditorTab(tab.getAttribute('data-thimbleform-tab'));
 			});
 		});
 
@@ -3140,8 +3140,8 @@
 		initEditorSubtabs();
 		activateEditorTab(readEditorTab());
 
-		root.querySelectorAll('[data-nestform-field]').forEach(bindCard);
-		root.querySelectorAll('[data-nestform-fields]').forEach(function (list) {
+		root.querySelectorAll('[data-thimbleform-field]').forEach(bindCard);
+		root.querySelectorAll('[data-thimbleform-fields]').forEach(function (list) {
 			bindListDnD(root, list);
 		});
 		bindSubfieldTypeSync(root);
@@ -3159,15 +3159,15 @@
 		initWebhooksUi(root);
 		initAddMenus(root);
 
-		var enable = root.querySelector('[data-nestform-enable-steps]');
-		var stepsSetup = root.querySelector('[data-nestform-steps-setup]');
+		var enable = root.querySelector('[data-thimbleform-enable-steps]');
+		var stepsSetup = root.querySelector('[data-thimbleform-steps-setup]');
 		if (enable) {
 			enable.addEventListener('change', function (event) {
 				var canMulti =
-					(stepsSetup && stepsSetup.getAttribute('data-nestform-can-multi-step') === '1') ||
-					(window.nestformPro &&
-						window.nestformPro.features &&
-						window.nestformPro.features.multi_step);
+					(stepsSetup && stepsSetup.getAttribute('data-thimbleform-can-multi-step') === '1') ||
+					(window.thimbleformPro &&
+						window.thimbleformPro.features &&
+						window.thimbleformPro.features.multi_step);
 				if (enable.checked && !canMulti) {
 					event.preventDefault();
 					enable.checked = false;
@@ -3177,14 +3177,14 @@
 			});
 		}
 
-		var addStepBtn = root.querySelector('[data-nestform-add-step]');
+		var addStepBtn = root.querySelector('[data-thimbleform-add-step]');
 		if (addStepBtn) {
 			addStepBtn.addEventListener('click', function () {
 				var canMulti =
-					(stepsSetup && stepsSetup.getAttribute('data-nestform-can-multi-step') === '1') ||
-					(window.nestformPro &&
-						window.nestformPro.features &&
-						window.nestformPro.features.multi_step);
+					(stepsSetup && stepsSetup.getAttribute('data-thimbleform-can-multi-step') === '1') ||
+					(window.thimbleformPro &&
+						window.thimbleformPro.features &&
+						window.thimbleformPro.features.multi_step);
 				if (!canMulti) {
 					return;
 				}
@@ -3199,26 +3199,26 @@
 		}
 
 		root.addEventListener('click', function (event) {
-			var addTypeBtn = event.target.closest('[data-nestform-add-type]');
+			var addTypeBtn = event.target.closest('[data-thimbleform-add-type]');
 			if (addTypeBtn && root.contains(addTypeBtn)) {
-				addField(root, addTypeBtn.getAttribute('data-nestform-add-type'));
+				addField(root, addTypeBtn.getAttribute('data-thimbleform-add-type'));
 				closeAllAddMenus(root);
 				return;
 			}
 
-			var subAdd = event.target.closest('[data-nestform-subfield-add]');
+			var subAdd = event.target.closest('[data-thimbleform-subfield-add]');
 			if (subAdd && root.contains(subAdd)) {
 				event.preventDefault();
-				var subWrap = subAdd.closest('[data-nestform-subfields]');
+				var subWrap = subAdd.closest('[data-thimbleform-subfields]');
 				if (!subWrap) {
 					return;
 				}
-				var subList = subWrap.querySelector('[data-nestform-subfields-list]');
-				var subTpl = subWrap.querySelector('[data-nestform-subfield-template]');
+				var subList = subWrap.querySelector('[data-thimbleform-subfields-list]');
+				var subTpl = subWrap.querySelector('[data-thimbleform-subfield-template]');
 				if (!subList || !subTpl) {
 					return;
 				}
-				var sidx = subList.querySelectorAll('[data-nestform-subfield]').length;
+				var sidx = subList.querySelectorAll('[data-thimbleform-subfield]').length;
 				var subHtml = subTpl.innerHTML.replace(/__SI__/g, String(sidx));
 				var subDiv = document.createElement('div');
 				subDiv.innerHTML = subHtml.trim();
@@ -3228,61 +3228,61 @@
 				}
 				syncSubfieldsUi(subWrap);
 				reindex(root);
-				scheduleFieldPreview(subAdd.closest('[data-nestform-field]'));
+				scheduleFieldPreview(subAdd.closest('[data-thimbleform-field]'));
 				return;
 			}
 
-			var subRemove = event.target.closest('[data-nestform-subfield-remove]');
+			var subRemove = event.target.closest('[data-thimbleform-subfield-remove]');
 			if (subRemove && root.contains(subRemove)) {
 				event.preventDefault();
-				var subRow = subRemove.closest('[data-nestform-subfield]');
-				var listEl = subRemove.closest('[data-nestform-subfields-list]');
-				var wrapEl = subRemove.closest('[data-nestform-subfields]');
+				var subRow = subRemove.closest('[data-thimbleform-subfield]');
+				var listEl = subRemove.closest('[data-thimbleform-subfields-list]');
+				var wrapEl = subRemove.closest('[data-thimbleform-subfields]');
 				if (subRow && listEl) {
 					subRow.remove();
 					syncSubfieldsUi(wrapEl);
 					reindex(root);
-					scheduleFieldPreview(subRemove.closest('[data-nestform-field]'));
+					scheduleFieldPreview(subRemove.closest('[data-thimbleform-field]'));
 				}
 				return;
 			}
 
-			var stepTab = event.target.closest('[data-nestform-step-tab]');
+			var stepTab = event.target.closest('[data-thimbleform-step-tab]');
 			if (stepTab) {
-				activateStep(root, stepTab.getAttribute('data-nestform-step-tab'));
+				activateStep(root, stepTab.getAttribute('data-thimbleform-step-tab'));
 				return;
 			}
 
-			var removeStepBtn = event.target.closest('[data-nestform-remove-step]');
+			var removeStepBtn = event.target.closest('[data-thimbleform-remove-step]');
 			if (removeStepBtn) {
-				var group = removeStepBtn.closest('[data-nestform-step-group]');
+				var group = removeStepBtn.closest('[data-thimbleform-step-group]');
 				if (group) {
 					removeStep(root, group);
 				}
 				return;
 			}
 
-			var toggle = event.target.closest('[data-nestform-toggle]');
+			var toggle = event.target.closest('[data-thimbleform-toggle]');
 			if (toggle) {
-				var card = toggle.closest('[data-nestform-field]');
+				var card = toggle.closest('[data-thimbleform-field]');
 				if (card) {
 					setCollapsed(card, !card.classList.contains('is-collapsed'));
 				}
 				return;
 			}
 
-			var dup = event.target.closest('[data-nestform-duplicate]');
+			var dup = event.target.closest('[data-thimbleform-duplicate]');
 			if (dup) {
-				var cardDup = dup.closest('[data-nestform-field]');
+				var cardDup = dup.closest('[data-thimbleform-field]');
 				if (cardDup) {
 					duplicateField(root, cardDup);
 				}
 				return;
 			}
 
-			var remove = event.target.closest('[data-nestform-remove-field]');
+			var remove = event.target.closest('[data-thimbleform-remove-field]');
 			if (remove) {
-				var row = remove.closest('[data-nestform-field]');
+				var row = remove.closest('[data-thimbleform-field]');
 				if (row && window.confirm(i18n.confirmDel || 'Remove this field?')) {
 					row.remove();
 					reindex(root);
@@ -3293,17 +3293,17 @@
 				return;
 			}
 
-			var head = event.target.closest('[data-nestform-card-head]');
+			var head = event.target.closest('[data-thimbleform-card-head]');
 			if (head && root.contains(head)) {
 				// Restore header-click expand, but keep controls interactive.
 				if (
 					event.target.closest(
-						'[data-nestform-drag-handle], [data-nestform-required-wrap], .nestform-card__actions, input, select, textarea, label, a, button'
+						'[data-thimbleform-drag-handle], [data-thimbleform-required-wrap], .thimbleform-card__actions, input, select, textarea, label, a, button'
 					)
 				) {
 					return;
 				}
-				var cardHead = head.closest('[data-nestform-field]');
+				var cardHead = head.closest('[data-thimbleform-field]');
 				if (cardHead) {
 					setCollapsed(cardHead, !cardHead.classList.contains('is-collapsed'));
 				}
@@ -3312,41 +3312,41 @@
 		});
 
 		root.addEventListener('change', function (event) {
-			var card = event.target.closest('[data-nestform-field]');
+			var card = event.target.closest('[data-thimbleform-field]');
 			if (card) {
-				if (event.target.matches('[data-nestform-type]')) {
+				if (event.target.matches('[data-thimbleform-type]')) {
 					syncTypeUi(card);
 					syncAllFieldNameSelects(root);
 				}
-				if (event.target.matches('[data-nestform-allow-other]')) {
+				if (event.target.matches('[data-thimbleform-allow-other]')) {
 					syncOtherLabel(card);
 					syncSections(card);
 				}
-				if (event.target.matches('[data-nestform-required]')) {
+				if (event.target.matches('[data-thimbleform-required]')) {
 					syncRequiredPill(card);
 				}
-				if (event.target.matches('[data-nestform-enabled]')) {
+				if (event.target.matches('[data-thimbleform-enabled]')) {
 					syncEnabledState(card);
 				}
-				if (event.target.matches('[data-nestform-condition-op]')) {
+				if (event.target.matches('[data-thimbleform-condition-op]')) {
 					syncConditionValue(card);
 					syncCardSummary(card);
 				}
-				if (event.target.matches('[data-nestform-condition-field]')) {
+				if (event.target.matches('[data-thimbleform-condition-field]')) {
 					syncConditionValue(card);
 					syncCardSummary(card);
 				}
-				if (event.target.matches('[data-nestform-move-step]')) {
+				if (event.target.matches('[data-thimbleform-move-step]')) {
 					moveCardToStep(root, card, event.target.value);
 				}
-				if (event.target.matches('[data-nestform-width], select[name*="[width]"]')) {
+				if (event.target.matches('[data-thimbleform-width], select[name*="[width]"]')) {
 					syncWidthCustomWrap(card);
 					syncCardSummary(card);
 				}
-				if (event.target.matches('[data-nestform-width-custom]')) {
+				if (event.target.matches('[data-thimbleform-width-custom]')) {
 					syncCardSummary(card);
 				}
-				if (event.target.matches('[data-nestform-payment-currency]')) {
+				if (event.target.matches('[data-thimbleform-payment-currency]')) {
 					syncCardSummary(card);
 				}
 				scheduleFieldPreview(card);
@@ -3354,17 +3354,17 @@
 		});
 
 		root.addEventListener('input', function (event) {
-			if (event.target.matches('[data-nestform-step-title]')) {
+			if (event.target.matches('[data-thimbleform-step-title]')) {
 				syncStepLabelsTextarea(root);
 				syncNav(root);
 				return;
 			}
-			var card = event.target.closest('[data-nestform-field]');
+			var card = event.target.closest('[data-thimbleform-field]');
 			if (!card) {
 				return;
 			}
-			if (event.target.matches('[data-nestform-label]')) {
-				var nameInput = card.querySelector('[data-nestform-name]');
+			if (event.target.matches('[data-thimbleform-label]')) {
+				var nameInput = card.querySelector('[data-thimbleform-name]');
 				if (nameInput && (!nameInput.dataset.touched || nameInput.value === '')) {
 					nameInput.value = uniqueFieldName(
 						root,
@@ -3375,35 +3375,35 @@
 				}
 				syncTitle(card);
 			}
-			if (event.target.matches('[data-nestform-name]')) {
+			if (event.target.matches('[data-thimbleform-name]')) {
 				event.target.dataset.touched = '1';
 				syncTitle(card);
 				syncAllFieldNameSelects(root);
 			}
-			if (event.target.matches('[data-nestform-condition-value]')) {
+			if (event.target.matches('[data-thimbleform-condition-value]')) {
 				syncCardSummary(card);
 			}
-			if (event.target.matches('[data-nestform-payment-amount], [data-nestform-payment-currency]')) {
+			if (event.target.matches('[data-thimbleform-payment-amount], [data-thimbleform-payment-currency]')) {
 				syncCardSummary(card);
 			}
 			scheduleFieldPreview(card);
 		});
 
 		// Observe new step groups for DnD binding.
-		var groupsWrap = root.querySelector('[data-nestform-step-groups]');
+		var groupsWrap = root.querySelector('[data-thimbleform-step-groups]');
 		if (groupsWrap && window.MutationObserver) {
 			var mo = new MutationObserver(function () {
-				root.querySelectorAll('[data-nestform-fields]').forEach(function (list) {
+				root.querySelectorAll('[data-thimbleform-fields]').forEach(function (list) {
 					bindListDnD(root, list);
 				});
 			});
 			mo.observe(groupsWrap, { childList: true });
 		}
 
-		document.querySelectorAll('[data-nestform-copy]').forEach(function (btn) {
+		document.querySelectorAll('[data-thimbleform-copy]').forEach(function (btn) {
 			btn.addEventListener('click', function () {
-				var row = btn.closest('.nestform-embed__row');
-				var code = row && row.querySelector('[data-nestform-copy-text]');
+				var row = btn.closest('.thimbleform-embed__row');
+				var code = row && row.querySelector('[data-thimbleform-copy-text]');
 				if (!code || !navigator.clipboard) {
 					return;
 				}
@@ -3429,7 +3429,7 @@
 		var data = new FormData(form);
 		var parts = [];
 		data.forEach(function (value, key) {
-			if (String(key).indexOf('nestform[fields]') === 0) {
+			if (String(key).indexOf('thimbleform[fields]') === 0) {
 				parts.push(key + '=' + String(value));
 			}
 		});
@@ -3458,7 +3458,7 @@
 		push();
 		root.addEventListener('change', push);
 		root.addEventListener('click', function (event) {
-			if (event.target.closest('[data-nestform-add-type], [data-nestform-remove], [data-nestform-duplicate], [data-nestform-add-step], [data-nestform-remove-step]')) {
+			if (event.target.closest('[data-thimbleform-add-type], [data-thimbleform-remove], [data-thimbleform-duplicate], [data-thimbleform-add-step], [data-thimbleform-remove-step]')) {
 				window.setTimeout(push, 0);
 			}
 		});
@@ -3482,7 +3482,7 @@
 				}
 				map[decodeURIComponent(pair.slice(0, i))] = decodeURIComponent(pair.slice(i + 1));
 			});
-			form.querySelectorAll('[name^="nestform[fields]"]').forEach(function (el) {
+			form.querySelectorAll('[name^="thimbleform[fields]"]').forEach(function (el) {
 				var name = el.getAttribute('name');
 				if (!name || !(name in map)) {
 					return;
@@ -3493,7 +3493,7 @@
 					el.value = map[name];
 				}
 			});
-			root.querySelectorAll('[data-nestform-field]').forEach(function (card) {
+			root.querySelectorAll('[data-thimbleform-field]').forEach(function (card) {
 				syncTypeUi(card);
 				syncTitle(card);
 				syncRequiredPill(card);
@@ -3502,7 +3502,7 @@
 			pushing = false;
 		}
 
-		var undoBtn = root.querySelector('[data-nestform-undo]');
+		var undoBtn = root.querySelector('[data-thimbleform-undo]');
 		if (undoBtn) {
 			undoBtn.addEventListener('click', undo);
 		}
@@ -3522,17 +3522,17 @@
 	}
 
 	function initTemplates() {
-		var drawer = document.querySelector('[data-nestform-templates-drawer]');
-		var openBtns = document.querySelectorAll('[data-nestform-templates-open]');
+		var drawer = document.querySelector('[data-thimbleform-templates-drawer]');
+		var openBtns = document.querySelectorAll('[data-thimbleform-templates-open]');
 		if (!drawer || !openBtns.length) {
 			return;
 		}
-		var INTRO_KEY = 'nestform_templates_intro';
+		var INTRO_KEY = 'thimbleform_templates_intro';
 		var fromIntro = false;
 		var nudgeTimer = 0;
 		var activeCategory = 'all';
-		var searchInput = drawer.querySelector('[data-nestform-templates-search]');
-		var noResults = drawer.querySelector('[data-nestform-templates-no-results]');
+		var searchInput = drawer.querySelector('[data-thimbleform-templates-search]');
+		var noResults = drawer.querySelector('[data-thimbleform-templates-no-results]');
 
 		function introState() {
 			try {
@@ -3550,8 +3550,8 @@
 			return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 		}
 		function hideNudge() {
-			var home = document.querySelector('.nestform-templates-home');
-			var nudge = document.querySelector('[data-nestform-templates-nudge]');
+			var home = document.querySelector('.thimbleform-templates-home');
+			var nudge = document.querySelector('[data-thimbleform-templates-nudge]');
 			if (nudgeTimer) {
 				window.clearTimeout(nudgeTimer);
 				nudgeTimer = 0;
@@ -3565,9 +3565,9 @@
 			setIntroState('done');
 		}
 		function showNudge() {
-			var home = document.querySelector('.nestform-templates-home');
-			var nudge = document.querySelector('[data-nestform-templates-nudge]');
-			var homeBtn = document.querySelector('[data-nestform-templates-home]');
+			var home = document.querySelector('.thimbleform-templates-home');
+			var nudge = document.querySelector('[data-thimbleform-templates-nudge]');
+			var homeBtn = document.querySelector('[data-thimbleform-templates-home]');
 			if (!home || !nudge) {
 				setIntroState('done');
 				return;
@@ -3582,9 +3582,9 @@
 		function applyFilters() {
 			var query = searchInput ? String(searchInput.value || '').trim().toLowerCase() : '';
 			var visible = 0;
-			drawer.querySelectorAll('[data-nestform-templates-card]').forEach(function (card) {
+			drawer.querySelectorAll('[data-thimbleform-templates-card]').forEach(function (card) {
 				var cardCat = card.getAttribute('data-category') || 'other';
-				var haystack = card.getAttribute('data-nestform-templates-search') || '';
+				var haystack = card.getAttribute('data-thimbleform-templates-search') || '';
 				var matchCat = activeCategory === 'all' || cardCat === activeCategory;
 				var matchQuery = !query || haystack.indexOf(query) !== -1;
 				var show = matchCat && matchQuery;
@@ -3619,13 +3619,13 @@
 		openBtns.forEach(function (btn) {
 			btn.addEventListener('click', open);
 		});
-		drawer.querySelectorAll('[data-nestform-templates-close]').forEach(function (btn) {
+		drawer.querySelectorAll('[data-thimbleform-templates-close]').forEach(function (btn) {
 			btn.addEventListener('click', close);
 		});
-		drawer.querySelectorAll('[data-nestform-templates-filter]').forEach(function (chip) {
+		drawer.querySelectorAll('[data-thimbleform-templates-filter]').forEach(function (chip) {
 			chip.addEventListener('click', function () {
-				activeCategory = chip.getAttribute('data-nestform-templates-filter') || 'all';
-				drawer.querySelectorAll('[data-nestform-templates-filter]').forEach(function (c) {
+				activeCategory = chip.getAttribute('data-thimbleform-templates-filter') || 'all';
+				drawer.querySelectorAll('[data-thimbleform-templates-filter]').forEach(function (c) {
 					c.classList.toggle('is-active', c === chip);
 				});
 				applyFilters();
@@ -3635,9 +3635,9 @@
 			searchInput.addEventListener('input', applyFilters);
 			searchInput.addEventListener('search', applyFilters);
 		}
-		document.querySelectorAll('[data-nestform-templates-save-first]').forEach(function (btn) {
+		document.querySelectorAll('[data-thimbleform-templates-save-first]').forEach(function (btn) {
 			btn.addEventListener('click', function () {
-				var cfg = window.nestformAdmin || {};
+				var cfg = window.thimbleformAdmin || {};
 				var msg = (cfg.i18n && cfg.i18n.templateSaveFirst) || 'Save the form as a draft first, then apply a template.';
 				window.alert(msg);
 			});
@@ -3650,9 +3650,9 @@
 
 		applyFilters();
 
-		var admin = document.querySelector('[data-nestform-admin]');
-		var isEmpty = (admin && admin.getAttribute('data-nestform-empty') === '1')
-			|| !!document.querySelector('[data-nestform-templates-empty]');
+		var admin = document.querySelector('[data-thimbleform-admin]');
+		var isEmpty = (admin && admin.getAttribute('data-thimbleform-empty') === '1')
+			|| !!document.querySelector('[data-thimbleform-templates-empty]');
 		if (isEmpty && introState() !== 'done') {
 			fromIntro = true;
 			open();
@@ -3660,9 +3660,9 @@
 	}
 
 	function initPreview() {
-		var drawer = document.querySelector('[data-nestform-preview-drawer]');
-		var frame = document.querySelector('[data-nestform-preview-frame]');
-		var openBtns = document.querySelectorAll('[data-nestform-preview]');
+		var drawer = document.querySelector('[data-thimbleform-preview-drawer]');
+		var frame = document.querySelector('[data-thimbleform-preview-frame]');
+		var openBtns = document.querySelectorAll('[data-thimbleform-preview]');
 		if (!drawer || !frame || !openBtns.length) {
 			return;
 		}
@@ -3671,7 +3671,7 @@
 			frame.removeAttribute('src');
 		}
 		function open() {
-			var cfg = window.nestformAdmin || {};
+			var cfg = window.thimbleformAdmin || {};
 			var formId = cfg.formId || 0;
 			if (!formId) {
 				window.alert(cfg.i18n && cfg.i18n.previewNeedSave ? cfg.i18n.previewNeedSave : 'Save first');
@@ -3689,7 +3689,7 @@
 		openBtns.forEach(function (btn) {
 			btn.addEventListener('click', open);
 		});
-		drawer.querySelectorAll('[data-nestform-preview-close]').forEach(function (btn) {
+		drawer.querySelectorAll('[data-thimbleform-preview-close]').forEach(function (btn) {
 			btn.addEventListener('click', close);
 		});
 		document.addEventListener('keydown', function (event) {
@@ -3703,11 +3703,11 @@
 		if (!row) {
 			return;
 		}
-		var typeSelect = row.querySelector('[data-nestform-subfield-type]');
-		var optsWrap = row.querySelector('[data-nestform-subfield-options]');
-		var optsLabel = row.querySelector('[data-nestform-subfield-options-label]');
-		var optsInput = row.querySelector('[data-nestform-subfield-options-input]');
-		var optsHint = row.querySelector('[data-nestform-subfield-options-hint]');
+		var typeSelect = row.querySelector('[data-thimbleform-subfield-type]');
+		var optsWrap = row.querySelector('[data-thimbleform-subfield-options]');
+		var optsLabel = row.querySelector('[data-thimbleform-subfield-options-label]');
+		var optsInput = row.querySelector('[data-thimbleform-subfield-options-input]');
+		var optsHint = row.querySelector('[data-thimbleform-subfield-options-hint]');
 		if (!typeSelect || !optsWrap || !optsInput) {
 			return;
 		}
@@ -3743,12 +3743,12 @@
 		if (!wrap) {
 			return;
 		}
-		var list = wrap.querySelector('[data-nestform-subfields-list]');
-		var empty = wrap.querySelector('[data-nestform-subfields-empty]');
-		var addMore = wrap.querySelector('[data-nestform-subfield-add-more]');
-		var preview = wrap.querySelector('[data-nestform-subfields-preview]');
-		var previewCols = wrap.querySelector('[data-nestform-subfields-preview-cols]');
-		var rows = list ? list.querySelectorAll('[data-nestform-subfield]') : [];
+		var list = wrap.querySelector('[data-thimbleform-subfields-list]');
+		var empty = wrap.querySelector('[data-thimbleform-subfields-empty]');
+		var addMore = wrap.querySelector('[data-thimbleform-subfield-add-more]');
+		var preview = wrap.querySelector('[data-thimbleform-subfields-preview]');
+		var previewCols = wrap.querySelector('[data-thimbleform-subfields-preview-cols]');
+		var rows = list ? list.querySelectorAll('[data-thimbleform-subfield]') : [];
 		var hasRows = rows.length > 0;
 		if (list) {
 			list.hidden = !hasRows;
@@ -3769,15 +3769,15 @@
 		}
 		preview.hidden = false;
 		Array.prototype.forEach.call(rows, function (row, index) {
-			var labelInput = row.querySelector('[data-nestform-subfield-label]');
-			var nameInput = row.querySelector('[data-nestform-subfield-name]');
-			var typeSelect = row.querySelector('[data-nestform-subfield-type]');
+			var labelInput = row.querySelector('[data-thimbleform-subfield-label]');
+			var nameInput = row.querySelector('[data-thimbleform-subfield-name]');
+			var typeSelect = row.querySelector('[data-thimbleform-subfield-type]');
 			var label = labelInput ? String(labelInput.value || '').trim() : '';
 			var name = nameInput ? String(nameInput.value || '').trim() : '';
 			var type = typeSelect ? String(typeSelect.value || 'text') : 'text';
 			var text = label || name || ((i18n.subColFallback || 'Column %d').replace('%d', String(index + 1)));
 			var chip = document.createElement('span');
-			chip.className = 'nestform-subfields-preview__col';
+			chip.className = 'thimbleform-subfields-preview__col';
 			chip.textContent = text;
 			chip.title = type + (name ? ' {' + name + '}' : '');
 			previewCols.appendChild(chip);
@@ -3785,19 +3785,19 @@
 	}
 
 	function bindSubfieldTypeSync(root) {
-		if (!root || root.getAttribute('data-nestform-subfield-bound')) {
+		if (!root || root.getAttribute('data-thimbleform-subfield-bound')) {
 			return;
 		}
-		root.setAttribute('data-nestform-subfield-bound', '1');
+		root.setAttribute('data-thimbleform-subfield-bound', '1');
 		root.addEventListener('change', function (event) {
-			var select = event.target.closest('[data-nestform-subfield-type]');
+			var select = event.target.closest('[data-thimbleform-subfield-type]');
 			if (!select || !root.contains(select)) {
 				return;
 			}
-			var row = select.closest('[data-nestform-subfield]');
+			var row = select.closest('[data-thimbleform-subfield]');
 			syncSubfieldOptions(row);
-			syncSubfieldsUi(select.closest('[data-nestform-subfields]'));
-			scheduleFieldPreview(select.closest('[data-nestform-field]'));
+			syncSubfieldsUi(select.closest('[data-thimbleform-subfields]'));
+			scheduleFieldPreview(select.closest('[data-thimbleform-field]'));
 		});
 		root.addEventListener('input', function (event) {
 			var target = event.target;
@@ -3805,15 +3805,15 @@
 				return;
 			}
 			if (
-				!target.matches('[data-nestform-subfield-label], [data-nestform-subfield-name]')
+				!target.matches('[data-thimbleform-subfield-label], [data-thimbleform-subfield-name]')
 			) {
 				return;
 			}
-			syncSubfieldsUi(target.closest('[data-nestform-subfields]'));
-			scheduleFieldPreview(target.closest('[data-nestform-field]'));
+			syncSubfieldsUi(target.closest('[data-thimbleform-subfields]'));
+			scheduleFieldPreview(target.closest('[data-thimbleform-field]'));
 		});
-		root.querySelectorAll('[data-nestform-subfield]').forEach(syncSubfieldOptions);
-		root.querySelectorAll('[data-nestform-subfields]').forEach(syncSubfieldsUi);
+		root.querySelectorAll('[data-thimbleform-subfield]').forEach(syncSubfieldOptions);
+		root.querySelectorAll('[data-thimbleform-subfields]').forEach(syncSubfieldsUi);
 	}
 
 	if (document.readyState === 'loading') {

@@ -3,40 +3,40 @@
  * Layers: bg #f5f5f7 → surface #fff → raised #fafafa
  * Accent #2563eb = Save + selection only
  *
- * Spacing: 8-point grid — use --nestform-space-* for margin, padding, gap.
+ * Spacing: 8-point grid — use --thimbleform-space-* for margin, padding, gap.
  * Scale: 4 / 8 / 16 / 24 / 32 / 40 / 48 / 64 (avoid 10, 12, 14, 18, 20 in new layout).
  *
- * Shared: .nestform-btn (+ color mods), .nestform-admin__input/__textarea,
- * .nestform-badge / .nestform-entry-status. Screens may change size/icons.
+ * Shared: .thimbleform-btn (+ color mods), .thimbleform-admin__input/__textarea,
+ * .thimbleform-badge / .thimbleform-entry-status. Screens may change size/icons.
  */
 
 :root {
-    --nestform-accent: #2563eb;
-    --nestform-accent-dark: #1d4ed8;
-    --nestform-accent-soft: rgba(37, 99, 235, 0.08);
-    --nestform-accent-line: #bfdbfe;
-    --nestform-accent-mid: #3b82f6;
+    --thimbleform-accent: #2563eb;
+    --thimbleform-accent-dark: #1d4ed8;
+    --thimbleform-accent-soft: rgba(37, 99, 235, 0.08);
+    --thimbleform-accent-line: #bfdbfe;
+    --thimbleform-accent-mid: #3b82f6;
     /* Secondary brand hue — indigo/violet for charts & Pro accents */
-    --nestform-violet: #6366f1;
-    --nestform-violet-mid: #818cf8;
-    --nestform-violet-soft: rgba(99, 102, 241, 0.1);
-    --nestform-violet-line: #c7d2fe;
-    --nestform-primary: #2563eb;
-    --nestform-primary-hover: #1d4ed8;
-    --nestform-surface: #ffffff;
-    --nestform-canvas: #f6f8fc;
-    --nestform-shell: #f6f8fc;
-    --nestform-paper: #ffffff;
-    --nestform-soft: #fafafa;
-    --nestform-raised: #fafafa;
+    --thimbleform-violet: #6366f1;
+    --thimbleform-violet-mid: #818cf8;
+    --thimbleform-violet-soft: rgba(99, 102, 241, 0.1);
+    --thimbleform-violet-line: #c7d2fe;
+    --thimbleform-primary: #2563eb;
+    --thimbleform-primary-hover: #1d4ed8;
+    --thimbleform-surface: #ffffff;
+    --thimbleform-canvas: #f6f8fc;
+    --thimbleform-shell: #f6f8fc;
+    --thimbleform-paper: #ffffff;
+    --thimbleform-soft: #fafafa;
+    --thimbleform-raised: #fafafa;
     /* Interactive hover — fill for tiles/rows; border matches accent tint. */
-    --nestform-hover: var(--nestform-accent-soft);
-    --nestform-hover-border: var(--nestform-accent-line);
-    --nestform-border: #e8e8ec;
-    --nestform-border-strong: #d4d4dc;
-    --nestform-muted: #6b6b80;
+    --thimbleform-hover: var(--thimbleform-accent-soft);
+    --thimbleform-hover-border: var(--thimbleform-accent-line);
+    --thimbleform-border: #e8e8ec;
+    --thimbleform-border-strong: #d4d4dc;
+    --thimbleform-muted: #6b6b80;
     /* Secondary copy / placeholders — keep ≥4.5:1 on white (was #a0a0b4 ≈2.6:1). */
-    --nestform-faint: #6b6b80;
+    --thimbleform-faint: #6b6b80;
     --thimbleform-pro: #1e3a8a;
     --thimbleform-pro-mid: #2563eb;
     --thimbleform-pro-soft: #eff6ff;
@@ -55,73 +55,73 @@
             transparent 52%
         ),
         linear-gradient(155deg, #1d4ed8 0%, #1e3a8a 46%, #132a5c 100%);
-    --nestform-navy: #01123e;
-    --nestform-navy-alt: #02194c;
-    --nestform-ink: var(--nestform-navy);
-    --nestform-ink-alt: var(--nestform-navy-alt);
+    --thimbleform-navy: #01123e;
+    --thimbleform-navy-alt: #02194c;
+    --thimbleform-ink: var(--thimbleform-navy);
+    --thimbleform-ink-alt: var(--thimbleform-navy-alt);
     /* Status — cool tones that sit with navy / accent / violet */
-    --nestform-ok: #0a7a6a;
-    --nestform-ok-soft: #e8f8f5;
-    --nestform-ok-border: #b5e5dc;
-    --nestform-warn: #1d4ed8;
-    --nestform-warn-soft: #eff6ff;
-    --nestform-warn-border: #bfdbfe;
-    --nestform-danger: #b83a52;
-    --nestform-danger-soft: #fdf0f3;
-    --nestform-danger-border: #f0c5ce;
-    --nestform-radius: 8px;
-    --nestform-radius-sm: 8px;
-    --nestform-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-    --nestform-shadow-md:
+    --thimbleform-ok: #0a7a6a;
+    --thimbleform-ok-soft: #e8f8f5;
+    --thimbleform-ok-border: #b5e5dc;
+    --thimbleform-warn: #1d4ed8;
+    --thimbleform-warn-soft: #eff6ff;
+    --thimbleform-warn-border: #bfdbfe;
+    --thimbleform-danger: #b83a52;
+    --thimbleform-danger-soft: #fdf0f3;
+    --thimbleform-danger-border: #f0c5ce;
+    --thimbleform-radius: 8px;
+    --thimbleform-radius-sm: 8px;
+    --thimbleform-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    --thimbleform-shadow-md:
         0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
-    --nestform-transition: 0.25s ease-in-out;
+    --thimbleform-transition: 0.25s ease-in-out;
     /* 8-point spacing (4px micro steps only where tight label gaps need it) */
-    --nestform-space-1: 4px;
-    --nestform-space-2: 8px;
-    --nestform-space-4: 16px;
-    --nestform-space-6: 24px;
-    --nestform-space-8: 32px;
-    --nestform-space-10: 40px;
-    --nestform-space-12: 48px;
-    --nestform-space-16: 64px;
-    --nestform-line-height: 1.4;
-    --nestform-control-h: var(--nestform-space-10);
-    --nestform-on-accent: #ffffff;
-    --nestform-on-accent-muted: rgba(255, 255, 255, 0.88);
+    --thimbleform-space-1: 4px;
+    --thimbleform-space-2: 8px;
+    --thimbleform-space-4: 16px;
+    --thimbleform-space-6: 24px;
+    --thimbleform-space-8: 32px;
+    --thimbleform-space-10: 40px;
+    --thimbleform-space-12: 48px;
+    --thimbleform-space-16: 64px;
+    --thimbleform-line-height: 1.4;
+    --thimbleform-control-h: var(--thimbleform-space-10);
+    --thimbleform-on-accent: #ffffff;
+    --thimbleform-on-accent-muted: rgba(255, 255, 255, 0.88);
     /* Shared chevrons — stroke style (right / down / up) */
-    --nestform-chevron-right: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12L10 8L6 4' stroke='%236b6b80' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    --nestform-chevron-down: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%236b6b80' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    --nestform-chevron-up: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10L8 6L12 10' stroke='%236b6b80' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    --nestform-chevron-down-accent: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%232563eb' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    --nestform-chevron-up-accent: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10L8 6L12 10' stroke='%232563eb' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    --nestform-chevron-mask-right: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12L10 8L6 4' stroke='%23000' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    --nestform-chevron-mask-down: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%23000' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    --nestform-chevron-mask-up: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10L8 6L12 10' stroke='%23000' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    --nestform-font:
+    --thimbleform-chevron-right: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12L10 8L6 4' stroke='%236b6b80' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --thimbleform-chevron-down: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%236b6b80' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --thimbleform-chevron-up: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10L8 6L12 10' stroke='%236b6b80' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --thimbleform-chevron-down-accent: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%232563eb' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --thimbleform-chevron-up-accent: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10L8 6L12 10' stroke='%232563eb' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --thimbleform-chevron-mask-right: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12L10 8L6 4' stroke='%23000' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --thimbleform-chevron-mask-down: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%23000' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --thimbleform-chevron-mask-up: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10L8 6L12 10' stroke='%23000' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --thimbleform-font:
         "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
         Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-    --nestform-font-display:
+    --thimbleform-font-display:
         "Sora", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
 }
 
-body.nestform-admin-screen {
-    font-family: var(--nestform-font);
-    line-height: var(--nestform-line-height);
+body.thimbleform-admin-screen {
+    font-family: var(--thimbleform-font);
+    line-height: var(--thimbleform-line-height);
 }
 
-body.nestform-admin-screen .nestform-app__brand-title,
-body.nestform-admin-screen .nestform-dash__title,
-body.nestform-admin-screen .nestform-hub__title,
-body.nestform-admin-screen .nestform-settings__title,
-body.nestform-admin-screen .nestform-admin__panel-title,
-body.nestform-admin-screen .nestform-upgrade__title,
-body.nestform-admin-screen h1,
-body.nestform-admin-screen h2 {
-    font-family: var(--nestform-font-display);
+body.thimbleform-admin-screen .thimbleform-app__brand-title,
+body.thimbleform-admin-screen .thimbleform-dash__title,
+body.thimbleform-admin-screen .thimbleform-hub__title,
+body.thimbleform-admin-screen .thimbleform-settings__title,
+body.thimbleform-admin-screen .thimbleform-admin__panel-title,
+body.thimbleform-admin-screen .thimbleform-upgrade__title,
+body.thimbleform-admin-screen h1,
+body.thimbleform-admin-screen h2 {
+    font-family: var(--thimbleform-font-display);
 }
 
-body.nestform-admin-screen #wpcontent,
-body.nestform-settings-screen #wpcontent {
-    background: var(--nestform-canvas);
+body.thimbleform-admin-screen #wpcontent,
+body.thimbleform-settings-screen #wpcontent {
+    background: var(--thimbleform-canvas);
 }

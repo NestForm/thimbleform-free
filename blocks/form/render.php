@@ -1,6 +1,6 @@
 <?php
 /**
- * Dynamic render for nestform/form block.
+ * Dynamic render for thimbleform/form block.
  *
  * @package Thimbleform
  *
@@ -13,23 +13,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$nestform_form_id = isset( $attributes['formId'] ) ? (int) $attributes['formId'] : 0;
-if ( $nestform_form_id <= 0 || ! class_exists( 'Nestform_Renderer' ) ) {
+$thimbleform_form_id = isset( $attributes['formId'] ) ? (int) $attributes['formId'] : 0;
+if ( $thimbleform_form_id <= 0 || ! class_exists( 'Thimbleform_Renderer' ) ) {
 	if ( current_user_can( 'edit_posts' ) ) {
-		echo '<p class="nestform-block nestform-block--empty">' . esc_html__( 'Select a Thimbleform in the block settings.', 'nestform' ) . '</p>';
+		echo '<p class="thimbleform-block thimbleform-block--empty">' . esc_html__( 'Select a Thimbleform in the block settings.', 'thimbleform' ) . '</p>';
 	}
 	return;
 }
 
-$nestform_wrapper = get_block_wrapper_attributes(
+$thimbleform_wrapper = get_block_wrapper_attributes(
 	array(
-		'class' => 'nestform-block',
+		'class' => 'thimbleform-block',
 	)
 );
 
-$nestform_html = Nestform_Renderer::render( $nestform_form_id );
-if ( $nestform_html === '' ) {
+$thimbleform_html = Thimbleform_Renderer::render( $thimbleform_form_id );
+if ( $thimbleform_html === '' ) {
 	return;
 }
 
-echo '<div ' . $nestform_wrapper . '>' . $nestform_html . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- renderer returns escaped HTML.
+echo '<div ' . $thimbleform_wrapper . '>' . $thimbleform_html . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- renderer returns escaped HTML.

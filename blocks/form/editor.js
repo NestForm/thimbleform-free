@@ -9,7 +9,7 @@
 	var Placeholder = wp.components.Placeholder;
 	var el = wp.element.createElement;
 	var Fragment = wp.element.Fragment;
-	var cfg = window.nestformBlock || {};
+	var cfg = window.thimbleformBlock || {};
 	var forms = Array.isArray(cfg.forms) ? cfg.forms : [];
 	var i18n = cfg.i18n || {};
 
@@ -49,14 +49,14 @@
 		});
 	}
 
-	registerBlockType('nestform/form', {
+	registerBlockType('thimbleform/form', {
 		edit: function (props) {
 			var formId = Number(props.attributes.formId) || 0;
 			var selected = findForm(formId);
 			var blockProps = useBlockProps({
 				className:
-					'nestform-block-editor' +
-					(formId ? ' nestform-block-editor--selected' : ''),
+					'thimbleform-block-editor' +
+					(formId ? ' thimbleform-block-editor--selected' : ''),
 			});
 
 			var body = formId
@@ -65,24 +65,24 @@
 						null,
 						el(
 							'span',
-							{ className: 'nestform-block-editor__title' },
+							{ className: 'thimbleform-block-editor__title' },
 							selected
 								? selected.title
 								: (i18n.formFallback || 'Form #%d').replace('%d', String(formId))
 						),
 						el(
 							'p',
-							{ className: 'nestform-block-editor__meta' },
+							{ className: 'thimbleform-block-editor__meta' },
 							i18n.previewHint || 'The live form renders on the front end.'
 						),
 						el(
 							'div',
-							{ className: 'nestform-block-editor__picker' },
+							{ className: 'thimbleform-block-editor__picker' },
 							FormSelect(formId, props.setAttributes)
 						),
 						el(
 							'code',
-							{ className: 'nestform-block-editor__code' },
+							{ className: 'thimbleform-block-editor__code' },
 							'[thimbleform id="' + formId + '"]'
 						)
 					)

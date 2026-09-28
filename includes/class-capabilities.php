@@ -9,18 +9,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Capabilities {
+class Thimbleform_Capabilities {
 
-	const MANAGE = 'nestform_manage_forms';
-	const VIEW   = 'nestform_view_entries';
+	const MANAGE = 'thimbleform_manage_forms';
+	const VIEW   = 'thimbleform_view_entries';
 
 	const ROLE_VERSION        = '1';
-	const ROLE_VERSION_OPTION = 'nestform_role_version';
+	const ROLE_VERSION_OPTION = 'thimbleform_role_version';
 
 	public static function init() {
 		add_filter( 'user_has_cap', array( __CLASS__, 'grant_implied' ), 10, 4 );
-		add_action( 'update_option_nestform_settings', array( __CLASS__, 'sync_roles' ) );
-		add_action( 'add_option_nestform_settings', array( __CLASS__, 'sync_roles' ) );
+		add_action( 'update_option_thimbleform_settings', array( __CLASS__, 'sync_roles' ) );
+		add_action( 'add_option_thimbleform_settings', array( __CLASS__, 'sync_roles' ) );
 		add_action( 'admin_init', array( __CLASS__, 'maybe_install' ) );
 	}
 
@@ -44,8 +44,8 @@ class Nestform_Capabilities {
 	 */
 	public static function labels() {
 		return array(
-			self::MANAGE => __( 'Manage forms', 'nestform' ),
-			self::VIEW   => __( 'View entries', 'nestform' ),
+			self::MANAGE => __( 'Manage forms', 'thimbleform' ),
+			self::VIEW   => __( 'View entries', 'thimbleform' ),
 		);
 	}
 
@@ -83,14 +83,14 @@ class Nestform_Capabilities {
 			}
 		}
 
-		$settings = get_option( Nestform_Settings::OPTION, array() );
+		$settings = get_option( Thimbleform_Settings::OPTION, array() );
 		$settings = is_array( $settings ) ? $settings : array();
 		if ( empty( $settings['role_caps'] ) || ! is_array( $settings['role_caps'] ) ) {
 			$settings['role_caps'] = array(
 				'editor' => self::all(),
 			);
-			$merged = array_merge( Nestform_Settings::defaults(), $settings );
-			update_option( Nestform_Settings::OPTION, $merged, false );
+			$merged = array_merge( Thimbleform_Settings::defaults(), $settings );
+			update_option( Thimbleform_Settings::OPTION, $merged, false );
 		}
 
 		self::sync_roles();
@@ -115,8 +115,8 @@ class Nestform_Capabilities {
 	 */
 	public static function role_settings() {
 		$stored = array();
-		if ( class_exists( 'Nestform_Settings' ) ) {
-			$all    = Nestform_Settings::get();
+		if ( class_exists( 'Thimbleform_Settings' ) ) {
+			$all    = Thimbleform_Settings::get();
 			$stored = isset( $all['role_caps'] ) ? $all['role_caps'] : array();
 		}
 		$clean = array();

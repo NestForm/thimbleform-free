@@ -19,7 +19,7 @@ const SKIP_VALUES = new Set(['0', '0px', 'inherit', 'initial', 'unset', 'normal'
 function tokenForFile(filePath) {
 	const normalized = filePath.replace(/\\/g, '/');
 	if (normalized.includes('/css/admin/') || normalized.includes('/css/admin\\')) {
-		return 'var(--nestform-line-height)';
+		return 'var(--thimbleform-line-height)';
 	}
 	return 'var(--nest-form-line-height)';
 }
@@ -29,7 +29,7 @@ function shouldSkipValue(raw) {
 	if (SKIP_VALUES.has(value)) {
 		return true;
 	}
-	if (value.startsWith('var(--nestform-line-height)') || value.startsWith('var(--nest-form-line-height)')) {
+	if (value.startsWith('var(--thimbleform-line-height)') || value.startsWith('var(--nest-form-line-height)')) {
 		return true;
 	}
 	return false;

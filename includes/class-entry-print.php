@@ -11,9 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Entry_Print {
+class Thimbleform_Entry_Print {
 
-	const ACTION = 'nestform_print_entry';
+	const ACTION = 'thimbleform_print_entry';
 
 	public static function init() {
 		add_action( 'admin_post_' . self::ACTION, array( __CLASS__, 'render' ) );
@@ -39,26 +39,26 @@ class Nestform_Entry_Print {
 
 		check_admin_referer( self::ACTION . '_' . $entry_id );
 
-		if ( $entry_id <= 0 || Nestform_Submissions::POST_TYPE !== get_post_type( $entry_id ) ) {
-			wp_die( esc_html__( 'Entry not found.', 'nestform' ), 404 );
+		if ( $entry_id <= 0 || Thimbleform_Submissions::POST_TYPE !== get_post_type( $entry_id ) ) {
+			wp_die( esc_html__( 'Entry not found.', 'thimbleform' ), 404 );
 		}
 
-		$form_id = (int) get_post_meta( $entry_id, Nestform_Submissions::META_FORM, true );
-		if ( $form_id <= 0 || Nestform_Post_Type::POST_TYPE !== get_post_type( $form_id ) ) {
-			wp_die( esc_html__( 'Form not found.', 'nestform' ), 404 );
+		$form_id = (int) get_post_meta( $entry_id, Thimbleform_Submissions::META_FORM, true );
+		if ( $form_id <= 0 || Thimbleform_Post_Type::POST_TYPE !== get_post_type( $form_id ) ) {
+			wp_die( esc_html__( 'Form not found.', 'thimbleform' ), 404 );
 		}
 
 		if ( ! current_user_can( 'edit_post', $form_id ) ) {
-			wp_die( esc_html__( 'You do not have permission to print this entry.', 'nestform' ), 403 );
+			wp_die( esc_html__( 'You do not have permission to print this entry.', 'thimbleform' ), 403 );
 		}
 
 		$form  = get_post( $form_id );
 		$entry = get_post( $entry_id );
 		if ( ! $form || ! $entry ) {
-			wp_die( esc_html__( 'Entry not found.', 'nestform' ), 404 );
+			wp_die( esc_html__( 'Entry not found.', 'thimbleform' ), 404 );
 		}
 
-		$data = get_post_meta( $entry_id, Nestform_Submissions::META_DATA, true );
+		$data = get_post_meta( $entry_id, Thimbleform_Submissions::META_DATA, true );
 		if ( ! is_array( $data ) ) {
 			$data = array();
 		}
@@ -76,21 +76,21 @@ class Nestform_Entry_Print {
 	 * @param array<string, mixed> $data  Payload.
 	 */
 	private static function render_page( $form, $entry, array $data ) {
-		$form_title = $form->post_title !== '' ? $form->post_title : __( '(no title)', 'nestform' );
+		$form_title = $form->post_title !== '' ? $form->post_title : __( '(no title)', 'thimbleform' );
 		$title      = sprintf(
 			/* translators: 1: form title, 2: entry ID. */
-			__( '%1$s — entry #%2$d', 'nestform' ),
+			__( '%1$s — entry #%2$d', 'thimbleform' ),
 			$form_title,
 			(int) $entry->ID
 		);
 
-		$status     = Nestform_Submissions::get_status( $entry->ID );
-		$labels     = Nestform_Submissions::status_labels();
+		$status     = Thimbleform_Submissions::get_status( $entry->ID );
+		$labels     = Thimbleform_Submissions::status_labels();
 		$status_lbl = isset( $labels[ $status ] ) ? $labels[ $status ] : $status;
-		$submitted  = class_exists( 'Nestform_Settings' )
-			? Nestform_Settings::format_entry_datetime( $entry )
+		$submitted  = class_exists( 'Thimbleform_Settings' )
+			? Thimbleform_Settings::format_entry_datetime( $entry )
 			: get_the_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $entry );
-		$ip         = (string) get_post_meta( $entry->ID, Nestform_Submissions::META_IP, true );
+		$ip         = (string) get_post_meta( $entry->ID, Thimbleform_Submissions::META_IP, true );
 		?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -101,63 +101,63 @@ class Nestform_Entry_Print {
 	<title><?php echo esc_html( $title ); ?></title>
 	<?php
 	wp_enqueue_style(
-		'nestform-entry-print',
-		NESTFORM_URL . 'assets/css/entry-print.css',
+		'thimbleform-entry-print',
+		THIMBLEFORM_URL . 'assets/css/entry-print.css',
 		array(),
-		NESTFORM_VERSION
+		THIMBLEFORM_VERSION
 	);
 	wp_enqueue_script(
-		'nestform-entry-print',
-		NESTFORM_URL . 'assets/js/admin/entry-print.js',
+		'thimbleform-entry-print',
+		THIMBLEFORM_URL . 'assets/js/admin/entry-print.js',
 		array(),
-		NESTFORM_VERSION,
+		THIMBLEFORM_VERSION,
 		false
 	);
-	wp_print_styles( 'nestform-entry-print' );
-	wp_print_scripts( 'nestform-entry-print' );
+	wp_print_styles( 'thimbleform-entry-print' );
+	wp_print_scripts( 'thimbleform-entry-print' );
 	?>
 </head>
-<body class="nestform-print-body">
-	<div class="nestform-print-actions">
-		<button type="button" class="nestform-print-actions__button" data-nestform-print><?php esc_html_e( 'Print', 'nestform' ); ?></button>
+<body class="thimbleform-print-body">
+	<div class="thimbleform-print-actions">
+		<button type="button" class="thimbleform-print-actions__button" data-thimbleform-print><?php esc_html_e( 'Print', 'thimbleform' ); ?></button>
 	</div>
 
-	<article class="nestform-print">
-		<header class="nestform-print__header">
-			<p class="nestform-print__site"><?php echo esc_html( get_bloginfo( 'name' ) ); ?></p>
-			<h1 class="nestform-print__title"><?php echo esc_html( $form_title ); ?></h1>
-			<dl class="nestform-print__meta">
-				<div class="nestform-print__meta-item">
-					<dt class="nestform-print__meta-label"><?php esc_html_e( 'Entry', 'nestform' ); ?></dt>
-					<dd class="nestform-print__meta-value">#<?php echo esc_html( (string) (int) $entry->ID ); ?></dd>
+	<article class="thimbleform-print">
+		<header class="thimbleform-print__header">
+			<p class="thimbleform-print__site"><?php echo esc_html( get_bloginfo( 'name' ) ); ?></p>
+			<h1 class="thimbleform-print__title"><?php echo esc_html( $form_title ); ?></h1>
+			<dl class="thimbleform-print__meta">
+				<div class="thimbleform-print__meta-item">
+					<dt class="thimbleform-print__meta-label"><?php esc_html_e( 'Entry', 'thimbleform' ); ?></dt>
+					<dd class="thimbleform-print__meta-value">#<?php echo esc_html( (string) (int) $entry->ID ); ?></dd>
 				</div>
-				<div class="nestform-print__meta-item">
-					<dt class="nestform-print__meta-label"><?php esc_html_e( 'Submitted', 'nestform' ); ?></dt>
-					<dd class="nestform-print__meta-value"><?php echo esc_html( $submitted ); ?></dd>
+				<div class="thimbleform-print__meta-item">
+					<dt class="thimbleform-print__meta-label"><?php esc_html_e( 'Submitted', 'thimbleform' ); ?></dt>
+					<dd class="thimbleform-print__meta-value"><?php echo esc_html( $submitted ); ?></dd>
 				</div>
-				<div class="nestform-print__meta-item">
-					<dt class="nestform-print__meta-label"><?php esc_html_e( 'Status', 'nestform' ); ?></dt>
-					<dd class="nestform-print__meta-value"><?php echo esc_html( $status_lbl ); ?></dd>
+				<div class="thimbleform-print__meta-item">
+					<dt class="thimbleform-print__meta-label"><?php esc_html_e( 'Status', 'thimbleform' ); ?></dt>
+					<dd class="thimbleform-print__meta-value"><?php echo esc_html( $status_lbl ); ?></dd>
 				</div>
 				<?php if ( $ip !== '' ) : ?>
-					<div class="nestform-print__meta-item">
-						<dt class="nestform-print__meta-label"><?php esc_html_e( 'IP', 'nestform' ); ?></dt>
-						<dd class="nestform-print__meta-value"><?php echo esc_html( $ip ); ?></dd>
+					<div class="thimbleform-print__meta-item">
+						<dt class="thimbleform-print__meta-label"><?php esc_html_e( 'IP', 'thimbleform' ); ?></dt>
+						<dd class="thimbleform-print__meta-value"><?php echo esc_html( $ip ); ?></dd>
 					</div>
 				<?php endif; ?>
 			</dl>
 		</header>
 
-		<div class="nestform-print__body">
+		<div class="thimbleform-print__body">
 			<?php self::render_fields( $form->ID, $data ); ?>
 		</div>
 
-		<footer class="nestform-print__footer">
+		<footer class="thimbleform-print__footer">
 			<?php
 			echo esc_html(
 				sprintf(
 					/* translators: 1: site name, 2: date the page was printed. */
-					__( '%1$s — printed %2$s', 'nestform' ),
+					__( '%1$s — printed %2$s', 'thimbleform' ),
 					get_bloginfo( 'name' ),
 					date_i18n( get_option( 'date_format' ) )
 				)
@@ -175,7 +175,7 @@ class Nestform_Entry_Print {
 	 * @param array<string, mixed> $data    Payload.
 	 */
 	private static function render_fields( $form_id, array $data ) {
-		$fields = Nestform_Form_Config::get_fields( $form_id );
+		$fields = Thimbleform_Form_Config::get_fields( $form_id );
 		if ( ! is_array( $fields ) ) {
 			$fields = array();
 		}
@@ -183,7 +183,7 @@ class Nestform_Entry_Print {
 		foreach ( $fields as $field ) {
 			$type = (string) ( isset( $field['type'] ) ? $field['type'] : '' );
 
-			if ( Nestform_Form_Config::is_layout_field( $type ) ) {
+			if ( Thimbleform_Form_Config::is_layout_field( $type ) ) {
 				self::render_layout_block( $field, $type );
 				continue;
 			}
@@ -199,17 +199,17 @@ class Nestform_Entry_Print {
 
 			$label    = (string) ( isset( $field['label'] ) && $field['label'] !== '' ? $field['label'] : $name );
 			$value    = array_key_exists( $name, $data ) ? $data[ $name ] : '';
-			$display  = trim( Nestform_Export::cell_value( $value ) );
+			$display  = trim( Thimbleform_Export::cell_value( $value ) );
 			$answered = '' !== $display;
 			?>
-			<div class="nestform-print__field">
-				<p class="nestform-print__label"><?php echo esc_html( $label ); ?></p>
-				<div class="nestform-print__value<?php echo $answered ? '' : ' nestform-print__value--empty'; ?>">
+			<div class="thimbleform-print__field">
+				<p class="thimbleform-print__label"><?php echo esc_html( $label ); ?></p>
+				<div class="thimbleform-print__value<?php echo $answered ? '' : ' thimbleform-print__value--empty'; ?>">
 					<?php
 					if ( $answered ) {
 						echo esc_html( $display );
 					} else {
-						esc_html_e( 'Not answered', 'nestform' );
+						esc_html_e( 'Not answered', 'thimbleform' );
 					}
 					?>
 				</div>
@@ -235,8 +235,8 @@ class Nestform_Entry_Print {
 				return;
 			}
 			?>
-			<div class="nestform-print__section">
-				<h2 class="nestform-print__section-title"><?php echo esc_html( $label !== '' ? $label : $content ); ?></h2>
+			<div class="thimbleform-print__section">
+				<h2 class="thimbleform-print__section-title"><?php echo esc_html( $label !== '' ? $label : $content ); ?></h2>
 			</div>
 			<?php
 			return;
@@ -248,7 +248,7 @@ class Nestform_Entry_Print {
 				return;
 			}
 			?>
-			<div class="nestform-print__note"><?php echo wp_kses_post( wpautop( $text ) ); ?></div>
+			<div class="thimbleform-print__note"><?php echo wp_kses_post( wpautop( $text ) ); ?></div>
 			<?php
 		}
 	}

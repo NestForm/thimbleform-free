@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Elementor {
+class Thimbleform_Elementor {
 
 	public static function init() {
 		add_action( 'elementor/widgets/register', array( __CLASS__, 'register_widget' ) );
@@ -27,11 +27,11 @@ class Nestform_Elementor {
 		$widget = new class() extends \Elementor\Widget_Base {
 
 			public function get_name() {
-				return 'nestform';
+				return 'thimbleform';
 			}
 
 			public function get_title() {
-				return __( 'Thimbleform', 'nestform' );
+				return __( 'Thimbleform', 'thimbleform' );
 			}
 
 			public function get_icon() {
@@ -43,23 +43,23 @@ class Nestform_Elementor {
 			}
 
 			public function get_keywords() {
-				return array( 'form', 'contact', 'lead', 'nestform' );
+				return array( 'form', 'contact', 'lead', 'thimbleform' );
 			}
 
 			protected function register_controls() {
 				$this->start_controls_section(
 					'section_form',
 					array(
-						'label' => __( 'Form', 'nestform' ),
+						'label' => __( 'Form', 'thimbleform' ),
 					)
 				);
 
 				$this->add_control(
 					'form_id',
 					array(
-						'label'       => __( 'Select form', 'nestform' ),
+						'label'       => __( 'Select form', 'thimbleform' ),
 						'type'        => \Elementor\Controls_Manager::SELECT,
-						'options'     => Nestform_Elementor::form_options(),
+						'options'     => Thimbleform_Elementor::form_options(),
 						'default'     => '0',
 						'label_block' => true,
 					)
@@ -72,14 +72,14 @@ class Nestform_Elementor {
 				$settings = $this->get_settings_for_display();
 				$form_id  = isset( $settings['form_id'] ) ? (int) $settings['form_id'] : 0;
 
-				if ( $form_id <= 0 || ! class_exists( 'Nestform_Renderer' ) ) {
+				if ( $form_id <= 0 || ! class_exists( 'Thimbleform_Renderer' ) ) {
 					if ( current_user_can( 'edit_posts' ) ) {
-						echo '<div class="nestform-elementor-placeholder">' . esc_html__( 'Select a Thimbleform in the widget settings.', 'nestform' ) . '</div>';
+						echo '<div class="thimbleform-elementor-placeholder">' . esc_html__( 'Select a Thimbleform in the widget settings.', 'thimbleform' ) . '</div>';
 					}
 					return;
 				}
 
-				echo Nestform_Renderer::render( $form_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo Thimbleform_Renderer::render( $form_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 		};
 
@@ -91,16 +91,16 @@ class Nestform_Elementor {
 	 */
 	public static function form_options() {
 		$options = array(
-			'0' => __( 'Select a form...', 'nestform' ),
+			'0' => __( 'Select a form...', 'thimbleform' ),
 		);
 
-		if ( ! class_exists( 'Nestform_Post_Type' ) ) {
+		if ( ! class_exists( 'Thimbleform_Post_Type' ) ) {
 			return $options;
 		}
 
 		$forms = get_posts(
 			array(
-				'post_type'              => Nestform_Post_Type::POST_TYPE,
+				'post_type'              => Thimbleform_Post_Type::POST_TYPE,
 				'post_status'            => array( 'publish', 'draft', 'private' ),
 				'posts_per_page'         => 200,
 				'orderby'                => 'title',
@@ -114,7 +114,7 @@ class Nestform_Elementor {
 		foreach ( $forms as $form ) {
 			$title = $form->post_title !== '' ? $form->post_title : sprintf(
 				/* translators: %d: form id */
-				__( 'Form #%d', 'nestform' ),
+				__( 'Form #%d', 'thimbleform' ),
 				(int) $form->ID
 			);
 			if ( 'publish' !== $form->post_status ) {

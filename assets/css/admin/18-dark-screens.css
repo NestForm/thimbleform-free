@@ -3,90 +3,90 @@
  */
 
 @media (prefers-color-scheme: dark) {
-    body.nestform-admin-screen:not(.nestform-theme-light) .widefat,
-    body.nestform-admin-screen.nestform-theme-dark .widefat {
-        background: var(--nestform-surface);
-        border-color: var(--nestform-border);
-        color: var(--nestform-ink);
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .widefat,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .widefat {
+        background: var(--thimbleform-surface);
+        border-color: var(--thimbleform-border);
+        color: var(--thimbleform-ink);
     }
 
-    body.nestform-admin-screen:not(.nestform-theme-light) .widefat thead th,
-    body.nestform-admin-screen:not(.nestform-theme-light) .widefat tfoot th,
-    body.nestform-admin-screen.nestform-theme-dark .widefat thead th,
-    body.nestform-admin-screen.nestform-theme-dark .widefat tfoot th {
-        background: var(--nestform-soft);
-        color: var(--nestform-muted);
-        border-color: var(--nestform-border);
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .widefat thead th,
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .widefat tfoot th,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .widefat thead th,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .widefat tfoot th {
+        background: var(--thimbleform-soft);
+        color: var(--thimbleform-muted);
+        border-color: var(--thimbleform-border);
     }
 
-    body.nestform-admin-screen:not(.nestform-theme-light) .widefat td,
-    body.nestform-admin-screen:not(.nestform-theme-light) .widefat th,
-    body.nestform-admin-screen.nestform-theme-dark .widefat td,
-    body.nestform-admin-screen.nestform-theme-dark .widefat th {
-        border-color: var(--nestform-border);
-        color: var(--nestform-ink);
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .widefat td,
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .widefat th,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .widefat td,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .widefat th {
+        border-color: var(--thimbleform-border);
+        color: var(--thimbleform-ink);
     }
 
-    body.nestform-admin-screen:not(.nestform-theme-light) .tablenav,
-    body.nestform-admin-screen.nestform-theme-dark .tablenav {
-        color: var(--nestform-muted);
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .tablenav,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .tablenav {
+        color: var(--thimbleform-muted);
     }
 
-    body.nestform-admin-screen:not(.nestform-theme-light) .postbox,
-    body.nestform-admin-screen.nestform-theme-dark .postbox {
-        background: var(--nestform-surface);
-        border-color: var(--nestform-border);
-        color: var(--nestform-ink);
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .postbox,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .postbox {
+        background: var(--thimbleform-surface);
+        border-color: var(--thimbleform-border);
+        color: var(--thimbleform-ink);
     }
 
-    body.nestform-admin-screen:not(.nestform-theme-light) .postbox .hndle,
-    body.nestform-admin-screen:not(.nestform-theme-light) .postbox .handlediv,
-    body.nestform-admin-screen.nestform-theme-dark .postbox .hndle,
-    body.nestform-admin-screen.nestform-theme-dark .postbox .handlediv {
-        border-color: var(--nestform-border);
-        color: var(--nestform-ink);
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .postbox .hndle,
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .postbox .handlediv,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .postbox .hndle,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .postbox .handlediv {
+        border-color: var(--thimbleform-border);
+        color: var(--thimbleform-ink);
     }
 
-    body.nestform-admin-screen:not(.nestform-theme-light) .nestform-card,
-    body.nestform-admin-screen.nestform-theme-dark .nestform-card {
-        background: var(--nestform-surface);
-        border-color: var(--nestform-border);
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .thimbleform-card,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .thimbleform-card {
+        background: var(--thimbleform-surface);
+        border-color: var(--thimbleform-border);
     }
 
-    body.nestform-admin-screen:not(.nestform-theme-light) .nestform-card__details,
-    body.nestform-admin-screen.nestform-theme-dark .nestform-card__details {
-        background: var(--nestform-soft);
-        border-color: var(--nestform-border);
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .thimbleform-card__details,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .thimbleform-card__details {
+        background: var(--thimbleform-soft);
+        border-color: var(--thimbleform-border);
     }
 
-    body.nestform-admin-screen:not(.nestform-theme-light) .nestform-mail-designer__preview-frame,
-    body.nestform-admin-screen.nestform-theme-dark .nestform-mail-designer__preview-frame {
-        background: var(--nestform-soft);
-        border-color: var(--nestform-border);
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .thimbleform-mail-designer__preview-frame,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .thimbleform-mail-designer__preview-frame {
+        background: var(--thimbleform-soft);
+        border-color: var(--thimbleform-border);
     }
 
-    body.nestform-admin-screen:not(.nestform-theme-light) .nestform-hub__row:hover,
-    body.nestform-admin-screen.nestform-theme-dark .nestform-hub__row:hover {
-        background: var(--nestform-hover);
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .thimbleform-hub__row:hover,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .thimbleform-hub__row:hover {
+        background: var(--thimbleform-hover);
     }
 
-    body.nestform-admin-screen:not(.nestform-theme-light) .nestform-dash__kpi,
-    body.nestform-admin-screen.nestform-theme-dark .nestform-dash__kpi {
-        background: var(--nestform-surface);
-        border-color: var(--nestform-border);
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .thimbleform-dash__kpi,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .thimbleform-dash__kpi {
+        background: var(--thimbleform-surface);
+        border-color: var(--thimbleform-border);
     }
 
-    body.nestform-admin-screen:not(.nestform-theme-light) .nestform-dash__chart-wrap,
-    body.nestform-admin-screen.nestform-theme-dark .nestform-dash__chart-wrap {
-        background: var(--nestform-surface);
-        border-color: var(--nestform-border);
+    body.thimbleform-admin-screen:not(.thimbleform-theme-light) .thimbleform-dash__chart-wrap,
+    body.thimbleform-admin-screen.thimbleform-theme-dark .thimbleform-dash__chart-wrap {
+        background: var(--thimbleform-surface);
+        border-color: var(--thimbleform-border);
     }
 }
 
-body.nestform-admin-screen.nestform-theme-dark .widefat,
-body.nestform-admin-screen.nestform-theme-dark .postbox,
-body.nestform-admin-screen.nestform-theme-dark .nestform-card {
-    background: var(--nestform-surface);
-    border-color: var(--nestform-border);
-    color: var(--nestform-ink);
+body.thimbleform-admin-screen.thimbleform-theme-dark .widefat,
+body.thimbleform-admin-screen.thimbleform-theme-dark .postbox,
+body.thimbleform-admin-screen.thimbleform-theme-dark .thimbleform-card {
+    background: var(--thimbleform-surface);
+    border-color: var(--thimbleform-border);
+    color: var(--thimbleform-ink);
 }

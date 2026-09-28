@@ -4,27 +4,27 @@
 (function () {
 	'use strict';
 
-	var cfg = window.nestformHub || {};
+	var cfg = window.thimbleformHub || {};
 	var i18n = cfg.i18n || {};
 	var pageSize = Math.max(1, parseInt(cfg.pageSize, 10) || 20);
 
 	function bootHub(root) {
-		var search = root.querySelector('[data-nestform-hub-search]');
-		var sort = root.querySelector('[data-nestform-hub-sort]');
-		var hasOnly = root.querySelector('[data-nestform-hub-has-count]');
-		var list = root.querySelector('[data-nestform-hub-list]');
-		var empty = root.querySelector('[data-nestform-hub-empty]');
-		var result = root.querySelector('[data-nestform-hub-result]');
-		var pagerTop = root.querySelector('[data-nestform-hub-pager]');
-		var pagerBottom = root.querySelector('[data-nestform-hub-pager-bottom]');
+		var search = root.querySelector('[data-thimbleform-hub-search]');
+		var sort = root.querySelector('[data-thimbleform-hub-sort]');
+		var hasOnly = root.querySelector('[data-thimbleform-hub-has-count]');
+		var list = root.querySelector('[data-thimbleform-hub-list]');
+		var empty = root.querySelector('[data-thimbleform-hub-empty]');
+		var result = root.querySelector('[data-thimbleform-hub-result]');
+		var pagerTop = root.querySelector('[data-thimbleform-hub-pager]');
+		var pagerBottom = root.querySelector('[data-thimbleform-hub-pager-bottom]');
 		var chipButtons = Array.prototype.slice.call(
-			root.querySelectorAll('[data-nestform-hub-chip]')
+			root.querySelectorAll('[data-thimbleform-hub-chip]')
 		);
 		if (!list) {
 			return;
 		}
 
-		var rows = Array.prototype.slice.call(list.querySelectorAll('[data-nestform-hub-row]'));
+		var rows = Array.prototype.slice.call(list.querySelectorAll('[data-thimbleform-hub-row]'));
 		var currentPage = 1;
 		var filterToken = '';
 		var chip = 'all';
@@ -36,7 +36,7 @@
 		function setActiveChip(next) {
 			chip = next || 'all';
 			chipButtons.forEach(function (btn) {
-				var key = btn.getAttribute('data-nestform-hub-chip') || 'all';
+				var key = btn.getAttribute('data-thimbleform-hub-chip') || 'all';
 				var on = key === chip;
 				btn.classList.toggle('is-active', on);
 				btn.setAttribute('aria-pressed', on ? 'true' : 'false');
@@ -61,19 +61,19 @@
 				.replace('%2$s', String(to))
 				.replace('%3$s', String(matched));
 
-			var html = '<p class="nestform-hub__pager-meta">' + meta + '</p>';
+			var html = '<p class="thimbleform-hub__pager-meta">' + meta + '</p>';
 			if (pages > 1) {
-				html += '<div class="nestform-hub__pager-links">';
+				html += '<div class="thimbleform-hub__pager-links">';
 				var start = Math.max(1, page - 2);
 				var end = Math.min(pages, page + 2);
 				if (page > 1) {
 					html +=
-						'<button type="button" class="page-numbers" data-nestform-hub-page="' +
+						'<button type="button" class="page-numbers" data-thimbleform-hub-page="' +
 						(page - 1) +
 						'">&lsaquo;</button>';
 				}
 				if (start > 1) {
-					html += '<button type="button" class="page-numbers" data-nestform-hub-page="1">1</button>';
+					html += '<button type="button" class="page-numbers" data-thimbleform-hub-page="1">1</button>';
 					if (start > 2) {
 						html += '<span class="page-numbers dots">&hellip;</span>';
 					}
@@ -83,7 +83,7 @@
 						html += '<span class="page-numbers current" aria-current="page">' + i + '</span>';
 					} else {
 						html +=
-							'<button type="button" class="page-numbers" data-nestform-hub-page="' +
+							'<button type="button" class="page-numbers" data-thimbleform-hub-page="' +
 							i +
 							'">' +
 							i +
@@ -95,7 +95,7 @@
 						html += '<span class="page-numbers dots">&hellip;</span>';
 					}
 					html +=
-						'<button type="button" class="page-numbers" data-nestform-hub-page="' +
+						'<button type="button" class="page-numbers" data-thimbleform-hub-page="' +
 						pages +
 						'">' +
 						pages +
@@ -103,7 +103,7 @@
 				}
 				if (page < pages) {
 					html +=
-						'<button type="button" class="page-numbers" data-nestform-hub-page="' +
+						'<button type="button" class="page-numbers" data-thimbleform-hub-page="' +
 						(page + 1) +
 						'">&rsaquo;</button>';
 				}
@@ -244,12 +244,12 @@
 		}
 
 		function closeMoreMenus(except) {
-			root.querySelectorAll('[data-nestform-hub-more]').forEach(function (wrap) {
+			root.querySelectorAll('[data-thimbleform-hub-more]').forEach(function (wrap) {
 				if (except && wrap === except) {
 					return;
 				}
-				var menu = wrap.querySelector('.nestform-hub__more-menu');
-				var toggle = wrap.querySelector('.nestform-hub__more-toggle');
+				var menu = wrap.querySelector('.thimbleform-hub__more-menu');
+				var toggle = wrap.querySelector('.thimbleform-hub__more-toggle');
 				if (menu) {
 					menu.hidden = true;
 				}
@@ -260,12 +260,12 @@
 		}
 
 		function closeImportMenus(except) {
-			document.querySelectorAll('[data-nestform-hub-import]').forEach(function (wrap) {
+			document.querySelectorAll('[data-thimbleform-hub-import]').forEach(function (wrap) {
 				if (except && wrap === except) {
 					return;
 				}
-				var panel = wrap.querySelector('.nestform-hub__import-panel');
-				var toggle = wrap.querySelector('.nestform-hub__import-toggle');
+				var panel = wrap.querySelector('.thimbleform-hub__import-panel');
+				var toggle = wrap.querySelector('.thimbleform-hub__import-toggle');
 				if (panel) {
 					panel.hidden = true;
 				}
@@ -277,10 +277,10 @@
 
 		function onDocCloseMenus(event) {
 			var t = event.target;
-			if (!(t.closest && t.closest('[data-nestform-hub-more]'))) {
+			if (!(t.closest && t.closest('[data-thimbleform-hub-more]'))) {
 				closeMoreMenus();
 			}
-			if (!(t.closest && t.closest('[data-nestform-hub-import]'))) {
+			if (!(t.closest && t.closest('[data-thimbleform-hub-import]'))) {
 				closeImportMenus();
 			}
 		}
@@ -297,19 +297,19 @@
 		document.addEventListener('keydown', onDocKeyCloseMenus);
 
 		root.addEventListener('click', function (event) {
-			var chipBtn = event.target.closest('[data-nestform-hub-chip]');
+			var chipBtn = event.target.closest('[data-thimbleform-hub-chip]');
 			if (chipBtn && root.contains(chipBtn)) {
 				event.preventDefault();
-				setActiveChip(chipBtn.getAttribute('data-nestform-hub-chip') || 'all');
+				setActiveChip(chipBtn.getAttribute('data-thimbleform-hub-chip') || 'all');
 				apply();
 				return;
 			}
 
-			var moreToggle = event.target.closest('.nestform-hub__more-toggle');
+			var moreToggle = event.target.closest('.thimbleform-hub__more-toggle');
 			if (moreToggle && root.contains(moreToggle)) {
 				event.preventDefault();
-				var wrap = moreToggle.closest('[data-nestform-hub-more]');
-				var menu = wrap ? wrap.querySelector('.nestform-hub__more-menu') : null;
+				var wrap = moreToggle.closest('[data-thimbleform-hub-more]');
+				var menu = wrap ? wrap.querySelector('.thimbleform-hub__more-menu') : null;
 				var open = menu && menu.hidden;
 				closeMoreMenus(wrap);
 				closeImportMenus();
@@ -320,10 +320,10 @@
 				return;
 			}
 
-			var pageBtn = event.target.closest('[data-nestform-hub-page]');
+			var pageBtn = event.target.closest('[data-thimbleform-hub-page]');
 			if (pageBtn && root.contains(pageBtn)) {
 				event.preventDefault();
-				var next = parseInt(pageBtn.getAttribute('data-nestform-hub-page') || '1', 10);
+				var next = parseInt(pageBtn.getAttribute('data-thimbleform-hub-page') || '1', 10);
 				if (!isNaN(next) && next >= 1) {
 					currentPage = next;
 					apply();
@@ -334,7 +334,7 @@
 				return;
 			}
 
-			var del = event.target.closest('[data-nestform-hub-delete]');
+			var del = event.target.closest('[data-thimbleform-hub-delete]');
 			if (del) {
 				var confirmMsg = del.getAttribute('data-confirm') || 'Move this form to Trash?';
 				if (!window.confirm(confirmMsg)) {
@@ -343,10 +343,10 @@
 				return;
 			}
 
-			var btn = event.target.closest('[data-nestform-hub-copy]');
+			var btn = event.target.closest('[data-thimbleform-hub-copy]');
 			if (btn) {
 				event.preventDefault();
-				var text = btn.getAttribute('data-nestform-hub-copy') || '';
+				var text = btn.getAttribute('data-thimbleform-hub-copy') || '';
 				if (!text) {
 					return;
 				}
@@ -371,7 +371,7 @@
 				return;
 			}
 
-			var row = event.target.closest('[data-nestform-hub-row]');
+			var row = event.target.closest('[data-thimbleform-hub-row]');
 			if (!row || !list.contains(row)) {
 				return;
 			}
@@ -388,7 +388,7 @@
 			if (event.target.closest('a, button, input, select, textarea')) {
 				return;
 			}
-			var row = event.target.closest('[data-nestform-hub-row]');
+			var row = event.target.closest('[data-thimbleform-hub-row]');
 			if (!row || !list.contains(row) || event.target !== row) {
 				return;
 			}
@@ -407,21 +407,21 @@
 	}
 
 	function bootImportMenus() {
-		document.querySelectorAll('[data-nestform-hub-import]').forEach(function (wrap) {
-			var toggle = wrap.querySelector('.nestform-hub__import-toggle');
-			var panel = wrap.querySelector('.nestform-hub__import-panel');
+		document.querySelectorAll('[data-thimbleform-hub-import]').forEach(function (wrap) {
+			var toggle = wrap.querySelector('.thimbleform-hub__import-toggle');
+			var panel = wrap.querySelector('.thimbleform-hub__import-panel');
 			if (!toggle || !panel) {
 				return;
 			}
 			toggle.addEventListener('click', function (event) {
 				event.preventDefault();
 				var open = panel.hidden;
-				document.querySelectorAll('[data-nestform-hub-import]').forEach(function (other) {
+				document.querySelectorAll('[data-thimbleform-hub-import]').forEach(function (other) {
 					if (other === wrap) {
 						return;
 					}
-					var p = other.querySelector('.nestform-hub__import-panel');
-					var t = other.querySelector('.nestform-hub__import-toggle');
+					var p = other.querySelector('.thimbleform-hub__import-panel');
+					var t = other.querySelector('.thimbleform-hub__import-toggle');
 					if (p) {
 						p.hidden = true;
 					}
@@ -436,7 +436,7 @@
 	}
 
 	function boot() {
-		document.querySelectorAll('[data-nestform-hub]').forEach(bootHub);
+		document.querySelectorAll('[data-thimbleform-hub]').forEach(bootHub);
 		bootImportMenus();
 	}
 

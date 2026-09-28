@@ -1,6 +1,6 @@
 :root { color-scheme: light; }
 * { box-sizing: border-box; }
-.nestform-print-body {
+.thimbleform-print-body {
 	margin: 0;
 	padding: 32px 16px 64px;
 	background: #f1f1f1;
@@ -9,8 +9,8 @@
 	font-size: 15px;
 	line-height: 1.6;
 }
-.nestform-print-actions { max-width: 720px; margin: 0 auto 16px; text-align: right; }
-.nestform-print-actions__button {
+.thimbleform-print-actions { max-width: 720px; margin: 0 auto 16px; text-align: right; }
+.thimbleform-print-actions__button {
 	padding: 8px 16px;
 	border: 1px solid #2271b1;
 	border-radius: 4px;
@@ -20,32 +20,32 @@
 	font-size: 14px;
 	cursor: pointer;
 }
-.nestform-print {
+.thimbleform-print {
 	max-width: 720px;
 	margin: 0 auto;
 	padding: 48px;
 	background: #fff;
 	box-shadow: 0 1px 3px rgba(0,0,0,.13);
 }
-.nestform-print p,
-.nestform-print dt,
-.nestform-print dd { margin: 0; padding: 0; }
-.nestform-print__header { margin-bottom: 32px; padding-bottom: 16px; border-bottom: 2px solid #1d2327; }
-.nestform-print__site { margin: 0 0 4px; color: #646970; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
-.nestform-print__title { margin: 0 0 16px; font-size: 26px; line-height: 1.25; }
-.nestform-print__meta { display: flex; flex-wrap: wrap; gap: 24px 32px; margin: 0; }
-.nestform-print__meta-item { margin: 0; min-width: 0; }
-.nestform-print__meta-label { color: #646970; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
-.nestform-print__meta-value { margin: 2px 0 0; font-weight: 600; }
-.nestform-print__body {
+.thimbleform-print p,
+.thimbleform-print dt,
+.thimbleform-print dd { margin: 0; padding: 0; }
+.thimbleform-print__header { margin-bottom: 32px; padding-bottom: 16px; border-bottom: 2px solid #1d2327; }
+.thimbleform-print__site { margin: 0 0 4px; color: #646970; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
+.thimbleform-print__title { margin: 0 0 16px; font-size: 26px; line-height: 1.25; }
+.thimbleform-print__meta { display: flex; flex-wrap: wrap; gap: 24px 32px; margin: 0; }
+.thimbleform-print__meta-item { margin: 0; min-width: 0; }
+.thimbleform-print__meta-label { color: #646970; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.thimbleform-print__meta-value { margin: 2px 0 0; font-weight: 600; }
+.thimbleform-print__body {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
 }
-.nestform-print__section { margin: 8px 0 0; }
-.nestform-print__section-title { margin: 0; padding-bottom: 8px; border-bottom: 1px solid #dcdcde; font-size: 16px; }
-.nestform-print__note { color: #50575e; }
-.nestform-print__field {
+.thimbleform-print__section { margin: 8px 0 0; }
+.thimbleform-print__section-title { margin: 0; padding-bottom: 8px; border-bottom: 1px solid #dcdcde; font-size: 16px; }
+.thimbleform-print__note { color: #50575e; }
+.thimbleform-print__field {
 	display: grid;
 	grid-template-columns: minmax(7em, 32%) minmax(0, 1fr);
 	column-gap: 24px;
@@ -53,26 +53,26 @@
 	page-break-inside: avoid;
 	break-inside: avoid;
 }
-.nestform-print__label {
+.thimbleform-print__label {
 	margin: 0;
 	color: #646970;
 	font-size: 13px;
 	font-weight: 600;
 	line-height: 1.45;
 }
-.nestform-print__value {
+.thimbleform-print__value {
 	margin: 0;
 	min-width: 0;
 	line-height: 1.45;
 	overflow-wrap: anywhere;
 }
-.nestform-print__value--empty { color: #8c8f94; font-style: italic; }
-.nestform-print__footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #dcdcde; color: #646970; font-size: 12px; }
+.thimbleform-print__value--empty { color: #8c8f94; font-style: italic; }
+.thimbleform-print__footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #dcdcde; color: #646970; font-size: 12px; }
 
 @media print {
-	.nestform-print-body { padding: 0; background: #fff; font-size: 12pt; }
-	.nestform-print-actions { display: none; }
-	.nestform-print { max-width: none; padding: 0; box-shadow: none; }
+	.thimbleform-print-body { padding: 0; background: #fff; font-size: 12pt; }
+	.thimbleform-print-actions { display: none; }
+	.thimbleform-print { max-width: none; padding: 0; box-shadow: none; }
 	a { color: inherit; text-decoration: none; }
 }
 @page { margin: 18mm; }

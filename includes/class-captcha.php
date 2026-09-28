@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Captcha {
+class Thimbleform_Captcha {
 
-	const ACTION = 'nestform';
+	const ACTION = 'thimbleform';
 
 	/** @var bool */
 	private static $needs_assets = false;
@@ -23,7 +23,7 @@ class Nestform_Captcha {
 	private static $site_key = '';
 
 	public static function init() {
-		add_filter( 'nestform_captcha_html', array( __CLASS__, 'filter_html' ), 10, 3 );
+		add_filter( 'thimbleform_captcha_html', array( __CLASS__, 'filter_html' ), 10, 3 );
 		add_action( 'wp_footer', array( __CLASS__, 'maybe_enqueue' ), 5 );
 	}
 
@@ -36,32 +36,32 @@ class Nestform_Captcha {
 		// phpcs:disable PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- provider SDKs required for captcha.
 		return array(
 			'recaptcha_v2' => array(
-				'label'    => __( 'reCAPTCHA v2 (checkbox)', 'nestform' ),
-				'short'    => __( 'reCAPTCHA v2', 'nestform' ),
+				'label'    => __( 'reCAPTCHA v2 (checkbox)', 'thimbleform' ),
+				'short'    => __( 'reCAPTCHA v2', 'thimbleform' ),
 				'script'   => 'https://www.google.com/recaptcha/api.js',
 				'verify'   => 'https://www.google.com/recaptcha/api/siteverify',
 				'field'    => 'g-recaptcha-response',
 				'keys_url' => 'https://www.google.com/recaptcha/admin',
 			),
 			'recaptcha_v3' => array(
-				'label'    => __( 'reCAPTCHA v3 (invisible)', 'nestform' ),
-				'short'    => __( 'reCAPTCHA v3', 'nestform' ),
+				'label'    => __( 'reCAPTCHA v3 (invisible)', 'thimbleform' ),
+				'short'    => __( 'reCAPTCHA v3', 'thimbleform' ),
 				'script'   => 'https://www.google.com/recaptcha/api.js',
 				'verify'   => 'https://www.google.com/recaptcha/api/siteverify',
 				'field'    => 'g-recaptcha-response',
 				'keys_url' => 'https://www.google.com/recaptcha/admin',
 			),
 			'turnstile'    => array(
-				'label'    => __( 'Cloudflare Turnstile', 'nestform' ),
-				'short'    => __( 'Turnstile', 'nestform' ),
+				'label'    => __( 'Cloudflare Turnstile', 'thimbleform' ),
+				'short'    => __( 'Turnstile', 'thimbleform' ),
 				'script'   => 'https://challenges.cloudflare.com/turnstile/v0/api.js',
 				'verify'   => 'https://challenges.cloudflare.com/turnstile/v0/siteverify',
 				'field'    => 'cf-turnstile-response',
 				'keys_url' => 'https://dash.cloudflare.com/?to=/:account/turnstile',
 			),
 			'hcaptcha'     => array(
-				'label'    => __( 'hCaptcha', 'nestform' ),
-				'short'    => __( 'hCaptcha', 'nestform' ),
+				'label'    => __( 'hCaptcha', 'thimbleform' ),
+				'short'    => __( 'hCaptcha', 'thimbleform' ),
 				'script'   => 'https://js.hcaptcha.com/1/api.js',
 				'verify'   => 'https://api.hcaptcha.com/siteverify',
 				'field'    => 'h-captcha-response',
@@ -75,10 +75,10 @@ class Nestform_Captcha {
 	 * @return string Provider slug or empty.
 	 */
 	public static function provider() {
-		if ( ! class_exists( 'Nestform_Settings' ) || ! Nestform_Settings::captcha_ready() ) {
+		if ( ! class_exists( 'Thimbleform_Settings' ) || ! Thimbleform_Settings::captcha_ready() ) {
 			return '';
 		}
-		$s        = Nestform_Settings::get();
+		$s        = Thimbleform_Settings::get();
 		$provider = (string) ( $s['captcha_provider'] ?? 'recaptcha_v2' );
 		$all      = self::providers();
 		return isset( $all[ $provider ] ) ? $provider : 'recaptcha_v2';
@@ -112,7 +112,7 @@ class Nestform_Captcha {
 		}
 
 		if ( array() === $config ) {
-			$config = Nestform_Form_Config::get( $form_id );
+			$config = Thimbleform_Form_Config::get( $form_id );
 		}
 
 		$settings = isset( $config['settings'] ) && is_array( $config['settings'] ) ? $config['settings'] : array();
@@ -120,7 +120,7 @@ class Nestform_Captcha {
 			return false;
 		}
 
-		return class_exists( 'Nestform_Settings' ) && Nestform_Settings::captcha_ready();
+		return class_exists( 'Thimbleform_Settings' ) && Thimbleform_Settings::captcha_ready();
 	}
 
 	/**
@@ -134,7 +134,7 @@ class Nestform_Captcha {
 			return (string) $html;
 		}
 
-		$settings = Nestform_Settings::get();
+		$settings = Thimbleform_Settings::get();
 		$site_key = (string) ( $settings['captcha_site_key'] ?? '' );
 		$provider = self::provider();
 
@@ -175,15 +175,15 @@ class Nestform_Captcha {
 	 * @return true|WP_Error
 	 */
 	public static function verify() {
-		if ( ! class_exists( 'Nestform_Settings' ) || ! Nestform_Settings::captcha_ready() ) {
-			return new WP_Error( 'nestform_captcha_unavailable', __( 'Captcha is not available.', 'nestform' ) );
+		if ( ! class_exists( 'Thimbleform_Settings' ) || ! Thimbleform_Settings::captcha_ready() ) {
+			return new WP_Error( 'thimbleform_captcha_unavailable', __( 'Captcha is not available.', 'thimbleform' ) );
 		}
 
-		$settings = Nestform_Settings::get();
+		$settings = Thimbleform_Settings::get();
 		$provider = self::provider();
 		$all      = self::providers();
 		if ( ! isset( $all[ $provider ] ) ) {
-			return new WP_Error( 'nestform_captcha_provider', __( 'Captcha is not available.', 'nestform' ) );
+			return new WP_Error( 'thimbleform_captcha_provider', __( 'Captcha is not available.', 'thimbleform' ) );
 		}
 
 		$field = $all[ $provider ]['field'];
@@ -197,7 +197,7 @@ class Nestform_Captcha {
 		}
 
 		if ( $token === '' ) {
-			return new WP_Error( 'nestform_captcha_missing', __( 'Please complete the captcha and try again.', 'nestform' ) );
+			return new WP_Error( 'thimbleform_captcha_missing', __( 'Please complete the captcha and try again.', 'thimbleform' ) );
 		}
 
 		$secret = (string) $settings['captcha_secret_key'];
@@ -223,12 +223,12 @@ class Nestform_Captcha {
 		);
 
 		if ( is_wp_error( $response ) ) {
-			return new WP_Error( 'nestform_captcha_http', __( 'Captcha verification failed. Please try again.', 'nestform' ) );
+			return new WP_Error( 'thimbleform_captcha_http', __( 'Captcha verification failed. Please try again.', 'thimbleform' ) );
 		}
 
 		$decoded = json_decode( (string) wp_remote_retrieve_body( $response ), true );
 		if ( ! is_array( $decoded ) || empty( $decoded['success'] ) ) {
-			return new WP_Error( 'nestform_captcha_invalid', __( 'Captcha verification failed. Please try again.', 'nestform' ) );
+			return new WP_Error( 'thimbleform_captcha_invalid', __( 'Captcha verification failed. Please try again.', 'thimbleform' ) );
 		}
 
 		if ( 'recaptcha_v3' === $provider ) {
@@ -237,11 +237,11 @@ class Nestform_Captcha {
 			$action    = isset( $decoded['action'] ) ? (string) $decoded['action'] : '';
 
 			if ( $action !== '' && $action !== self::ACTION ) {
-				return new WP_Error( 'nestform_captcha_action', __( 'Captcha verification failed. Please try again.', 'nestform' ) );
+				return new WP_Error( 'thimbleform_captcha_action', __( 'Captcha verification failed. Please try again.', 'thimbleform' ) );
 			}
 
 			if ( $score < $min_score ) {
-				return new WP_Error( 'nestform_captcha_score', __( 'Captcha verification failed. Please try again.', 'nestform' ) );
+				return new WP_Error( 'thimbleform_captcha_score', __( 'Captcha verification failed. Please try again.', 'thimbleform' ) );
 			}
 		}
 
@@ -261,17 +261,17 @@ class Nestform_Captcha {
 			return;
 		}
 
-		$handle = 'nestform-captcha-' . self::$provider;
+		$handle = 'thimbleform-captcha-' . self::$provider;
 		$src    = $all[ self::$provider ]['script'];
 
 		if ( 'recaptcha_v3' === self::$provider ) {
 			$src .= '?render=' . rawurlencode( self::$site_key );
 		}
 
-		wp_enqueue_script( $handle, $src, array(), defined( 'NESTFORM_VERSION' ) ? NESTFORM_VERSION : '1.0.0', true );
+		wp_enqueue_script( $handle, $src, array(), defined( 'THIMBLEFORM_VERSION' ) ? THIMBLEFORM_VERSION : '1.0.0', true );
 		wp_localize_script(
-			'nestform-front',
-			'nestformCaptcha',
+			'thimbleform-front',
+			'thimbleformCaptcha',
 			array(
 				'provider' => self::$provider,
 				'siteKey'  => self::$site_key,
@@ -287,20 +287,20 @@ class Nestform_Captcha {
 	 * @return array{available:bool,global_on:bool,provider:string,provider_label:string,url:string,message:string}
 	 */
 	public static function admin_status() {
-		if ( ! class_exists( 'Nestform_Settings' ) ) {
+		if ( ! class_exists( 'Thimbleform_Settings' ) ) {
 			return array(
 				'available'      => false,
 				'global_on'      => false,
 				'provider'       => '',
 				'provider_label' => '',
 				'url'            => '',
-				'message'        => __( 'Thimbleform settings are not loaded.', 'nestform' ),
+				'message'        => __( 'Thimbleform settings are not loaded.', 'thimbleform' ),
 			);
 		}
 
-		$s        = Nestform_Settings::get();
-		$ready    = Nestform_Settings::captcha_ready();
-		$url      = class_exists( 'Nestform_Integrations' ) ? Nestform_Integrations::url( array( 'section' => 'captcha' ) ) : Nestform_Settings::url();
+		$s        = Thimbleform_Settings::get();
+		$ready    = Thimbleform_Settings::captcha_ready();
+		$url      = class_exists( 'Thimbleform_Integrations' ) ? Thimbleform_Integrations::url( array( 'section' => 'captcha' ) ) : Thimbleform_Settings::url();
 		$provider = (string) ( $s['captcha_provider'] ?? 'recaptcha_v2' );
 		$all      = self::providers();
 		if ( ! isset( $all[ $provider ] ) ) {
@@ -317,7 +317,7 @@ class Nestform_Captcha {
 				'url'            => $url,
 				'message'        => sprintf(
 					/* translators: %s: provider name */
-					__( 'Site captcha is ready: %s. Turn it on below to use it on this form only. Keys stay in Forms → Integrations.', 'nestform' ),
+					__( 'Site captcha is ready: %s. Turn it on below to use it on this form only. Keys stay in Forms → Integrations.', 'thimbleform' ),
 					$label
 				),
 			);
@@ -327,15 +327,15 @@ class Nestform_Captcha {
 		$has_keys = (string) ( $s['captcha_site_key'] ?? '' ) !== '' && (string) ( $s['captcha_secret_key'] ?? '' ) !== '';
 
 		if ( ! $master ) {
-			$msg = __( 'Captcha is off site-wide. Pick a provider and enable it under Forms → Integrations first.', 'nestform' );
+			$msg = __( 'Captcha is off site-wide. Pick a provider and enable it under Forms → Integrations first.', 'thimbleform' );
 		} elseif ( ! $has_keys ) {
 			$msg = sprintf(
 				/* translators: %s: provider name */
-				__( '%s is selected but site/secret keys are missing. Add them under Forms → Integrations.', 'nestform' ),
+				__( '%s is selected but site/secret keys are missing. Add them under Forms → Integrations.', 'thimbleform' ),
 				$label
 			);
 		} else {
-			$msg = __( 'Captcha is not ready yet. Check Forms → Integrations.', 'nestform' );
+			$msg = __( 'Captcha is not ready yet. Check Forms → Integrations.', 'thimbleform' );
 		}
 
 		return array(

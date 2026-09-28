@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @package Thimbleform
  */
-class Nestform_Qr_Code {
+class Thimbleform_Qr_Code {
 
 	/**
 	 * Error-correction level M: the 2-bit indicator that goes into the format
@@ -94,7 +94,7 @@ class Nestform_Qr_Code {
 		}
 
 		if ( '' === $label ) {
-			$label = __( 'QR code for this form', 'nestform' );
+			$label = __( 'QR code for this form', 'thimbleform' );
 		}
 
 		return sprintf(

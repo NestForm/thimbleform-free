@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Renderer {
+class Thimbleform_Renderer {
 
 	/** @var bool */
 	private static $assets_queued = false;
@@ -33,10 +33,10 @@ class Nestform_Renderer {
 			'thimbleform'
 		);
 
-		$form_id = Nestform_Form_Config::resolve_form_id( $atts );
+		$form_id = Thimbleform_Form_Config::resolve_form_id( $atts );
 		if ( $form_id <= 0 ) {
 			if ( current_user_can( 'edit_posts' ) ) {
-				return '<p class="nest-form nest-form--missing">' . esc_html__( 'Thimbleform: form not found.', 'nestform' ) . '</p>';
+				return '<p class="nest-form nest-form--missing">' . esc_html__( 'Thimbleform: form not found.', 'thimbleform' ) . '</p>';
 			}
 			return '';
 		}
@@ -58,7 +58,7 @@ class Nestform_Renderer {
 			)
 		);
 		$is_preview = ! empty( $args['preview'] );
-		$config  = Nestform_Form_Config::get( $form_id );
+		$config  = Thimbleform_Form_Config::get( $form_id );
 
 		/**
 		 * After form config is loaded for render (Pro may detect field types).
@@ -66,22 +66,22 @@ class Nestform_Renderer {
 		 * @param int                  $form_id Form ID.
 		 * @param array<string, mixed> $config  Config.
 		 */
-		do_action( 'nestform_render_form', $form_id, $config );
+		do_action( 'thimbleform_render_form', $form_id, $config );
 
 		self::enqueue_front();
 
 		$uid      = 'nest-form-' . $form_id . '-' . wp_unique_id();
 		$settings = $config['settings'];
-		$settings = Nestform_Form_Config::apply_feature_gates( $settings );
+		$settings = Thimbleform_Form_Config::apply_feature_gates( $settings );
 		$messages = $config['messages'];
-		$fields   = self::filter_public_fields( Nestform_Form_Config::get_fields( $form_id ) );
-		$form_class    = (string) apply_filters( 'nestform_form_class', 'nest-form', $settings, $fields );
-		$style_classes = Nestform_Form_Config::style_form_classes( $settings );
+		$fields   = self::filter_public_fields( Thimbleform_Form_Config::get_fields( $form_id ) );
+		$form_class    = (string) apply_filters( 'thimbleform_form_class', 'nest-form', $settings, $fields );
+		$style_classes = Thimbleform_Form_Config::style_form_classes( $settings );
 		if ( array() !== $style_classes ) {
 			$form_class .= ' ' . implode( ' ', $style_classes );
 		}
-		$style_inline = Nestform_Form_Config::style_inline_css( $settings );
-		$has_file     = Nestform_Form_Config::has_file_field( $fields );
+		$style_inline = Thimbleform_Form_Config::style_inline_css( $settings );
+		$has_file     = Thimbleform_Form_Config::has_file_field( $fields );
 
 		ob_start();
 		?>
@@ -116,7 +116,7 @@ class Nestform_Renderer {
 			data-error-generic="<?php echo esc_attr( (string) ( $messages['error_generic'] ?? '' ) ); ?>"
 			<?php
 			$form_extra_attrs = (array) apply_filters(
-				'nestform_form_html_attrs',
+				'thimbleform_form_html_attrs',
 				array(),
 				$form_id,
 				array(
@@ -133,31 +133,31 @@ class Nestform_Renderer {
 			}
 			?>
 		>
-			<input type="hidden" name="action" value="nestform_submit" />
+			<input type="hidden" name="action" value="thimbleform_submit" />
 			<?php
-			echo apply_filters( 'nestform_form_quiz_inputs', '', $form_id, $settings ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pro returns escaped inputs.
+			echo apply_filters( 'thimbleform_form_quiz_inputs', '', $form_id, $settings ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pro returns escaped inputs.
 			?>
 			<div class="nest-form__result" data-nest-form-result hidden></div>
 			<input type="hidden" name="form_id" value="<?php echo esc_attr( (string) $form_id ); ?>" />
-			<input type="hidden" name="nestform_loaded_at" value="<?php echo esc_attr( (string) time() ); ?>" />
-			<?php echo apply_filters( 'nestform_form_hidden_inputs', '', $form_id, $settings, $fields ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pro returns escaped inputs. ?>
-			<?php wp_nonce_field( 'nestform_submit_' . $form_id, 'nestform_nonce' ); ?>
+			<input type="hidden" name="thimbleform_loaded_at" value="<?php echo esc_attr( (string) time() ); ?>" />
+			<?php echo apply_filters( 'thimbleform_form_hidden_inputs', '', $form_id, $settings, $fields ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pro returns escaped inputs. ?>
+			<?php wp_nonce_field( 'thimbleform_submit_' . $form_id, 'thimbleform_nonce' ); ?>
 			<?php if ( $is_preview ) : ?>
-				<input type="hidden" name="nestform_preview" value="1" />
-				<?php wp_nonce_field( 'nestform_preview_submit_' . $form_id, 'nestform_preview_nonce' ); ?>
+				<input type="hidden" name="thimbleform_preview" value="1" />
+				<?php wp_nonce_field( 'thimbleform_preview_submit_' . $form_id, 'thimbleform_preview_nonce' ); ?>
 			<?php endif; ?>
 			<div class="nest-form__honeypot" aria-hidden="true">
 				<label>
-					<span><?php esc_html_e( 'Leave empty', 'nestform' ); ?></span>
-					<input type="text" name="nestform_hp" value="" tabindex="-1" autocomplete="off" />
+					<span><?php esc_html_e( 'Leave empty', 'thimbleform' ); ?></span>
+					<input type="text" name="thimbleform_hp" value="" tabindex="-1" autocomplete="off" />
 				</label>
 			</div>
 
-			<?php echo apply_filters( 'nestform_form_progress_html', '', $form_id, $settings, $fields ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pro returns escaped markup. ?>
+			<?php echo apply_filters( 'thimbleform_form_progress_html', '', $form_id, $settings, $fields ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pro returns escaped markup. ?>
 
 			<div class="nest-form__fields">
 				<?php
-				$fields_html = apply_filters( 'nestform_form_fields_html', null, $fields, $uid, $settings );
+				$fields_html = apply_filters( 'thimbleform_form_fields_html', null, $fields, $uid, $settings );
 				if ( is_string( $fields_html ) ) {
 					echo $fields_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pro builds field markup via render_field().
 				} else {
@@ -168,17 +168,17 @@ class Nestform_Renderer {
 				?>
 			</div>
 			<?php
-			$captcha_html = (string) apply_filters( 'nestform_captcha_html', '', $form_id, $config );
+			$captcha_html = (string) apply_filters( 'thimbleform_captcha_html', '', $form_id, $config );
 			if ( $captcha_html !== '' ) :
 				$captcha_provider = '';
-				if ( class_exists( 'Nestform_Captcha' ) && Nestform_Captcha::enabled_for_form( $form_id, $config ) ) {
-					$captcha_provider = Nestform_Captcha::provider();
+				if ( class_exists( 'Thimbleform_Captcha' ) && Thimbleform_Captcha::enabled_for_form( $form_id, $config ) ) {
+					$captcha_provider = Thimbleform_Captcha::provider();
 				}
 				$captcha_class = 'nest-form__captcha';
 				if ( 'recaptcha_v3' === $captcha_provider ) {
 					$captcha_class .= ' nest-form__captcha--invisible';
 				}
-				$captcha_hidden = (bool) apply_filters( 'nestform_captcha_starts_hidden', false, $settings, $fields );
+				$captcha_hidden = (bool) apply_filters( 'thimbleform_captcha_starts_hidden', false, $settings, $fields );
 				?>
 				<div class="<?php echo esc_attr( $captcha_class ); ?>"<?php echo $captcha_provider !== '' ? ' data-nest-form-captcha="' . esc_attr( $captcha_provider ) . '"' : ''; ?> data-nest-form-captcha-wrap<?php echo $captcha_hidden ? ' hidden' : ''; ?>>
 					<?php echo wp_kses_post( $captcha_html ); ?>
@@ -186,7 +186,7 @@ class Nestform_Renderer {
 			<?php endif; ?>
 			<div class="nest-form__actions">
 				<?php
-				$actions_html = apply_filters( 'nestform_form_actions_html', null, $settings, $fields );
+				$actions_html = apply_filters( 'thimbleform_form_actions_html', null, $settings, $fields );
 				if ( is_string( $actions_html ) ) {
 					echo $actions_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pro returns escaped buttons.
 				} else {
@@ -202,8 +202,8 @@ class Nestform_Renderer {
 			<div class="nest-form__status" data-nest-form-status role="status" aria-live="polite" aria-atomic="true" hidden></div>
 		</form>
 		<?php
-		if ( class_exists( 'Nestform_Settings' ) ) {
-			$credit = Nestform_Settings::credit_html();
+		if ( class_exists( 'Thimbleform_Settings' ) ) {
+			$credit = Thimbleform_Settings::credit_html();
 			if ( $credit !== '' ) {
 				echo $credit; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in credit_html()
 			}
@@ -217,7 +217,7 @@ class Nestform_Renderer {
 		 * @param int    $form_id Form ID.
 		 * @param array  $config  Config.
 		 */
-		return (string) apply_filters( 'nestform_render_html', $html, $form_id, $config );
+		return (string) apply_filters( 'thimbleform_render_html', $html, $form_id, $config );
 	}
 
 	/**
@@ -227,7 +227,7 @@ class Nestform_Renderer {
 	 * @return string
 	 */
 	public static function render_field( array $field, $uid, $start_hidden = false ) {
-		if ( ! Nestform_Form_Config::is_field_enabled( $field ) ) {
+		if ( ! Thimbleform_Form_Config::is_field_enabled( $field ) ) {
 			return '';
 		}
 
@@ -243,22 +243,22 @@ class Nestform_Renderer {
 		 * @param bool                 $start_hidden Hidden initially.
 		 */
 		$custom = null;
-		if ( class_exists( 'Nestform_Features' ) ) {
+		if ( class_exists( 'Thimbleform_Features' ) ) {
 			$pro_cap = null;
 			if ( 'calculated' === $type ) {
-				$pro_cap = Nestform_Features::CALCULATED_FIELDS;
+				$pro_cap = Thimbleform_Features::CALCULATED_FIELDS;
 			} elseif ( 'repeater' === $type ) {
-				$pro_cap = Nestform_Features::REPEATERS;
+				$pro_cap = Thimbleform_Features::REPEATERS;
 			} elseif ( 'payment' === $type ) {
-				$pro_cap = Nestform_Features::PAYMENTS;
+				$pro_cap = Thimbleform_Features::PAYMENTS;
 			}
 			if ( null !== $pro_cap ) {
-				if ( ! Nestform_Features::can( $pro_cap ) ) {
+				if ( ! Thimbleform_Features::can( $pro_cap ) ) {
 					return '';
 				}
-				$custom = apply_filters( 'nestform_render_field', null, $field, $uid, $start_hidden );
-			} elseif ( Nestform_Features::can( Nestform_Features::ADVANCED_FIELDS ) ) {
-				$custom = apply_filters( 'nestform_render_field', null, $field, $uid, $start_hidden );
+				$custom = apply_filters( 'thimbleform_render_field', null, $field, $uid, $start_hidden );
+			} elseif ( Thimbleform_Features::can( Thimbleform_Features::ADVANCED_FIELDS ) ) {
+				$custom = apply_filters( 'thimbleform_render_field', null, $field, $uid, $start_hidden );
 			}
 		}
 		if ( is_string( $custom ) ) {
@@ -267,7 +267,7 @@ class Nestform_Renderer {
 
 		$name  = $field['name'];
 		$id    = $uid . '-' . $name;
-		$width_ui = Nestform_Form_Config::field_width_presentation( $field );
+		$width_ui = Thimbleform_Form_Config::field_width_presentation( $field );
 		$width    = $width_ui['class'];
 		$req   = ! empty( $field['required'] );
 		$label = (string) $field['label'];
@@ -290,9 +290,9 @@ class Nestform_Renderer {
 			$classes[] = $extra;
 		}
 
-		$classes = (array) apply_filters( 'nestform_field_classes', $classes, $field, $uid );
+		$classes = (array) apply_filters( 'thimbleform_field_classes', $classes, $field, $uid );
 
-		if ( Nestform_Form_Config::is_layout_field( $type ) ) {
+		if ( Thimbleform_Form_Config::is_layout_field( $type ) ) {
 			return self::render_layout_field( $field, $uid, $start_hidden );
 		}
 
@@ -307,7 +307,7 @@ class Nestform_Renderer {
 				esc_attr( (string) $step )
 			);
 			$html = (string) ob_get_clean();
-			return (string) apply_filters( 'nestform_field_html', $html, $field, $uid );
+			return (string) apply_filters( 'thimbleform_field_html', $html, $field, $uid );
 		}
 
 		$condition_attrs = self::condition_data_attrs( $field );
@@ -329,7 +329,7 @@ class Nestform_Renderer {
 			);
 			$label_html = $label !== '' ? $label : $name;
 			if ( 'acceptance' === $type ) {
-				$label_html = Nestform_Form_Config::sanitize_acceptance_label( $label_html );
+				$label_html = Thimbleform_Form_Config::sanitize_acceptance_label( $label_html );
 			} else {
 				$label_html = esc_html( $label_html );
 			}
@@ -366,10 +366,10 @@ class Nestform_Renderer {
 					esc_textarea( $def )
 				);
 			} elseif ( 'select' === $type ) {
-				$choices = Nestform_Form_Config::parse_choice_lines( (string) $field['options'] );
+				$choices = Thimbleform_Form_Config::parse_choice_lines( (string) $field['options'] );
 				$allow_other = ! empty( $field['allow_other'] );
-				$other_label = Nestform_Form_Config::other_choice_label( $field );
-				$ph_text = $ph !== '' ? $ph : __( 'Select...', 'nestform' );
+				$other_label = Thimbleform_Form_Config::other_choice_label( $field );
+				$ph_text = $ph !== '' ? $ph : __( 'Select...', 'thimbleform' );
 				$list_id = $id . '-list';
 				$selected_label = $ph_text;
 				$is_placeholder = ( $def === '' );
@@ -387,7 +387,7 @@ class Nestform_Renderer {
 					echo '<option value="' . esc_attr( $choice['value'] ) . '"' . selected( $def, $choice['value'], false ) . '>' . esc_html( $choice['label'] ) . '</option>';
 				}
 				if ( $allow_other ) {
-					echo '<option value="' . esc_attr( Nestform_Form_Config::OTHER_VALUE ) . '">' . esc_html( $other_label ) . '</option>';
+					echo '<option value="' . esc_attr( Thimbleform_Form_Config::OTHER_VALUE ) . '">' . esc_html( $other_label ) . '</option>';
 				}
 				echo '</select>';
 				printf(
@@ -406,7 +406,7 @@ class Nestform_Renderer {
 					echo '<li class="nest-form-select__option" role="option" id="' . esc_attr( $opt_id ) . '" tabindex="-1" data-value="' . esc_attr( $choice['value'] ) . '" aria-selected="' . ( $sel ? 'true' : 'false' ) . '">' . esc_html( $choice['label'] ) . '</li>';
 				}
 				if ( $allow_other ) {
-					echo '<li class="nest-form-select__option" role="option" id="' . esc_attr( $id . '-opt-other' ) . '" tabindex="-1" data-value="' . esc_attr( Nestform_Form_Config::OTHER_VALUE ) . '" aria-selected="false">' . esc_html( $other_label ) . '</li>';
+					echo '<li class="nest-form-select__option" role="option" id="' . esc_attr( $id . '-opt-other' ) . '" tabindex="-1" data-value="' . esc_attr( Thimbleform_Form_Config::OTHER_VALUE ) . '" aria-selected="false">' . esc_html( $other_label ) . '</li>';
 				}
 				echo '</ul>';
 				echo '</div>';
@@ -415,13 +415,13 @@ class Nestform_Renderer {
 						'<input type="text" class="input nest-form__input nest-form__other" name="%1$s__other" id="%2$s-other" value="" placeholder="%3$s" data-nest-form-other hidden autocomplete="off" />',
 						esc_attr( $name ),
 						esc_attr( $id ),
-						esc_attr__( 'Please specify', 'nestform' )
+						esc_attr__( 'Please specify', 'thimbleform' )
 					);
 				}
 			} elseif ( 'radio' === $type || 'checkboxes' === $type ) {
-				$choices = Nestform_Form_Config::parse_choice_lines( (string) $field['options'] );
+				$choices = Thimbleform_Form_Config::parse_choice_lines( (string) $field['options'] );
 				$allow_other = ! empty( $field['allow_other'] );
-				$other_label = Nestform_Form_Config::other_choice_label( $field );
+				$other_label = Thimbleform_Form_Config::other_choice_label( $field );
 				$defaults = array_filter( array_map( 'trim', preg_split( '/\s*,\s*/', $def ) ?: array() ) );
 				$group_role = 'radio' === $type ? 'radiogroup' : 'group';
 				echo '<div class="nest-form__choices nest-form__choices--' . esc_attr( $type ) . '" role="' . esc_attr( $group_role ) . '" aria-labelledby="' . esc_attr( $id . '-legend' ) . '"' . ( $req ? ' data-required="1"' : '' ) . ' data-nest-form-choices' . ( $allow_other ? ' data-nest-form-allow-other' : '' ) . '>';
@@ -460,7 +460,7 @@ class Nestform_Renderer {
 							'<input type="radio" class="radio nest-form__radio" name="%1$s" id="%2$s" value="%3$s" data-nest-form-other-trigger />',
 							esc_attr( $name ),
 							esc_attr( $other_id ),
-							esc_attr( Nestform_Form_Config::OTHER_VALUE )
+							esc_attr( Thimbleform_Form_Config::OTHER_VALUE )
 						);
 						echo '<span class="nest-form__choice-label">' . esc_html( $other_label ) . '</span></label>';
 					} else {
@@ -469,7 +469,7 @@ class Nestform_Renderer {
 							'<input type="checkbox" class="checkbox nest-form__checkbox" name="%1$s[]" id="%2$s" value="%3$s" data-nest-form-other-trigger />',
 							esc_attr( $name ),
 							esc_attr( $other_id ),
-							esc_attr( Nestform_Form_Config::OTHER_VALUE )
+							esc_attr( Thimbleform_Form_Config::OTHER_VALUE )
 						);
 						echo '<span class="nest-form__choice-label">' . esc_html( $other_label ) . '</span></label>';
 					}
@@ -477,18 +477,18 @@ class Nestform_Renderer {
 						'<input type="text" class="input nest-form__input nest-form__other" name="%1$s__other" id="%2$s-other" value="" placeholder="%3$s" data-nest-form-other hidden autocomplete="off" />',
 						esc_attr( $name ),
 						esc_attr( $id ),
-						esc_attr__( 'Please specify', 'nestform' )
+						esc_attr__( 'Please specify', 'thimbleform' )
 					);
 				}
 				echo '</div>';
 			} elseif ( 'file' === $type ) {
-				$extensions = Nestform_Form_Config::parse_file_extensions( (string) ( $field['options'] ?? '' ) );
+				$extensions = Thimbleform_Form_Config::parse_file_extensions( (string) ( $field['options'] ?? '' ) );
 				$accept     = array();
 				foreach ( $extensions as $ext ) {
 					$accept[] = '.' . $ext;
 				}
-				$max_mb    = max( 1, min( 50, (int) ( $ph !== '' ? $ph : Nestform_Form_Config::file_default_max_mb() ) ) );
-				$max_files = Nestform_Form_Config::file_max_count( $field );
+				$max_mb    = max( 1, min( 50, (int) ( $ph !== '' ? $ph : Thimbleform_Form_Config::file_default_max_mb() ) ) );
+				$max_files = Thimbleform_Form_Config::file_max_count( $field );
 				$multiple  = $max_files > 1;
 				printf(
 					'<input type="file" class="input nest-form__input nest-form__file" name="%1$s%6$s" id="%2$s"%3$s accept="%4$s" data-max-mb="%5$s" data-max-files="%7$s"%8$s />',
@@ -501,10 +501,10 @@ class Nestform_Renderer {
 					esc_attr( (string) $max_files ),
 					$multiple ? ' multiple' : ''
 				);
-			} elseif ( 'tel' === $type && class_exists( 'Nestform_Phone' ) && Nestform_Phone::is_picker_enabled( $field ) ) {
-				Nestform_Phone::render_field( $field, $id, $name, $req, $ph, $def );
+			} elseif ( 'tel' === $type && class_exists( 'Thimbleform_Phone' ) && Thimbleform_Phone::is_picker_enabled( $field ) ) {
+				Thimbleform_Phone::render_field( $field, $id, $name, $req, $ph, $def );
 			} elseif ( 'range' === $type ) {
-				$range = Nestform_Form_Config::parse_range_options( (string) ( $field['options'] ?? '' ) );
+				$range = Thimbleform_Form_Config::parse_range_options( (string) ( $field['options'] ?? '' ) );
 				$val   = $def !== '' && is_numeric( $def ) ? $def : (string) $range['min'];
 				printf(
 					'<input type="range" class="input nest-form__input nest-form__range" name="%1$s" id="%2$s" min="%3$s" max="%4$s" step="%5$s" value="%6$s"%7$s />',
@@ -517,7 +517,7 @@ class Nestform_Renderer {
 					$req ? ' required' : ''
 				);
 			} else {
-				$input_type = Nestform_Form_Config::html_input_type( $type );
+				$input_type = Thimbleform_Form_Config::html_input_type( $type );
 				$autocomplete = 'on';
 				if ( 'email' === $input_type ) {
 					$autocomplete = 'email';
@@ -560,7 +560,7 @@ class Nestform_Renderer {
 		 * @param array  $field Field config.
 		 * @param string $uid   Form uid.
 		 */
-		return (string) apply_filters( 'nestform_field_html', $html, $field, $uid );
+		return (string) apply_filters( 'thimbleform_field_html', $html, $field, $uid );
 	}
 
 	/**
@@ -574,7 +574,7 @@ class Nestform_Renderer {
 	private static function render_layout_field( array $field, $uid, $start_hidden = false ) {
 		$type  = (string) $field['type'];
 		$name  = (string) $field['name'];
-		$width_ui = Nestform_Form_Config::field_width_presentation( $field );
+		$width_ui = Thimbleform_Form_Config::field_width_presentation( $field );
 		$width    = $width_ui['class'];
 		$label = (string) ( $field['label'] ?? '' );
 		$desc  = (string) ( $field['description'] ?? '' );
@@ -591,7 +591,7 @@ class Nestform_Renderer {
 		if ( $extra !== '' ) {
 			$classes[] = $extra;
 		}
-		$classes = (array) apply_filters( 'nestform_field_classes', $classes, $field, $uid );
+		$classes = (array) apply_filters( 'thimbleform_field_classes', $classes, $field, $uid );
 
 		ob_start();
 		$width_style = $width_ui['style'] !== '' ? ' style="' . esc_attr( $width_ui['style'] ) . '"' : '';
@@ -644,14 +644,14 @@ class Nestform_Renderer {
 		} elseif ( 'html' === $type ) {
 			$content = (string) ( $field['options'] ?? '' );
 			if ( $content !== '' ) {
-				echo '<div class="nest-form__html">' . wp_kses( $content, Nestform_Form_Config::html_allowed_tags() ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<div class="nest-form__html">' . wp_kses( $content, Thimbleform_Form_Config::html_allowed_tags() ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 		}
 
 		echo '</div>';
 		$html = (string) ob_get_clean();
 
-		return (string) apply_filters( 'nestform_field_html', $html, $field, $uid );
+		return (string) apply_filters( 'thimbleform_field_html', $html, $field, $uid );
 	}
 
 	/**
@@ -684,7 +684,7 @@ class Nestform_Renderer {
 				continue;
 			}
 			$type = (string) ( $field['type'] ?? '' );
-			if ( class_exists( 'Nestform_Features' ) && ! Nestform_Features::can_use_field_type( $type ) ) {
+			if ( class_exists( 'Thimbleform_Features' ) && ! Thimbleform_Features::can_use_field_type( $type ) ) {
 				continue;
 			}
 			$out[] = $field;
@@ -698,30 +698,30 @@ class Nestform_Renderer {
 		}
 		self::$assets_queued = true;
 
-		$css = nestform_front_css_path();
-		$js  = nestform_front_js_path();
+		$css = thimbleform_front_css_path();
+		$js  = thimbleform_front_js_path();
 		wp_enqueue_style(
-			'nestform-front',
-			nestform_front_css_url(),
+			'thimbleform-front',
+			thimbleform_front_css_url(),
 			array(),
-			(string) filemtime( $css ) ?: NESTFORM_VERSION
+			(string) filemtime( $css ) ?: THIMBLEFORM_VERSION
 		);
 		wp_enqueue_script(
-			'nestform-front',
-			nestform_front_js_url(),
+			'thimbleform-front',
+			thimbleform_front_js_url(),
 			array(),
-			(string) filemtime( $js ) ?: NESTFORM_VERSION,
+			(string) filemtime( $js ) ?: THIMBLEFORM_VERSION,
 			true
 		);
 		wp_localize_script(
-			'nestform-front',
-			'nestform',
+			'thimbleform-front',
+			'thimbleform',
 			array(
 				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 				'i18n'    => array(
-					'close'         => __( 'Close', 'nestform' ),
-					'successTitle'  => __( 'Thank you', 'nestform' ),
-					'submitting'    => __( 'Sending…', 'nestform' ),
+					'close'         => __( 'Close', 'thimbleform' ),
+					'successTitle'  => __( 'Thank you', 'thimbleform' ),
+					'submitting'    => __( 'Sending…', 'thimbleform' ),
 				),
 			)
 		);
@@ -729,6 +729,6 @@ class Nestform_Renderer {
 		/**
 		 * After core front assets are queued (Pro may enqueue widgets / trackers).
 		 */
-		do_action( 'nestform_enqueue_front' );
+		do_action( 'thimbleform_enqueue_front' );
 	}
 }

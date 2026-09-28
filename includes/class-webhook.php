@@ -9,12 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Webhook {
+class Thimbleform_Webhook {
 
 	const ENDPOINT_MAX = 5;
 
 	public static function init() {
-		add_action( 'nestform_submitted', array( __CLASS__, 'dispatch' ), 20, 3 );
+		add_action( 'thimbleform_submitted', array( __CLASS__, 'dispatch' ), 20, 3 );
 	}
 
 	/**
@@ -25,19 +25,19 @@ class Nestform_Webhook {
 	public static function dispatch( $form_id, $data, $entry_id ) {
 		$form_id  = (int) $form_id;
 		$entry_id = (int) $entry_id;
-		$settings = Nestform_Form_Config::get_settings( $form_id );
+		$settings = Thimbleform_Form_Config::get_settings( $form_id );
 
 		if ( empty( $settings['webhook_enabled'] ) || '1' !== (string) $settings['webhook_enabled'] ) {
 			return;
 		}
 
-		$endpoints = Nestform_Form_Config::webhook_endpoints_from_settings( $settings );
+		$endpoints = Thimbleform_Form_Config::webhook_endpoints_from_settings( $settings );
 		if ( array() === $endpoints ) {
 			return;
 		}
 
 		$payload = array(
-			'event'      => 'nestform.submitted',
+			'event'      => 'thimbleform.submitted',
 			'form_id'    => $form_id,
 			'form_title' => get_the_title( $form_id ),
 			'entry_id'   => $entry_id,
@@ -60,7 +60,7 @@ class Nestform_Webhook {
 	 */
 	private static function send_to_endpoint( array $payload, $form_id, $data, $entry_id, array $endpoint ) {
 		$url = isset( $endpoint['url'] ) ? esc_url_raw( (string) $endpoint['url'] ) : '';
-		if ( $url === '' || ! Nestform_Form_Config::is_safe_outbound_url( $url ) ) {
+		if ( $url === '' || ! Thimbleform_Form_Config::is_safe_outbound_url( $url ) ) {
 			return;
 		}
 
@@ -73,16 +73,16 @@ class Nestform_Webhook {
 		 * @param int    $entry_id Entry ID.
 		 * @param string $url      Target URL for this request.
 		 */
-		$body = (array) apply_filters( 'nestform_webhook_payload', $payload, $form_id, $data, $entry_id, $url );
+		$body = (array) apply_filters( 'thimbleform_webhook_payload', $payload, $form_id, $data, $entry_id, $url );
 
 		$headers = array(
 			'Content-Type' => 'application/json; charset=utf-8',
-			'User-Agent'   => 'Thimbleform/' . ( defined( 'NESTFORM_VERSION' ) ? NESTFORM_VERSION : '1' ),
+			'User-Agent'   => 'Thimbleform/' . ( defined( 'THIMBLEFORM_VERSION' ) ? THIMBLEFORM_VERSION : '1' ),
 		);
 
 		$secret = isset( $endpoint['secret'] ) ? (string) $endpoint['secret'] : '';
 		if ( $secret !== '' ) {
-			$headers['X-Nestform-Secret']   = $secret;
+			$headers['X-Thimbleform-Secret']   = $secret;
 			$headers['X-Vite-Forms-Secret'] = $secret;
 		}
 
@@ -103,7 +103,7 @@ class Nestform_Webhook {
 		 * @param int    $entry_id Entry ID.
 		 * @param string $url      Target URL.
 		 */
-		$args = (array) apply_filters( 'nestform_webhook_request_args', $args, $form_id, $body, $entry_id, $url );
+		$args = (array) apply_filters( 'thimbleform_webhook_request_args', $args, $form_id, $body, $entry_id, $url );
 
 		$args['redirection'] = 0;
 		if ( isset( $args['headers'] ) && ! is_array( $args['headers'] ) ) {
@@ -113,10 +113,10 @@ class Nestform_Webhook {
 		$url_send = $url;
 		if ( isset( $args['url'] ) && is_string( $args['url'] ) && $args['url'] !== '' ) {
 			$candidate = esc_url_raw( $args['url'] );
-			$url_send  = ( $candidate !== '' && Nestform_Form_Config::is_safe_outbound_url( $candidate ) ) ? $candidate : $url;
+			$url_send  = ( $candidate !== '' && Thimbleform_Form_Config::is_safe_outbound_url( $candidate ) ) ? $candidate : $url;
 			unset( $args['url'] );
 		}
-		if ( ! Nestform_Form_Config::is_safe_outbound_url( $url_send ) ) {
+		if ( ! Thimbleform_Form_Config::is_safe_outbound_url( $url_send ) ) {
 			return;
 		}
 
@@ -130,7 +130,7 @@ class Nestform_Webhook {
 		 * @param int            $entry_id Entry ID.
 		 * @param string         $url      Webhook URL.
 		 */
-		do_action( 'nestform_webhook_sent', $response, $form_id, $entry_id, $url_send );
+		do_action( 'thimbleform_webhook_sent', $response, $form_id, $entry_id, $url_send );
 	}
 
 	/**

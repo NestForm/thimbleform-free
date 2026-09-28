@@ -5,8 +5,8 @@
 	'use strict';
 
 	try {
-		if (window.localStorage.getItem('nestform_sidebar_collapsed') === '1') {
-			document.documentElement.classList.add('nestform-sidebar-collapsed');
+		if (window.localStorage.getItem('thimbleform_sidebar_collapsed') === '1') {
+			document.documentElement.classList.add('thimbleform-sidebar-collapsed');
 		}
 	} catch (err) {
 		/* ignore */

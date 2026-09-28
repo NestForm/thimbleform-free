@@ -38,9 +38,9 @@ const CHROME_CSS = `
   .fs-notice,
   .notice,
   .update-nag,
-  .nestform-app__pro,
+  .thimbleform-app__pro,
   .thimbleform-pro-teaser,
-  .nestform-review-request { display: none !important; visibility: hidden !important; }
+  .thimbleform-review-request { display: none !important; visibility: hidden !important; }
   html.wp-toolbar,
   html,
   body.admin-bar,
@@ -49,7 +49,7 @@ const CHROME_CSS = `
   body.admin-bar #wpbody-content,
   #wpwrap,
   #wpcontent { margin-top: 0 !important; padding-top: 0 !important; }
-  .nestform-app { min-height: 100vh !important; }
+  .thimbleform-app { min-height: 100vh !important; }
 `;
 
 async function click(page, selector) {
@@ -62,9 +62,9 @@ async function click(page, selector) {
 }
 
 async function builderTab(page, tab, subtab = '') {
-  await click(page, `[data-nestform-tab="${tab}"]`);
+  await click(page, `[data-thimbleform-tab="${tab}"]`);
   if (subtab) {
-    await click(page, `[data-nestform-subtab="${subtab}"]`);
+    await click(page, `[data-thimbleform-subtab="${subtab}"]`);
   }
 }
 
@@ -80,71 +80,71 @@ async function openDetails(page, selector) {
 }
 
 async function openFirstField(page) {
-  const field = page.locator('[data-nestform-field]:not([data-field-type="heading"]):not([data-field-type="paragraph"]):not([data-field-type="spacer"])').first();
+  const field = page.locator('[data-thimbleform-field]:not([data-field-type="heading"]):not([data-field-type="paragraph"]):not([data-field-type="spacer"])').first();
   if (!(await field.count())) {
     throw new Error('No editable field card found');
   }
-  const body = field.locator('[data-nestform-card-body]');
+  const body = field.locator('[data-thimbleform-card-body]');
   if (await body.isHidden()) {
-    await field.locator('[data-nestform-toggle]').first().click();
+    await field.locator('[data-thimbleform-toggle]').first().click();
     await page.waitForTimeout(250);
   }
   return field;
 }
 
 async function openMoreFields(page) {
-  await click(page, '[data-nestform-add-menu="more"] [data-nestform-add-menu-toggle]');
+  await click(page, '[data-thimbleform-add-menu="more"] [data-thimbleform-add-menu-toggle]');
 }
 
 const overviewShots = [
   {
     file: 'screenshot-1.png',
-    url: admin('edit.php?post_type=nestform&page=nestform-dashboard'),
-    target: '.nestform-app',
+    url: admin('edit.php?post_type=thimbleform&page=thimbleform-dashboard'),
+    target: '.thimbleform-app',
   },
   {
     file: 'screenshot-2.png',
-    url: admin('edit.php?post_type=nestform'),
-    target: '.nestform-app, #wpbody-content',
+    url: admin('edit.php?post_type=thimbleform'),
+    target: '.thimbleform-app, #wpbody-content',
   },
   {
     file: 'screenshot-3.png',
     url: builder(),
-    target: '[data-nestform-admin]',
+    target: '[data-thimbleform-admin]',
   },
   {
     file: 'screenshot-4.png',
-    url: admin('edit.php?post_type=nestform&page=nestform-entries'),
-    target: '.nestform-app',
+    url: admin('edit.php?post_type=thimbleform&page=thimbleform-entries'),
+    target: '.thimbleform-app',
   },
   {
     file: 'screenshot-5.png',
     url: `${BASE}/#support`,
-    target: '[data-block="nestform-support"], .nestform-support',
+    target: '[data-block="thimbleform-support"], .thimbleform-support',
     front: true,
   },
   {
     file: 'screenshot-6.png',
-    url: admin('edit.php?post_type=nestform&page=nestform-integrations'),
-    target: '.nestform-app, #wpbody-content',
+    url: admin('edit.php?post_type=thimbleform&page=thimbleform-integrations'),
+    target: '.thimbleform-app, #wpbody-content',
   },
   {
     file: 'screenshot-7.png',
     url: builder(PRO_FORM_ID),
-    target: '[data-nestform-admin]',
+    target: '[data-thimbleform-admin]',
   },
 ];
 
 const documentationShots = [
   {
     file: 'docs/forms-new-form.png',
-    url: admin('edit.php?post_type=nestform'),
-    target: '.nestform-app, #wpbody-content',
+    url: admin('edit.php?post_type=thimbleform'),
+    target: '.thimbleform-app, #wpbody-content',
   },
   {
     file: 'docs/builder-fields.png',
     url: builder(),
-    target: '[data-nestform-panel="fields"]',
+    target: '[data-thimbleform-panel="fields"]',
     prepare: async (page) => {
       await builderTab(page, 'fields');
       await openFirstField(page);
@@ -153,93 +153,93 @@ const documentationShots = [
   {
     file: 'docs/conditional-logic.png',
     url: builder(),
-    target: '[data-nestform-field]:has([data-nestform-section="condition"][open])',
+    target: '[data-thimbleform-field]:has([data-thimbleform-section="condition"][open])',
     prepare: async (page) => {
       await builderTab(page, 'fields');
       const field = await openFirstField(page);
-      await openDetails(page, '[data-nestform-field]:not([data-field-type="heading"]):not([data-field-type="paragraph"]):not([data-field-type="spacer"]) [data-nestform-section="condition"]');
+      await openDetails(page, '[data-thimbleform-field]:not([data-field-type="heading"]):not([data-field-type="paragraph"]):not([data-field-type="spacer"]) [data-thimbleform-section="condition"]');
       await field.scrollIntoViewIfNeeded();
     },
   },
   {
     file: 'docs/publish-embed.png',
     url: builder(),
-    target: '.nestform-editor__sidebar, .nestform-embed',
+    target: '.thimbleform-editor__sidebar, .thimbleform-embed',
   },
   {
     file: 'docs/entries-inbox.png',
-    url: admin('edit.php?post_type=nestform&page=nestform-entries'),
-    target: '.nestform-app',
+    url: admin('edit.php?post_type=thimbleform&page=thimbleform-entries'),
+    target: '.thimbleform-app',
   },
   {
     file: 'docs/export-controls.png',
-    url: admin(`edit.php?post_type=nestform_entry&nestform_form_id=${BUILDER_ID}`),
-    target: '.nestform-export-menu__panel',
+    url: admin(`edit.php?post_type=thimbleform_entry&thimbleform_form_id=${BUILDER_ID}`),
+    target: '.thimbleform-export-menu__panel',
     prepare: async (page) => {
-      await click(page, '.nestform-export-menu__toggle');
-      await page.locator('.nestform-export-menu__panel').first().waitFor({ state: 'visible', timeout: 5000 });
+      await click(page, '.thimbleform-export-menu__toggle');
+      await page.locator('.thimbleform-export-menu__panel').first().waitFor({ state: 'visible', timeout: 5000 });
     },
   },
   {
     file: 'docs/mail-settings.png',
     url: builder(),
-    target: '[data-nestform-panel="mail"]',
+    target: '[data-thimbleform-panel="mail"]',
     prepare: async (page) => builderTab(page, 'mail', 'notification'),
   },
   {
     file: 'docs/security-settings.png',
-    url: admin('edit.php?post_type=nestform&page=nestform-settings&section=security'),
-    target: '.nestform-app',
+    url: admin('edit.php?post_type=thimbleform&page=thimbleform-settings&section=security'),
+    target: '.thimbleform-app',
   },
   {
     file: 'docs/captcha-integrations.png',
-    url: admin('edit.php?post_type=nestform&page=nestform-integrations&section=captcha'),
-    target: '.nestform-app',
+    url: admin('edit.php?post_type=thimbleform&page=thimbleform-integrations&section=captcha'),
+    target: '.thimbleform-app',
   },
   {
     file: 'docs/webhooks.png',
     url: builder(),
-    target: '[data-nestform-subpanel="webhooks"]',
+    target: '[data-thimbleform-subpanel="webhooks"]',
     prepare: async (page) => builderTab(page, 'settings', 'webhooks'),
   },
   {
     file: 'docs/dashboard.png',
-    url: admin('edit.php?post_type=nestform&page=nestform-dashboard'),
-    target: '.nestform-app',
+    url: admin('edit.php?post_type=thimbleform&page=thimbleform-dashboard'),
+    target: '.thimbleform-app',
   },
   {
     file: 'docs/license.png',
-    url: admin('edit.php?post_type=nestform&page=thimbleform-pro-license'),
-    target: '.nestform-app',
+    url: admin('edit.php?post_type=thimbleform&page=thimbleform-pro-license'),
+    target: '.thimbleform-app',
   },
   {
     file: 'docs/multi-step-branching.png',
     url: builder(PRO_FORM_ID),
-    target: '[data-nestform-steps-setup]',
+    target: '[data-thimbleform-steps-setup]',
     prepare: async (page) => {
       await builderTab(page, 'fields');
-      const toggle = page.locator('[data-nestform-enable-steps]').first();
+      const toggle = page.locator('[data-thimbleform-enable-steps]').first();
       if (!(await toggle.isChecked())) {
         await toggle.check({ force: true });
         await page.waitForTimeout(450);
       }
-      await openDetails(page, '[data-nestform-steps-branch]');
+      await openDetails(page, '[data-thimbleform-steps-branch]');
     },
   },
   {
     file: 'docs/quiz-survey.png',
     url: builder(PRO_FORM_ID),
-    target: '[data-nestform-subpanel="quiz"]',
+    target: '[data-thimbleform-subpanel="quiz"]',
     prepare: async (page) => builderTab(page, 'settings', 'quiz'),
   },
   {
     file: 'docs/advanced-fields.png',
     url: builder(PRO_FORM_ID),
-    target: '[data-nestform-add-menu="more"] [data-nestform-add-menu-panel]',
+    target: '[data-thimbleform-add-menu="more"] [data-thimbleform-add-menu-panel]',
     prepare: async (page) => {
       await builderTab(page, 'fields');
       await openMoreFields(page);
-      await page.locator('[data-nestform-add-menu="more"] [data-nestform-add-menu-panel]').evaluate((panel) => {
+      await page.locator('[data-thimbleform-add-menu="more"] [data-thimbleform-add-menu-panel]').evaluate((panel) => {
         panel.scrollTop = panel.scrollHeight;
       });
     },
@@ -247,36 +247,36 @@ const documentationShots = [
   {
     file: 'docs/automations.png',
     url: builder(PRO_FORM_ID),
-    target: '[data-nestform-subpanel="automations"]',
+    target: '[data-thimbleform-subpanel="automations"]',
     prepare: async (page) => builderTab(page, 'settings', 'automations'),
   },
   {
     file: 'docs/stripe-payments.png',
     url: builder(PRO_FORM_ID),
-    target: '[data-nestform-subpanel="payments"]',
+    target: '[data-thimbleform-subpanel="payments"]',
     prepare: async (page) => builderTab(page, 'settings', 'payments'),
   },
   {
     file: 'docs/hubspot.png',
     url: builder(PRO_FORM_ID),
-    target: '[data-nestform-subpanel="hubspot"]',
+    target: '[data-thimbleform-subpanel="hubspot"]',
     prepare: async (page) => builderTab(page, 'settings', 'hubspot'),
   },
   {
     file: 'docs/html-email-pdf.png',
     url: builder(PRO_FORM_ID),
-    target: '[data-nestform-mail-designer]',
+    target: '[data-thimbleform-mail-designer]',
     prepare: async (page) => builderTab(page, 'mail', 'notification'),
   },
   {
     file: 'docs/insights.png',
-    url: admin('edit.php?post_type=nestform&page=nestform-dashboard'),
-    target: '[data-nestform-lead-insights], [data-nestform-survey-charts-root], .nestform-dash',
+    url: admin('edit.php?post_type=thimbleform&page=thimbleform-dashboard'),
+    target: '[data-thimbleform-lead-insights], [data-thimbleform-survey-charts-root], .thimbleform-dash',
   },
   {
     file: 'docs/recruiting.png',
-    url: admin('edit.php?post_type=nestform&page=nestform-recruiting'),
-    target: '.nestform-app',
+    url: admin('edit.php?post_type=thimbleform&page=thimbleform-recruiting'),
+    target: '.thimbleform-app',
   },
 ];
 
@@ -314,15 +314,15 @@ async function scrubPii(page) {
     const localDomainPattern = /(?:https?:\/\/)?(?:www\.)?wordpress-custom\.local(?:\/[^\s<]*)?/gi;
     const sensitivePattern = /(license|secret|api[\s_-]?key|private[\s_-]?key|token)/i;
 
-    document.querySelectorAll('.nestform-dash__card, .nestform-entries__row').forEach((row) => {
+    document.querySelectorAll('.thimbleform-dash__card, .thimbleform-entries__row').forEach((row) => {
       const demo = next();
-      row.querySelectorAll('.nestform-dash__card-who, .nestform-entries__who').forEach((node) => {
+      row.querySelectorAll('.thimbleform-dash__card-who, .thimbleform-entries__who').forEach((node) => {
         node.textContent = demo[0];
       });
-      row.querySelectorAll('.nestform-dash__card-email, .nestform-entries__email').forEach((node) => {
+      row.querySelectorAll('.thimbleform-dash__card-email, .thimbleform-entries__email').forEach((node) => {
         node.textContent = demo[1];
       });
-      row.setAttribute('data-nestform-scrubbed', '1');
+      row.setAttribute('data-thimbleform-scrubbed', '1');
     });
 
     document.querySelectorAll('input, textarea').forEach((input) => {
@@ -330,7 +330,7 @@ async function scrubPii(page) {
       if (input.type === 'email' || emailPattern.test(input.value || '')) {
         input.value = next()[1];
       } else if (input.type === 'url' || localDomainPattern.test(input.value || '')) {
-        input.value = 'https://hooks.example.com/nestform';
+        input.value = 'https://hooks.example.com/thimbleform';
       } else if (input.type === 'password' || sensitivePattern.test(descriptor)) {
         input.value = '••••••••••••••••';
       }
@@ -343,7 +343,7 @@ async function scrubPii(page) {
     let node;
     while ((node = walker.nextNode())) nodes.push(node);
     nodes.forEach((textNode) => {
-      if (textNode.parentElement?.closest('[data-nestform-scrubbed]')) return;
+      if (textNode.parentElement?.closest('[data-thimbleform-scrubbed]')) return;
       let value = textNode.nodeValue || '';
       value = value.replace(emailPattern, 'alex@example.com');
       value = value.replace(localDomainPattern, 'example.com');
@@ -358,10 +358,10 @@ async function scrubPii(page) {
       }
     });
 
-    document.querySelectorAll('.nestform-dash__domains-name').forEach((node, itemIndex) => {
+    document.querySelectorAll('.thimbleform-dash__domains-name').forEach((node, itemIndex) => {
       node.textContent = itemIndex === 0 ? 'example.com' : `demo-${itemIndex + 1}.example`;
     });
-    document.querySelectorAll('.nestform-entries-insights__value').forEach((node) => {
+    document.querySelectorAll('.thimbleform-entries-insights__value').forEach((node) => {
       node.textContent = 'example.com';
     });
 
@@ -423,7 +423,7 @@ async function captureTarget(page, shot, targetPath) {
   if (COOKIE_FILE) {
     const cookies = JSON.parse(fs.readFileSync(COOKIE_FILE, 'utf8'));
     await context.addCookies(cookies);
-    await page.goto(admin('edit.php?post_type=nestform'), { waitUntil: 'domcontentloaded', timeout: 90000 });
+    await page.goto(admin('edit.php?post_type=thimbleform'), { waitUntil: 'domcontentloaded', timeout: 90000 });
   } else {
     await page.goto(`${BASE}/login/`, { waitUntil: 'networkidle', timeout: 90000 });
     const userSelector = (await page.locator('#auth-log').count()) ? '#auth-log' : '#user_login';

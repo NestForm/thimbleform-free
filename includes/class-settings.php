@@ -9,10 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Settings {
+class Thimbleform_Settings {
 
-	const OPTION    = 'nestform_settings';
-	const PAGE_SLUG = 'nestform-settings';
+	const OPTION    = 'thimbleform_settings';
+	const PAGE_SLUG = 'thimbleform-settings';
 
 	const SITE_URL = 'https://thimbleform.app/';
 
@@ -22,9 +22,9 @@ class Nestform_Settings {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'assets' ) );
 		add_filter( 'admin_body_class', array( __CLASS__, 'admin_body_class' ) );
 		add_action( 'admin_init', array( __CLASS__, 'maybe_import_theme_captcha' ), 5 );
-		add_action( 'admin_post_nestform_send_test_email', array( __CLASS__, 'send_test_email' ) );
+		add_action( 'admin_post_thimbleform_send_test_email', array( __CLASS__, 'send_test_email' ) );
 		add_filter(
-			'nestform_show_promotions',
+			'thimbleform_show_promotions',
 			static function ( $show ) {
 				if ( ! $show ) {
 					return false;
@@ -64,7 +64,7 @@ class Nestform_Settings {
 			'credit_enabled'             => '0',
 			'review_requests_enabled'    => '1',
 			'role_caps'                  => array(
-				'editor' => array( 'nestform_manage_forms', 'nestform_view_entries' ),
+				'editor' => array( 'thimbleform_manage_forms', 'thimbleform_view_entries' ),
 			),
 			'rate_limit_enabled'         => '1',
 			'rate_limit_max'             => '10',
@@ -188,18 +188,18 @@ class Nestform_Settings {
 		$out    = self::sync_captcha_keys( array_merge( self::defaults(), $stored ) );
 		$out    = self::sync_stripe_keys( $out );
 
-		if ( defined( 'NESTFORM_RECAPTCHA_SITE_KEY' ) && NESTFORM_RECAPTCHA_SITE_KEY !== '' ) {
-			$out['captcha_site_key'] = (string) NESTFORM_RECAPTCHA_SITE_KEY;
+		if ( defined( 'THIMBLEFORM_RECAPTCHA_SITE_KEY' ) && THIMBLEFORM_RECAPTCHA_SITE_KEY !== '' ) {
+			$out['captcha_site_key'] = (string) THIMBLEFORM_RECAPTCHA_SITE_KEY;
 			$provider                = (string) $out['captcha_provider'];
 			if ( isset( $out['captcha_keys'][ $provider ] ) && is_array( $out['captcha_keys'][ $provider ] ) ) {
-				$out['captcha_keys'][ $provider ]['site'] = (string) NESTFORM_RECAPTCHA_SITE_KEY;
+				$out['captcha_keys'][ $provider ]['site'] = (string) THIMBLEFORM_RECAPTCHA_SITE_KEY;
 			}
 		}
-		if ( defined( 'NESTFORM_RECAPTCHA_SECRET_KEY' ) && NESTFORM_RECAPTCHA_SECRET_KEY !== '' ) {
-			$out['captcha_secret_key'] = (string) NESTFORM_RECAPTCHA_SECRET_KEY;
+		if ( defined( 'THIMBLEFORM_RECAPTCHA_SECRET_KEY' ) && THIMBLEFORM_RECAPTCHA_SECRET_KEY !== '' ) {
+			$out['captcha_secret_key'] = (string) THIMBLEFORM_RECAPTCHA_SECRET_KEY;
 			$provider                  = (string) $out['captcha_provider'];
 			if ( isset( $out['captcha_keys'][ $provider ] ) && is_array( $out['captcha_keys'][ $provider ] ) ) {
-				$out['captcha_keys'][ $provider ]['secret'] = (string) NESTFORM_RECAPTCHA_SECRET_KEY;
+				$out['captcha_keys'][ $provider ]['secret'] = (string) THIMBLEFORM_RECAPTCHA_SECRET_KEY;
 			}
 		}
 
@@ -208,7 +208,7 @@ class Nestform_Settings {
 		 *
 		 * @param array<string, mixed> $out Settings.
 		 */
-		return (array) apply_filters( 'nestform_settings', $out );
+		return (array) apply_filters( 'thimbleform_settings', $out );
 	}
 
 	/**
@@ -261,7 +261,7 @@ class Nestform_Settings {
 		return sprintf(
 			'<p class="nest-form__credit"><a href="%1$s" rel="noopener noreferrer">%2$s</a></p>',
 			esc_url( self::SITE_URL ),
-			esc_html__( 'Powered by Thimbleform', 'nestform' )
+			esc_html__( 'Powered by Thimbleform', 'thimbleform' )
 		);
 	}
 
@@ -435,7 +435,7 @@ class Nestform_Settings {
 		return add_query_arg(
 			array_merge(
 				array(
-					'post_type' => Nestform_Post_Type::POST_TYPE,
+					'post_type' => Thimbleform_Post_Type::POST_TYPE,
 					'page'      => self::PAGE_SLUG,
 				),
 				$args
@@ -450,24 +450,24 @@ class Nestform_Settings {
 	private static function sections() {
 		$sections = array(
 			'general' => array(
-				'label' => __( 'General', 'nestform' ),
-				'desc'  => __( 'Defaults for new forms and site-wide preferences.', 'nestform' ),
+				'label' => __( 'General', 'thimbleform' ),
+				'desc'  => __( 'Defaults for new forms and site-wide preferences.', 'thimbleform' ),
 			),
 			'email'   => array(
-				'label' => __( 'Email', 'nestform' ),
-				'desc'  => __( 'Sender defaults and delivery checks.', 'nestform' ),
+				'label' => __( 'Email', 'thimbleform' ),
+				'desc'  => __( 'Sender defaults and delivery checks.', 'thimbleform' ),
 			),
 			'entries' => array(
-				'label' => __( 'Entries', 'nestform' ),
-				'desc'  => __( 'How submissions appear in the admin.', 'nestform' ),
+				'label' => __( 'Entries', 'thimbleform' ),
+				'desc'  => __( 'How submissions appear in the admin.', 'thimbleform' ),
 			),
 			'security' => array(
-				'label' => __( 'Security', 'nestform' ),
-				'desc'  => __( 'Site-wide spam protection for every Thimbleform form.', 'nestform' ),
+				'label' => __( 'Security', 'thimbleform' ),
+				'desc'  => __( 'Site-wide spam protection for every Thimbleform form.', 'thimbleform' ),
 			),
 			'privacy' => array(
-				'label' => __( 'Privacy & data', 'nestform' ),
-				'desc'  => __( 'Retention, uninstall, access, and public credit.', 'nestform' ),
+				'label' => __( 'Privacy & data', 'thimbleform' ),
+				'desc'  => __( 'Retention, uninstall, access, and public credit.', 'thimbleform' ),
 			),
 		);
 
@@ -476,12 +476,12 @@ class Nestform_Settings {
 		 *
 		 * @param array<string, array{label:string,desc:string}> $sections
 		 */
-		return (array) apply_filters( 'nestform_settings_sections', $sections );
+		return (array) apply_filters( 'thimbleform_settings_sections', $sections );
 	}
 
 	public static function register() {
 		register_setting(
-			'nestform_settings',
+			'thimbleform_settings',
 			self::OPTION,
 			array(
 				'type'              => 'array',
@@ -540,7 +540,7 @@ class Nestform_Settings {
 		}
 
 		if ( 'integrations' === $section || 'integrations_stripe' === $section ) {
-			$can_payments = class_exists( 'Nestform_Features' ) && Nestform_Features::can( Nestform_Features::PAYMENTS );
+			$can_payments = class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::can( Thimbleform_Features::PAYMENTS );
 			if ( ! $can_payments ) {
 				if ( 'integrations_stripe' === $section ) {
 					return $out;
@@ -570,7 +570,7 @@ class Nestform_Settings {
 		}
 
 		if ( 'integrations' === $section || 'integrations_hubspot' === $section ) {
-			$can_hubspot = class_exists( 'Nestform_Features' ) && Nestform_Features::can( Nestform_Features::HUBSPOT );
+			$can_hubspot = class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::can( Thimbleform_Features::HUBSPOT );
 			if ( ! $can_hubspot ) {
 				return $out;
 			}
@@ -602,8 +602,8 @@ class Nestform_Settings {
 		}
 
 		if ( 'access' === $section ) {
-			$out['role_caps'] = class_exists( 'Nestform_Capabilities' )
-				? Nestform_Capabilities::sanitize_role_caps( isset( $input['role_caps'] ) ? $input['role_caps'] : array() )
+			$out['role_caps'] = class_exists( 'Thimbleform_Capabilities' )
+				? Thimbleform_Capabilities::sanitize_role_caps( isset( $input['role_caps'] ) ? $input['role_caps'] : array() )
 				: array();
 			return $out;
 		}
@@ -627,14 +627,14 @@ class Nestform_Settings {
 			$out['duplicate_check_window']  = isset( $input['duplicate_check_window'] ) ? (string) max( 30, (int) $input['duplicate_check_window'] ) : '300';
 			$out['content_filter_enabled']  = ! empty( $input['content_filter_enabled'] ) ? '1' : '0';
 			$out['max_links']               = isset( $input['max_links'] ) ? (string) max( 0, (int) $input['max_links'] ) : '5';
-			$out['blocked_words']           = class_exists( 'Nestform_Spam_Filter' )
-				? Nestform_Spam_Filter::sanitize_lines( $input['blocked_words'] ?? '' )
+			$out['blocked_words']           = class_exists( 'Thimbleform_Spam_Filter' )
+				? Thimbleform_Spam_Filter::sanitize_lines( $input['blocked_words'] ?? '' )
 				: sanitize_textarea_field( (string) ( $input['blocked_words'] ?? '' ) );
-			$out['blocked_email_domains'] = class_exists( 'Nestform_Spam_Filter' )
-				? Nestform_Spam_Filter::sanitize_lines( $input['blocked_email_domains'] ?? '' )
+			$out['blocked_email_domains'] = class_exists( 'Thimbleform_Spam_Filter' )
+				? Thimbleform_Spam_Filter::sanitize_lines( $input['blocked_email_domains'] ?? '' )
 				: sanitize_textarea_field( (string) ( $input['blocked_email_domains'] ?? '' ) );
-			$out['blocked_ips'] = class_exists( 'Nestform_Spam_Filter' )
-				? Nestform_Spam_Filter::sanitize_lines( $input['blocked_ips'] ?? '' )
+			$out['blocked_ips'] = class_exists( 'Thimbleform_Spam_Filter' )
+				? Thimbleform_Spam_Filter::sanitize_lines( $input['blocked_ips'] ?? '' )
 				: sanitize_textarea_field( (string) ( $input['blocked_ips'] ?? '' ) );
 			$out['spam_log_enabled']        = ! empty( $input['spam_log_enabled'] ) ? '1' : '0';
 			$out['spam_log_retention_days'] = isset( $input['spam_log_retention_days'] )
@@ -691,9 +691,9 @@ class Nestform_Settings {
 
 	public static function send_test_email() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Forbidden', 'nestform' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'Forbidden', 'thimbleform' ), '', array( 'response' => 403 ) );
 		}
-		check_admin_referer( 'nestform_send_test_email' );
+		check_admin_referer( 'thimbleform_send_test_email' );
 
 		$to = isset( $_POST['test_email'] ) ? sanitize_email( wp_unslash( $_POST['test_email'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		if ( ! is_email( $to ) ) {
@@ -711,17 +711,17 @@ class Nestform_Settings {
 			}
 			$body = sprintf(
 				/* translators: %s: site name */
-				__( "This is a test email from Thimbleform on %s.\n\nIf you received it, wp_mail() is working on this site.", 'nestform' ),
+				__( "This is a test email from Thimbleform on %s.\n\nIf you received it, wp_mail() is working on this site.", 'thimbleform' ),
 				get_bloginfo( 'name' )
 			);
-			$sent = class_exists( 'Nestform_Email_Log' )
-				? Nestform_Email_Log::send( 'test', $to, __( 'Thimbleform test email', 'nestform' ), $body, $headers )
-				: wp_mail( $to, __( 'Thimbleform test email', 'nestform' ), $body, $headers );
+			$sent = class_exists( 'Thimbleform_Email_Log' )
+				? Thimbleform_Email_Log::send( 'test', $to, __( 'Thimbleform test email', 'thimbleform' ), $body, $headers )
+				: wp_mail( $to, __( 'Thimbleform test email', 'thimbleform' ), $body, $headers );
 		}
 
 		wp_safe_redirect(
 			add_query_arg(
-				'nestform_test_email',
+				'thimbleform_test_email',
 				$sent ? 'sent' : 'failed',
 				self::url( array( 'section' => 'email' ) )
 			)
@@ -731,9 +731,9 @@ class Nestform_Settings {
 
 	public static function menu() {
 		add_submenu_page(
-			'edit.php?post_type=' . Nestform_Post_Type::POST_TYPE,
-			__( 'Settings', 'nestform' ),
-			__( 'Settings', 'nestform' ),
+			'edit.php?post_type=' . Thimbleform_Post_Type::POST_TYPE,
+			__( 'Settings', 'thimbleform' ),
+			__( 'Settings', 'thimbleform' ),
 			'manage_options',
 			self::PAGE_SLUG,
 			array( __CLASS__, 'render' )
@@ -747,7 +747,7 @@ class Nestform_Settings {
 	public static function admin_body_class( $classes ) {
 		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( self::PAGE_SLUG === $page ) {
-			$classes .= ' nestform-admin-screen nestform-settings-screen';
+			$classes .= ' thimbleform-admin-screen thimbleform-settings-screen';
 		}
 		return $classes;
 	}
@@ -760,18 +760,18 @@ class Nestform_Settings {
 		if ( self::PAGE_SLUG !== $page && false === strpos( (string) $hook, self::PAGE_SLUG ) ) {
 			return;
 		}
-		$ver = (string) filemtime( nestform_admin_css_path() );
+		$ver = (string) filemtime( thimbleform_admin_css_path() );
 		wp_enqueue_style(
-			'nestform-admin',
-			nestform_admin_css_url(),
-			nestform_admin_style_deps(),
-			$ver ? $ver : NESTFORM_VERSION
+			'thimbleform-admin',
+			thimbleform_admin_css_url(),
+			thimbleform_admin_style_deps(),
+			$ver ? $ver : THIMBLEFORM_VERSION
 		);
 	}
 
 	public static function render() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to edit these settings.', 'nestform' ) );
+			wp_die( esc_html__( 'You do not have permission to edit these settings.', 'thimbleform' ) );
 		}
 
 		$sections = self::sections();
@@ -782,14 +782,14 @@ class Nestform_Settings {
 
 		$s                = self::get();
 		$opt              = self::OPTION;
-		$integrations_url = class_exists( 'Nestform_Integrations' ) ? Nestform_Integrations::url() : '';
+		$integrations_url = class_exists( 'Thimbleform_Integrations' ) ? Thimbleform_Integrations::url() : '';
 		$current          = wp_get_current_user();
 		?>
-		<div class="wrap nestform-admin nestform-settings">
+		<div class="wrap thimbleform-admin thimbleform-settings">
 			<?php
-			nestform_render_page_head(
+			thimbleform_render_page_head(
 				array(
-					'title'       => __( 'Settings', 'nestform' ),
+					'title'       => __( 'Settings', 'thimbleform' ),
 					'description' => (string) $sections[ $section ]['desc'],
 					'icon'        => 'settings',
 				)
@@ -797,67 +797,67 @@ class Nestform_Settings {
 			settings_errors();
 			self::render_test_email_notice();
 			if ( isset( $_GET['theme-updated'] ) && '1' === sanitize_text_field( wp_unslash( (string) $_GET['theme-updated'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Admin appearance saved.', 'nestform' ) . '</p></div>';
+				echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Admin appearance saved.', 'thimbleform' ) . '</p></div>';
 			}
 			?>
 
-			<div class="nestform-settings__layout<?php echo in_array( $section, array( 'general', 'security' ), true ) ? '' : ' nestform-settings__layout--compact'; ?>">
-				<nav class="nestform-settings__nav" aria-label="<?php esc_attr_e( 'Settings sections', 'nestform' ); ?>">
+			<div class="thimbleform-settings__layout<?php echo in_array( $section, array( 'general', 'security' ), true ) ? '' : ' thimbleform-settings__layout--compact'; ?>">
+				<nav class="thimbleform-settings__nav" aria-label="<?php esc_attr_e( 'Settings sections', 'thimbleform' ); ?>">
 					<?php foreach ( $sections as $id => $meta ) : ?>
 						<a
-							class="nestform-settings__nav-item<?php echo $section === $id ? ' nestform-settings__nav-item--active' : ''; ?>"
+							class="thimbleform-settings__nav-item<?php echo $section === $id ? ' thimbleform-settings__nav-item--active' : ''; ?>"
 							href="<?php echo esc_url( self::url( array( 'section' => $id ) ) ); ?>"
 						>
 							<?php echo esc_html( (string) $meta['label'] ); ?>
 						</a>
 					<?php endforeach; ?>
 					<?php if ( $integrations_url ) : ?>
-						<span class="nestform-settings__nav-sep" aria-hidden="true"></span>
-						<a class="nestform-settings__nav-item nestform-settings__nav-item--external" href="<?php echo esc_url( $integrations_url ); ?>">
-							<?php esc_html_e( 'Integrations', 'nestform' ); ?>
-							<span class="nestform-settings__nav-hint"><?php esc_html_e( 'Captcha & payments', 'nestform' ); ?></span>
+						<span class="thimbleform-settings__nav-sep" aria-hidden="true"></span>
+						<a class="thimbleform-settings__nav-item thimbleform-settings__nav-item--external" href="<?php echo esc_url( $integrations_url ); ?>">
+							<?php esc_html_e( 'Integrations', 'thimbleform' ); ?>
+							<span class="thimbleform-settings__nav-hint"><?php esc_html_e( 'Captcha & payments', 'thimbleform' ); ?></span>
 						</a>
 					<?php endif; ?>
 				</nav>
 
-				<div class="nestform-settings__main">
-					<h2 class="nestform-settings__section-title screen-reader-text"><?php echo esc_html( (string) $sections[ $section ]['label'] ); ?></h2>
+				<div class="thimbleform-settings__main">
+					<h2 class="thimbleform-settings__section-title screen-reader-text"><?php echo esc_html( (string) $sections[ $section ]['label'] ); ?></h2>
 
 					<?php if ( 'general' === $section ) : ?>
-						<form method="post" action="options.php" class="nestform-settings__form">
-							<?php settings_fields( 'nestform_settings' ); ?>
+						<form method="post" action="options.php" class="thimbleform-settings__form">
+							<?php settings_fields( 'thimbleform_settings' ); ?>
 							<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[_section]" value="general" />
-							<div class="nestform-admin__surface nestform-settings__card">
-								<div class="nestform-admin__panel-head">
+							<div class="thimbleform-admin__surface thimbleform-settings__card">
+								<div class="thimbleform-admin__panel-head">
 									<div>
-										<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Form defaults', 'nestform' ); ?></h3>
-										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Each form can override these in the builder.', 'nestform' ); ?></p>
+										<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Form defaults', 'thimbleform' ); ?></h3>
+										<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Each form can override these in the builder.', 'thimbleform' ); ?></p>
 									</div>
 								</div>
-								<table class="form-table nestform-settings__table" role="presentation">
+								<table class="form-table thimbleform-settings__table" role="presentation">
 									<tr>
-										<th scope="row"><label for="nestform_default_submit_label"><?php esc_html_e( 'Submit button', 'nestform' ); ?></label></th>
+										<th scope="row"><label for="thimbleform_default_submit_label"><?php esc_html_e( 'Submit button', 'thimbleform' ); ?></label></th>
 										<td>
-											<input type="text" class="regular-text nestform-admin__input" id="nestform_default_submit_label" name="<?php echo esc_attr( $opt ); ?>[default_submit_label]" value="<?php echo esc_attr( (string) $s['default_submit_label'] ); ?>" placeholder="<?php esc_attr_e( 'Send message', 'nestform' ); ?>" />
-											<p class="description"><?php esc_html_e( 'Leave empty to use the built-in label.', 'nestform' ); ?></p>
+											<input type="text" class="regular-text thimbleform-admin__input" id="thimbleform_default_submit_label" name="<?php echo esc_attr( $opt ); ?>[default_submit_label]" value="<?php echo esc_attr( (string) $s['default_submit_label'] ); ?>" placeholder="<?php esc_attr_e( 'Send message', 'thimbleform' ); ?>" />
+											<p class="description"><?php esc_html_e( 'Leave empty to use the built-in label.', 'thimbleform' ); ?></p>
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="nestform_default_success_message"><?php esc_html_e( 'Success message', 'nestform' ); ?></label></th>
+										<th scope="row"><label for="thimbleform_default_success_message"><?php esc_html_e( 'Success message', 'thimbleform' ); ?></label></th>
 										<td>
-											<textarea class="large-text nestform-admin__input" id="nestform_default_success_message" name="<?php echo esc_attr( $opt ); ?>[default_success_message]" rows="3" placeholder="<?php esc_attr_e( 'Thank you. Your message has been sent.', 'nestform' ); ?>"><?php echo esc_textarea( (string) $s['default_success_message'] ); ?></textarea>
-											<p class="description"><?php esc_html_e( 'Shown after submit when a form has no custom success text.', 'nestform' ); ?></p>
+											<textarea class="large-text thimbleform-admin__input" id="thimbleform_default_success_message" name="<?php echo esc_attr( $opt ); ?>[default_success_message]" rows="3" placeholder="<?php esc_attr_e( 'Thank you. Your message has been sent.', 'thimbleform' ); ?>"><?php echo esc_textarea( (string) $s['default_success_message'] ); ?></textarea>
+											<p class="description"><?php esc_html_e( 'Shown after submit when a form has no custom success text.', 'thimbleform' ); ?></p>
 										</td>
 									</tr>
 								</table>
-								<button type="submit" class="nestform-btn nestform-btn--primary" name="submit" value="1">
-									<?php nestform_admin_icon( 'save' ); ?>
-									<?php esc_html_e( 'Save defaults', 'nestform' ); ?>
+								<button type="submit" class="thimbleform-btn thimbleform-btn--primary" name="submit" value="1">
+									<?php thimbleform_admin_icon( 'save' ); ?>
+									<?php esc_html_e( 'Save defaults', 'thimbleform' ); ?>
 								</button>
 							</div>
 						</form>
 
-						<?php Nestform_Admin_Theme::render_settings_card(); ?>
+						<?php Thimbleform_Admin_Theme::render_settings_card(); ?>
 
 					<?php elseif ( 'email' === $section ) : ?>
 						<?php
@@ -866,95 +866,95 @@ class Nestform_Settings {
 							$email_sub = 'settings';
 						}
 						?>
-						<nav class="nestform-settings__subnav" aria-label="<?php esc_attr_e( 'Email sections', 'nestform' ); ?>">
-							<a class="nestform-settings__subnav-item<?php echo 'settings' === $email_sub ? ' nestform-settings__subnav-item--active' : ''; ?>" href="<?php echo esc_url( self::url( array( 'section' => 'email' ) ) ); ?>">
-								<?php esc_html_e( 'Configuration', 'nestform' ); ?>
+						<nav class="thimbleform-settings__subnav" aria-label="<?php esc_attr_e( 'Email sections', 'thimbleform' ); ?>">
+							<a class="thimbleform-settings__subnav-item<?php echo 'settings' === $email_sub ? ' thimbleform-settings__subnav-item--active' : ''; ?>" href="<?php echo esc_url( self::url( array( 'section' => 'email' ) ) ); ?>">
+								<?php esc_html_e( 'Configuration', 'thimbleform' ); ?>
 							</a>
-							<a class="nestform-settings__subnav-item<?php echo 'log' === $email_sub ? ' nestform-settings__subnav-item--active' : ''; ?>" href="<?php echo esc_url( self::url( array( 'section' => 'email', 'sub' => 'log' ) ) ); ?>">
-								<?php esc_html_e( 'Delivery log', 'nestform' ); ?>
+							<a class="thimbleform-settings__subnav-item<?php echo 'log' === $email_sub ? ' thimbleform-settings__subnav-item--active' : ''; ?>" href="<?php echo esc_url( self::url( array( 'section' => 'email', 'sub' => 'log' ) ) ); ?>">
+								<?php esc_html_e( 'Delivery log', 'thimbleform' ); ?>
 							</a>
 						</nav>
 
 						<?php if ( 'log' === $email_sub ) : ?>
 							<?php self::render_email_log(); ?>
 						<?php else : ?>
-						<form method="post" action="options.php" class="nestform-settings__form">
-							<?php settings_fields( 'nestform_settings' ); ?>
+						<form method="post" action="options.php" class="thimbleform-settings__form">
+							<?php settings_fields( 'thimbleform_settings' ); ?>
 							<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[_section]" value="email" />
-							<div class="nestform-admin__surface nestform-settings__card">
-								<div class="nestform-admin__panel-head">
+							<div class="thimbleform-admin__surface thimbleform-settings__card">
+								<div class="thimbleform-admin__panel-head">
 									<div>
-										<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Email defaults', 'nestform' ); ?></h3>
-										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Used by wp_mail when a form does not override From. For reliability, use WP Mail SMTP or FluentSMTP.', 'nestform' ); ?></p>
+										<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Email defaults', 'thimbleform' ); ?></h3>
+										<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Used by wp_mail when a form does not override From. For reliability, use WP Mail SMTP or FluentSMTP.', 'thimbleform' ); ?></p>
 									</div>
 								</div>
-								<table class="form-table nestform-settings__table" role="presentation">
+								<table class="form-table thimbleform-settings__table" role="presentation">
 									<tr>
-										<th scope="row"><label for="nestform_email_from_name"><?php esc_html_e( 'From name', 'nestform' ); ?></label></th>
+										<th scope="row"><label for="thimbleform_email_from_name"><?php esc_html_e( 'From name', 'thimbleform' ); ?></label></th>
 										<td>
-											<input type="text" class="regular-text nestform-admin__input" id="nestform_email_from_name" name="<?php echo esc_attr( $opt ); ?>[email_from_name]" value="<?php echo esc_attr( (string) $s['email_from_name'] ); ?>" placeholder="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" />
+											<input type="text" class="regular-text thimbleform-admin__input" id="thimbleform_email_from_name" name="<?php echo esc_attr( $opt ); ?>[email_from_name]" value="<?php echo esc_attr( (string) $s['email_from_name'] ); ?>" placeholder="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" />
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="nestform_email_from_email"><?php esc_html_e( 'From email', 'nestform' ); ?></label></th>
+										<th scope="row"><label for="thimbleform_email_from_email"><?php esc_html_e( 'From email', 'thimbleform' ); ?></label></th>
 										<td>
-											<input type="email" class="regular-text nestform-admin__input" id="nestform_email_from_email" name="<?php echo esc_attr( $opt ); ?>[email_from_email]" value="<?php echo esc_attr( (string) $s['email_from_email'] ); ?>" placeholder="<?php echo esc_attr( (string) get_option( 'admin_email' ) ); ?>" />
+											<input type="email" class="regular-text thimbleform-admin__input" id="thimbleform_email_from_email" name="<?php echo esc_attr( $opt ); ?>[email_from_email]" value="<?php echo esc_attr( (string) $s['email_from_email'] ); ?>" placeholder="<?php echo esc_attr( (string) get_option( 'admin_email' ) ); ?>" />
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="nestform_email_log_retention_days"><?php esc_html_e( 'Keep delivery log for', 'nestform' ); ?></label></th>
+										<th scope="row"><label for="thimbleform_email_log_retention_days"><?php esc_html_e( 'Keep delivery log for', 'thimbleform' ); ?></label></th>
 										<td>
-											<div class="nestform-settings__qty">
-												<input type="number" class="small-text nestform-admin__input nestform-settings__qty-input" id="nestform_email_log_retention_days" name="<?php echo esc_attr( $opt ); ?>[email_log_retention_days]" value="<?php echo esc_attr( (string) $s['email_log_retention_days'] ); ?>" min="1" step="1" />
-												<span class="nestform-settings__unit"><?php esc_html_e( 'days', 'nestform' ); ?></span>
+											<div class="thimbleform-settings__qty">
+												<input type="number" class="small-text thimbleform-admin__input thimbleform-settings__qty-input" id="thimbleform_email_log_retention_days" name="<?php echo esc_attr( $opt ); ?>[email_log_retention_days]" value="<?php echo esc_attr( (string) $s['email_log_retention_days'] ); ?>" min="1" step="1" />
+												<span class="thimbleform-settings__unit"><?php esc_html_e( 'days', 'thimbleform' ); ?></span>
 											</div>
-											<p class="description"><?php esc_html_e( 'Stores recipient, subject, and status — never the message body.', 'nestform' ); ?></p>
+											<p class="description"><?php esc_html_e( 'Stores recipient, subject, and status — never the message body.', 'thimbleform' ); ?></p>
 										</td>
 									</tr>
 								</table>
-								<button type="submit" class="nestform-btn nestform-btn--primary" name="submit" value="1">
-									<?php nestform_admin_icon( 'save' ); ?>
-									<?php esc_html_e( 'Save', 'nestform' ); ?>
+								<button type="submit" class="thimbleform-btn thimbleform-btn--primary" name="submit" value="1">
+									<?php thimbleform_admin_icon( 'save' ); ?>
+									<?php esc_html_e( 'Save', 'thimbleform' ); ?>
 								</button>
 							</div>
 						</form>
 
-						<div class="nestform-admin__surface nestform-settings__card nestform-settings__test-email">
-							<div class="nestform-admin__panel-head">
+						<div class="thimbleform-admin__surface thimbleform-settings__card thimbleform-settings__test-email">
+							<div class="thimbleform-admin__panel-head">
 								<div>
-									<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Send a test', 'nestform' ); ?></h3>
-									<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Confirms wp_mail() on this server — not a specific form template.', 'nestform' ); ?></p>
+									<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Send a test', 'thimbleform' ); ?></h3>
+									<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Confirms wp_mail() on this server — not a specific form template.', 'thimbleform' ); ?></p>
 								</div>
 							</div>
 							<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-								<?php wp_nonce_field( 'nestform_send_test_email' ); ?>
-								<input type="hidden" name="action" value="nestform_send_test_email" />
-								<p class="nestform-settings__test-row">
-									<label for="nestform_test_email"><?php esc_html_e( 'Send to', 'nestform' ); ?></label>
-									<input type="email" class="regular-text nestform-admin__input" id="nestform_test_email" name="test_email" value="<?php echo esc_attr( $current && is_email( $current->user_email ) ? $current->user_email : '' ); ?>" />
-									<button type="submit" class="nestform-btn nestform-btn--ghost"><?php esc_html_e( 'Send test email', 'nestform' ); ?></button>
+								<?php wp_nonce_field( 'thimbleform_send_test_email' ); ?>
+								<input type="hidden" name="action" value="thimbleform_send_test_email" />
+								<p class="thimbleform-settings__test-row">
+									<label for="thimbleform_test_email"><?php esc_html_e( 'Send to', 'thimbleform' ); ?></label>
+									<input type="email" class="regular-text thimbleform-admin__input" id="thimbleform_test_email" name="test_email" value="<?php echo esc_attr( $current && is_email( $current->user_email ) ? $current->user_email : '' ); ?>" />
+									<button type="submit" class="thimbleform-btn thimbleform-btn--ghost"><?php esc_html_e( 'Send test email', 'thimbleform' ); ?></button>
 								</p>
 							</form>
 						</div>
 						<?php endif; ?>
 
 					<?php elseif ( 'entries' === $section ) : ?>
-						<form method="post" action="options.php" class="nestform-settings__form">
-							<?php settings_fields( 'nestform_settings' ); ?>
+						<form method="post" action="options.php" class="thimbleform-settings__form">
+							<?php settings_fields( 'thimbleform_settings' ); ?>
 							<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[_section]" value="entries" />
-							<div class="nestform-admin__surface nestform-settings__card">
-								<div class="nestform-admin__panel-head">
+							<div class="thimbleform-admin__surface thimbleform-settings__card">
+								<div class="thimbleform-admin__panel-head">
 									<div>
-										<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Entries inbox', 'nestform' ); ?></h3>
-										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'How submissions look and behave in the admin.', 'nestform' ); ?></p>
+										<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Entries inbox', 'thimbleform' ); ?></h3>
+										<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'How submissions look and behave in the admin.', 'thimbleform' ); ?></p>
 									</div>
 								</div>
-								<table class="form-table nestform-settings__table" role="presentation">
+								<table class="form-table thimbleform-settings__table" role="presentation">
 									<tr>
-										<th scope="row"><label for="nestform_date_format"><?php esc_html_e( 'Date format', 'nestform' ); ?></label></th>
+										<th scope="row"><label for="thimbleform_date_format"><?php esc_html_e( 'Date format', 'thimbleform' ); ?></label></th>
 										<td>
-											<select id="nestform_date_format" class="nestform-admin__input" name="<?php echo esc_attr( $opt ); ?>[date_format]">
-												<option value="site" <?php selected( (string) $s['date_format'], 'site' ); ?>><?php esc_html_e( 'Site default', 'nestform' ); ?></option>
+											<select id="thimbleform_date_format" class="thimbleform-admin__input" name="<?php echo esc_attr( $opt ); ?>[date_format]">
+												<option value="site" <?php selected( (string) $s['date_format'], 'site' ); ?>><?php esc_html_e( 'Site default', 'thimbleform' ); ?></option>
 												<option value="ymd_hi" <?php selected( (string) $s['date_format'], 'ymd_hi' ); ?>><?php echo esc_html( wp_date( 'Y-m-d H:i' ) ); ?></option>
 												<option value="mdy_gia" <?php selected( (string) $s['date_format'], 'mdy_gia' ); ?>><?php echo esc_html( wp_date( 'M j, Y g:i a' ) ); ?></option>
 												<option value="dmy_hi" <?php selected( (string) $s['date_format'], 'dmy_hi' ); ?>><?php echo esc_html( wp_date( 'd/m/Y H:i' ) ); ?></option>
@@ -962,19 +962,19 @@ class Nestform_Settings {
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><?php esc_html_e( 'Mark as read', 'nestform' ); ?></th>
+										<th scope="row"><?php esc_html_e( 'Mark as read', 'thimbleform' ); ?></th>
 										<td>
-											<label class="nestform-admin__check" for="nestform_auto_mark_read">
+											<label class="thimbleform-admin__check" for="thimbleform_auto_mark_read">
 												<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[auto_mark_read]" value="0" />
-												<input type="checkbox" id="nestform_auto_mark_read" name="<?php echo esc_attr( $opt ); ?>[auto_mark_read]" value="1" <?php checked( (string) $s['auto_mark_read'], '1' ); ?> />
-												<span><?php esc_html_e( 'Automatically mark entries as read when opened', 'nestform' ); ?></span>
+												<input type="checkbox" id="thimbleform_auto_mark_read" name="<?php echo esc_attr( $opt ); ?>[auto_mark_read]" value="1" <?php checked( (string) $s['auto_mark_read'], '1' ); ?> />
+												<span><?php esc_html_e( 'Automatically mark entries as read when opened', 'thimbleform' ); ?></span>
 											</label>
 										</td>
 									</tr>
 								</table>
-								<button type="submit" class="nestform-btn nestform-btn--primary" name="submit" value="1">
-									<?php nestform_admin_icon( 'save' ); ?>
-									<?php esc_html_e( 'Save', 'nestform' ); ?>
+								<button type="submit" class="thimbleform-btn thimbleform-btn--primary" name="submit" value="1">
+									<?php thimbleform_admin_icon( 'save' ); ?>
+									<?php esc_html_e( 'Save', 'thimbleform' ); ?>
 								</button>
 							</div>
 						</form>
@@ -986,334 +986,334 @@ class Nestform_Settings {
 							$security_sub = 'settings';
 						}
 						?>
-						<nav class="nestform-settings__subnav" aria-label="<?php esc_attr_e( 'Security sections', 'nestform' ); ?>">
-							<a class="nestform-settings__subnav-item<?php echo 'settings' === $security_sub ? ' nestform-settings__subnav-item--active' : ''; ?>" href="<?php echo esc_url( self::url( array( 'section' => 'security' ) ) ); ?>">
-								<?php esc_html_e( 'Settings', 'nestform' ); ?>
+						<nav class="thimbleform-settings__subnav" aria-label="<?php esc_attr_e( 'Security sections', 'thimbleform' ); ?>">
+							<a class="thimbleform-settings__subnav-item<?php echo 'settings' === $security_sub ? ' thimbleform-settings__subnav-item--active' : ''; ?>" href="<?php echo esc_url( self::url( array( 'section' => 'security' ) ) ); ?>">
+								<?php esc_html_e( 'Settings', 'thimbleform' ); ?>
 							</a>
-							<a class="nestform-settings__subnav-item<?php echo 'log' === $security_sub ? ' nestform-settings__subnav-item--active' : ''; ?>" href="<?php echo esc_url( self::url( array( 'section' => 'security', 'sub' => 'log' ) ) ); ?>">
-								<?php esc_html_e( 'Blocked attempts', 'nestform' ); ?>
+							<a class="thimbleform-settings__subnav-item<?php echo 'log' === $security_sub ? ' thimbleform-settings__subnav-item--active' : ''; ?>" href="<?php echo esc_url( self::url( array( 'section' => 'security', 'sub' => 'log' ) ) ); ?>">
+								<?php esc_html_e( 'Blocked attempts', 'thimbleform' ); ?>
 							</a>
 						</nav>
 
 						<?php if ( 'log' === $security_sub ) : ?>
 							<?php self::render_spam_log(); ?>
 						<?php else : ?>
-						<form method="post" action="options.php" class="nestform-settings__form">
-							<?php settings_fields( 'nestform_settings' ); ?>
+						<form method="post" action="options.php" class="thimbleform-settings__form">
+							<?php settings_fields( 'thimbleform_settings' ); ?>
 							<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[_section]" value="security" />
 
-							<div class="nestform-admin__surface nestform-settings__card">
-								<div class="nestform-admin__panel-head">
+							<div class="thimbleform-admin__surface thimbleform-settings__card">
+								<div class="thimbleform-admin__panel-head">
 									<div>
-										<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Rate limiting', 'nestform' ); ?></h3>
-										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Caps how often one IP can submit any Thimbleform form.', 'nestform' ); ?></p>
+										<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Rate limiting', 'thimbleform' ); ?></h3>
+										<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Caps how often one IP can submit any Thimbleform form.', 'thimbleform' ); ?></p>
 									</div>
 								</div>
-								<table class="form-table nestform-settings__table" role="presentation">
+								<table class="form-table thimbleform-settings__table" role="presentation">
 									<tr>
-										<th scope="row"><?php esc_html_e( 'Limit by IP', 'nestform' ); ?></th>
+										<th scope="row"><?php esc_html_e( 'Limit by IP', 'thimbleform' ); ?></th>
 										<td>
-											<label class="nestform-admin__check" for="nestform_rate_limit_enabled">
+											<label class="thimbleform-admin__check" for="thimbleform_rate_limit_enabled">
 												<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[rate_limit_enabled]" value="0" />
-												<input type="checkbox" id="nestform_rate_limit_enabled" name="<?php echo esc_attr( $opt ); ?>[rate_limit_enabled]" value="1" <?php checked( (string) $s['rate_limit_enabled'], '1' ); ?> />
-												<span><?php esc_html_e( 'Enable site-wide rate limiting', 'nestform' ); ?></span>
+												<input type="checkbox" id="thimbleform_rate_limit_enabled" name="<?php echo esc_attr( $opt ); ?>[rate_limit_enabled]" value="1" <?php checked( (string) $s['rate_limit_enabled'], '1' ); ?> />
+												<span><?php esc_html_e( 'Enable site-wide rate limiting', 'thimbleform' ); ?></span>
 											</label>
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="nestform_rate_limit_max"><?php esc_html_e( 'Max submissions', 'nestform' ); ?></label></th>
+										<th scope="row"><label for="thimbleform_rate_limit_max"><?php esc_html_e( 'Max submissions', 'thimbleform' ); ?></label></th>
 										<td>
-											<div class="nestform-settings__qty-stack">
-												<div class="nestform-settings__qty">
-													<input type="number" class="small-text nestform-admin__input nestform-settings__qty-input" id="nestform_rate_limit_max" name="<?php echo esc_attr( $opt ); ?>[rate_limit_max]" value="<?php echo esc_attr( (string) $s['rate_limit_max'] ); ?>" min="1" step="1" aria-label="<?php esc_attr_e( 'Max submissions', 'nestform' ); ?>" />
-													<span class="nestform-settings__unit"><?php esc_html_e( 'per', 'nestform' ); ?></span>
+											<div class="thimbleform-settings__qty-stack">
+												<div class="thimbleform-settings__qty">
+													<input type="number" class="small-text thimbleform-admin__input thimbleform-settings__qty-input" id="thimbleform_rate_limit_max" name="<?php echo esc_attr( $opt ); ?>[rate_limit_max]" value="<?php echo esc_attr( (string) $s['rate_limit_max'] ); ?>" min="1" step="1" aria-label="<?php esc_attr_e( 'Max submissions', 'thimbleform' ); ?>" />
+													<span class="thimbleform-settings__unit"><?php esc_html_e( 'per', 'thimbleform' ); ?></span>
 												</div>
-												<div class="nestform-settings__qty">
-													<input type="number" class="small-text nestform-admin__input nestform-settings__qty-input" id="nestform_rate_limit_window" name="<?php echo esc_attr( $opt ); ?>[rate_limit_window]" value="<?php echo esc_attr( (string) $s['rate_limit_window'] ); ?>" min="60" step="60" aria-label="<?php esc_attr_e( 'Window in seconds', 'nestform' ); ?>" />
-													<span class="nestform-settings__unit"><?php esc_html_e( 'seconds', 'nestform' ); ?></span>
+												<div class="thimbleform-settings__qty">
+													<input type="number" class="small-text thimbleform-admin__input thimbleform-settings__qty-input" id="thimbleform_rate_limit_window" name="<?php echo esc_attr( $opt ); ?>[rate_limit_window]" value="<?php echo esc_attr( (string) $s['rate_limit_window'] ); ?>" min="60" step="60" aria-label="<?php esc_attr_e( 'Window in seconds', 'thimbleform' ); ?>" />
+													<span class="thimbleform-settings__unit"><?php esc_html_e( 'seconds', 'thimbleform' ); ?></span>
 												</div>
 											</div>
-											<p class="description"><?php esc_html_e( 'People on the same office network share one IP — raise the limit if colleagues submit often.', 'nestform' ); ?></p>
+											<p class="description"><?php esc_html_e( 'People on the same office network share one IP — raise the limit if colleagues submit often.', 'thimbleform' ); ?></p>
 										</td>
 									</tr>
 								</table>
 							</div>
 
-							<div class="nestform-admin__surface nestform-settings__card">
-								<div class="nestform-admin__panel-head">
+							<div class="thimbleform-admin__surface thimbleform-settings__card">
+								<div class="thimbleform-admin__panel-head">
 									<div>
-										<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Duplicate submissions', 'nestform' ); ?></h3>
-										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Blocks the same payload from the same IP within a short window (double-clicks, retries).', 'nestform' ); ?></p>
+										<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Duplicate submissions', 'thimbleform' ); ?></h3>
+										<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Blocks the same payload from the same IP within a short window (double-clicks, retries).', 'thimbleform' ); ?></p>
 									</div>
 								</div>
-								<table class="form-table nestform-settings__table" role="presentation">
+								<table class="form-table thimbleform-settings__table" role="presentation">
 									<tr>
-										<th scope="row"><?php esc_html_e( 'Duplicates', 'nestform' ); ?></th>
+										<th scope="row"><?php esc_html_e( 'Duplicates', 'thimbleform' ); ?></th>
 										<td>
-											<label class="nestform-admin__check" for="nestform_duplicate_check_enabled">
+											<label class="thimbleform-admin__check" for="thimbleform_duplicate_check_enabled">
 												<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[duplicate_check_enabled]" value="0" />
-												<input type="checkbox" id="nestform_duplicate_check_enabled" name="<?php echo esc_attr( $opt ); ?>[duplicate_check_enabled]" value="1" <?php checked( (string) $s['duplicate_check_enabled'], '1' ); ?> />
-												<span><?php esc_html_e( 'Block repeated identical submissions', 'nestform' ); ?></span>
+												<input type="checkbox" id="thimbleform_duplicate_check_enabled" name="<?php echo esc_attr( $opt ); ?>[duplicate_check_enabled]" value="1" <?php checked( (string) $s['duplicate_check_enabled'], '1' ); ?> />
+												<span><?php esc_html_e( 'Block repeated identical submissions', 'thimbleform' ); ?></span>
 											</label>
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="nestform_duplicate_check_window"><?php esc_html_e( 'Remember for', 'nestform' ); ?></label></th>
+										<th scope="row"><label for="thimbleform_duplicate_check_window"><?php esc_html_e( 'Remember for', 'thimbleform' ); ?></label></th>
 										<td>
-											<div class="nestform-settings__qty">
-												<input type="number" class="small-text nestform-admin__input nestform-settings__qty-input" id="nestform_duplicate_check_window" name="<?php echo esc_attr( $opt ); ?>[duplicate_check_window]" value="<?php echo esc_attr( (string) $s['duplicate_check_window'] ); ?>" min="30" step="30" />
-												<span class="nestform-settings__unit"><?php esc_html_e( 'seconds', 'nestform' ); ?></span>
+											<div class="thimbleform-settings__qty">
+												<input type="number" class="small-text thimbleform-admin__input thimbleform-settings__qty-input" id="thimbleform_duplicate_check_window" name="<?php echo esc_attr( $opt ); ?>[duplicate_check_window]" value="<?php echo esc_attr( (string) $s['duplicate_check_window'] ); ?>" min="30" step="30" />
+												<span class="thimbleform-settings__unit"><?php esc_html_e( 'seconds', 'thimbleform' ); ?></span>
 											</div>
 										</td>
 									</tr>
 								</table>
 							</div>
 
-							<div class="nestform-admin__surface nestform-settings__card">
-								<div class="nestform-admin__panel-head">
+							<div class="thimbleform-admin__surface thimbleform-settings__card">
+								<div class="thimbleform-admin__panel-head">
 									<div>
-										<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Content filter', 'nestform' ); ?></h3>
-										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Checks what was submitted — not only where it came from. Catches link farms and known junk domains.', 'nestform' ); ?></p>
+										<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Content filter', 'thimbleform' ); ?></h3>
+										<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Checks what was submitted — not only where it came from. Catches link farms and known junk domains.', 'thimbleform' ); ?></p>
 									</div>
 								</div>
-								<table class="form-table nestform-settings__table" role="presentation">
+								<table class="form-table thimbleform-settings__table" role="presentation">
 									<tr>
-										<th scope="row"><?php esc_html_e( 'Enable', 'nestform' ); ?></th>
+										<th scope="row"><?php esc_html_e( 'Enable', 'thimbleform' ); ?></th>
 										<td>
-											<label class="nestform-admin__check" for="nestform_content_filter_enabled">
+											<label class="thimbleform-admin__check" for="thimbleform_content_filter_enabled">
 												<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[content_filter_enabled]" value="0" />
-												<input type="checkbox" id="nestform_content_filter_enabled" name="<?php echo esc_attr( $opt ); ?>[content_filter_enabled]" value="1" <?php checked( (string) $s['content_filter_enabled'], '1' ); ?> />
-												<span><?php esc_html_e( 'Check submission content', 'nestform' ); ?></span>
+												<input type="checkbox" id="thimbleform_content_filter_enabled" name="<?php echo esc_attr( $opt ); ?>[content_filter_enabled]" value="1" <?php checked( (string) $s['content_filter_enabled'], '1' ); ?> />
+												<span><?php esc_html_e( 'Check submission content', 'thimbleform' ); ?></span>
 											</label>
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="nestform_max_links"><?php esc_html_e( 'Maximum links', 'nestform' ); ?></label></th>
+										<th scope="row"><label for="thimbleform_max_links"><?php esc_html_e( 'Maximum links', 'thimbleform' ); ?></label></th>
 										<td>
-											<input type="number" class="small-text nestform-admin__input" id="nestform_max_links" name="<?php echo esc_attr( $opt ); ?>[max_links]" value="<?php echo esc_attr( (string) $s['max_links'] ); ?>" min="0" step="1" />
-											<p class="description"><?php esc_html_e( '0 turns the link check off. Blocklists below still apply.', 'nestform' ); ?></p>
+											<input type="number" class="small-text thimbleform-admin__input" id="thimbleform_max_links" name="<?php echo esc_attr( $opt ); ?>[max_links]" value="<?php echo esc_attr( (string) $s['max_links'] ); ?>" min="0" step="1" />
+											<p class="description"><?php esc_html_e( '0 turns the link check off. Blocklists below still apply.', 'thimbleform' ); ?></p>
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="nestform_blocked_words"><?php esc_html_e( 'Blocked words', 'nestform' ); ?></label></th>
+										<th scope="row"><label for="thimbleform_blocked_words"><?php esc_html_e( 'Blocked words', 'thimbleform' ); ?></label></th>
 										<td>
-											<textarea class="large-text nestform-admin__input" id="nestform_blocked_words" name="<?php echo esc_attr( $opt ); ?>[blocked_words]" rows="4" placeholder="<?php esc_attr_e( 'One word or phrase per line', 'nestform' ); ?>"><?php echo esc_textarea( (string) $s['blocked_words'] ); ?></textarea>
-											<p class="description"><?php esc_html_e( 'Whole words match on boundaries; phrases match as written.', 'nestform' ); ?></p>
+											<textarea class="large-text thimbleform-admin__input" id="thimbleform_blocked_words" name="<?php echo esc_attr( $opt ); ?>[blocked_words]" rows="4" placeholder="<?php esc_attr_e( 'One word or phrase per line', 'thimbleform' ); ?>"><?php echo esc_textarea( (string) $s['blocked_words'] ); ?></textarea>
+											<p class="description"><?php esc_html_e( 'Whole words match on boundaries; phrases match as written.', 'thimbleform' ); ?></p>
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="nestform_blocked_email_domains"><?php esc_html_e( 'Blocked email domains', 'nestform' ); ?></label></th>
+										<th scope="row"><label for="thimbleform_blocked_email_domains"><?php esc_html_e( 'Blocked email domains', 'thimbleform' ); ?></label></th>
 										<td>
-											<textarea class="large-text nestform-admin__input" id="nestform_blocked_email_domains" name="<?php echo esc_attr( $opt ); ?>[blocked_email_domains]" rows="3" placeholder="mailinator.com"><?php echo esc_textarea( (string) $s['blocked_email_domains'] ); ?></textarea>
-											<p class="description"><?php esc_html_e( 'One per line. Subdomains are included (example.com also blocks mail.example.com).', 'nestform' ); ?></p>
+											<textarea class="large-text thimbleform-admin__input" id="thimbleform_blocked_email_domains" name="<?php echo esc_attr( $opt ); ?>[blocked_email_domains]" rows="3" placeholder="mailinator.com"><?php echo esc_textarea( (string) $s['blocked_email_domains'] ); ?></textarea>
+											<p class="description"><?php esc_html_e( 'One per line. Subdomains are included (example.com also blocks mail.example.com).', 'thimbleform' ); ?></p>
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="nestform_blocked_ips"><?php esc_html_e( 'Blocked IP addresses', 'nestform' ); ?></label></th>
+										<th scope="row"><label for="thimbleform_blocked_ips"><?php esc_html_e( 'Blocked IP addresses', 'thimbleform' ); ?></label></th>
 										<td>
-											<textarea class="large-text nestform-admin__input" id="nestform_blocked_ips" name="<?php echo esc_attr( $opt ); ?>[blocked_ips]" rows="3" placeholder="203.0.113.4&#10;203.0.113.*"><?php echo esc_textarea( (string) $s['blocked_ips'] ); ?></textarea>
-											<p class="description"><?php esc_html_e( 'One per line. A trailing * blocks a prefix range. Applies to every form.', 'nestform' ); ?></p>
+											<textarea class="large-text thimbleform-admin__input" id="thimbleform_blocked_ips" name="<?php echo esc_attr( $opt ); ?>[blocked_ips]" rows="3" placeholder="203.0.113.4&#10;203.0.113.*"><?php echo esc_textarea( (string) $s['blocked_ips'] ); ?></textarea>
+											<p class="description"><?php esc_html_e( 'One per line. A trailing * blocks a prefix range. Applies to every form.', 'thimbleform' ); ?></p>
 										</td>
 									</tr>
 								</table>
 							</div>
 
-							<div class="nestform-admin__surface nestform-settings__card">
-								<div class="nestform-admin__panel-head">
+							<div class="thimbleform-admin__surface thimbleform-settings__card">
+								<div class="thimbleform-admin__panel-head">
 									<div>
-										<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Blocked attempts log', 'nestform' ); ?></h3>
-										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Records why a submission was turned away so you can tune filters. Stores a hashed client handle — not the IP itself.', 'nestform' ); ?></p>
+										<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Blocked attempts log', 'thimbleform' ); ?></h3>
+										<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Records why a submission was turned away so you can tune filters. Stores a hashed client handle — not the IP itself.', 'thimbleform' ); ?></p>
 									</div>
 								</div>
-								<table class="form-table nestform-settings__table" role="presentation">
+								<table class="form-table thimbleform-settings__table" role="presentation">
 									<tr>
-										<th scope="row"><?php esc_html_e( 'Logging', 'nestform' ); ?></th>
+										<th scope="row"><?php esc_html_e( 'Logging', 'thimbleform' ); ?></th>
 										<td>
-											<label class="nestform-admin__check" for="nestform_spam_log_enabled">
+											<label class="thimbleform-admin__check" for="thimbleform_spam_log_enabled">
 												<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[spam_log_enabled]" value="0" />
-												<input type="checkbox" id="nestform_spam_log_enabled" name="<?php echo esc_attr( $opt ); ?>[spam_log_enabled]" value="1" <?php checked( (string) $s['spam_log_enabled'], '1' ); ?> />
-												<span><?php esc_html_e( 'Log blocked submission attempts', 'nestform' ); ?></span>
+												<input type="checkbox" id="thimbleform_spam_log_enabled" name="<?php echo esc_attr( $opt ); ?>[spam_log_enabled]" value="1" <?php checked( (string) $s['spam_log_enabled'], '1' ); ?> />
+												<span><?php esc_html_e( 'Log blocked submission attempts', 'thimbleform' ); ?></span>
 											</label>
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="nestform_spam_log_retention_days"><?php esc_html_e( 'Keep entries for', 'nestform' ); ?></label></th>
+										<th scope="row"><label for="thimbleform_spam_log_retention_days"><?php esc_html_e( 'Keep entries for', 'thimbleform' ); ?></label></th>
 										<td>
-											<div class="nestform-settings__qty">
-												<input type="number" class="small-text nestform-admin__input nestform-settings__qty-input" id="nestform_spam_log_retention_days" name="<?php echo esc_attr( $opt ); ?>[spam_log_retention_days]" value="<?php echo esc_attr( (string) $s['spam_log_retention_days'] ); ?>" min="1" step="1" />
-												<span class="nestform-settings__unit"><?php esc_html_e( 'days', 'nestform' ); ?></span>
+											<div class="thimbleform-settings__qty">
+												<input type="number" class="small-text thimbleform-admin__input thimbleform-settings__qty-input" id="thimbleform_spam_log_retention_days" name="<?php echo esc_attr( $opt ); ?>[spam_log_retention_days]" value="<?php echo esc_attr( (string) $s['spam_log_retention_days'] ); ?>" min="1" step="1" />
+												<span class="thimbleform-settings__unit"><?php esc_html_e( 'days', 'thimbleform' ); ?></span>
 											</div>
 										</td>
 									</tr>
 								</table>
-								<button type="submit" class="nestform-btn nestform-btn--primary" name="submit" value="1">
-									<?php nestform_admin_icon( 'save' ); ?>
-									<?php esc_html_e( 'Save', 'nestform' ); ?>
+								<button type="submit" class="thimbleform-btn thimbleform-btn--primary" name="submit" value="1">
+									<?php thimbleform_admin_icon( 'save' ); ?>
+									<?php esc_html_e( 'Save', 'thimbleform' ); ?>
 								</button>
 							</div>
 						</form>
 						<?php endif; ?>
 
 					<?php elseif ( 'privacy' === $section ) : ?>
-						<form method="post" action="options.php" class="nestform-settings__form">
-							<?php settings_fields( 'nestform_settings' ); ?>
+						<form method="post" action="options.php" class="thimbleform-settings__form">
+							<?php settings_fields( 'thimbleform_settings' ); ?>
 							<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[_section]" value="privacy" />
-							<div class="nestform-admin__surface nestform-settings__card">
-								<div class="nestform-admin__panel-head">
+							<div class="thimbleform-admin__surface thimbleform-settings__card">
+								<div class="thimbleform-admin__panel-head">
 									<div>
-										<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Data retention', 'nestform' ); ?></h3>
-										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Automatically delete old entries. Privacy tools still export or erase by email request.', 'nestform' ); ?></p>
+										<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Data retention', 'thimbleform' ); ?></h3>
+										<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Automatically delete old entries. Privacy tools still export or erase by email request.', 'thimbleform' ); ?></p>
 									</div>
 								</div>
-								<table class="form-table nestform-settings__table" role="presentation">
+								<table class="form-table thimbleform-settings__table" role="presentation">
 									<tr>
-										<th scope="row"><label for="nestform_entry_retention_days"><?php esc_html_e( 'Keep entries for', 'nestform' ); ?></label></th>
+										<th scope="row"><label for="thimbleform_entry_retention_days"><?php esc_html_e( 'Keep entries for', 'thimbleform' ); ?></label></th>
 										<td>
-											<div class="nestform-settings__qty">
-												<input type="number" class="small-text nestform-admin__input nestform-settings__qty-input" id="nestform_entry_retention_days" name="<?php echo esc_attr( $opt ); ?>[entry_retention_days]" value="<?php echo esc_attr( (string) $s['entry_retention_days'] ); ?>" min="0" step="1" />
-												<span class="nestform-settings__unit"><?php esc_html_e( 'days', 'nestform' ); ?></span>
+											<div class="thimbleform-settings__qty">
+												<input type="number" class="small-text thimbleform-admin__input thimbleform-settings__qty-input" id="thimbleform_entry_retention_days" name="<?php echo esc_attr( $opt ); ?>[entry_retention_days]" value="<?php echo esc_attr( (string) $s['entry_retention_days'] ); ?>" min="0" step="1" />
+												<span class="thimbleform-settings__unit"><?php esc_html_e( 'days', 'thimbleform' ); ?></span>
 											</div>
-											<p class="description"><?php esc_html_e( '0 keeps entries forever. Purge runs once a day.', 'nestform' ); ?></p>
+											<p class="description"><?php esc_html_e( '0 keeps entries forever. Purge runs once a day.', 'thimbleform' ); ?></p>
 										</td>
 									</tr>
 								</table>
 							</div>
 
-							<div class="nestform-admin__surface nestform-settings__card">
-								<div class="nestform-admin__panel-head">
+							<div class="thimbleform-admin__surface thimbleform-settings__card">
+								<div class="thimbleform-admin__panel-head">
 									<div>
-										<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Uninstall', 'nestform' ); ?></h3>
-										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Control what happens when Thimbleform is removed.', 'nestform' ); ?></p>
+										<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Uninstall', 'thimbleform' ); ?></h3>
+										<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Control what happens when Thimbleform is removed.', 'thimbleform' ); ?></p>
 									</div>
 								</div>
-								<table class="form-table nestform-settings__table" role="presentation">
+								<table class="form-table thimbleform-settings__table" role="presentation">
 									<tr>
-										<th scope="row"><?php esc_html_e( 'Delete data', 'nestform' ); ?></th>
+										<th scope="row"><?php esc_html_e( 'Delete data', 'thimbleform' ); ?></th>
 										<td>
-											<label class="nestform-admin__check" for="nestform_delete_data_on_uninstall">
+											<label class="thimbleform-admin__check" for="thimbleform_delete_data_on_uninstall">
 												<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[delete_data_on_uninstall]" value="0" />
-												<input type="checkbox" id="nestform_delete_data_on_uninstall" name="<?php echo esc_attr( $opt ); ?>[delete_data_on_uninstall]" value="1" <?php checked( (string) $s['delete_data_on_uninstall'], '1' ); ?> />
-												<span><?php esc_html_e( 'Delete forms, entries, and settings when uninstalling the plugin', 'nestform' ); ?></span>
+												<input type="checkbox" id="thimbleform_delete_data_on_uninstall" name="<?php echo esc_attr( $opt ); ?>[delete_data_on_uninstall]" value="1" <?php checked( (string) $s['delete_data_on_uninstall'], '1' ); ?> />
+												<span><?php esc_html_e( 'Delete forms, entries, and settings when uninstalling the plugin', 'thimbleform' ); ?></span>
 											</label>
-											<p class="description"><?php esc_html_e( 'Off by default — keep data if you might reinstall.', 'nestform' ); ?></p>
+											<p class="description"><?php esc_html_e( 'Off by default — keep data if you might reinstall.', 'thimbleform' ); ?></p>
 										</td>
 									</tr>
 								</table>
 							</div>
 
-							<div class="nestform-admin__surface nestform-settings__card">
-								<div class="nestform-admin__panel-head">
+							<div class="thimbleform-admin__surface thimbleform-settings__card">
+								<div class="thimbleform-admin__panel-head">
 									<div>
-										<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Public forms', 'nestform' ); ?></h3>
-										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Optional line visitors may see under your forms.', 'nestform' ); ?></p>
+										<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Public forms', 'thimbleform' ); ?></h3>
+										<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Optional line visitors may see under your forms.', 'thimbleform' ); ?></p>
 									</div>
 								</div>
-								<table class="form-table nestform-settings__table" role="presentation">
+								<table class="form-table thimbleform-settings__table" role="presentation">
 									<tr>
-										<th scope="row"><?php esc_html_e( 'Credit', 'nestform' ); ?></th>
+										<th scope="row"><?php esc_html_e( 'Credit', 'thimbleform' ); ?></th>
 										<td>
-											<label class="nestform-admin__check" for="nestform_credit_enabled">
+											<label class="thimbleform-admin__check" for="thimbleform_credit_enabled">
 												<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[credit_enabled]" value="0" />
-												<input type="checkbox" id="nestform_credit_enabled" name="<?php echo esc_attr( $opt ); ?>[credit_enabled]" value="1" <?php checked( (string) $s['credit_enabled'], '1' ); ?> />
-												<span><?php esc_html_e( 'Show a small “Powered by Thimbleform” link under forms', 'nestform' ); ?></span>
+												<input type="checkbox" id="thimbleform_credit_enabled" name="<?php echo esc_attr( $opt ); ?>[credit_enabled]" value="1" <?php checked( (string) $s['credit_enabled'], '1' ); ?> />
+												<span><?php esc_html_e( 'Show a small “Powered by Thimbleform” link under forms', 'thimbleform' ); ?></span>
 											</label>
-											<p class="description"><?php esc_html_e( 'Off by default. No tracking parameters — a plain link to thimbleform.app.', 'nestform' ); ?></p>
+											<p class="description"><?php esc_html_e( 'Off by default. No tracking parameters — a plain link to thimbleform.app.', 'thimbleform' ); ?></p>
 										</td>
 									</tr>
 								</table>
 							</div>
 
-							<div class="nestform-admin__surface nestform-settings__card">
-								<div class="nestform-admin__panel-head">
+							<div class="thimbleform-admin__surface thimbleform-settings__card">
+								<div class="thimbleform-admin__panel-head">
 									<div>
-										<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Admin notices', 'nestform' ); ?></h3>
-										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Control in-plugin messages on your own screens.', 'nestform' ); ?></p>
+										<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Admin notices', 'thimbleform' ); ?></h3>
+										<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Control in-plugin messages on your own screens.', 'thimbleform' ); ?></p>
 									</div>
 								</div>
-								<table class="form-table nestform-settings__table" role="presentation">
+								<table class="form-table thimbleform-settings__table" role="presentation">
 									<tr>
-										<th scope="row"><?php esc_html_e( 'Pro pointers', 'nestform' ); ?></th>
+										<th scope="row"><?php esc_html_e( 'Pro pointers', 'thimbleform' ); ?></th>
 										<td>
-											<label class="nestform-admin__check" for="nestform_hide_pro_promotions">
+											<label class="thimbleform-admin__check" for="thimbleform_hide_pro_promotions">
 												<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[hide_pro_promotions]" value="0" />
-												<input type="checkbox" id="nestform_hide_pro_promotions" name="<?php echo esc_attr( $opt ); ?>[hide_pro_promotions]" value="1" <?php checked( (string) $s['hide_pro_promotions'], '1' ); ?> />
-												<span><?php esc_html_e( 'Hide Pro promotion surfaces in the admin', 'nestform' ); ?></span>
+												<input type="checkbox" id="thimbleform_hide_pro_promotions" name="<?php echo esc_attr( $opt ); ?>[hide_pro_promotions]" value="1" <?php checked( (string) $s['hide_pro_promotions'], '1' ); ?> />
+												<span><?php esc_html_e( 'Hide Pro promotion surfaces in the admin', 'thimbleform' ); ?></span>
 											</label>
-											<p class="description"><?php esc_html_e( 'For agency handoffs or white-label installs. Does not change form features.', 'nestform' ); ?></p>
+											<p class="description"><?php esc_html_e( 'For agency handoffs or white-label installs. Does not change form features.', 'thimbleform' ); ?></p>
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><?php esc_html_e( 'Review requests', 'nestform' ); ?></th>
+										<th scope="row"><?php esc_html_e( 'Review requests', 'thimbleform' ); ?></th>
 										<td>
-											<label class="nestform-admin__check" for="nestform_review_requests_enabled">
+											<label class="thimbleform-admin__check" for="thimbleform_review_requests_enabled">
 												<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[review_requests_enabled]" value="0" />
-												<input type="checkbox" id="nestform_review_requests_enabled" name="<?php echo esc_attr( $opt ); ?>[review_requests_enabled]" value="1" <?php checked( (string) $s['review_requests_enabled'], '1' ); ?> />
-												<span><?php esc_html_e( 'Show WordPress.org review prompts on Thimbleform screens', 'nestform' ); ?></span>
+												<input type="checkbox" id="thimbleform_review_requests_enabled" name="<?php echo esc_attr( $opt ); ?>[review_requests_enabled]" value="1" <?php checked( (string) $s['review_requests_enabled'], '1' ); ?> />
+												<span><?php esc_html_e( 'Show WordPress.org review prompts on Thimbleform screens', 'thimbleform' ); ?></span>
 											</label>
-											<p class="description"><?php esc_html_e( 'After enough real entries are collected, administrators may see a one-time notice with Not now and Don\'t ask again options. Never shown site-wide.', 'nestform' ); ?></p>
+											<p class="description"><?php esc_html_e( 'After enough real entries are collected, administrators may see a one-time notice with Not now and Don\'t ask again options. Never shown site-wide.', 'thimbleform' ); ?></p>
 										</td>
 									</tr>
 								</table>
-								<button type="submit" class="nestform-btn nestform-btn--primary" name="submit" value="1">
-									<?php nestform_admin_icon( 'save' ); ?>
-									<?php esc_html_e( 'Save', 'nestform' ); ?>
+								<button type="submit" class="thimbleform-btn thimbleform-btn--primary" name="submit" value="1">
+									<?php thimbleform_admin_icon( 'save' ); ?>
+									<?php esc_html_e( 'Save', 'thimbleform' ); ?>
 								</button>
 							</div>
 						</form>
-						<?php if ( class_exists( 'Nestform_Capabilities' ) ) : ?>
-						<form method="post" action="options.php" class="nestform-settings__form">
-							<?php settings_fields( 'nestform_settings' ); ?>
+						<?php if ( class_exists( 'Thimbleform_Capabilities' ) ) : ?>
+						<form method="post" action="options.php" class="thimbleform-settings__form">
+							<?php settings_fields( 'thimbleform_settings' ); ?>
 							<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[_section]" value="access" />
 							<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[role_caps][_submitted]" value="1" />
-							<div class="nestform-admin__surface nestform-settings__card">
-								<div class="nestform-admin__panel-head">
+							<div class="thimbleform-admin__surface thimbleform-settings__card">
+								<div class="thimbleform-admin__panel-head">
 									<div>
-										<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Access', 'nestform' ); ?></h3>
-										<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Administrators can always manage forms and view entries. Grant other roles access without making them administrators.', 'nestform' ); ?></p>
+										<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Access', 'thimbleform' ); ?></h3>
+										<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Administrators can always manage forms and view entries. Grant other roles access without making them administrators.', 'thimbleform' ); ?></p>
 									</div>
 								</div>
 								<?php
-								$role_caps  = Nestform_Capabilities::role_settings();
-								$cap_labels = Nestform_Capabilities::labels();
+								$role_caps  = Thimbleform_Capabilities::role_settings();
+								$cap_labels = Thimbleform_Capabilities::labels();
 								?>
-								<div class="nestform-settings__role-caps-wrap">
-									<table class="nestform-settings__role-caps" role="presentation">
+								<div class="thimbleform-settings__role-caps-wrap">
+									<table class="thimbleform-settings__role-caps" role="presentation">
 										<thead>
 											<tr>
-												<th scope="col"><?php esc_html_e( 'Role', 'nestform' ); ?></th>
+												<th scope="col"><?php esc_html_e( 'Role', 'thimbleform' ); ?></th>
 												<?php foreach ( $cap_labels as $cap => $label ) : ?>
 													<th scope="col"><?php echo esc_html( $label ); ?></th>
 												<?php endforeach; ?>
 											</tr>
 										</thead>
 										<tbody>
-											<tr class="nestform-settings__role-caps-row nestform-settings__role-caps-row--admin">
+											<tr class="thimbleform-settings__role-caps-row thimbleform-settings__role-caps-row--admin">
 												<th scope="row"><strong><?php echo esc_html( translate_user_role( 'Administrator' ) ); ?></strong></th>
 												<?php foreach ( $cap_labels as $cap => $label ) : ?>
 													<td>
-														<label class="nestform-admin__check nestform-admin__check--center" title="<?php echo esc_attr( $label ); ?>">
+														<label class="thimbleform-admin__check thimbleform-admin__check--center" title="<?php echo esc_attr( $label ); ?>">
 															<input type="checkbox" checked disabled />
 															<span class="screen-reader-text"><?php echo esc_html( $label ); ?></span>
 														</label>
 													</td>
 												<?php endforeach; ?>
 											</tr>
-											<?php foreach ( Nestform_Capabilities::assignable_roles() as $slug => $name ) : ?>
-												<tr class="nestform-settings__role-caps-row">
+											<?php foreach ( Thimbleform_Capabilities::assignable_roles() as $slug => $name ) : ?>
+												<tr class="thimbleform-settings__role-caps-row">
 													<th scope="row"><?php echo esc_html( $name ); ?></th>
 													<?php foreach ( $cap_labels as $cap => $label ) : ?>
 														<?php
-														$id      = 'nestform_role_' . $slug . '_' . $cap;
+														$id      = 'thimbleform_role_' . $slug . '_' . $cap;
 														$checked = in_array( $cap, isset( $role_caps[ $slug ] ) ? $role_caps[ $slug ] : array(), true );
 														?>
 														<td>
-															<label class="nestform-admin__check nestform-admin__check--center" for="<?php echo esc_attr( $id ); ?>" title="<?php echo esc_attr( $label ); ?>">
+															<label class="thimbleform-admin__check thimbleform-admin__check--center" for="<?php echo esc_attr( $id ); ?>" title="<?php echo esc_attr( $label ); ?>">
 																<input type="checkbox" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $opt ); ?>[role_caps][<?php echo esc_attr( $slug ); ?>][<?php echo esc_attr( $cap ); ?>]" value="1" <?php checked( $checked ); ?> />
 																<span class="screen-reader-text">
 																	<?php
 																	printf(
 																		/* translators: 1: capability name, 2: role name */
-																		esc_html__( '%1$s for %2$s', 'nestform' ),
+																		esc_html__( '%1$s for %2$s', 'thimbleform' ),
 																		esc_html( $label ),
 																		esc_html( $name )
 																	);
@@ -1327,30 +1327,30 @@ class Nestform_Settings {
 										</tbody>
 									</table>
 								</div>
-								<p class="description"><?php esc_html_e( 'Managing forms includes viewing entries. Role editors such as Members also see these capabilities.', 'nestform' ); ?></p>
-								<button type="submit" class="nestform-btn nestform-btn--primary" name="submit" value="1">
-									<?php nestform_admin_icon( 'save' ); ?>
-									<?php esc_html_e( 'Save access', 'nestform' ); ?>
+								<p class="description"><?php esc_html_e( 'Managing forms includes viewing entries. Role editors such as Members also see these capabilities.', 'thimbleform' ); ?></p>
+								<button type="submit" class="thimbleform-btn thimbleform-btn--primary" name="submit" value="1">
+									<?php thimbleform_admin_icon( 'save' ); ?>
+									<?php esc_html_e( 'Save access', 'thimbleform' ); ?>
 								</button>
 							</div>
 						</form>
 						<?php endif; ?>
 						<?php
-						if ( class_exists( 'Nestform_Backup' ) ) {
-							Nestform_Backup::render_card();
+						if ( class_exists( 'Thimbleform_Backup' ) ) {
+							Thimbleform_Backup::render_card();
 						}
 						?>
 					<?php endif; ?>
 				</div>
 
 				<?php if ( in_array( $section, array( 'general', 'security' ), true ) ) : ?>
-				<aside class="nestform-settings__aside">
-					<div class="nestform-admin__surface nestform-settings__aside-card">
-						<h3 class="nestform-settings__aside-title"><?php esc_html_e( 'Always on', 'nestform' ); ?></h3>
-						<p class="nestform-settings__aside-text"><?php esc_html_e( 'Every form gets a nonce, honeypot, and time trap by default.', 'nestform' ); ?></p>
+				<aside class="thimbleform-settings__aside">
+					<div class="thimbleform-admin__surface thimbleform-settings__aside-card">
+						<h3 class="thimbleform-settings__aside-title"><?php esc_html_e( 'Always on', 'thimbleform' ); ?></h3>
+						<p class="thimbleform-settings__aside-text"><?php esc_html_e( 'Every form gets a nonce, honeypot, and time trap by default.', 'thimbleform' ); ?></p>
 						<?php if ( 'security' !== $section ) : ?>
-							<p class="nestform-settings__aside-text">
-								<a href="<?php echo esc_url( self::url( array( 'section' => 'security' ) ) ); ?>"><?php esc_html_e( 'Open Security settings', 'nestform' ); ?></a>
+							<p class="thimbleform-settings__aside-text">
+								<a href="<?php echo esc_url( self::url( array( 'section' => 'security' ) ) ); ?>"><?php esc_html_e( 'Open Security settings', 'thimbleform' ); ?></a>
 							</p>
 						<?php endif; ?>
 					</div>
@@ -1365,8 +1365,8 @@ class Nestform_Settings {
 	 * Email delivery log under Settings → Email.
 	 */
 	private static function render_email_log() {
-		if ( ! class_exists( 'Nestform_Email_Log' ) ) {
-			echo '<div class="nestform-admin__surface nestform-settings__card"><p>' . esc_html__( 'Email log is unavailable.', 'nestform' ) . '</p></div>';
+		if ( ! class_exists( 'Thimbleform_Email_Log' ) ) {
+			echo '<div class="thimbleform-admin__surface thimbleform-settings__card"><p>' . esc_html__( 'Email log is unavailable.', 'thimbleform' ) . '</p></div>';
 			return;
 		}
 
@@ -1378,10 +1378,10 @@ class Nestform_Settings {
 			'offset' => ( $paged - 1 ) * $per_page,
 			'status' => $status,
 		);
-		$entries     = Nestform_Email_Log::get_entries( $args );
-		$total       = Nestform_Email_Log::count_entries( array( 'status' => $status ) );
+		$entries     = Thimbleform_Email_Log::get_entries( $args );
+		$total       = Thimbleform_Email_Log::count_entries( array( 'status' => $status ) );
 		$total_pages = (int) ceil( $total / $per_page );
-		$types       = Nestform_Email_Log::type_labels();
+		$types       = Thimbleform_Email_Log::type_labels();
 		$base_url    = self::url(
 			array(
 				'section' => 'email',
@@ -1389,51 +1389,51 @@ class Nestform_Settings {
 			)
 		);
 		?>
-		<div class="nestform-admin__surface nestform-settings__card nestform-log nestform-log--email">
-			<div class="nestform-admin__panel-head">
+		<div class="thimbleform-admin__surface thimbleform-settings__card thimbleform-log thimbleform-log--email">
+			<div class="thimbleform-admin__panel-head">
 				<div>
-					<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Delivery log', 'nestform' ); ?></h3>
-					<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Recipient, subject, and status for each Thimbleform mail attempt. Message bodies are never stored.', 'nestform' ); ?></p>
+					<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Delivery log', 'thimbleform' ); ?></h3>
+					<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Recipient, subject, and status for each Thimbleform mail attempt. Message bodies are never stored.', 'thimbleform' ); ?></p>
 				</div>
 			</div>
 
-			<form method="get" class="nestform-log__filters">
-				<input type="hidden" name="post_type" value="<?php echo esc_attr( Nestform_Post_Type::POST_TYPE ); ?>" />
+			<form method="get" class="thimbleform-log__filters">
+				<input type="hidden" name="post_type" value="<?php echo esc_attr( Thimbleform_Post_Type::POST_TYPE ); ?>" />
 				<input type="hidden" name="page" value="<?php echo esc_attr( self::PAGE_SLUG ); ?>" />
 				<input type="hidden" name="section" value="email" />
 				<input type="hidden" name="sub" value="log" />
-				<label class="nestform-log__filter">
-					<span class="screen-reader-text"><?php esc_html_e( 'Status', 'nestform' ); ?></span>
-					<select class="nestform-admin__input" name="status" onchange="this.form.submit()">
-						<option value=""><?php esc_html_e( 'All statuses', 'nestform' ); ?></option>
-						<option value="sent" <?php selected( $status, 'sent' ); ?>><?php esc_html_e( 'Sent', 'nestform' ); ?></option>
-						<option value="failed" <?php selected( $status, 'failed' ); ?>><?php esc_html_e( 'Failed', 'nestform' ); ?></option>
+				<label class="thimbleform-log__filter">
+					<span class="screen-reader-text"><?php esc_html_e( 'Status', 'thimbleform' ); ?></span>
+					<select class="thimbleform-admin__input" name="status" onchange="this.form.submit()">
+						<option value=""><?php esc_html_e( 'All statuses', 'thimbleform' ); ?></option>
+						<option value="sent" <?php selected( $status, 'sent' ); ?>><?php esc_html_e( 'Sent', 'thimbleform' ); ?></option>
+						<option value="failed" <?php selected( $status, 'failed' ); ?>><?php esc_html_e( 'Failed', 'thimbleform' ); ?></option>
 					</select>
 				</label>
 			</form>
 
-			<div class="nestform-log__table-wrap">
-				<table class="nestform-log__table">
+			<div class="thimbleform-log__table-wrap">
+				<table class="thimbleform-log__table">
 					<thead>
 						<tr>
-							<th scope="col"><?php esc_html_e( 'When', 'nestform' ); ?></th>
-							<th scope="col"><?php esc_html_e( 'Type', 'nestform' ); ?></th>
-							<th scope="col"><?php esc_html_e( 'To', 'nestform' ); ?></th>
-							<th scope="col"><?php esc_html_e( 'Subject', 'nestform' ); ?></th>
-							<th scope="col"><?php esc_html_e( 'Status', 'nestform' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'When', 'thimbleform' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Type', 'thimbleform' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'To', 'thimbleform' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Subject', 'thimbleform' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Status', 'thimbleform' ); ?></th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php if ( array() === $entries ) : ?>
-							<tr class="nestform-log__empty-row">
+							<tr class="thimbleform-log__empty-row">
 								<td colspan="5">
-									<p class="nestform-log__empty"><?php esc_html_e( 'No mail logged yet. Send a test email or submit a form with notifications on.', 'nestform' ); ?></p>
+									<p class="thimbleform-log__empty"><?php esc_html_e( 'No mail logged yet. Send a test email or submit a form with notifications on.', 'thimbleform' ); ?></p>
 								</td>
 							</tr>
 						<?php endif; ?>
 						<?php foreach ( $entries as $entry ) : ?>
-							<tr class="nestform-log__row<?php echo 'failed' === $entry->status ? ' nestform-log__row--failed' : ''; ?>">
-								<td class="nestform-log__cell nestform-log__cell--when">
+							<tr class="thimbleform-log__row<?php echo 'failed' === $entry->status ? ' thimbleform-log__row--failed' : ''; ?>">
+								<td class="thimbleform-log__cell thimbleform-log__cell--when">
 									<?php
 									echo esc_html(
 										mysql2date(
@@ -1443,21 +1443,21 @@ class Nestform_Settings {
 									);
 									?>
 								</td>
-								<td class="nestform-log__cell nestform-log__cell--type">
+								<td class="thimbleform-log__cell thimbleform-log__cell--type">
 									<?php echo esc_html( isset( $types[ $entry->type ] ) ? $types[ $entry->type ] : (string) $entry->type ); ?>
 								</td>
-								<td class="nestform-log__cell nestform-log__cell--to"><?php echo esc_html( (string) $entry->recipient ); ?></td>
-								<td class="nestform-log__cell nestform-log__cell--subject">
-									<span class="nestform-log__subject"><?php echo esc_html( (string) $entry->subject ); ?></span>
+								<td class="thimbleform-log__cell thimbleform-log__cell--to"><?php echo esc_html( (string) $entry->recipient ); ?></td>
+								<td class="thimbleform-log__cell thimbleform-log__cell--subject">
+									<span class="thimbleform-log__subject"><?php echo esc_html( (string) $entry->subject ); ?></span>
 									<?php if ( 'failed' === $entry->status && $entry->error ) : ?>
-										<span class="nestform-log__error"><?php echo esc_html( (string) $entry->error ); ?></span>
+										<span class="thimbleform-log__error"><?php echo esc_html( (string) $entry->error ); ?></span>
 									<?php endif; ?>
 								</td>
-								<td class="nestform-log__cell nestform-log__cell--status">
+								<td class="thimbleform-log__cell thimbleform-log__cell--status">
 									<?php if ( 'failed' === $entry->status ) : ?>
-										<span class="nestform-badge nestform-badge--danger"><?php esc_html_e( 'Failed', 'nestform' ); ?></span>
+										<span class="thimbleform-badge thimbleform-badge--danger"><?php esc_html_e( 'Failed', 'thimbleform' ); ?></span>
 									<?php else : ?>
-										<span class="nestform-badge nestform-badge--ok"><?php esc_html_e( 'Sent', 'nestform' ); ?></span>
+										<span class="thimbleform-badge thimbleform-badge--ok"><?php esc_html_e( 'Sent', 'thimbleform' ); ?></span>
 									<?php endif; ?>
 								</td>
 							</tr>
@@ -1467,7 +1467,7 @@ class Nestform_Settings {
 			</div>
 
 			<?php if ( $total_pages > 1 ) : ?>
-				<nav class="nestform-log__pager" aria-label="<?php esc_attr_e( 'Delivery log pages', 'nestform' ); ?>">
+				<nav class="thimbleform-log__pager" aria-label="<?php esc_attr_e( 'Delivery log pages', 'thimbleform' ); ?>">
 					<?php
 					echo wp_kses_post(
 						(string) paginate_links(
@@ -1499,13 +1499,13 @@ class Nestform_Settings {
 	 * Blocked attempts log under Settings → Security.
 	 */
 	private static function render_spam_log() {
-		if ( ! class_exists( 'Nestform_Spam_Log' ) ) {
-			echo '<div class="nestform-admin__surface nestform-settings__card"><p>' . esc_html__( 'Spam log is unavailable.', 'nestform' ) . '</p></div>';
+		if ( ! class_exists( 'Thimbleform_Spam_Log' ) ) {
+			echo '<div class="thimbleform-admin__surface thimbleform-settings__card"><p>' . esc_html__( 'Spam log is unavailable.', 'thimbleform' ) . '</p></div>';
 			return;
 		}
 
 		if ( ! empty( $_GET['cleared'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			echo '<div class="notice notice-success is-dismissible nestform-log__flash"><p>' . esc_html__( 'Blocked attempts log cleared.', 'nestform' ) . '</p></div>';
+			echo '<div class="notice notice-success is-dismissible thimbleform-log__flash"><p>' . esc_html__( 'Blocked attempts log cleared.', 'thimbleform' ) . '</p></div>';
 		}
 
 		$form_id  = isset( $_GET['form_id'] ) ? (int) $_GET['form_id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -1520,20 +1520,20 @@ class Nestform_Settings {
 			'reason'  => $reason,
 		);
 
-		$entries     = Nestform_Spam_Log::get_entries( $args );
-		$total       = Nestform_Spam_Log::count_entries(
+		$entries     = Thimbleform_Spam_Log::get_entries( $args );
+		$total       = Thimbleform_Spam_Log::count_entries(
 			array(
 				'form_id' => $form_id,
 				'reason'  => $reason,
 			)
 		);
 		$total_pages = (int) ceil( $total / $per_page );
-		$summary     = Nestform_Spam_Log::summary( 7, $form_id );
-		$labels      = Nestform_Spam_Log::reason_labels();
+		$summary     = Thimbleform_Spam_Log::summary( 7, $form_id );
+		$labels      = Thimbleform_Spam_Log::reason_labels();
 
 		$forms = get_posts(
 			array(
-				'post_type'              => Nestform_Post_Type::POST_TYPE,
+				'post_type'              => Thimbleform_Post_Type::POST_TYPE,
 				'post_status'            => array( 'publish', 'draft', 'private', 'pending' ),
 				'posts_per_page'         => 200,
 				'orderby'                => 'title',
@@ -1555,66 +1555,66 @@ class Nestform_Settings {
 			)
 		);
 		?>
-		<div class="nestform-admin__surface nestform-settings__card nestform-log nestform-log--spam">
-			<div class="nestform-admin__panel-head">
+		<div class="thimbleform-admin__surface thimbleform-settings__card thimbleform-log thimbleform-log--spam">
+			<div class="thimbleform-admin__panel-head">
 				<div>
-					<h3 class="nestform-admin__panel-title"><?php esc_html_e( 'Blocked attempts', 'nestform' ); ?></h3>
-					<p class="nestform-admin__panel-desc"><?php esc_html_e( 'Why submissions were turned away. Client IPs are stored as a short hash — not the address itself.', 'nestform' ); ?></p>
+					<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Blocked attempts', 'thimbleform' ); ?></h3>
+					<p class="thimbleform-admin__panel-desc"><?php esc_html_e( 'Why submissions were turned away. Client IPs are stored as a short hash — not the address itself.', 'thimbleform' ); ?></p>
 				</div>
 			</div>
 
-			<?php if ( ! Nestform_Spam_Log::is_enabled() ) : ?>
-				<p class="nestform-log__notice">
-					<?php esc_html_e( 'Logging is switched off, so nothing new is being recorded.', 'nestform' ); ?>
-					<a href="<?php echo esc_url( self::url( array( 'section' => 'security' ) ) ); ?>"><?php esc_html_e( 'Turn it back on under Settings.', 'nestform' ); ?></a>
+			<?php if ( ! Thimbleform_Spam_Log::is_enabled() ) : ?>
+				<p class="thimbleform-log__notice">
+					<?php esc_html_e( 'Logging is switched off, so nothing new is being recorded.', 'thimbleform' ); ?>
+					<a href="<?php echo esc_url( self::url( array( 'section' => 'security' ) ) ); ?>"><?php esc_html_e( 'Turn it back on under Settings.', 'thimbleform' ); ?></a>
 				</p>
 			<?php endif; ?>
 
-			<div class="nestform-log__summary">
+			<div class="thimbleform-log__summary">
 				<?php if ( $summary ) : ?>
-					<p class="nestform-log__summary-title">
+					<p class="thimbleform-log__summary-title">
 						<?php
 						$sum = array_sum( $summary );
 						echo esc_html(
 							sprintf(
 								/* translators: %s: number of blocked attempts */
-								_n( '%s attempt blocked in the last 7 days', '%s attempts blocked in the last 7 days', $sum, 'nestform' ),
+								_n( '%s attempt blocked in the last 7 days', '%s attempts blocked in the last 7 days', $sum, 'thimbleform' ),
 								number_format_i18n( $sum )
 							)
 						);
 						?>
 					</p>
-					<div class="nestform-log__chips">
+					<div class="thimbleform-log__chips">
 						<?php foreach ( $summary as $summary_reason => $count ) : ?>
-							<span class="nestform-log__chip">
-								<span class="nestform-log__chip-label"><?php echo esc_html( Nestform_Spam_Log::reason_label( $summary_reason ) ); ?></span>
-								<span class="nestform-log__chip-count"><?php echo esc_html( number_format_i18n( $count ) ); ?></span>
+							<span class="thimbleform-log__chip">
+								<span class="thimbleform-log__chip-label"><?php echo esc_html( Thimbleform_Spam_Log::reason_label( $summary_reason ) ); ?></span>
+								<span class="thimbleform-log__chip-count"><?php echo esc_html( number_format_i18n( $count ) ); ?></span>
 							</span>
 						<?php endforeach; ?>
 					</div>
 				<?php else : ?>
-					<p class="nestform-log__summary-empty"><?php esc_html_e( 'Nothing has been blocked in the last 7 days.', 'nestform' ); ?></p>
+					<p class="thimbleform-log__summary-empty"><?php esc_html_e( 'Nothing has been blocked in the last 7 days.', 'thimbleform' ); ?></p>
 				<?php endif; ?>
 			</div>
 
-			<form method="get" class="nestform-log__filters">
-				<input type="hidden" name="post_type" value="<?php echo esc_attr( Nestform_Post_Type::POST_TYPE ); ?>" />
+			<form method="get" class="thimbleform-log__filters">
+				<input type="hidden" name="post_type" value="<?php echo esc_attr( Thimbleform_Post_Type::POST_TYPE ); ?>" />
 				<input type="hidden" name="page" value="<?php echo esc_attr( self::PAGE_SLUG ); ?>" />
 				<input type="hidden" name="section" value="security" />
 				<input type="hidden" name="sub" value="log" />
-				<label class="nestform-log__filter">
-					<span class="screen-reader-text"><?php esc_html_e( 'Form', 'nestform' ); ?></span>
-					<select class="nestform-admin__input" name="form_id" onchange="this.form.submit()">
-						<option value=""><?php esc_html_e( 'All forms', 'nestform' ); ?></option>
+				<label class="thimbleform-log__filter">
+					<span class="screen-reader-text"><?php esc_html_e( 'Form', 'thimbleform' ); ?></span>
+					<select class="thimbleform-admin__input" name="form_id" onchange="this.form.submit()">
+						<option value=""><?php esc_html_e( 'All forms', 'thimbleform' ); ?></option>
 						<?php foreach ( $forms as $f ) : ?>
 							<option value="<?php echo esc_attr( (string) $f->ID ); ?>" <?php selected( $form_id, (int) $f->ID ); ?>><?php echo esc_html( $f->post_title ); ?></option>
 						<?php endforeach; ?>
 					</select>
 				</label>
-				<label class="nestform-log__filter">
-					<span class="screen-reader-text"><?php esc_html_e( 'Reason', 'nestform' ); ?></span>
-					<select class="nestform-admin__input" name="reason" onchange="this.form.submit()">
-						<option value=""><?php esc_html_e( 'All reasons', 'nestform' ); ?></option>
+				<label class="thimbleform-log__filter">
+					<span class="screen-reader-text"><?php esc_html_e( 'Reason', 'thimbleform' ); ?></span>
+					<select class="thimbleform-admin__input" name="reason" onchange="this.form.submit()">
+						<option value=""><?php esc_html_e( 'All reasons', 'thimbleform' ); ?></option>
 						<?php foreach ( $labels as $slug => $label ) : ?>
 							<option value="<?php echo esc_attr( $slug ); ?>" <?php selected( $reason, $slug ); ?>><?php echo esc_html( $label ); ?></option>
 						<?php endforeach; ?>
@@ -1622,28 +1622,28 @@ class Nestform_Settings {
 				</label>
 			</form>
 
-			<div class="nestform-log__table-wrap">
-				<table class="nestform-log__table">
+			<div class="thimbleform-log__table-wrap">
+				<table class="thimbleform-log__table">
 					<thead>
 						<tr>
-							<th scope="col"><?php esc_html_e( 'When', 'nestform' ); ?></th>
-							<th scope="col"><?php esc_html_e( 'Form', 'nestform' ); ?></th>
-							<th scope="col"><?php esc_html_e( 'Reason', 'nestform' ); ?></th>
-							<th scope="col"><?php esc_html_e( 'Details', 'nestform' ); ?></th>
-							<th scope="col"><?php esc_html_e( 'Client', 'nestform' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'When', 'thimbleform' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Form', 'thimbleform' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Reason', 'thimbleform' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Details', 'thimbleform' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Client', 'thimbleform' ); ?></th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php if ( array() === $entries ) : ?>
-							<tr class="nestform-log__empty-row">
+							<tr class="thimbleform-log__empty-row">
 								<td colspan="5">
-									<p class="nestform-log__empty"><?php esc_html_e( 'No blocked attempts recorded yet.', 'nestform' ); ?></p>
+									<p class="thimbleform-log__empty"><?php esc_html_e( 'No blocked attempts recorded yet.', 'thimbleform' ); ?></p>
 								</td>
 							</tr>
 						<?php endif; ?>
 						<?php foreach ( $entries as $entry ) : ?>
-							<tr class="nestform-log__row">
-								<td class="nestform-log__cell nestform-log__cell--when">
+							<tr class="thimbleform-log__row">
+								<td class="thimbleform-log__cell thimbleform-log__cell--when">
 									<?php
 									echo esc_html(
 										mysql2date(
@@ -1653,18 +1653,18 @@ class Nestform_Settings {
 									);
 									?>
 								</td>
-								<td class="nestform-log__cell nestform-log__cell--form">
+								<td class="thimbleform-log__cell thimbleform-log__cell--form">
 									<?php
 									$entry_form = isset( $forms_map[ (int) $entry->form_id ] ) ? $forms_map[ (int) $entry->form_id ] : null;
-									echo esc_html( $entry_form ? $entry_form->post_title : __( 'Unknown form', 'nestform' ) );
+									echo esc_html( $entry_form ? $entry_form->post_title : __( 'Unknown form', 'thimbleform' ) );
 									?>
 								</td>
-								<td class="nestform-log__cell nestform-log__cell--reason">
-									<span class="nestform-badge nestform-badge--draft"><?php echo esc_html( Nestform_Spam_Log::reason_label( (string) $entry->reason ) ); ?></span>
+								<td class="thimbleform-log__cell thimbleform-log__cell--reason">
+									<span class="thimbleform-badge thimbleform-badge--draft"><?php echo esc_html( Thimbleform_Spam_Log::reason_label( (string) $entry->reason ) ); ?></span>
 								</td>
-								<td class="nestform-log__cell nestform-log__cell--detail"><?php echo esc_html( (string) $entry->detail ); ?></td>
-								<td class="nestform-log__cell nestform-log__cell--client">
-									<code class="nestform-log__hash"><?php echo esc_html( substr( (string) $entry->ip_hash, 0, 8 ) ?: '—' ); ?></code>
+								<td class="thimbleform-log__cell thimbleform-log__cell--detail"><?php echo esc_html( (string) $entry->detail ); ?></td>
+								<td class="thimbleform-log__cell thimbleform-log__cell--client">
+									<code class="thimbleform-log__hash"><?php echo esc_html( substr( (string) $entry->ip_hash, 0, 8 ) ?: '—' ); ?></code>
 								</td>
 							</tr>
 						<?php endforeach; ?>
@@ -1673,7 +1673,7 @@ class Nestform_Settings {
 			</div>
 
 			<?php if ( $total_pages > 1 ) : ?>
-				<nav class="nestform-log__pager" aria-label="<?php esc_attr_e( 'Blocked attempts pages', 'nestform' ); ?>">
+				<nav class="thimbleform-log__pager" aria-label="<?php esc_attr_e( 'Blocked attempts pages', 'thimbleform' ); ?>">
 					<?php
 					$page_links = paginate_links(
 						array(
@@ -1699,10 +1699,10 @@ class Nestform_Settings {
 			<?php endif; ?>
 
 			<?php if ( $total > 0 ) : ?>
-				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="nestform-log__clear">
-					<?php wp_nonce_field( 'nestform_clear_spam_log' ); ?>
-					<input type="hidden" name="action" value="nestform_clear_spam_log" />
-					<button type="submit" class="nestform-btn nestform-btn--outline"><?php esc_html_e( 'Clear the log', 'nestform' ); ?></button>
+				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="thimbleform-log__clear">
+					<?php wp_nonce_field( 'thimbleform_clear_spam_log' ); ?>
+					<input type="hidden" name="action" value="thimbleform_clear_spam_log" />
+					<button type="submit" class="thimbleform-btn thimbleform-btn--outline"><?php esc_html_e( 'Clear the log', 'thimbleform' ); ?></button>
 				</form>
 			<?php endif; ?>
 		</div>
@@ -1710,7 +1710,7 @@ class Nestform_Settings {
 	}
 
 	private static function render_test_email_notice() {
-		$result = isset( $_GET['nestform_test_email'] ) ? sanitize_key( wp_unslash( $_GET['nestform_test_email'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$result = isset( $_GET['thimbleform_test_email'] ) ? sanitize_key( wp_unslash( $_GET['thimbleform_test_email'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! in_array( $result, array( 'sent', 'failed' ), true ) ) {
 			return;
 		}
@@ -1720,8 +1720,8 @@ class Nestform_Settings {
 			<p>
 				<?php
 				echo 'sent' === $result
-					? esc_html__( 'Test email handed to the mailer. Check the inbox (and spam) — delivery depends on your host or SMTP plugin.', 'nestform' )
-					: esc_html__( 'Test email could not be sent. Check wp_mail() and your SMTP configuration.', 'nestform' );
+					? esc_html__( 'Test email handed to the mailer. Check the inbox (and spam) — delivery depends on your host or SMTP plugin.', 'thimbleform' )
+					: esc_html__( 'Test email could not be sent. Check wp_mail() and your SMTP configuration.', 'thimbleform' );
 				?>
 			</p>
 		</div>

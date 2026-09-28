@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Templates {
+class Thimbleform_Templates {
 
-	const ACTION = 'nestform_apply_template';
+	const ACTION = 'thimbleform_apply_template';
 
 	public static function init() {
 		add_action( 'admin_post_' . self::ACTION, array( __CLASS__, 'handle' ) );
@@ -26,8 +26,8 @@ class Nestform_Templates {
 
 		$templates = array(
 			'contact'    => array(
-				'label'       => __( 'Contact', 'nestform' ),
-				'description' => __( 'Name, email, phone, message.', 'nestform' ),
+				'label'       => __( 'Contact', 'thimbleform' ),
+				'description' => __( 'Name, email, phone, message.', 'thimbleform' ),
 				'category'    => 'contact',
 				'config'      => array(
 					'fields'   => array(
@@ -77,8 +77,8 @@ class Nestform_Templates {
 				),
 			),
 			'lead'       => array(
-				'label'       => __( 'Lead', 'nestform' ),
-				'description' => __( 'Company lead capture with service select.', 'nestform' ),
+				'label'       => __( 'Lead', 'thimbleform' ),
+				'description' => __( 'Company lead capture with service select.', 'thimbleform' ),
 				'category'    => 'lead',
 				'config'      => array(
 					'fields'   => array(
@@ -137,8 +137,8 @@ class Nestform_Templates {
 				),
 			),
 			'quiz'       => array(
-				'label'       => __( 'Quiz', 'nestform' ),
-				'description' => __( 'Scored multi-step quiz with result bands (Pro).', 'nestform' ),
+				'label'       => __( 'Quiz', 'thimbleform' ),
+				'description' => __( 'Scored multi-step quiz with result bands (Pro).', 'thimbleform' ),
 				'category'    => 'quiz',
 				'requires'    => array( 'quiz_survey', 'multi_step' ),
 				'config'      => array(
@@ -201,8 +201,8 @@ class Nestform_Templates {
 				),
 			),
 			'newsletter' => array(
-				'label'       => __( 'Newsletter', 'nestform' ),
-				'description' => __( 'Minimal email signup + acceptance.', 'nestform' ),
+				'label'       => __( 'Newsletter', 'thimbleform' ),
+				'description' => __( 'Minimal email signup + acceptance.', 'thimbleform' ),
 				'category'    => 'other',
 				'config'      => array(
 					'fields'   => array(
@@ -234,8 +234,8 @@ class Nestform_Templates {
 				),
 			),
 			'feedback'   => array(
-				'label'       => __( 'Feedback', 'nestform' ),
-				'description' => __( 'Satisfaction radio, comment, optional email.', 'nestform' ),
+				'label'       => __( 'Feedback', 'thimbleform' ),
+				'description' => __( 'Satisfaction radio, comment, optional email.', 'thimbleform' ),
 				'category'    => 'survey',
 				'config'      => array(
 					'fields'   => array(
@@ -276,8 +276,8 @@ class Nestform_Templates {
 				),
 			),
 			'support'    => array(
-				'label'       => __( 'Support', 'nestform' ),
-				'description' => __( 'Topic select with Other, message, email.', 'nestform' ),
+				'label'       => __( 'Support', 'thimbleform' ),
+				'description' => __( 'Topic select with Other, message, email.', 'thimbleform' ),
 				'category'    => 'contact',
 				'config'      => array(
 					'fields'   => array(
@@ -318,8 +318,8 @@ class Nestform_Templates {
 				),
 			),
 			'rsvp'       => array(
-				'label'       => __( 'Event RSVP', 'nestform' ),
-				'description' => __( 'Name, guests, dietary preference with Other.', 'nestform' ),
+				'label'       => __( 'Event RSVP', 'thimbleform' ),
+				'description' => __( 'Name, guests, dietary preference with Other.', 'thimbleform' ),
 				'category'    => 'other',
 				'config'      => array(
 					'fields'   => array(
@@ -360,8 +360,8 @@ class Nestform_Templates {
 				),
 			),
 			'survey_nps' => array(
-				'label'       => __( 'NPS survey', 'nestform' ),
-				'description' => __( 'NPS + matrix + open comment (Pro).', 'nestform' ),
+				'label'       => __( 'NPS survey', 'thimbleform' ),
+				'description' => __( 'NPS + matrix + open comment (Pro).', 'thimbleform' ),
 				'category'    => 'survey',
 				'requires'    => array( 'quiz_survey', 'advanced_fields' ),
 				'config'      => array(
@@ -403,8 +403,8 @@ class Nestform_Templates {
 				),
 			),
 			'csat'       => array(
-				'label'       => __( 'CSAT', 'nestform' ),
-				'description' => __( 'Customer satisfaction scale + follow-up (Pro).', 'nestform' ),
+				'label'       => __( 'CSAT', 'thimbleform' ),
+				'description' => __( 'Customer satisfaction scale + follow-up (Pro).', 'thimbleform' ),
 				'category'    => 'survey',
 				'requires'    => array( 'quiz_survey', 'advanced_fields' ),
 				'config'      => array(
@@ -438,8 +438,8 @@ class Nestform_Templates {
 				),
 			),
 			'contact_minimal' => array(
-				'label'       => __( 'Minimal contact', 'nestform' ),
-				'description' => __( 'Email and message only.', 'nestform' ),
+				'label'       => __( 'Minimal contact', 'thimbleform' ),
+				'description' => __( 'Email and message only.', 'thimbleform' ),
 				'category'    => 'contact',
 				'config'      => array(
 					'fields'   => array(
@@ -471,8 +471,8 @@ class Nestform_Templates {
 				),
 			),
 			'quote_request'   => array(
-				'label'       => __( 'Quote request', 'nestform' ),
-				'description' => __( 'Budget, timeline, project scope.', 'nestform' ),
+				'label'       => __( 'Quote request', 'thimbleform' ),
+				'description' => __( 'Budget, timeline, project scope.', 'thimbleform' ),
 				'category'    => 'lead',
 				'config'      => array(
 					'fields'   => array(
@@ -531,8 +531,8 @@ class Nestform_Templates {
 				),
 			),
 			'request_demo'    => array(
-				'label'       => __( 'Request demo', 'nestform' ),
-				'description' => __( 'Sales demo booking with company size.', 'nestform' ),
+				'label'       => __( 'Request demo', 'thimbleform' ),
+				'description' => __( 'Sales demo booking with company size.', 'thimbleform' ),
 				'category'    => 'lead',
 				'config'      => array(
 					'fields'   => array(
@@ -590,8 +590,8 @@ class Nestform_Templates {
 				),
 			),
 			'callback'        => array(
-				'label'       => __( 'Callback', 'nestform' ),
-				'description' => __( 'Phone callback with preferred time.', 'nestform' ),
+				'label'       => __( 'Callback', 'thimbleform' ),
+				'description' => __( 'Phone callback with preferred time.', 'thimbleform' ),
 				'category'    => 'contact',
 				'config'      => array(
 					'fields'   => array(
@@ -637,8 +637,8 @@ class Nestform_Templates {
 				),
 			),
 			'appointment'     => array(
-				'label'       => __( 'Appointment', 'nestform' ),
-				'description' => __( 'Book a visit with date and service.', 'nestform' ),
+				'label'       => __( 'Appointment', 'thimbleform' ),
+				'description' => __( 'Book a visit with date and service.', 'thimbleform' ),
 				'category'    => 'contact',
 				'config'      => array(
 					'fields'   => array(
@@ -705,8 +705,8 @@ class Nestform_Templates {
 				),
 			),
 			'job_application' => array(
-				'label'       => __( 'Job application', 'nestform' ),
-				'description' => __( 'Role, experience, resume upload.', 'nestform' ),
+				'label'       => __( 'Job application', 'thimbleform' ),
+				'description' => __( 'Role, experience, resume upload.', 'thimbleform' ),
 				'category'    => 'lead',
 				'config'      => array(
 					'fields'   => array(
@@ -768,8 +768,8 @@ class Nestform_Templates {
 				),
 			),
 			'registration'    => array(
-				'label'       => __( 'Event registration', 'nestform' ),
-				'description' => __( 'Sign up with ticket type and dietary needs.', 'nestform' ),
+				'label'       => __( 'Event registration', 'thimbleform' ),
+				'description' => __( 'Sign up with ticket type and dietary needs.', 'thimbleform' ),
 				'category'    => 'other',
 				'config'      => array(
 					'fields'   => array(
@@ -818,8 +818,8 @@ class Nestform_Templates {
 				),
 			),
 			'waitlist'        => array(
-				'label'       => __( 'Waitlist', 'nestform' ),
-				'description' => __( 'Join waitlist with email and interest.', 'nestform' ),
+				'label'       => __( 'Waitlist', 'thimbleform' ),
+				'description' => __( 'Join waitlist with email and interest.', 'thimbleform' ),
 				'category'    => 'other',
 				'config'      => array(
 					'fields'   => array(
@@ -859,8 +859,8 @@ class Nestform_Templates {
 				),
 			),
 			'donation'        => array(
-				'label'       => __( 'Donation pledge', 'nestform' ),
-				'description' => __( 'Amount intent and optional message.', 'nestform' ),
+				'label'       => __( 'Donation pledge', 'thimbleform' ),
+				'description' => __( 'Amount intent and optional message.', 'thimbleform' ),
 				'category'    => 'other',
 				'config'      => array(
 					'fields'   => array(
@@ -909,8 +909,8 @@ class Nestform_Templates {
 				),
 			),
 			'volunteer'       => array(
-				'label'       => __( 'Volunteer', 'nestform' ),
-				'description' => __( 'Availability and skills for volunteers.', 'nestform' ),
+				'label'       => __( 'Volunteer', 'thimbleform' ),
+				'description' => __( 'Availability and skills for volunteers.', 'thimbleform' ),
 				'category'    => 'other',
 				'config'      => array(
 					'fields'   => array(
@@ -957,8 +957,8 @@ class Nestform_Templates {
 				),
 			),
 			'partnership'     => array(
-				'label'       => __( 'Partnership', 'nestform' ),
-				'description' => __( 'B2B partnership inquiry.', 'nestform' ),
+				'label'       => __( 'Partnership', 'thimbleform' ),
+				'description' => __( 'B2B partnership inquiry.', 'thimbleform' ),
 				'category'    => 'lead',
 				'config'      => array(
 					'fields'   => array(
@@ -1013,8 +1013,8 @@ class Nestform_Templates {
 				),
 			),
 			'product_inquiry' => array(
-				'label'       => __( 'Product inquiry', 'nestform' ),
-				'description' => __( 'Ask about a product with SKU or link.', 'nestform' ),
+				'label'       => __( 'Product inquiry', 'thimbleform' ),
+				'description' => __( 'Ask about a product with SKU or link.', 'thimbleform' ),
 				'category'    => 'lead',
 				'config'      => array(
 					'fields'   => array(
@@ -1070,8 +1070,8 @@ class Nestform_Templates {
 				),
 			),
 			'bug_report'      => array(
-				'label'       => __( 'Bug report', 'nestform' ),
-				'description' => __( 'Steps to reproduce and severity.', 'nestform' ),
+				'label'       => __( 'Bug report', 'thimbleform' ),
+				'description' => __( 'Steps to reproduce and severity.', 'thimbleform' ),
 				'category'    => 'contact',
 				'config'      => array(
 					'fields'   => array(
@@ -1125,8 +1125,8 @@ class Nestform_Templates {
 				),
 			),
 			'maintenance'     => array(
-				'label'       => __( 'Maintenance request', 'nestform' ),
-				'description' => __( 'Facility issue with urgency level.', 'nestform' ),
+				'label'       => __( 'Maintenance request', 'thimbleform' ),
+				'description' => __( 'Facility issue with urgency level.', 'thimbleform' ),
 				'category'    => 'contact',
 				'config'      => array(
 					'fields'   => array(
@@ -1172,8 +1172,8 @@ class Nestform_Templates {
 				),
 			),
 			'vendor_inquiry'  => array(
-				'label'       => __( 'Vendor inquiry', 'nestform' ),
-				'description' => __( 'Supplier onboarding questionnaire.', 'nestform' ),
+				'label'       => __( 'Vendor inquiry', 'thimbleform' ),
+				'description' => __( 'Supplier onboarding questionnaire.', 'thimbleform' ),
 				'category'    => 'lead',
 				'config'      => array(
 					'fields'   => array(
@@ -1227,8 +1227,8 @@ class Nestform_Templates {
 				),
 			),
 			'referral'        => array(
-				'label'       => __( 'Referral', 'nestform' ),
-				'description' => __( 'Refer someone with contact details.', 'nestform' ),
+				'label'       => __( 'Referral', 'thimbleform' ),
+				'description' => __( 'Refer someone with contact details.', 'thimbleform' ),
 				'category'    => 'lead',
 				'config'      => array(
 					'fields'   => array(
@@ -1285,8 +1285,8 @@ class Nestform_Templates {
 				),
 			),
 			'employee_feedback' => array(
-				'label'       => __( 'Employee feedback', 'nestform' ),
-				'description' => __( 'Anonymous-style team pulse check.', 'nestform' ),
+				'label'       => __( 'Employee feedback', 'thimbleform' ),
+				'description' => __( 'Anonymous-style team pulse check.', 'thimbleform' ),
 				'category'    => 'survey',
 				'config'      => array(
 					'fields'   => array(
@@ -1327,8 +1327,8 @@ class Nestform_Templates {
 				),
 			),
 			'order_form'      => array(
-				'label'       => __( 'Simple order', 'nestform' ),
-				'description' => __( 'Product pick, qty, shipping address.', 'nestform' ),
+				'label'       => __( 'Simple order', 'thimbleform' ),
+				'description' => __( 'Product pick, qty, shipping address.', 'thimbleform' ),
 				'category'    => 'lead',
 				'config'      => array(
 					'fields'   => array(
@@ -1385,8 +1385,8 @@ class Nestform_Templates {
 				),
 			),
 			'onboarding'      => array(
-				'label'       => __( 'Client onboarding', 'nestform' ),
-				'description' => __( 'New client intake with brand assets.', 'nestform' ),
+				'label'       => __( 'Client onboarding', 'thimbleform' ),
+				'description' => __( 'New client intake with brand assets.', 'thimbleform' ),
 				'category'    => 'lead',
 				'config'      => array(
 					'fields'   => array(
@@ -1455,8 +1455,8 @@ class Nestform_Templates {
 				),
 			),
 			'survey_quick'    => array(
-				'label'       => __( 'Quick survey', 'nestform' ),
-				'description' => __( 'Three multiple-choice questions.', 'nestform' ),
+				'label'       => __( 'Quick survey', 'thimbleform' ),
+				'description' => __( 'Three multiple-choice questions.', 'thimbleform' ),
 				'category'    => 'survey',
 				'config'      => array(
 					'fields'   => array(
@@ -1499,8 +1499,8 @@ class Nestform_Templates {
 				),
 			),
 			'restaurant_reservation' => array(
-				'label'       => __( 'Restaurant reservation', 'nestform' ),
-				'description' => __( 'Table booking with date, time, and party size.', 'nestform' ),
+				'label'       => __( 'Restaurant reservation', 'thimbleform' ),
+				'description' => __( 'Table booking with date, time, and party size.', 'thimbleform' ),
 				'category'    => 'other',
 				'config'      => array(
 					'fields'   => array(
@@ -1574,8 +1574,8 @@ class Nestform_Templates {
 				),
 			),
 			'product_review' => array(
-				'label'       => __( 'Product review', 'nestform' ),
-				'description' => __( 'Star rating, product name, and written review.', 'nestform' ),
+				'label'       => __( 'Product review', 'thimbleform' ),
+				'description' => __( 'Star rating, product name, and written review.', 'thimbleform' ),
 				'category'    => 'survey',
 				'config'      => array(
 					'fields'   => array(
@@ -1635,8 +1635,8 @@ class Nestform_Templates {
 				),
 			),
 			'giveaway' => array(
-				'label'       => __( 'Giveaway / contest', 'nestform' ),
-				'description' => __( 'Contest entry with email and consent.', 'nestform' ),
+				'label'       => __( 'Giveaway / contest', 'thimbleform' ),
+				'description' => __( 'Contest entry with email and consent.', 'thimbleform' ),
 				'category'    => 'other',
 				'config'      => array(
 					'fields'   => array(
@@ -1694,8 +1694,8 @@ class Nestform_Templates {
 				),
 			),
 			'gdpr_request' => array(
-				'label'       => __( 'GDPR data request', 'nestform' ),
-				'description' => __( 'Access, export, or delete personal data.', 'nestform' ),
+				'label'       => __( 'GDPR data request', 'thimbleform' ),
+				'description' => __( 'Access, export, or delete personal data.', 'thimbleform' ),
 				'category'    => 'contact',
 				'config'      => array(
 					'fields'   => array(
@@ -1746,8 +1746,8 @@ class Nestform_Templates {
 				),
 			),
 			'multi_step_intake' => array(
-				'label'       => __( 'Multi-step intake', 'nestform' ),
-				'description' => __( 'Contact, project scope, then files (Pro).', 'nestform' ),
+				'label'       => __( 'Multi-step intake', 'thimbleform' ),
+				'description' => __( 'Contact, project scope, then files (Pro).', 'thimbleform' ),
 				'category'    => 'lead',
 				'requires'    => array( 'multi_step' ),
 				'config'      => array(
@@ -1854,8 +1854,8 @@ class Nestform_Templates {
 				),
 			),
 			'real_estate' => array(
-				'label'       => __( 'Real estate inquiry', 'nestform' ),
-				'description' => __( 'Property type, budget, and contact details.', 'nestform' ),
+				'label'       => __( 'Real estate inquiry', 'thimbleform' ),
+				'description' => __( 'Property type, budget, and contact details.', 'thimbleform' ),
 				'category'    => 'lead',
 				'config'      => array(
 					'fields'   => array(
@@ -1940,8 +1940,8 @@ class Nestform_Templates {
 				),
 			),
 			'course_enrollment' => array(
-				'label'       => __( 'Course enrollment', 'nestform' ),
-				'description' => __( 'Sign up for a class with experience level.', 'nestform' ),
+				'label'       => __( 'Course enrollment', 'thimbleform' ),
+				'description' => __( 'Sign up for a class with experience level.', 'thimbleform' ),
 				'category'    => 'other',
 				'config'      => array(
 					'fields'   => array(
@@ -2001,8 +2001,8 @@ class Nestform_Templates {
 				),
 			),
 			'content_pitch' => array(
-				'label'       => __( 'Content tip / pitch', 'nestform' ),
-				'description' => __( 'Guest post or story pitch with link.', 'nestform' ),
+				'label'       => __( 'Content tip / pitch', 'thimbleform' ),
+				'description' => __( 'Guest post or story pitch with link.', 'thimbleform' ),
 				'category'    => 'other',
 				'config'      => array(
 					'fields'   => array(
@@ -2066,7 +2066,7 @@ class Nestform_Templates {
 		 *
 		 * @param array<string, array{label:string,description:string,config:array}> $templates Templates.
 		 */
-		return apply_filters( 'nestform_templates', $templates );
+		return apply_filters( 'thimbleform_templates', $templates );
 	}
 
 	/**
@@ -2084,21 +2084,21 @@ class Nestform_Templates {
 			return false;
 		}
 		$tpl     = $all[ $key ]['config'];
-		$current = Nestform_Form_Config::get( $form_id );
+		$current = Thimbleform_Form_Config::get( $form_id );
 		$config  = array(
 			'fields'   => $tpl['fields'],
 			'messages' => $current['messages'],
 			'mail'     => array_merge( $current['mail'], $tpl['mail'] ),
 			'settings' => array_merge( $current['settings'], $tpl['settings'] ),
 		);
-		Nestform_Form_Config::save( $form_id, $config );
+		Thimbleform_Form_Config::save( $form_id, $config );
 		/**
 		 * After a starter template is applied to a form.
 		 *
 		 * @param int    $form_id Form ID.
 		 * @param string $key     Template key.
 		 */
-		do_action( 'nestform_template_applied', $form_id, $key );
+		do_action( 'thimbleform_template_applied', $form_id, $key );
 		return true;
 	}
 
@@ -2116,7 +2116,7 @@ class Nestform_Templates {
 			return false;
 		}
 		foreach ( self::required_features_for_template( $all[ $key ] ) as $feature ) {
-			if ( ! class_exists( 'Nestform_Features' ) || ! Nestform_Features::can( (string) $feature ) ) {
+			if ( ! class_exists( 'Thimbleform_Features' ) || ! Thimbleform_Features::can( (string) $feature ) ) {
 				return false;
 			}
 		}
@@ -2145,14 +2145,14 @@ class Nestform_Templates {
 		$fields   = isset( $config['fields'] ) && is_array( $config['fields'] ) ? $config['fields'] : array();
 
 		if ( ! empty( $settings['enable_steps'] ) && '1' === (string) $settings['enable_steps'] ) {
-			$features[] = Nestform_Features::MULTI_STEP;
+			$features[] = Thimbleform_Features::MULTI_STEP;
 		}
 
 		$form_mode = isset( $settings['form_mode'] ) ? sanitize_key( (string) $settings['form_mode'] ) : 'form';
 		if ( in_array( $form_mode, array( 'quiz', 'survey' ), true ) ) {
 			// Survey mode is free for simple templates; quiz scoring needs Pro.
 			if ( 'quiz' === $form_mode ) {
-				$features[] = Nestform_Features::QUIZ_SURVEY;
+				$features[] = Thimbleform_Features::QUIZ_SURVEY;
 			}
 		}
 
@@ -2161,10 +2161,10 @@ class Nestform_Templates {
 				continue;
 			}
 			$type = isset( $field['type'] ) ? sanitize_key( (string) $field['type'] ) : '';
-			if ( '' === $type || ! class_exists( 'Nestform_Features' ) || ! Nestform_Features::is_pro_field_type( $type ) ) {
+			if ( '' === $type || ! class_exists( 'Thimbleform_Features' ) || ! Thimbleform_Features::is_pro_field_type( $type ) ) {
 				continue;
 			}
-			$cap = Nestform_Features::capability_for_field_type( $type );
+			$cap = Thimbleform_Features::capability_for_field_type( $type );
 			if ( '' !== $cap ) {
 				$features[] = $cap;
 			}
@@ -2195,15 +2195,15 @@ class Nestform_Templates {
 	public static function handle() {
 		$form_id = isset( $_GET['form_id'] ) ? (int) $_GET['form_id'] : 0;
 		$key     = isset( $_GET['template'] ) ? sanitize_key( wp_unslash( $_GET['template'] ) ) : '';
-		if ( $form_id <= 0 || Nestform_Post_Type::POST_TYPE !== get_post_type( $form_id ) ) {
-			wp_die( esc_html__( 'Invalid form.', 'nestform' ), 400 );
+		if ( $form_id <= 0 || Thimbleform_Post_Type::POST_TYPE !== get_post_type( $form_id ) ) {
+			wp_die( esc_html__( 'Invalid form.', 'thimbleform' ), 400 );
 		}
 		check_admin_referer( self::ACTION . '_' . $form_id );
 		if ( ! current_user_can( 'edit_post', $form_id ) ) {
-			wp_die( esc_html__( 'You do not have permission to edit this form.', 'nestform' ), 403 );
+			wp_die( esc_html__( 'You do not have permission to edit this form.', 'thimbleform' ), 403 );
 		}
 		if ( ! self::apply( $form_id, $key ) ) {
-			wp_die( esc_html__( 'Unknown template.', 'nestform' ), 400 );
+			wp_die( esc_html__( 'Unknown template.', 'thimbleform' ), 400 );
 		}
 		wp_safe_redirect( get_edit_post_link( $form_id, 'raw' ) );
 		exit;

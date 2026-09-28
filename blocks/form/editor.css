@@ -1,11 +1,11 @@
-.nestform-block-editor {
+.thimbleform-block-editor {
 	padding: 18px 16px;
 	border: 1px solid #e8e8ec;
 	border-radius: 10px;
 	background: #fafafa;
 }
 
-.nestform-block-editor__title {
+.thimbleform-block-editor__title {
 	display: block;
 	margin: 0 0 4px;
 	font-size: 13px;
@@ -13,23 +13,23 @@
 	color: #01123e;
 }
 
-.nestform-block-editor__meta {
+.thimbleform-block-editor__meta {
 	margin: 0 0 12px;
 	font-size: 12px;
 	color: #6b6b80;
 	line-height: 1.45;
 }
 
-.nestform-block-editor__picker {
+.thimbleform-block-editor__picker {
 	margin: 0 0 12px;
 	max-width: 320px;
 }
 
-.nestform-block-editor__picker .components-base-control {
+.thimbleform-block-editor__picker .components-base-control {
 	margin-bottom: 0;
 }
 
-.nestform-block-editor__code {
+.thimbleform-block-editor__code {
 	display: inline-block;
 	padding: 6px 10px;
 	border-radius: 7px;

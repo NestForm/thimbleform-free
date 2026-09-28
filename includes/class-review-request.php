@@ -9,13 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Nestform_Review_Request {
+class Thimbleform_Review_Request {
 
 	const REVIEW_URL = 'https://wordpress.org/support/plugin/thimbleform/reviews/#new-post';
 
-	const DISMISSED_META = 'nestform_review_notice_dismissed';
+	const DISMISSED_META = 'thimbleform_review_notice_dismissed';
 
-	const SNOOZED_META = 'nestform_review_notice_snoozed_until';
+	const SNOOZED_META = 'thimbleform_review_notice_snoozed_until';
 
 	const SNOOZE_SECONDS = 90 * DAY_IN_SECONDS;
 
@@ -23,7 +23,7 @@ class Nestform_Review_Request {
 
 	public static function init() {
 		add_action( 'admin_notices', array( __CLASS__, 'maybe_render_notice' ) );
-		add_action( 'admin_post_nestform_review_notice', array( __CLASS__, 'handle_response' ) );
+		add_action( 'admin_post_thimbleform_review_notice', array( __CLASS__, 'handle_response' ) );
 		add_filter( 'plugin_row_meta', array( __CLASS__, 'plugin_row_meta' ), 10, 2 );
 	}
 
@@ -31,7 +31,7 @@ class Nestform_Review_Request {
 	 * @return bool
 	 */
 	public static function is_enabled() {
-		if ( ! class_exists( 'Nestform_Settings' ) || ! Nestform_Settings::review_requests_enabled() ) {
+		if ( ! class_exists( 'Thimbleform_Settings' ) || ! Thimbleform_Settings::review_requests_enabled() ) {
 			return false;
 		}
 
@@ -40,7 +40,7 @@ class Nestform_Review_Request {
 		 *
 		 * @param bool $show Whether review prompts are allowed.
 		 */
-		return (bool) apply_filters( 'nestform_show_review_request', true );
+		return (bool) apply_filters( 'thimbleform_show_review_request', true );
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Nestform_Review_Request {
 			return false;
 		}
 
-		$view = function_exists( 'nestform_admin_current_view' ) ? nestform_admin_current_view() : '';
+		$view = function_exists( 'thimbleform_admin_current_view' ) ? thimbleform_admin_current_view() : '';
 		if ( ! in_array( $view, array( 'forms', 'entries', 'dashboard' ), true ) ) {
 			return false;
 		}
@@ -64,11 +64,11 @@ class Nestform_Review_Request {
 			return false;
 		}
 
-		if ( ! class_exists( 'Nestform_Submissions' ) ) {
+		if ( ! class_exists( 'Thimbleform_Submissions' ) ) {
 			return false;
 		}
 
-		return Nestform_Submissions::count_entries(
+		return Thimbleform_Submissions::count_entries(
 			array(
 				'skip_access_check' => true,
 			)
@@ -80,19 +80,19 @@ class Nestform_Review_Request {
 			return;
 		}
 		?>
-		<div class="notice notice-info nestform-review-notice">
+		<div class="notice notice-info thimbleform-review-notice">
 			<p>
-				<?php esc_html_e( 'You have been collecting entries with Thimbleform for a while. If it has been useful, would you write a short review on WordPress.org? It helps other site owners find the plugin.', 'nestform' ); ?>
+				<?php esc_html_e( 'You have been collecting entries with Thimbleform for a while. If it has been useful, would you write a short review on WordPress.org? It helps other site owners find the plugin.', 'thimbleform' ); ?>
 			</p>
-			<p class="nestform-review-notice__actions">
+			<p class="thimbleform-review-notice__actions">
 				<a href="<?php echo esc_url( self::response_url( 'review' ) ); ?>" target="_blank" rel="noopener noreferrer">
-					<?php esc_html_e( 'Write a review', 'nestform' ); ?>
+					<?php esc_html_e( 'Write a review', 'thimbleform' ); ?>
 				</a>
-				<a class="nestform-review-notice__secondary" href="<?php echo esc_url( self::response_url( 'later' ) ); ?>">
-					<?php esc_html_e( 'Not now', 'nestform' ); ?>
+				<a class="thimbleform-review-notice__secondary" href="<?php echo esc_url( self::response_url( 'later' ) ); ?>">
+					<?php esc_html_e( 'Not now', 'thimbleform' ); ?>
 				</a>
-				<a class="nestform-review-notice__secondary" href="<?php echo esc_url( self::response_url( 'never' ) ); ?>">
-					<?php esc_html_e( 'Don\'t ask again', 'nestform' ); ?>
+				<a class="thimbleform-review-notice__secondary" href="<?php echo esc_url( self::response_url( 'never' ) ); ?>">
+					<?php esc_html_e( 'Don\'t ask again', 'thimbleform' ); ?>
 				</a>
 			</p>
 		</div>
@@ -105,24 +105,24 @@ class Nestform_Review_Request {
 	 */
 	private static function response_url( $choice ) {
 		return wp_nonce_url(
-			admin_url( 'admin-post.php?action=nestform_review_notice&choice=' . sanitize_key( $choice ) ),
-			'nestform_review_notice'
+			admin_url( 'admin-post.php?action=thimbleform_review_notice&choice=' . sanitize_key( $choice ) ),
+			'thimbleform_review_notice'
 		);
 	}
 
 	public static function handle_response() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to do this.', 'nestform' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You do not have permission to do this.', 'thimbleform' ), '', array( 'response' => 403 ) );
 		}
 
-		check_admin_referer( 'nestform_review_notice' );
+		check_admin_referer( 'thimbleform_review_notice' );
 
 		$choice  = isset( $_GET['choice'] ) ? sanitize_key( wp_unslash( $_GET['choice'] ) ) : '';
 		$user_id = get_current_user_id();
 
 		if ( 'later' === $choice ) {
 			update_user_meta( $user_id, self::SNOOZED_META, time() + self::SNOOZE_SECONDS );
-			wp_safe_redirect( wp_get_referer() ? wp_get_referer() : admin_url( 'admin.php?page=nestform-dashboard' ) );
+			wp_safe_redirect( wp_get_referer() ? wp_get_referer() : admin_url( 'admin.php?page=thimbleform-dashboard' ) );
 			exit;
 		}
 
@@ -133,7 +133,7 @@ class Nestform_Review_Request {
 			exit;
 		}
 
-		wp_safe_redirect( wp_get_referer() ? wp_get_referer() : admin_url( 'admin.php?page=nestform-dashboard' ) );
+		wp_safe_redirect( wp_get_referer() ? wp_get_referer() : admin_url( 'admin.php?page=thimbleform-dashboard' ) );
 		exit;
 	}
 
@@ -143,14 +143,14 @@ class Nestform_Review_Request {
 	 * @return array<int|string, string>
 	 */
 	public static function plugin_row_meta( $links, $file ) {
-		if ( plugin_basename( NESTFORM_FILE ) !== $file || ! self::is_enabled() ) {
+		if ( plugin_basename( THIMBLEFORM_FILE ) !== $file || ! self::is_enabled() ) {
 			return $links;
 		}
 
 		$links[] = sprintf(
 			'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
 			esc_url( self::REVIEW_URL ),
-			esc_html__( 'Rate Thimbleform', 'nestform' )
+			esc_html__( 'Rate Thimbleform', 'thimbleform' )
 		);
 
 		return $links;

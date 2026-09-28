@@ -2,18 +2,18 @@
  * Thimbleform front: custom select + AJAX submit + CustomEvents.
  *
  * Events (bubble from <form data-nest-form>, cancelable where noted):
- * - nestform:ready
- * - nestform:before-submit       (cancelable  --  before client validation)
- * - nestform:validation-error
- * - nestform:submit              (cancelable  --  after validation + captcha, before fetch; detail.formData is the payload)
- * - nestform:success             (detail.values = submitted fields; fired before form reset)
- * - nestform:error
- * - nestform:network-error
- * - nestform:redirect            (cancelable  --  stop location change)
- * - nestform:before-step-change  (cancelable  --  before multi-step index changes)
- * - nestform:step-change
- * - nestform:select-change
- * - nestform:reset
+ * - thimbleform:ready
+ * - thimbleform:before-submit       (cancelable  --  before client validation)
+ * - thimbleform:validation-error
+ * - thimbleform:submit              (cancelable  --  after validation + captcha, before fetch; detail.formData is the payload)
+ * - thimbleform:success             (detail.values = submitted fields; fired before form reset)
+ * - thimbleform:error
+ * - thimbleform:network-error
+ * - thimbleform:redirect            (cancelable  --  stop location change)
+ * - thimbleform:before-step-change  (cancelable  --  before multi-step index changes)
+ * - thimbleform:step-change
+ * - thimbleform:select-change
+ * - thimbleform:reset
  */
 (function () {
 	'use strict';
@@ -33,7 +33,7 @@
 		form.classList.toggle('is-submitting', busy);
 		form.setAttribute('aria-busy', busy ? 'true' : 'false');
 
-		var i18n = (window.nestform && window.nestform.i18n) || {};
+		var i18n = (window.thimbleform && window.thimbleform.i18n) || {};
 		var submit = form.querySelector('.nest-form__submit');
 		if (submit) {
 			submit.disabled = busy;
@@ -261,7 +261,7 @@
 
 		if (mode === 'popup') {
 			setStatus(form, '', '');
-			var i18n = (window.nestform && window.nestform.i18n) || {};
+			var i18n = (window.thimbleform && window.thimbleform.i18n) || {};
 			var overlay = document.createElement('div');
 			overlay.className = 'nest-form-success-modal';
 			overlay.setAttribute('data-nest-form-success-modal', '');
@@ -351,8 +351,8 @@
 			if (wrap.classList.contains('nest-form__field--condition-hidden')) {
 				return;
 			}
-			/* Stripe Payment Element fills the intent after clientHints — validate in nestformEnsurePayments. */
-			if (wrap.hasAttribute('data-nestform-payment') || wrap.getAttribute('data-field-type') === 'payment') {
+			/* Stripe Payment Element fills the intent after clientHints — validate in thimbleformEnsurePayments. */
+			if (wrap.hasAttribute('data-thimbleform-payment') || wrap.getAttribute('data-field-type') === 'payment') {
 				return;
 			}
 			var name = wrap.getAttribute('data-field-name');
@@ -450,7 +450,7 @@
 			return String(radioVal || '');
 		}
 
-		var phoneVal = wrap.querySelector('[data-nestform-phone-value]');
+		var phoneVal = wrap.querySelector('[data-thimbleform-phone-value]');
 		if (phoneVal) {
 			return String(phoneVal.value || '').trim();
 		}
@@ -498,19 +498,19 @@
 
 	function setConditionRequired(wrap, enabled) {
 		wrap.querySelectorAll('input, select, textarea').forEach(function (el) {
-			if (!el.hasAttribute('data-nestform-was-required') && el.required) {
-				el.setAttribute('data-nestform-was-required', '1');
+			if (!el.hasAttribute('data-thimbleform-was-required') && el.required) {
+				el.setAttribute('data-thimbleform-was-required', '1');
 			}
-			if (el.hasAttribute('data-nestform-was-required')) {
+			if (el.hasAttribute('data-thimbleform-was-required')) {
 				el.required = !!enabled;
 			}
 		});
 		var choices = wrap.querySelector('[data-nest-form-choices]');
 		if (choices && choices.hasAttribute('data-required')) {
-			if (!choices.hasAttribute('data-nestform-was-req-flag')) {
-				choices.setAttribute('data-nestform-was-req-flag', choices.getAttribute('data-required') || '0');
+			if (!choices.hasAttribute('data-thimbleform-was-req-flag')) {
+				choices.setAttribute('data-thimbleform-was-req-flag', choices.getAttribute('data-required') || '0');
 			}
-			choices.setAttribute('data-required', enabled ? choices.getAttribute('data-nestform-was-req-flag') || '0' : '0');
+			choices.setAttribute('data-required', enabled ? choices.getAttribute('data-thimbleform-was-req-flag') || '0' : '0');
 		}
 	}
 
@@ -534,10 +534,10 @@
 		form.addEventListener('input', function () {
 			applyConditions(form);
 		});
-		form.addEventListener('nestform:select-change', function () {
+		form.addEventListener('thimbleform:select-change', function () {
 			applyConditions(form);
 		});
-		form.addEventListener('nestform:step-change', function () {
+		form.addEventListener('thimbleform:step-change', function () {
 			applyConditions(form);
 		});
 	}
@@ -700,7 +700,7 @@
 		var form = root.closest('[data-nest-form]');
 		if (form && previous !== value) {
 			var wrap = root.closest('[data-field-name]');
-			emit(form, 'nestform:select-change', {
+			emit(form, 'thimbleform:select-change', {
 				name: wrap ? wrap.getAttribute('data-field-name') || '' : '',
 				value: value,
 				previous: previous,
@@ -844,12 +844,12 @@
 	}
 
 	function closePhonePanels(except) {
-		document.querySelectorAll('[data-nestform-phone]').forEach(function (root) {
+		document.querySelectorAll('[data-thimbleform-phone]').forEach(function (root) {
 			if (except && root === except) {
 				return;
 			}
-			var panel = root.querySelector('[data-nestform-phone-panel]');
-			var toggle = root.querySelector('[data-nestform-phone-toggle]');
+			var panel = root.querySelector('[data-thimbleform-phone-panel]');
+			var toggle = root.querySelector('[data-thimbleform-phone-toggle]');
 			if (panel) {
 				panel.hidden = true;
 			}
@@ -866,9 +866,9 @@
 		}
 		var iso = root.getAttribute('data-iso') || '';
 		var dial = root.getAttribute('data-dial') || '';
-		var nationalEl = root.querySelector('[data-nestform-phone-national]');
-		var valueEl = root.querySelector('[data-nestform-phone-value]');
-		var isoEl = root.querySelector('[data-nestform-phone-iso]');
+		var nationalEl = root.querySelector('[data-thimbleform-phone-national]');
+		var valueEl = root.querySelector('[data-thimbleform-phone-value]');
+		var isoEl = root.querySelector('[data-thimbleform-phone-iso]');
 		var digits = nationalEl ? String(nationalEl.value || '').replace(/\D+/g, '') : '';
 		var e164 = '';
 		if (digits) {
@@ -893,12 +893,12 @@
 			return;
 		}
 		root.dataset.phoneBound = '1';
-		var toggle = root.querySelector('[data-nestform-phone-toggle]');
-		var panel = root.querySelector('[data-nestform-phone-panel]');
-		var search = root.querySelector('[data-nestform-phone-search]');
-		var national = root.querySelector('[data-nestform-phone-national]');
-		var flagEl = root.querySelector('[data-nestform-phone-flag]');
-		var dialEl = root.querySelector('[data-nestform-phone-dial]');
+		var toggle = root.querySelector('[data-thimbleform-phone-toggle]');
+		var panel = root.querySelector('[data-thimbleform-phone-panel]');
+		var search = root.querySelector('[data-thimbleform-phone-search]');
+		var national = root.querySelector('[data-thimbleform-phone-national]');
+		var flagEl = root.querySelector('[data-thimbleform-phone-flag]');
+		var dialEl = root.querySelector('[data-thimbleform-phone-dial]');
 
 		function setCountry(iso, dial, flagUrl) {
 			root.setAttribute('data-iso', iso);
@@ -990,7 +990,7 @@
 	}
 
 	function initAllPhones(scope) {
-		(scope || document).querySelectorAll('[data-nestform-phone]').forEach(initPhone);
+		(scope || document).querySelectorAll('[data-thimbleform-phone]').forEach(initPhone);
 	}
 
 	function ensureCaptchaToken(form) {
@@ -1003,12 +1003,12 @@
 
 			var provider =
 				(box.getAttribute('data-nest-form-captcha') || '') ||
-				(window.nestformCaptcha && window.nestformCaptcha.provider) ||
+				(window.thimbleformCaptcha && window.thimbleformCaptcha.provider) ||
 				'';
 
 			if (provider === 'recaptcha_v3') {
 				var input = form.querySelector('[data-nest-form-captcha-token]');
-				var cfg = window.nestformCaptcha || {};
+				var cfg = window.thimbleformCaptcha || {};
 				if (!input) {
 					reject(new Error('Captcha token field missing'));
 					return;
@@ -1019,7 +1019,7 @@
 				}
 				grecaptcha.ready(function () {
 					grecaptcha
-						.execute(cfg.siteKey, { action: cfg.action || 'nestform' })
+						.execute(cfg.siteKey, { action: cfg.action || 'thimbleform' })
 						.then(function (token) {
 							input.value = token;
 							resolve();
@@ -1031,7 +1031,7 @@
 
 			// v2 / Turnstile / hCaptcha — token is injected into the provider field.
 			var fieldName =
-				(window.nestformCaptcha && window.nestformCaptcha.field) ||
+				(window.thimbleformCaptcha && window.thimbleformCaptcha.field) ||
 				(provider === 'turnstile'
 					? 'cf-turnstile-response'
 					: provider === 'hcaptcha'
@@ -1052,9 +1052,9 @@
 			return;
 		}
 		event.preventDefault();
-		form.querySelectorAll('[data-nestform-phone]').forEach(syncPhone);
+		form.querySelectorAll('[data-thimbleform-phone]').forEach(syncPhone);
 
-		if (!emit(form, 'nestform:before-submit', {}, true)) {
+		if (!emit(form, 'thimbleform:before-submit', {}, true)) {
 			return;
 		}
 
@@ -1063,9 +1063,9 @@
 		setStatus(form, '', '');
 
 		// On multi-step, Enter / implicit submit acts like Next until the last step (Pro).
-		if (form.hasAttribute('data-nest-form-steps') && window.nestformSteps) {
-			var steps = window.nestformSteps.getSteps(form);
-			var index = window.nestformSteps.getStepIndex(form);
+		if (form.hasAttribute('data-nest-form-steps') && window.thimbleformSteps) {
+			var steps = window.thimbleformSteps.getSteps(form);
+			var index = window.thimbleformSteps.getStepIndex(form);
 			if (index < steps.length - 1) {
 				var nextBtn = form.querySelector('[data-nest-form-next]');
 				if (nextBtn && !nextBtn.hidden) {
@@ -1079,7 +1079,7 @@
 				var lastMsg =
 					form.getAttribute('data-error-generic') || 'Please check the highlighted fields.';
 				setStatus(form, lastMsg, 'error');
-				emit(form, 'nestform:validation-error', {
+				emit(form, 'thimbleform:validation-error', {
 					errors: lastHints,
 					message: lastMsg,
 					source: 'submit-step',
@@ -1094,22 +1094,22 @@
 		if (Object.keys(hints).length) {
 			showFieldErrors(form, hints);
 			// Jump to first errored step if multi-step (Pro).
-			if (form.hasAttribute('data-nest-form-steps') && window.nestformSteps) {
+			if (form.hasAttribute('data-nest-form-steps') && window.thimbleformSteps) {
 				var firstName = Object.keys(hints)[0];
 				var wrap = form.querySelector('[data-field-name="' + firstName + '"]');
 				if (wrap) {
 					var errStep = parseInt(wrap.getAttribute('data-field-step') || '1', 10);
-					var allSteps = window.nestformSteps.getSteps(form);
+					var allSteps = window.thimbleformSteps.getSteps(form);
 					var jump = allSteps.indexOf(errStep);
 					if (jump >= 0) {
-						window.nestformSteps.setStepIndex(form, jump, { reason: 'validation' });
+						window.thimbleformSteps.setStepIndex(form, jump, { reason: 'validation' });
 					}
 				}
 			}
 			var hintMsg =
 				form.getAttribute('data-error-generic') || 'Please check the highlighted fields.';
 			setStatus(form, hintMsg, 'error');
-			emit(form, 'nestform:validation-error', {
+			emit(form, 'thimbleform:validation-error', {
 				errors: hints,
 				message: hintMsg,
 				source: 'submit',
@@ -1121,8 +1121,8 @@
 
 		ensureCaptchaToken(form)
 			.then(function () {
-				if (typeof window.nestformEnsurePayments === 'function') {
-					return window.nestformEnsurePayments(form);
+				if (typeof window.thimbleformEnsurePayments === 'function') {
+					return window.thimbleformEnsurePayments(form);
 				}
 				return null;
 			})
@@ -1131,7 +1131,7 @@
 				if (
 					!emit(
 						form,
-						'nestform:submit',
+						'thimbleform:submit',
 						{
 							formData: body,
 						},
@@ -1143,7 +1143,7 @@
 				}
 
 				var ajaxUrl =
-					(window.nestform && window.nestform.ajaxUrl) || form.getAttribute('action');
+					(window.thimbleform && window.thimbleform.ajaxUrl) || form.getAttribute('action');
 
 				return fetch(ajaxUrl, {
 					method: 'POST',
@@ -1166,7 +1166,7 @@
 				if (json.success) {
 					var values = formValuesOf(form);
 					var redirect = data.redirect || '';
-					emit(form, 'nestform:success', {
+					emit(form, 'thimbleform:success', {
 						message: data.message || '',
 						redirect: redirect,
 						entryId: data.entry_id || 0,
@@ -1180,8 +1180,8 @@
 					if (token) {
 						token.value = '';
 					}
-					if (form.hasAttribute('data-nest-form-steps') && window.nestformSteps) {
-						window.nestformSteps.setStepIndex(form, 0, { reason: 'success', force: true });
+					if (form.hasAttribute('data-nest-form-steps') && window.thimbleformSteps) {
+						window.thimbleformSteps.setStepIndex(form, 0, { reason: 'success', force: true });
 					}
 					// Quiz/pro may render a rich result panel; otherwise show thank-you UI.
 					if (!data.result) {
@@ -1195,7 +1195,7 @@
 							if (
 								emit(
 									form,
-									'nestform:redirect',
+									'thimbleform:redirect',
 									{
 										url: redirect,
 										message: data.message || '',
@@ -1221,19 +1221,19 @@
 				}
 
 				showFieldErrors(form, data.errors || {});
-				if (form.hasAttribute('data-nest-form-steps') && data.errors && window.nestformSteps) {
+				if (form.hasAttribute('data-nest-form-steps') && data.errors && window.thimbleformSteps) {
 					var errName = Object.keys(data.errors)[0];
 					var errWrap = form.querySelector('[data-field-name="' + errName + '"]');
 					if (errWrap) {
 						var s = parseInt(errWrap.getAttribute('data-field-step') || '1', 10);
-						var idx = window.nestformSteps.getSteps(form).indexOf(s);
+						var idx = window.thimbleformSteps.getSteps(form).indexOf(s);
 						if (idx >= 0) {
-							window.nestformSteps.setStepIndex(form, idx, { reason: 'server-error' });
+							window.thimbleformSteps.setStepIndex(form, idx, { reason: 'server-error' });
 						}
 					}
 				}
 				setStatus(form, data.message || 'Error', 'error');
-				emit(form, 'nestform:error', {
+				emit(form, 'thimbleform:error', {
 					message: data.message || '',
 					errors: data.errors || {},
 					data: data,
@@ -1241,13 +1241,13 @@
 			})
 			.catch(function (err) {
 				setSubmitting(form, false);
-				if (err && err.nestformPayment) {
+				if (err && err.thimbleformPayment) {
 					setStatus(form, (err && err.message) || 'Payment failed', 'error');
 					return;
 				}
 				var netMsg = (err && err.message) || 'Network error. Please try again.';
 				setStatus(form, netMsg, 'error');
-				emit(form, 'nestform:network-error', {
+				emit(form, 'thimbleform:network-error', {
 					message: netMsg,
 					error: err || null,
 				});
@@ -1272,7 +1272,7 @@
 		if (!event.target.closest('[data-nest-form-select]')) {
 			closeAll();
 		}
-		if (!event.target.closest('[data-nestform-phone]')) {
+		if (!event.target.closest('[data-thimbleform-phone]')) {
 			closePhonePanels();
 		}
 	});
@@ -1284,11 +1284,11 @@
 		}
 		window.setTimeout(function () {
 			form.querySelectorAll('[data-nest-form-select]').forEach(syncFromNative);
-			form.querySelectorAll('[data-nestform-phone]').forEach(syncPhone);
-			if (form.hasAttribute('data-nest-form-steps') && window.nestformSteps) {
-				window.nestformSteps.setStepIndex(form, 0, { reason: 'reset', force: true });
+			form.querySelectorAll('[data-thimbleform-phone]').forEach(syncPhone);
+			if (form.hasAttribute('data-nest-form-steps') && window.thimbleformSteps) {
+				window.thimbleformSteps.setStepIndex(form, 0, { reason: 'reset', force: true });
 			}
-			emit(form, 'nestform:reset', {});
+			emit(form, 'thimbleform:reset', {});
 		}, 0);
 	});
 
@@ -1322,7 +1322,7 @@
 				syncOtherField(scope);
 			});
 		});
-		document.addEventListener('nestform:select-change', function (event) {
+		document.addEventListener('thimbleform:select-change', function (event) {
 			var form = event.target && event.target.closest ? event.target.closest('[data-nest-form]') : null;
 			if (!form) {
 				return;
@@ -1337,11 +1337,11 @@
 		initOtherFields(document);
 		document.querySelectorAll('[data-nest-form]').forEach(function (form) {
 			initConditions(form);
-			if (typeof window.nestformInitProFront === 'function') {
-				window.nestformInitProFront(form);
+			if (typeof window.thimbleformInitProFront === 'function') {
+				window.thimbleformInitProFront(form);
 			}
-			emit(form, 'nestform:ready', {
-				steps: window.nestformSteps ? window.nestformSteps.getSteps(form) : [],
+			emit(form, 'thimbleform:ready', {
+				steps: window.thimbleformSteps ? window.thimbleformSteps.getSteps(form) : [],
 			});
 		});
 	}
@@ -1352,31 +1352,31 @@
 		boot();
 	}
 
-	window.nestformEmit = emit;
-	window.nestformFormMsg = formMsg;
-	window.nestformClientHints = clientHints;
-	window.nestformClearErrors = clearErrors;
-	window.nestformSetStatus = setStatus;
-	window.nestformConditionPasses = conditionPasses;
+	window.thimbleformEmit = emit;
+	window.thimbleformFormMsg = formMsg;
+	window.thimbleformClientHints = clientHints;
+	window.thimbleformClearErrors = clearErrors;
+	window.thimbleformSetStatus = setStatus;
+	window.thimbleformConditionPasses = conditionPasses;
 
-	window.nestformSelect = {
+	window.thimbleformSelect = {
 		init: initAllSelects,
 		sync: syncFromNative,
 		closeAll: closeAll,
 	};
 
-	window.nestformEvents = [
-		'nestform:ready',
-		'nestform:before-submit',
-		'nestform:validation-error',
-		'nestform:submit',
-		'nestform:success',
-		'nestform:error',
-		'nestform:network-error',
-		'nestform:redirect',
-		'nestform:before-step-change',
-		'nestform:step-change',
-		'nestform:select-change',
-		'nestform:reset',
+	window.thimbleformEvents = [
+		'thimbleform:ready',
+		'thimbleform:before-submit',
+		'thimbleform:validation-error',
+		'thimbleform:submit',
+		'thimbleform:success',
+		'thimbleform:error',
+		'thimbleform:network-error',
+		'thimbleform:redirect',
+		'thimbleform:before-step-change',
+		'thimbleform:step-change',
+		'thimbleform:select-change',
+		'thimbleform:reset',
 	];
 })();
