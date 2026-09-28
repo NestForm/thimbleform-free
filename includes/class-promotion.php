@@ -129,7 +129,7 @@ class Nestform_Promotion {
 			__( 'Does anything I have now change?', 'nestform' ) => __( 'No. Pro is a separate add-on: it extends the screens you already use. Your forms, entries, and settings stay as they are. Thimbleform (free) must stay active — Pro builds on it.', 'nestform' ),
 			__( 'Do I need a license key for the free plugin?', 'nestform' ) => __( 'No. There is no sign-up and no key in the free plugin. Licensing belongs only to Thimbleform Pro (Freemius) after purchase.', 'nestform' ),
 			__( 'What happens if I stop paying?', 'nestform' ) => __( 'Your data is never deleted. Pro features stop applying until you activate again — then they return without rebuilding forms.', 'nestform' ),
-			__( 'How do I activate Pro?', 'nestform' ) => __( 'Buy via Freemius checkout, install the nestform-pro add-on, then activate under Thimbleform → Account (or Thimbleform → License).', 'nestform' ),
+			__( 'How do I activate Pro?', 'nestform' ) => __( 'Buy via Freemius checkout, install Thimbleform Pro, then activate under Thimbleform → Account (or Thimbleform → License).', 'nestform' ),
 			__( 'Is Agency a different product?', 'nestform' ) => __( 'No. Agency includes the same Pro features, including optional Recruiting. The license covers up to 5 sites instead of 1.', 'nestform' ),
 		);
 	}
@@ -191,7 +191,7 @@ class Nestform_Promotion {
 						<?php esc_html_e( 'Thimbleform Pro', 'nestform' ); ?>
 					</span>
 					<h2 class="nestform-upgrade__title"><?php esc_html_e( 'Forms, quizzes & surveys that convert', 'nestform' ); ?></h2>
-					<p class="nestform-upgrade__lead"><?php esc_html_e( 'Purchase via Freemius checkout, install the nestform-pro add-on, then activate under Thimbleform → Account. Agency is the same feature set on up to 5 sites.', 'nestform' ); ?></p>
+					<p class="nestform-upgrade__lead"><?php esc_html_e( 'Purchase via Freemius checkout, install Thimbleform Pro, then activate under Thimbleform → Account. Agency is the same feature set on up to 5 sites.', 'nestform' ); ?></p>
 					<div class="nestform-upgrade__billing" data-nestform-billing>
 						<button type="button" class="nestform-upgrade__bill is-active" data-plan="monthly"><?php esc_html_e( 'Monthly', 'nestform' ); ?></button>
 						<button type="button" class="nestform-upgrade__bill" data-plan="yearly"><?php esc_html_e( 'Yearly', 'nestform' ); ?></button>
@@ -242,7 +242,7 @@ class Nestform_Promotion {
 
 				<div class="nestform-admin__surface nestform-pro-bought-card">
 					<h3 class="nestform-pro-bought-card__title"><?php esc_html_e( 'Already bought it?', 'nestform' ); ?></h3>
-					<p><?php esc_html_e( 'Install nestform-pro under Plugins → Add Plugin → Upload Plugin, activate it, then open Thimbleform → Account (or Thimbleform → License) to activate your Freemius license. Keep Thimbleform (free) active — Pro is an add-on, not a replacement.', 'nestform' ); ?></p>
+					<p><?php esc_html_e( 'Install Thimbleform Pro under Plugins → Add Plugin → Upload Plugin, activate it, then open Thimbleform → Account (or Thimbleform → License) to activate your Freemius license. Keep Thimbleform (free) active — Pro is an add-on, not a replacement.', 'nestform' ); ?></p>
 				</div>
 
 				<p class="nestform-upgrade__trust nestform-pro-note">

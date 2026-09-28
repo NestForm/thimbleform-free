@@ -472,7 +472,7 @@ class Nestform_Upgrade {
 		<p class="nestform-upgrade__trust">
 			<span class="nestform-upgrade__trust-item"><?php esc_html_e( '30-day money-back guarantee', 'nestform' ); ?></span>
 			<span class="nestform-upgrade__trust-item"><?php esc_html_e( 'Cancel anytime', 'nestform' ); ?></span>
-			<span class="nestform-upgrade__trust-item"><?php esc_html_e( 'Install nestform-pro after purchase', 'nestform' ); ?></span>
+			<span class="nestform-upgrade__trust-item"><?php esc_html_e( 'Install Thimbleform Pro after purchase', 'nestform' ); ?></span>
 		</p>
 		<?php
 	}

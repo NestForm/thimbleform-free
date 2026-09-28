@@ -8,9 +8,9 @@ Not a Contact Form 7 clone — a focused product around:
 
 **Path:** `wp-content/plugins/thimbleform/`  
 **Main file:** `thimbleform.php`  
-**Version:** 2.2.1  
-**Pro add-on:** `wp-content/plugins/nestform-pro/` (sold separately on [thimbleform.app](https://thimbleform.app))  
-**Source:** [github.com/NestForm/nestform-free](https://github.com/NestForm/nestform-free)
+**Version:** 2.3.2  
+**Pro add-on:** `wp-content/plugins/thimbleform-pro/` (sold separately on [thimbleform.app](https://thimbleform.app))  
+**Source:** [github.com/NestForm/thimbleform-free](https://github.com/NestForm/thimbleform-free)
 
 WordPress.org listing copy lives in `readme.txt`.
 
@@ -37,9 +37,9 @@ Free = strong lead capture. Pro = interactive conversion flows.
 | Light / dark admin, Developers screen | Calculated fields, repeaters |
 | Stripe keys in Integrations | Stripe Payment field on forms |
 
-Capabilities are registered only by **nestform-pro** after a valid license from thimbleform.app. Filtering `nestform_is_pro` alone does not unlock gated runtime.
+Capabilities are registered only by **Thimbleform Pro** after a valid license from thimbleform.app. Filtering `nestform_is_pro` alone does not unlock gated runtime.
 
-Checkout on thimbleform.app → install **nestform-pro** → activate the key under **Forms → License**.
+Checkout on thimbleform.app → install **Thimbleform Pro** → activate the key under **Forms → License**.
 
 ## Features
 

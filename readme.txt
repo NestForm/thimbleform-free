@@ -40,7 +40,7 @@ Thimbleform is a form builder for lead capture and feedback.
 * Dashboard with submission charts
 * Light / dark admin theme
 
-**Optional Thimbleform Pro** is a **separate add-on** (`nestform-pro`), sold via Freemius and hosted outside the WordPress.org directory. Premium code is not included in this download. It adds multi-step flows, quizzes and surveys, Stripe payments, HubSpot sync, advanced fields, HTML email, PDF attachments, automations, and richer analytics. Compare features under **Thimbleform → Pro**.
+**Optional Thimbleform Pro** is a **separate add-on** (`thimbleform-pro`), sold via Freemius and hosted outside the WordPress.org directory. Premium code is not included in this download. It adds multi-step flows, quizzes and surveys, Stripe payments, HubSpot sync, advanced fields, HTML email, PDF attachments, automations, and richer analytics. Compare features under **Thimbleform → Pro**.
 
 == Installation ==
 
@@ -50,7 +50,7 @@ Thimbleform is a form builder for lead capture and feedback.
 4. Embed with the Gutenberg block or shortcode `[thimbleform id="123"]`.
 5. Documentation and hooks: [thimbleform.app/docs](https://thimbleform.app/docs).
 
-For Pro features, install the `nestform-pro` add-on from Freemius checkout / your purchase email, then activate the license under **Thimbleform → Account** or **Thimbleform → License**.
+For Pro features, install the `thimbleform-pro` add-on from Freemius checkout / your purchase email, then activate the license under **Thimbleform → Account** or **Thimbleform → License**.
 
 == Frequently Asked Questions ==
 
@@ -76,7 +76,7 @@ No. A “Powered by Thimbleform” link stays off unless you turn it on under **
 
 = Where can I read the source? =
 
-The PHP in this download is the source. CSS and JavaScript are built from the files on GitHub: [github.com/NestForm/nestform-free](https://github.com/NestForm/nestform-free). From that project, `npm run build` rebuilds the assets.
+The PHP in this download is the source. CSS and JavaScript are built from the files on GitHub: [github.com/NestForm/thimbleform-free](https://github.com/NestForm/thimbleform-free). From that project, `npm run build` rebuilds the assets.
 
 == External services ==
 

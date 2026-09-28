@@ -2,7 +2,7 @@
 /**
  * Feature capability registry (Free vs Pro).
  *
- * Free ships core forms. Pro registers capabilities after a valid license in nestform-pro.
+ * Free ships core forms. Pro registers capabilities after a valid license in Thimbleform Pro.
  *
  * @package Thimbleform
  */
