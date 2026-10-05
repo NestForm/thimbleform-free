@@ -98,7 +98,11 @@ class Thimbleform_Form_IO {
 		header( 'Content-Type: application/json; charset=utf-8' );
 		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
 		header( 'Content-Length: ' . (string) strlen( $json ) );
-		echo $json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- download body
+		$download = fopen( 'php://output', 'wb' );
+		if ( false !== $download ) {
+			fwrite( $download, $json );
+			fclose( $download );
+		}
 		exit;
 	}
 
@@ -276,9 +280,9 @@ class Thimbleform_Form_IO {
 			<input type="hidden" name="action" value="<?php echo esc_attr( self::ACTION_IMPORT ); ?>" />
 			<?php wp_nonce_field( self::ACTION_IMPORT ); ?>
 			<label class="<?php echo esc_attr( $class ); ?>">
-				<?php echo thimbleform_admin_icon_html( 'download' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php echo wp_kses( thimbleform_admin_icon_html( 'download' ), thimbleform_svg_allowed_html() ); ?>
 				<span><?php echo esc_html( $label ); ?></span>
-				<input type="file" name="thimbleform_import_file" accept="application/json,.json" required class="thimbleform-hub__import-file" onchange="this.form.submit()" />
+				<input type="file" name="thimbleform_import_file" accept="application/json,.json" required class="thimbleform-hub__import-file" />
 			</label>
 		</form>
 		<?php
@@ -305,12 +309,12 @@ class Thimbleform_Form_IO {
 				aria-expanded="false"
 				aria-haspopup="true"
 			>
-				<?php echo thimbleform_admin_icon_html( 'download' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php echo wp_kses( thimbleform_admin_icon_html( 'download' ), thimbleform_svg_allowed_html() ); ?>
 				<?php esc_html_e( 'Import', 'thimbleform' ); ?>
 			</button>
 			<div class="thimbleform-hub__import-panel" hidden>
-				<?php echo $json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-				<?php echo $ext; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php echo wp_kses( $json, thimbleform_admin_allowed_html() ); ?>
+				<?php echo wp_kses( $ext, thimbleform_admin_allowed_html() ); ?>
 			</div>
 		</div>
 		<?php

@@ -85,7 +85,11 @@ class Thimbleform_Backup {
 		header( 'Content-Type: application/json; charset=utf-8' );
 		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
 		header( 'Content-Length: ' . (string) strlen( $json ) );
-		echo $json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		$download = fopen( 'php://output', 'wb' );
+		if ( false !== $download ) {
+			fwrite( $download, $json );
+			fclose( $download );
+		}
 		exit;
 	}
 

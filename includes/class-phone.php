@@ -321,7 +321,7 @@ class Thimbleform_Phone {
 
 		echo '<div class="thimbleform-phone" data-thimbleform-phone data-iso="' . esc_attr( $iso ) . '" data-dial="' . esc_attr( $dial ) . '">';
 		echo '<button type="button" class="thimbleform-phone__cc" data-thimbleform-phone-toggle aria-expanded="false" aria-haspopup="listbox">';
-		echo self::flag_html( $iso, 'thimbleform-phone__flag' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( self::flag_html( $iso, 'thimbleform-phone__flag' ), thimbleform_form_allowed_html() );
 		echo '<span class="thimbleform-phone__dial" data-thimbleform-phone-dial>+' . esc_html( $dial ) . '</span>';
 		echo '</button>';
 		printf(
@@ -386,7 +386,7 @@ class Thimbleform_Phone {
 			esc_url( self::flag_url( $row['iso'] ) ),
 			esc_attr( strtolower( $row['iso'] . ' ' . $row['name'] . ' +' . $row['dial'] ) )
 		);
-		echo self::flag_html( $row['iso'], 'thimbleform-phone__opt-flag' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( self::flag_html( $row['iso'], 'thimbleform-phone__opt-flag' ), thimbleform_form_allowed_html() );
 		echo '<span class="thimbleform-phone__opt-name">' . esc_html( $row['name'] ) . '</span>';
 		echo '<span class="thimbleform-phone__opt-dial">+' . esc_html( $row['dial'] ) . '</span>';
 		echo '</button></li>';

@@ -381,7 +381,7 @@ class Thimbleform_Upgrade {
 		}
 		?>
 		<a class="thimbleform-app__pro" href="<?php echo esc_url( Thimbleform_Promotion::url() ); ?>">
-			<span class="thimbleform-app__pro-kicker"><?php echo thimbleform_admin_icon_html( 'pro' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG ?> <?php esc_html_e( 'Thimbleform Pro', 'thimbleform' ); ?></span>
+			<span class="thimbleform-app__pro-kicker"><?php echo wp_kses( thimbleform_admin_icon_html( 'pro' ), thimbleform_svg_allowed_html() ); ?> <?php esc_html_e( 'Thimbleform Pro', 'thimbleform' ); ?></span>
 			<span class="thimbleform-app__pro-copy"><?php esc_html_e( 'Quizzes, multi-step flows, PDF, Stripe, HubSpot, and optional Recruiting.', 'thimbleform' ); ?></span>
 			<span class="thimbleform-pro-cta thimbleform-app__pro-cta"><?php esc_html_e( 'Learn more', 'thimbleform' ); ?></span>
 		</a>
@@ -413,7 +413,7 @@ class Thimbleform_Upgrade {
 							<?php echo esc_html( (string) $plan['name'] ); ?>
 							<?php
 							if ( 'pro' === $plan_key ) {
-								echo self::pill_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+								echo wp_kses( self::pill_html(), thimbleform_admin_allowed_html() );
 							}
 							?>
 						</h2>

@@ -281,7 +281,7 @@ class Thimbleform_Admin_UI {
 		);
 		wp_print_styles( 'thimbleform-preview-frame' );
 		echo '</head><body class="thimbleform-preview-body"><div class="thimbleform-preview-shell">';
-		echo Thimbleform_Renderer::render( $form_id, array( 'preview' => true ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( Thimbleform_Renderer::render( $form_id, array( 'preview' => true ) ), thimbleform_form_allowed_html() );
 		echo '</div>';
 		wp_footer();
 		echo '</body></html>';
@@ -2057,10 +2057,13 @@ class Thimbleform_Admin_UI {
 			}
 			$attr .= ' ' . esc_attr( (string) $key ) . '="' . esc_attr( (string) $value ) . '"';
 		}
-		printf(
-			'<span class="thimbleform-admin__tip"%1$s title="%2$s" aria-label="%2$s"><span class="thimbleform-admin__tip-dot" aria-hidden="true">?</span></span>',
-			$attr, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built with esc_attr above.
-			esc_attr( $text )
+		echo wp_kses(
+			sprintf(
+				'<span class="thimbleform-admin__tip"%1$s title="%2$s" aria-label="%2$s"><span class="thimbleform-admin__tip-dot" aria-hidden="true">?</span></span>',
+				$attr,
+				esc_attr( $text )
+			),
+			thimbleform_admin_allowed_html()
 		);
 	}
 
@@ -2239,7 +2242,7 @@ class Thimbleform_Admin_UI {
 							</p>
 							<label class="thimbleform-admin__field-control" data-thimbleform-show="heading-level">
 								<span class="thimbleform-admin__label"><?php esc_html_e( 'Heading level', 'thimbleform' ); ?></span>
-								<select class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[options]' ); ?>"<?php echo self::disabled_for_show( $type, 'heading-level' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+								<select class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[options]' ); ?>"<?php disabled( self::is_disabled_for_show( $type, 'heading-level' ) ); ?>>
 									<option value="h2" <?php selected( $heading_level, 'h2' ); ?>>H2</option>
 									<option value="h3" <?php selected( $heading_level, 'h3' ); ?>>H3</option>
 									<option value="h4" <?php selected( $heading_level, 'h4' ); ?>>H4</option>
@@ -2247,11 +2250,11 @@ class Thimbleform_Admin_UI {
 							</label>
 							<div class="thimbleform-admin__field-control thimbleform-admin__field-control--full" data-thimbleform-show="image-picker">
 								<span class="thimbleform-admin__label"><?php esc_html_e( 'Image', 'thimbleform' ); ?></span>
-								<input type="hidden" name="<?php echo esc_attr( $prefix . '[default]' ); ?>" value="<?php echo esc_attr( (string) $image_id ); ?>" data-thimbleform-image-id<?php echo self::disabled_for_show( $type, 'image-picker' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> />
+								<input type="hidden" name="<?php echo esc_attr( $prefix . '[default]' ); ?>" value="<?php echo esc_attr( (string) $image_id ); ?>" data-thimbleform-image-id<?php disabled( self::is_disabled_for_show( $type, 'image-picker' ) ); ?> />
 								<div class="thimbleform-image-picker" data-thimbleform-image-picker>
 									<div class="thimbleform-image-picker__preview<?php echo $image_id > 0 ? ' has-image' : ''; ?>" data-thimbleform-image-preview>
 										<?php if ( $image_id > 0 ) : ?>
-											<?php echo wp_get_attachment_image( $image_id, 'medium', false, array( 'class' => 'thimbleform-image-picker__img' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+											<?php echo wp_kses( wp_get_attachment_image( $image_id, 'medium', false, array( 'class' => 'thimbleform-image-picker__img' ) ), thimbleform_admin_allowed_html() ); ?>
 										<?php else : ?>
 											<span class="thimbleform-image-picker__empty"><?php esc_html_e( 'No image selected', 'thimbleform' ); ?></span>
 										<?php endif; ?>
@@ -2267,16 +2270,16 @@ class Thimbleform_Admin_UI {
 									<?php esc_html_e( 'HTML content', 'thimbleform' ); ?>
 									<?php self::render_field_tip( __( 'Static content — not saved with entries. Basic HTML allowed.', 'thimbleform' ) ); ?>
 								</span>
-								<textarea class="thimbleform-admin__input thimbleform-admin__textarea" name="<?php echo esc_attr( $prefix . '[options]' ); ?>" rows="5" placeholder="<?php esc_attr_e( '<p>Intro text or <img src=\"…\" alt=\"\">', 'thimbleform' ); ?>"<?php echo self::disabled_for_show( $type, 'html-content' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_textarea( (string) ( $field['options'] ?? '' ) ); ?></textarea>
+								<textarea class="thimbleform-admin__input thimbleform-admin__textarea" name="<?php echo esc_attr( $prefix . '[options]' ); ?>" rows="5" placeholder="<?php esc_attr_e( '<p>Intro text or <img src=\"…\" alt=\"\">', 'thimbleform' ); ?>"<?php disabled( self::is_disabled_for_show( $type, 'html-content' ) ); ?>><?php echo esc_textarea( (string) ( $field['options'] ?? '' ) ); ?></textarea>
 							</label>
 							<label class="thimbleform-admin__field-control thimbleform-admin__field-control--full" data-thimbleform-show="paragraph-text">
 								<span class="thimbleform-admin__label"><?php esc_html_e( 'Paragraph', 'thimbleform' ); ?></span>
-								<textarea class="thimbleform-admin__input thimbleform-admin__textarea" name="<?php echo esc_attr( $prefix . '[options]' ); ?>" rows="4" placeholder="<?php esc_attr_e( 'Intro or helper text shown on the form.', 'thimbleform' ); ?>"<?php echo self::disabled_for_show( $type, 'paragraph-text' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_textarea( 'paragraph' === $type ? (string) ( $field['options'] ?? '' ) : '' ); ?></textarea>
+								<textarea class="thimbleform-admin__input thimbleform-admin__textarea" name="<?php echo esc_attr( $prefix . '[options]' ); ?>" rows="4" placeholder="<?php esc_attr_e( 'Intro or helper text shown on the form.', 'thimbleform' ); ?>"<?php disabled( self::is_disabled_for_show( $type, 'paragraph-text' ) ); ?>><?php echo esc_textarea( 'paragraph' === $type ? (string) ( $field['options'] ?? '' ) : '' ); ?></textarea>
 							</label>
 							<label class="thimbleform-admin__field-control" data-thimbleform-show="spacer-size">
 								<span class="thimbleform-admin__label"><?php esc_html_e( 'Spacer size', 'thimbleform' ); ?></span>
 								<?php $spacer_size = in_array( (string) ( $field['options'] ?? '' ), array( 's', 'm', 'l' ), true ) ? (string) $field['options'] : 'm'; ?>
-								<select class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[options]' ); ?>"<?php echo self::disabled_for_show( $type, 'spacer-size' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+								<select class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[options]' ); ?>"<?php disabled( self::is_disabled_for_show( $type, 'spacer-size' ) ); ?>>
 									<option value="s" <?php selected( $spacer_size, 's' ); ?>><?php esc_html_e( 'Small', 'thimbleform' ); ?></option>
 									<option value="m" <?php selected( $spacer_size, 'm' ); ?>><?php esc_html_e( 'Medium', 'thimbleform' ); ?></option>
 									<option value="l" <?php selected( $spacer_size, 'l' ); ?>><?php esc_html_e( 'Large', 'thimbleform' ); ?></option>
@@ -2284,7 +2287,7 @@ class Thimbleform_Admin_UI {
 							</label>
 							<label class="thimbleform-admin__field-control thimbleform-admin__field-control--full" data-thimbleform-show="phone-country">
 								<span class="thimbleform-admin__label">
-									<input type="checkbox" value="1" data-thimbleform-phone-picker <?php checked( $phone_picker ); ?> <?php echo self::disabled_for_show( $type, 'phone-country' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> />
+									<input type="checkbox" value="1" data-thimbleform-phone-picker <?php checked( $phone_picker ); ?> <?php disabled( self::is_disabled_for_show( $type, 'phone-country' ) ); ?> />
 									<?php esc_html_e( 'Country picker', 'thimbleform' ); ?>
 								</span>
 							</label>
@@ -2306,18 +2309,18 @@ class Thimbleform_Admin_UI {
 									<?php esc_html_e( 'Allowed extensions', 'thimbleform' ); ?>
 									<?php self::render_field_tip( __( 'Comma-separated, e.g. jpg,png,pdf', 'thimbleform' ) ); ?>
 								</span>
-								<input type="text" class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[options]' ); ?>" value="<?php echo esc_attr( (string) ( $field['options'] ?? Thimbleform_Form_Config::file_default_extensions() ) ); ?>" placeholder="<?php echo esc_attr( Thimbleform_Form_Config::file_default_extensions() ); ?>"<?php echo self::disabled_for_show( $type, 'file-limits' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> />
+								<input type="text" class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[options]' ); ?>" value="<?php echo esc_attr( (string) ( $field['options'] ?? Thimbleform_Form_Config::file_default_extensions() ) ); ?>" placeholder="<?php echo esc_attr( Thimbleform_Form_Config::file_default_extensions() ); ?>"<?php disabled( self::is_disabled_for_show( $type, 'file-limits' ) ); ?> />
 							</label>
 							<label class="thimbleform-admin__field-control" data-thimbleform-show="file-max">
 								<span class="thimbleform-admin__label"><?php esc_html_e( 'Max size (MB)', 'thimbleform' ); ?></span>
-								<input type="number" min="1" max="50" step="1" class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[placeholder]' ); ?>" value="<?php echo esc_attr( (string) ( $field['placeholder'] ?? Thimbleform_Form_Config::file_default_max_mb() ) ); ?>" data-thimbleform-file-max<?php echo self::disabled_for_show( $type, 'file-max' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> />
+								<input type="number" min="1" max="50" step="1" class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[placeholder]' ); ?>" value="<?php echo esc_attr( (string) ( $field['placeholder'] ?? Thimbleform_Form_Config::file_default_max_mb() ) ); ?>" data-thimbleform-file-max<?php disabled( self::is_disabled_for_show( $type, 'file-max' ) ); ?> />
 							</label>
 							<label class="thimbleform-admin__field-control" data-thimbleform-show="file-max">
 								<span class="thimbleform-admin__label">
 									<?php esc_html_e( 'Max files', 'thimbleform' ); ?>
 									<?php self::render_field_tip( __( '1–10. More than 1 enables multiple upload.', 'thimbleform' ) ); ?>
 								</span>
-								<input type="number" min="1" max="10" step="1" class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[default]' ); ?>" value="<?php echo esc_attr( (string) max( 1, (int) ( $field['default'] ?? 1 ) ) ); ?>"<?php echo self::disabled_for_show( $type, 'file-max' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> />
+								<input type="number" min="1" max="10" step="1" class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[default]' ); ?>" value="<?php echo esc_attr( (string) max( 1, (int) ( $field['default'] ?? 1 ) ) ); ?>"<?php disabled( self::is_disabled_for_show( $type, 'file-max' ) ); ?> />
 							</label>
 							<label class="thimbleform-admin__field-control thimbleform-admin__field-control--full" data-thimbleform-show="options">
 								<?php
@@ -2351,7 +2354,7 @@ class Thimbleform_Admin_UI {
 									<span data-thimbleform-options-label><?php echo esc_html( $options_label ); ?></span>
 									<?php self::render_field_tip( $options_tip, array( 'data-thimbleform-options-tip' => '1' ) ); ?>
 								</span>
-								<textarea class="thimbleform-admin__input thimbleform-admin__textarea" name="<?php echo esc_attr( $prefix . '[options]' ); ?>" rows="3" data-thimbleform-options-input placeholder="<?php echo esc_attr( $options_ph ); ?>"<?php echo self::disabled_for_show( $type, 'options' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_textarea( in_array( $type, array( 'calculated', 'payment' ), true ) ? '' : (string) ( $field['options'] ?? '' ) ); ?></textarea>
+								<textarea class="thimbleform-admin__input thimbleform-admin__textarea" name="<?php echo esc_attr( $prefix . '[options]' ); ?>" rows="3" data-thimbleform-options-input placeholder="<?php echo esc_attr( $options_ph ); ?>"<?php disabled( self::is_disabled_for_show( $type, 'options' ) ); ?>><?php echo esc_textarea( in_array( $type, array( 'calculated', 'payment' ), true ) ? '' : (string) ( $field['options'] ?? '' ) ); ?></textarea>
 								<p class="thimbleform-admin__hint" data-thimbleform-options-hint><?php echo esc_html( $options_hint ); ?></p>
 							</label>
 							<?php
@@ -2382,7 +2385,7 @@ class Thimbleform_Admin_UI {
 											placeholder="9.99"
 											autocomplete="off"
 											data-thimbleform-payment-amount
-											<?php echo self::disabled_for_show( $type, 'payment-setup' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+											<?php disabled( self::is_disabled_for_show( $type, 'payment-setup' ) ); ?>
 										/>
 									</label>
 									<label class="thimbleform-admin__field-control">
@@ -2394,7 +2397,7 @@ class Thimbleform_Admin_UI {
 											class="thimbleform-admin__input"
 											name="<?php echo esc_attr( $prefix . '[payment_currency]' ); ?>"
 											data-thimbleform-payment-currency
-											<?php echo self::disabled_for_show( $type, 'payment-setup' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+											<?php disabled( self::is_disabled_for_show( $type, 'payment-setup' ) ); ?>
 										>
 											<?php foreach ( $pay_codes as $code ) : ?>
 												<option value="<?php echo esc_attr( $code ); ?>" <?php selected( $pay_currency, $code ); ?>><?php echo esc_html( $code ); ?></option>
@@ -2408,7 +2411,7 @@ class Thimbleform_Admin_UI {
 									<?php esc_html_e( 'Formula', 'thimbleform' ); ?>
 									<?php self::render_field_tip( __( 'Use field names in braces. Operators: + - * / ( ). Functions: min(), max(), round(). Example: {price} * {qty}', 'thimbleform' ) ); ?>
 								</span>
-								<textarea class="thimbleform-admin__input thimbleform-admin__textarea" name="<?php echo esc_attr( $prefix . '[options]' ); ?>" rows="2" placeholder="{price} * {qty}"<?php echo self::disabled_for_show( $type, 'formula' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_textarea( 'calculated' === $type ? (string) ( $field['options'] ?? '' ) : '' ); ?></textarea>
+								<textarea class="thimbleform-admin__input thimbleform-admin__textarea" name="<?php echo esc_attr( $prefix . '[options]' ); ?>" rows="2" placeholder="{price} * {qty}"<?php disabled( self::is_disabled_for_show( $type, 'formula' ) ); ?>><?php echo esc_textarea( 'calculated' === $type ? (string) ( $field['options'] ?? '' ) : '' ); ?></textarea>
 								<p class="thimbleform-admin__hint" data-thimbleform-show="formula">
 									<?php esc_html_e( 'Names must match other fields’ Name (slug), e.g. price and qty → {price} * {qty}. The value is recalculated on the server on submit.', 'thimbleform' ); ?>
 								</p>
@@ -2462,7 +2465,7 @@ class Thimbleform_Admin_UI {
 							</div>
 							<div class="thimbleform-admin__other-row" data-thimbleform-other-row>
 								<label class="thimbleform-admin__check thimbleform-admin__field-control thimbleform-admin__other-row__allow" data-thimbleform-show="choice-other">
-									<input type="checkbox" name="<?php echo esc_attr( $prefix . '[allow_other]' ); ?>" value="1" <?php checked( ! empty( $field['allow_other'] ) ); ?> data-thimbleform-allow-other<?php echo self::disabled_for_show( $type, 'choice-other' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> />
+									<input type="checkbox" name="<?php echo esc_attr( $prefix . '[allow_other]' ); ?>" value="1" <?php checked( ! empty( $field['allow_other'] ) ); ?> data-thimbleform-allow-other<?php disabled( self::is_disabled_for_show( $type, 'choice-other' ) ); ?> />
 									<span class="thimbleform-admin__other-row__allow-text"><?php esc_html_e( 'Allow “Other” with a text field', 'thimbleform' ); ?></span>
 								</label>
 								<label class="thimbleform-admin__field-control thimbleform-admin__other-row__label" data-thimbleform-show="choice-other" data-thimbleform-other-label<?php echo empty( $field['allow_other'] ) ? ' hidden' : ''; ?>>
@@ -2470,7 +2473,7 @@ class Thimbleform_Admin_UI {
 										<?php esc_html_e( 'Other label', 'thimbleform' ); ?>
 										<?php self::render_field_tip( __( 'Text shown for the extra choice. Leave empty for “Other”.', 'thimbleform' ) ); ?>
 									</span>
-									<input type="text" class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[other_label]' ); ?>" value="<?php echo esc_attr( (string) ( $field['other_label'] ?? '' ) ); ?>" placeholder="<?php esc_attr_e( 'Other', 'thimbleform' ); ?>"<?php echo self::disabled_for_show( $type, 'choice-other' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> />
+									<input type="text" class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[other_label]' ); ?>" value="<?php echo esc_attr( (string) ( $field['other_label'] ?? '' ) ); ?>" placeholder="<?php esc_attr_e( 'Other', 'thimbleform' ); ?>"<?php disabled( self::is_disabled_for_show( $type, 'choice-other' ) ); ?> />
 								</label>
 							</div>
 							</div>
@@ -2492,15 +2495,15 @@ class Thimbleform_Admin_UI {
 										<?php esc_html_e( 'Placeholder', 'thimbleform' ); ?>
 										<?php self::render_field_tip( __( 'Text inputs: hint inside the field. Select: label on the custom trigger when nothing is chosen.', 'thimbleform' ) ); ?>
 									</span>
-									<input type="text" class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[placeholder]' ); ?>" value="<?php echo esc_attr( $ph_val ); ?>" data-thimbleform-placeholder placeholder="<?php echo esc_attr( 'select' === $type ? __( 'Select...', 'thimbleform' ) : __( 'Optional hint', 'thimbleform' ) ); ?>"<?php echo self::disabled_for_show( $type, 'placeholder' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> />
+									<input type="text" class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[placeholder]' ); ?>" value="<?php echo esc_attr( $ph_val ); ?>" data-thimbleform-placeholder placeholder="<?php echo esc_attr( 'select' === $type ? __( 'Select...', 'thimbleform' ) : __( 'Optional hint', 'thimbleform' ) ); ?>"<?php disabled( self::is_disabled_for_show( $type, 'placeholder' ) ); ?> />
 								</label>
 								<label class="thimbleform-admin__field-control" data-thimbleform-show="default">
 									<span class="thimbleform-admin__label"><?php esc_html_e( 'Default value', 'thimbleform' ); ?></span>
-									<input type="text" class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[default]' ); ?>" value="<?php echo esc_attr( $def_val ); ?>"<?php echo self::disabled_for_show( $type, 'default' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> />
+									<input type="text" class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[default]' ); ?>" value="<?php echo esc_attr( $def_val ); ?>"<?php disabled( self::is_disabled_for_show( $type, 'default' ) ); ?> />
 								</label>
 								<label class="thimbleform-admin__field-control" data-thimbleform-show="description">
 									<span class="thimbleform-admin__label" data-thimbleform-description-label><?php echo 'image' === $type ? esc_html__( 'Alt text', 'thimbleform' ) : esc_html__( 'Help text', 'thimbleform' ); ?></span>
-									<input type="text" class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[description]' ); ?>" value="<?php echo esc_attr( $desc_val ); ?>" data-thimbleform-description placeholder="<?php echo esc_attr( 'image' === $type ? __( 'Describe the image', 'thimbleform' ) : __( 'Shown under the field', 'thimbleform' ) ); ?>"<?php echo self::disabled_for_show( $type, 'description' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> />
+									<input type="text" class="thimbleform-admin__input" name="<?php echo esc_attr( $prefix . '[description]' ); ?>" value="<?php echo esc_attr( $desc_val ); ?>" data-thimbleform-description placeholder="<?php echo esc_attr( 'image' === $type ? __( 'Describe the image', 'thimbleform' ) : __( 'Shown under the field', 'thimbleform' ) ); ?>"<?php disabled( self::is_disabled_for_show( $type, 'description' ) ); ?> />
 								</label>
 								<label class="thimbleform-admin__field-control">
 									<span class="thimbleform-admin__label"><?php esc_html_e( 'Width', 'thimbleform' ); ?></span>
@@ -2902,7 +2905,7 @@ class Thimbleform_Admin_UI {
 					</div>
 					<p class="description"><?php esc_html_e( 'Or pick this form in the Gutenberg Thimbleform block or an ACF Form field.', 'thimbleform' ); ?></p>
 					<?php if ( $qr_svg !== '' ) : ?>
-						<div class="thimbleform-embed__qr"><?php echo $qr_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- generated SVG ?></div>
+						<div class="thimbleform-embed__qr"><?php echo wp_kses( $qr_svg, thimbleform_svg_allowed_html() ); ?></div>
 					<?php endif; ?>
 				</div>
 			</details>
@@ -3314,17 +3317,19 @@ class Thimbleform_Admin_UI {
 	}
 
 	/**
-	 * Disable inactive named controls so shared keys (options/default) do not collide on save.
+	 * Whether a named control is inactive for this field type.
+	 *
+	 * Inactive controls are disabled so shared keys (options/default) do not collide on save.
 	 *
 	 * @param string $type Current field type.
 	 * @param string $key  data-thimbleform-show key.
-	 * @return string
+	 * @return bool
 	 */
-	private static function disabled_for_show( $type, $key ) {
+	private static function is_disabled_for_show( $type, $key ) {
 		$map = self::show_for_types();
 		if ( ! isset( $map[ $key ] ) ) {
-			return '';
+			return false;
 		}
-		return in_array( $type, $map[ $key ], true ) ? '' : ' disabled';
+		return ! in_array( $type, $map[ $key ], true );
 	}
 }

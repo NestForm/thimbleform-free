@@ -41,7 +41,7 @@ class Thimbleform_Renderer {
 			return '';
 		}
 
-		return self::render( $form_id );
+		return wp_kses( self::render( $form_id ), thimbleform_form_allowed_html() );
 	}
 
 	/**
@@ -135,12 +135,12 @@ class Thimbleform_Renderer {
 		>
 			<input type="hidden" name="action" value="thimbleform_submit" />
 			<?php
-			echo apply_filters( 'thimbleform_form_quiz_inputs', '', $form_id, $settings ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pro returns escaped inputs.
+			echo wp_kses( (string) apply_filters( 'thimbleform_form_quiz_inputs', '', $form_id, $settings ), thimbleform_form_allowed_html() );
 			?>
 			<div class="thimbleform__result" data-thimbleform-result hidden></div>
 			<input type="hidden" name="form_id" value="<?php echo esc_attr( (string) $form_id ); ?>" />
 			<input type="hidden" name="thimbleform_loaded_at" value="<?php echo esc_attr( (string) time() ); ?>" />
-			<?php echo apply_filters( 'thimbleform_form_hidden_inputs', '', $form_id, $settings, $fields ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pro returns escaped inputs. ?>
+			<?php echo wp_kses( (string) apply_filters( 'thimbleform_form_hidden_inputs', '', $form_id, $settings, $fields ), thimbleform_form_allowed_html() ); ?>
 			<?php wp_nonce_field( 'thimbleform_submit_' . $form_id, 'thimbleform_nonce' ); ?>
 			<?php if ( $is_preview ) : ?>
 				<input type="hidden" name="thimbleform_preview" value="1" />
@@ -153,16 +153,16 @@ class Thimbleform_Renderer {
 				</label>
 			</div>
 
-			<?php echo apply_filters( 'thimbleform_form_progress_html', '', $form_id, $settings, $fields ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pro returns escaped markup. ?>
+			<?php echo wp_kses( (string) apply_filters( 'thimbleform_form_progress_html', '', $form_id, $settings, $fields ), thimbleform_form_allowed_html() ); ?>
 
 			<div class="thimbleform__fields">
 				<?php
 				$fields_html = apply_filters( 'thimbleform_form_fields_html', null, $fields, $uid, $settings );
 				if ( is_string( $fields_html ) ) {
-					echo $fields_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pro builds field markup via render_field().
+					echo wp_kses( $fields_html, thimbleform_form_allowed_html() );
 				} else {
 					foreach ( $fields as $field ) {
-						echo self::render_field( $field, $uid, false ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo wp_kses( self::render_field( $field, $uid, false ), thimbleform_form_allowed_html() );
 					}
 				}
 				?>
@@ -188,7 +188,7 @@ class Thimbleform_Renderer {
 				<?php
 				$actions_html = apply_filters( 'thimbleform_form_actions_html', null, $settings, $fields );
 				if ( is_string( $actions_html ) ) {
-					echo $actions_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pro returns escaped buttons.
+					echo wp_kses( $actions_html, thimbleform_form_allowed_html() );
 				} else {
 					?>
 					<button type="submit" class="button button--primary thimbleform__submit">
@@ -205,7 +205,7 @@ class Thimbleform_Renderer {
 		if ( class_exists( 'Thimbleform_Settings' ) ) {
 			$credit = Thimbleform_Settings::credit_html();
 			if ( $credit !== '' ) {
-				echo $credit; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in credit_html()
+				echo wp_kses( $credit, thimbleform_form_allowed_html() );
 			}
 		}
 		$html = ob_get_clean();
@@ -217,7 +217,8 @@ class Thimbleform_Renderer {
 		 * @param int    $form_id Form ID.
 		 * @param array  $config  Config.
 		 */
-		return (string) apply_filters( 'thimbleform_render_html', $html, $form_id, $config );
+		$html = (string) apply_filters( 'thimbleform_render_html', $html, $form_id, $config );
+		return wp_kses( $html, thimbleform_form_allowed_html() );
 	}
 
 	/**
@@ -262,7 +263,7 @@ class Thimbleform_Renderer {
 			}
 		}
 		if ( is_string( $custom ) ) {
-			return $custom;
+			return wp_kses( $custom, thimbleform_form_allowed_html() );
 		}
 
 		$name  = $field['name'];
@@ -307,12 +308,15 @@ class Thimbleform_Renderer {
 				esc_attr( (string) $step )
 			);
 			$html = (string) ob_get_clean();
-			return (string) apply_filters( 'thimbleform_field_html', $html, $field, $uid );
+			return wp_kses( (string) apply_filters( 'thimbleform_field_html', $html, $field, $uid ), thimbleform_form_allowed_html() );
 		}
 
 		$condition_attrs = self::condition_data_attrs( $field );
 		$width_style     = $width_ui['style'] !== '' ? ' style="' . esc_attr( $width_ui['style'] ) . '"' : '';
-		echo '<div class="' . esc_attr( implode( ' ', $classes ) ) . '" data-field-name="' . esc_attr( $name ) . '" data-field-step="' . esc_attr( (string) $step ) . '"' . $width_style . $condition_attrs . ( $start_hidden ? ' hidden' : '' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- width_style escaped; condition_data_attrs() returns esc_attr()'d attributes.
+		echo wp_kses(
+			'<div class="' . esc_attr( implode( ' ', $classes ) ) . '" data-field-name="' . esc_attr( $name ) . '" data-field-step="' . esc_attr( (string) $step ) . '"' . $width_style . $condition_attrs . ( $start_hidden ? ' hidden' : '' ) . '>',
+			thimbleform_form_allowed_html()
+		);
 
 		if ( in_array( $type, array( 'checkbox', 'acceptance' ), true ) ) {
 			$check_label_class = 'checkbox-field thimbleform__check';
@@ -327,13 +331,13 @@ class Thimbleform_Renderer {
 				$req ? ' required' : '',
 				( $def === '1' || $def === 'true' || $def === 'yes' ) ? ' checked' : ''
 			);
-			$label_html = $label !== '' ? $label : $name;
+			$label_text = $label !== '' ? $label : $name;
+			echo '<span class="label thimbleform__label">';
 			if ( 'acceptance' === $type ) {
-				$label_html = Thimbleform_Form_Config::sanitize_acceptance_label( $label_html );
+				echo wp_kses( Thimbleform_Form_Config::sanitize_acceptance_label( $label_text ), Thimbleform_Form_Config::html_allowed_tags() );
 			} else {
-				$label_html = esc_html( $label_html );
+				echo esc_html( $label_text );
 			}
-			echo '<span class="label thimbleform__label">' . $label_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kses/esc_html above.
 			echo '</span></label>';
 		} else {
 			$show_label = ( $label !== '' || $req ) && ! in_array( $type, array( 'radio', 'checkboxes' ), true );
@@ -560,7 +564,7 @@ class Thimbleform_Renderer {
 		 * @param array  $field Field config.
 		 * @param string $uid   Form uid.
 		 */
-		return (string) apply_filters( 'thimbleform_field_html', $html, $field, $uid );
+		return wp_kses( (string) apply_filters( 'thimbleform_field_html', $html, $field, $uid ), thimbleform_form_allowed_html() );
 	}
 
 	/**
@@ -595,7 +599,10 @@ class Thimbleform_Renderer {
 
 		ob_start();
 		$width_style = $width_ui['style'] !== '' ? ' style="' . esc_attr( $width_ui['style'] ) . '"' : '';
-		echo '<div class="' . esc_attr( implode( ' ', $classes ) ) . '" data-thimbleform-layout data-field-step="' . esc_attr( (string) $step ) . '"' . $width_style . ( $start_hidden ? ' hidden' : '' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- width_style escaped.
+		echo wp_kses(
+			'<div class="' . esc_attr( implode( ' ', $classes ) ) . '" data-thimbleform-layout data-field-step="' . esc_attr( (string) $step ) . '"' . $width_style . ( $start_hidden ? ' hidden' : '' ) . '>',
+			thimbleform_form_allowed_html()
+		);
 
 		if ( 'heading' === $type ) {
 			$level = (string) ( $field['options'] ?? 'h2' );
@@ -644,14 +651,14 @@ class Thimbleform_Renderer {
 		} elseif ( 'html' === $type ) {
 			$content = (string) ( $field['options'] ?? '' );
 			if ( $content !== '' ) {
-				echo '<div class="thimbleform__html">' . wp_kses( $content, Thimbleform_Form_Config::html_allowed_tags() ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<div class="thimbleform__html">' . wp_kses( $content, Thimbleform_Form_Config::html_allowed_tags() ) . '</div>';
 			}
 		}
 
 		echo '</div>';
 		$html = (string) ob_get_clean();
 
-		return (string) apply_filters( 'thimbleform_field_html', $html, $field, $uid );
+		return wp_kses( (string) apply_filters( 'thimbleform_field_html', $html, $field, $uid ), thimbleform_form_allowed_html() );
 	}
 
 	/**

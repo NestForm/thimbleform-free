@@ -79,7 +79,7 @@ class Thimbleform_Elementor {
 					return;
 				}
 
-				echo Thimbleform_Renderer::render( $form_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wp_kses( Thimbleform_Renderer::render( $form_id ), thimbleform_form_allowed_html() );
 			}
 		};
 

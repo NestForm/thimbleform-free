@@ -36,13 +36,14 @@ class Thimbleform_Submissions {
 		add_action( 'manage_' . self::POST_TYPE . '_posts_custom_column', array( __CLASS__, 'column_content' ), 10, 2 );
 		add_action( 'restrict_manage_posts', array( __CLASS__, 'list_toolbar' ) );
 		add_filter( 'disable_months_dropdown', array( __CLASS__, 'disable_months_dropdown' ), 10, 2 );
-		add_filter( 'the_title', array( __CLASS__, 'list_entry_title' ), 10, 2 );
+		add_filter( 'the_posts', array( __CLASS__, 'shorten_list_titles' ), 10, 2 );
 		add_action( 'pre_get_posts', array( __CLASS__, 'filter_by_form' ) );
 		add_action( 'add_meta_boxes', array( __CLASS__, 'meta_boxes' ) );
 		add_action( 'add_meta_boxes', array( __CLASS__, 'remove_default_boxes' ), 100 );
 		add_action( 'edit_form_after_title', array( __CLASS__, 'render_entry_main_panel' ) );
 		add_filter( 'post_row_actions', array( __CLASS__, 'row_actions' ), 10, 2 );
 		add_filter( 'post_class', array( __CLASS__, 'entry_post_class' ), 10, 3 );
+		add_filter( 'get_edit_post_link', array( __CLASS__, 'edit_link_mark_read_nonce' ), 10, 2 );
 		add_action( 'load-post.php', array( __CLASS__, 'on_load_entry_edit' ) );
 		add_action( 'admin_footer', array( __CLASS__, 'render_entry_notes_form_footer' ) );
 		add_filter( 'bulk_actions-edit-' . self::POST_TYPE, array( __CLASS__, 'bulk_actions' ) );
@@ -1480,7 +1481,7 @@ class Thimbleform_Submissions {
 				<?php if ( is_array( $links ) && array() !== $links ) : ?>
 					<div class="thimbleform-entries__pager-links">
 						<?php foreach ( $links as $link ) : ?>
-							<?php echo $link; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- paginate_links HTML ?>
+							<?php echo wp_kses_post( $link ); ?>
 						<?php endforeach; ?>
 					</div>
 				<?php endif; ?>
@@ -2419,32 +2420,54 @@ class Thimbleform_Submissions {
 	}
 
 	/**
-	 * Short contact-only title in the form inbox list table.
+	 * Show the contact name in the inbox list. Stored titles stay unchanged.
 	 *
-	 * @param string $title   Post title.
+	 * Core escapes the title on output, so this must stay plain text.
+	 *
+	 * @param array<int, WP_Post> $posts Posts.
+	 * @param WP_Query            $query Query.
+	 * @return array<int, WP_Post>
+	 */
+	public static function shorten_list_titles( $posts, $query ) {
+		if ( ! is_admin() || ! $query instanceof WP_Query || ! $query->is_main_query() ) {
+			return $posts;
+		}
+		if ( ! self::is_entries_list_screen() ) {
+			return $posts;
+		}
+		foreach ( $posts as $post ) {
+			if ( ! $post instanceof WP_Post || self::POST_TYPE !== $post->post_type ) {
+				continue;
+			}
+			$payload = get_post_meta( $post->ID, self::META_DATA, true );
+			$payload = is_array( $payload ) ? $payload : array();
+			$form_id = (int) get_post_meta( $post->ID, self::META_FORM, true );
+			$form    = $form_id > 0 ? get_post( $form_id ) : null;
+			$exclude = ( $form && $form->post_title !== '' ) ? $form->post_title : '';
+			$post->post_title = self::payload_name( $payload, (string) $post->post_title, $exclude, $form_id );
+		}
+		return $posts;
+	}
+
+	/**
+	 * Add a read-nonce to entry edit links so opening one can mark it read.
+	 *
+	 * @param string $link    Edit link.
 	 * @param int    $post_id Post ID.
 	 * @return string
 	 */
-	public static function list_entry_title( $title, $post_id = 0 ) {
-		if ( ! self::is_entries_list_screen() ) {
-			return $title;
-		}
+	public static function edit_link_mark_read_nonce( $link, $post_id ) {
 		$post_id = (int) $post_id;
-		if ( $post_id <= 0 ) {
-			return $title;
+		if ( ! is_string( $link ) || '' === $link || self::POST_TYPE !== get_post_type( $post_id ) ) {
+			return $link;
 		}
-		$post = get_post( $post_id );
-		if ( ! $post || self::POST_TYPE !== $post->post_type ) {
-			return $title;
+		if ( class_exists( 'Thimbleform_Settings' ) && ! Thimbleform_Settings::auto_mark_read_enabled() ) {
+			return $link;
 		}
-
-		$payload = get_post_meta( $post_id, self::META_DATA, true );
-		$payload = is_array( $payload ) ? $payload : array();
-		$form_id = (int) get_post_meta( $post_id, self::META_FORM, true );
-		$form    = $form_id > 0 ? get_post( $form_id ) : null;
-		$exclude = ( $form && $form->post_title !== '' ) ? $form->post_title : '';
-
-		return self::payload_name( $payload, (string) $post->post_title, $exclude, $form_id );
+		if ( self::STATUS_NEW !== self::get_status( $post_id ) ) {
+			return $link;
+		}
+		return add_query_arg( 'thimbleform_read', wp_create_nonce( 'thimbleform_mark_read_' . $post_id ), $link );
 	}
 
 	/**
@@ -2596,26 +2619,29 @@ class Thimbleform_Submissions {
 	}
 
 	public static function on_load_entry_edit() {
-		if ( ! isset( $_GET['post'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! isset( $_GET['post'] ) ) {
 			return;
 		}
-		$post_id = (int) $_GET['post']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$post_id = absint( wp_unslash( $_GET['post'] ) );
 		if ( $post_id <= 0 || self::POST_TYPE !== get_post_type( $post_id ) ) {
 			return;
 		}
 
 		remove_post_type_support( self::POST_TYPE, 'title' );
-		self::maybe_mark_read();
+
+		$nonce = isset( $_GET['thimbleform_read'] ) ? sanitize_text_field( wp_unslash( $_GET['thimbleform_read'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'thimbleform_mark_read_' . $post_id ) ) {
+			return;
+		}
+		self::maybe_mark_read( $post_id );
 	}
 
 	/**
+	 * @param int $post_id Entry ID. Caller must already verify the read nonce.
 	 * @return void
 	 */
-	public static function maybe_mark_read() {
-		if ( ! isset( $_GET['post'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			return;
-		}
-		$post_id = (int) $_GET['post']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	public static function maybe_mark_read( $post_id = 0 ) {
+		$post_id = (int) $post_id;
 		if ( $post_id <= 0 || self::POST_TYPE !== get_post_type( $post_id ) ) {
 			return;
 		}
@@ -3085,7 +3111,7 @@ class Thimbleform_Submissions {
 			if ( 'password' === $ftype || ( is_string( $value ) && '[redacted]' === $value ) ) {
 				echo esc_html( $display );
 			} elseif ( 'signature' === $ftype && is_array( $value ) && ! empty( $value['url'] ) ) {
-				echo $display; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built via format filter with esc_url.
+				echo wp_kses( $display, thimbleform_admin_allowed_html() );
 			} elseif ( is_array( $value ) && isset( $value[0] ) && is_array( $value[0] ) && ! empty( $value[0]['url'] ) ) {
 				echo '<ul class="thimbleform-entry-payload__files">';
 				foreach ( $value as $file_row ) {

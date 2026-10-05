@@ -48,7 +48,11 @@ class Thimbleform_Xlsx_Export {
 		header( 'Cache-Control: max-age=0' );
 		header( 'Content-Length: ' . strlen( $xlsx ) );
 
-		echo $xlsx; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- raw binary XLSX file content, not HTML.
+		$download = fopen( 'php://output', 'wb' );
+		if ( false !== $download ) {
+			fwrite( $download, $xlsx );
+			fclose( $download );
+		}
 		exit;
 	}
 

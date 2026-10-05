@@ -395,7 +395,7 @@ class Thimbleform_Dashboard {
 					 * @param array  $ctx  Dashboard context.
 					 */
 					$pulse_extra = (string) apply_filters( 'thimbleform_dashboard_work_pulse_extra', '', $pulse_ctx );
-					echo $pulse_extra; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted Pro markup.
+					echo wp_kses( $pulse_extra, thimbleform_admin_allowed_html() );
 					?>
 				</nav>
 			</section>
@@ -444,7 +444,7 @@ class Thimbleform_Dashboard {
 						)
 					);
 					if ( $conversion_kpi !== '' ) {
-						echo $conversion_kpi; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built by trusted Pro addon.
+						echo wp_kses( $conversion_kpi, thimbleform_admin_allowed_html() );
 					}
 				} else {
 					?>
@@ -496,7 +496,7 @@ class Thimbleform_Dashboard {
 									'range'   => $range,
 								)
 							);
-							echo $metrics_nav; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							echo wp_kses( $metrics_nav, thimbleform_admin_allowed_html() );
 							?>
 						<?php elseif ( class_exists( 'Thimbleform_Features' ) && ! Thimbleform_Features::can( Thimbleform_Features::ADVANCED_ANALYTICS ) ) : ?>
 							<nav class="thimbleform-dash__metrics" aria-label="<?php esc_attr_e( 'Chart metric', 'thimbleform' ); ?>">
@@ -561,7 +561,12 @@ class Thimbleform_Dashboard {
 						);
 						?>
 						<div class="thimbleform-dash__chart-wrap" data-thimbleform-chart-wrap>
-							<script type="application/json" data-thimbleform-chart><?php echo wp_json_encode( $free_chart ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></script>
+							<?php
+							echo wp_kses(
+								'<script type="application/json" data-thimbleform-chart>' . wp_json_encode( $free_chart ) . '</script>',
+								thimbleform_admin_allowed_html()
+							);
+							?>
 							<?php
 							/**
 							 * Extra markup / data for Pro chart series switching.
@@ -742,7 +747,7 @@ class Thimbleform_Dashboard {
 						<span class="thimbleform-dash__panel-hint"><?php echo esc_html( $range_labels[ $range ] ); ?></span>
 						<a class="thimbleform-btn thimbleform-btn--ghost" href="<?php echo esc_url( $form_id > 0 ? Thimbleform_Submissions::list_url( $form_id ) : Thimbleform_Submissions::hub_url() ); ?>">
 							<?php echo esc_html( $form_id > 0 ? __( 'Form inbox', 'thimbleform' ) : __( 'All entries', 'thimbleform' ) ); ?>
-							<?php echo thimbleform_admin_icon_html( 'forward' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG ?>
+							<?php echo wp_kses( thimbleform_admin_icon_html( 'forward' ), thimbleform_svg_allowed_html() ); ?>
 						</a>
 					</div>
 					<?php if ( array() === $recent ) : ?>
@@ -767,9 +772,8 @@ class Thimbleform_Dashboard {
 								$estatus  = Thimbleform_Submissions::get_status( $eid );
 								$badge    = Thimbleform_Submissions::badge_modifier( $estatus );
 								$card_tag = $edit_url ? 'a' : 'div';
-								$card_href = $edit_url ? ' href="' . esc_url( $edit_url ) . '"' : '';
 								?>
-								<<?php echo $card_tag; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> class="thimbleform-dash__card"<?php echo $card_href; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+								<<?php echo esc_html( $card_tag ); ?> class="thimbleform-dash__card"<?php echo $edit_url ? ' href="' . esc_url( $edit_url ) . '"' : ''; ?>>
 									<div class="thimbleform-dash__card-top">
 										<span class="thimbleform-badge thimbleform-badge--<?php echo esc_attr( $badge ); ?>"><?php echo esc_html( strtoupper( $estatus ) ); ?></span>
 										<span class="thimbleform-dash__card-ago">
@@ -789,7 +793,7 @@ class Thimbleform_Dashboard {
 									<?php if ( $email !== '' ) : ?>
 										<div class="thimbleform-dash__card-email"><?php echo esc_html( $email ); ?></div>
 									<?php endif; ?>
-								</<?php echo $card_tag; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+								</<?php echo esc_html( $card_tag ); ?>>
 							<?php endforeach; ?>
 						</div>
 					<?php endif; ?>
@@ -1022,7 +1026,7 @@ class Thimbleform_Dashboard {
 		}
 		echo wp_kses_post( $stripped );
 		foreach ( $islands as $island ) {
-			echo $island; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- re-encoded JSON, attribute name is whitelisted.
+			echo wp_kses( $island, thimbleform_admin_allowed_html() );
 		}
 	}
 }

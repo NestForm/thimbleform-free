@@ -4,7 +4,7 @@ Tags: forms, contact form, lead generation, form builder, email
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.3.2
+Stable tag: 2.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -156,6 +156,11 @@ The phone country picker uses self-hosted SVG flags from [flag-icons](https://gi
 
 == Changelog ==
 
+= 2.3.3 =
+* Escape form and admin markup when it is printed, including shortcode output and filtered HTML.
+* Marking an entry as read now requires a nonce. Opening the entry screen no longer changes status from a bare GET request.
+* File uploads no longer load wp-admin/includes/media.php.
+
 = 2.3.2 =
 * Public name is Thimbleform. The plugin directory slug is `thimbleform`.
 * Entries hub: optional All / Forms / Jobs kind filters via `thimbleform_entries_kind_filters` and `thimbleform_entries_hub_query_args` (form_ids / exclude_form_ids).
@@ -189,6 +194,9 @@ The phone country picker uses self-hosted SVG flags from [flag-icons](https://gi
 * Thimbleform Pro is a separate add-on and is not part of this download.
 
 == Upgrade Notice ==
+
+= 2.3.3 =
+Security hardening for form output and entry status changes.
 
 = 2.3.2 =
 Entries hub kind filters for Recruiting (All / Forms / Jobs), sharper dashboard charts, and directory screenshots of the free plugin.

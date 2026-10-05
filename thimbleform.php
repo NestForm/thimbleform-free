@@ -3,7 +3,7 @@
  * Plugin Name: Thimbleform
  * Plugin URI: https://thimbleform.app
  * Description: Build lead and contact forms with an entries inbox, email alerts, spam protection, and webhooks.
- * Version: 2.3.2
+ * Version: 2.3.3
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Thimbleform
@@ -23,11 +23,12 @@ if ( defined( 'THIMBLEFORM_VERSION' ) ) {
 	return;
 }
 
-define( 'THIMBLEFORM_VERSION', '2.3.2' );
+define( 'THIMBLEFORM_VERSION', '2.3.3' );
 define( 'THIMBLEFORM_FILE', __FILE__ );
 define( 'THIMBLEFORM_PATH', trailingslashit( dirname( __FILE__ ) ) );
 define( 'THIMBLEFORM_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 
+require_once THIMBLEFORM_PATH . 'includes/kses.php';
 require_once THIMBLEFORM_PATH . 'includes/uninstall-cleanup.php';
 
 register_uninstall_hook( THIMBLEFORM_FILE, 'thimbleform_uninstall_cleanup' );
@@ -340,7 +341,7 @@ function thimbleform_admin_icon_html( $name, $variant = '' ) {
  * @param string $name Icon key.
  */
 function thimbleform_admin_icon( $name ) {
-	echo thimbleform_admin_icon_html( $name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG
+	echo wp_kses( thimbleform_admin_icon_html( $name ), thimbleform_svg_allowed_html() );
 }
 
 /**
@@ -521,7 +522,7 @@ function thimbleform_render_app_open( $current ) {
 						<?php if ( $entries_url !== '' ) : ?>
 							<a class="thimbleform-app__foot-card-link" href="<?php echo esc_url( $new_n > 0 ? $new_url : $entries_url ); ?>">
 								<?php echo esc_html( $new_n > 0 ? __( 'Review', 'thimbleform' ) : __( 'Open', 'thimbleform' ) ); ?>
-								<?php echo thimbleform_admin_icon_html( 'forward' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG ?>
+								<?php echo wp_kses( thimbleform_admin_icon_html( 'forward' ), thimbleform_svg_allowed_html() ); ?>
 							</a>
 						<?php endif; ?>
 					</div>
@@ -782,7 +783,7 @@ function thimbleform_render_page_head( array $args ) {
 	<header class="thimbleform-page-head">
 		<div class="thimbleform-page-head__lead">
 			<?php if ( $icon_html !== '' ) : ?>
-				<span class="thimbleform-page-head__icon thimbleform-page-head__icon--<?php echo esc_attr( $icon ); ?>" aria-hidden="true"><?php echo $icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG ?></span>
+				<span class="thimbleform-page-head__icon thimbleform-page-head__icon--<?php echo esc_attr( $icon ); ?>" aria-hidden="true"><?php echo wp_kses( $icon_html, thimbleform_svg_allowed_html() ); ?></span>
 			<?php endif; ?>
 			<div class="thimbleform-page-head__copy">
 				<h1 class="thimbleform-page-head__title"><?php echo esc_html( (string) $args['title'] ); ?></h1>
@@ -795,12 +796,12 @@ function thimbleform_render_page_head( array $args ) {
 			<div class="thimbleform-page-head__aside">
 				<?php if ( $meta !== '' ) : ?>
 					<div class="thimbleform-page-head__meta">
-						<?php echo $meta; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built by trusted admin screens / Pro filters ?>
+						<?php echo wp_kses( $meta, thimbleform_admin_allowed_html() ); ?>
 					</div>
 				<?php endif; ?>
 				<?php if ( $actions !== '' ) : ?>
 					<div class="thimbleform-page-head__actions">
-						<?php echo $actions; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built by trusted admin screens ?>
+						<?php echo wp_kses( $actions, thimbleform_admin_allowed_html() ); ?>
 					</div>
 				<?php endif; ?>
 			</div>

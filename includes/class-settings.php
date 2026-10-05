@@ -492,15 +492,59 @@ class Thimbleform_Settings {
 	}
 
 	/**
+	 * Strip control keys that must never persist in the option row.
+	 *
+	 * @param array<string, mixed> $settings Settings.
+	 * @return array<string, mixed>
+	 */
+	private static function finish_settings( array $settings ) {
+		unset( $settings['_section'], $settings['_submitted'] );
+		if ( isset( $settings['role_caps'] ) && is_array( $settings['role_caps'] ) ) {
+			unset( $settings['role_caps']['_submitted'] );
+		}
+		return $settings;
+	}
+
+	/**
+	 * True when $input looks like a full option document (re-entrant sanitize / programmatic update).
+	 *
+	 * Section forms only POST a handful of keys. A full document carries most defaults().
+	 *
+	 * @param array<string, mixed> $input Raw or previously sanitized input.
+	 * @return bool
+	 */
+	private static function is_settings_document( array $input ) {
+		return count( array_intersect_key( $input, self::defaults() ) ) >= 8;
+	}
+
+	/**
 	 * @param mixed $input Raw input.
 	 * @return array<string, mixed>
 	 */
 	public static function sanitize( $input ) {
-		$input   = is_array( $input ) ? $input : array();
-		$stored  = get_option( self::OPTION, array() );
-		$stored  = is_array( $stored ) ? $stored : array();
-		$out     = array_merge( self::defaults(), $stored );
-		$section = isset( $input['_section'] ) ? sanitize_key( (string) $input['_section'] ) : 'general';
+		$input  = is_array( $input ) ? $input : array();
+		$stored = get_option( self::OPTION, array() );
+		$stored = is_array( $stored ) ? $stored : array();
+		$stored = self::finish_settings( $stored );
+		$out    = array_merge( self::defaults(), $stored );
+
+		/*
+		 * update_option() always runs sanitize_option(). Callers that sanitize first
+		 * then update_option() hit this callback twice — the second pass has no
+		 * _section and must not fall through to the "general" branch (that wipes
+		 * privacy / security / email / access changes).
+		 */
+		$has_section = array_key_exists( '_section', $input );
+		$section     = $has_section ? sanitize_key( (string) $input['_section'] ) : '';
+
+		if ( ! $has_section && self::is_settings_document( $input ) ) {
+			$overlay = array_intersect_key( $input, self::defaults() );
+			return self::finish_settings( array_merge( self::defaults(), $stored, $overlay ) );
+		}
+
+		if ( '' === $section ) {
+			$section = 'general';
+		}
 
 		if ( 'integrations' === $section || 'integrations_captcha' === $section ) {
 			$provider = isset( $input['captcha_provider'] ) ? sanitize_key( (string) $input['captcha_provider'] ) : 'recaptcha_v2';
@@ -535,7 +579,7 @@ class Thimbleform_Settings {
 			$out['captcha_v3_score']   = (string) $score;
 
 			if ( 'integrations_captcha' === $section ) {
-				return $out;
+				return self::finish_settings( $out );
 			}
 		}
 
@@ -543,7 +587,7 @@ class Thimbleform_Settings {
 			$can_payments = class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::can( Thimbleform_Features::PAYMENTS );
 			if ( ! $can_payments ) {
 				if ( 'integrations_stripe' === $section ) {
-					return $out;
+					return self::finish_settings( $out );
 				}
 			} else {
 				$stripe_mode = isset( $input['stripe_mode'] ) ? sanitize_key( (string) $input['stripe_mode'] ) : 'test';
@@ -564,7 +608,7 @@ class Thimbleform_Settings {
 				$out['stripe_keys']    = $stripe_keys;
 
 				if ( 'integrations_stripe' === $section ) {
-					return $out;
+					return self::finish_settings( $out );
 				}
 			}
 		}
@@ -572,13 +616,13 @@ class Thimbleform_Settings {
 		if ( 'integrations' === $section || 'integrations_hubspot' === $section ) {
 			$can_hubspot = class_exists( 'Thimbleform_Features' ) && Thimbleform_Features::can( Thimbleform_Features::HUBSPOT );
 			if ( ! $can_hubspot ) {
-				return $out;
+				return self::finish_settings( $out );
 			}
 			$out['hubspot_enabled']      = ! empty( $input['hubspot_enabled'] ) ? '1' : '0';
 			$out['hubspot_access_token'] = isset( $input['hubspot_access_token'] )
 				? sanitize_text_field( (string) $input['hubspot_access_token'] )
 				: '';
-			return $out;
+			return self::finish_settings( $out );
 		}
 
 		if ( 'email' === $section ) {
@@ -588,7 +632,7 @@ class Thimbleform_Settings {
 			$out['email_log_retention_days'] = isset( $input['email_log_retention_days'] )
 				? (string) max( 1, (int) $input['email_log_retention_days'] )
 				: '30';
-			return $out;
+			return self::finish_settings( $out );
 		}
 
 		if ( 'entries' === $section ) {
@@ -598,14 +642,14 @@ class Thimbleform_Settings {
 			}
 			$out['date_format']    = $date_key;
 			$out['auto_mark_read'] = ! empty( $input['auto_mark_read'] ) ? '1' : '0';
-			return $out;
+			return self::finish_settings( $out );
 		}
 
 		if ( 'access' === $section ) {
 			$out['role_caps'] = class_exists( 'Thimbleform_Capabilities' )
 				? Thimbleform_Capabilities::sanitize_role_caps( isset( $input['role_caps'] ) ? $input['role_caps'] : array() )
 				: array();
-			return $out;
+			return self::finish_settings( $out );
 		}
 
 		if ( 'privacy' === $section ) {
@@ -616,7 +660,11 @@ class Thimbleform_Settings {
 			$out['credit_enabled']           = ! empty( $input['credit_enabled'] ) ? '1' : '0';
 			$out['hide_pro_promotions']      = ! empty( $input['hide_pro_promotions'] ) ? '1' : '0';
 			$out['review_requests_enabled']  = ! empty( $input['review_requests_enabled'] ) ? '1' : '0';
-			return $out;
+			// Access lives on the same screen and may be submitted with privacy.
+			if ( class_exists( 'Thimbleform_Capabilities' ) && array_key_exists( 'role_caps', $input ) ) {
+				$out['role_caps'] = Thimbleform_Capabilities::sanitize_role_caps( $input['role_caps'] );
+			}
+			return self::finish_settings( $out );
 		}
 
 		if ( 'security' === $section ) {
@@ -640,13 +688,13 @@ class Thimbleform_Settings {
 			$out['spam_log_retention_days'] = isset( $input['spam_log_retention_days'] )
 				? (string) max( 1, (int) $input['spam_log_retention_days'] )
 				: '30';
-			return $out;
+			return self::finish_settings( $out );
 		}
 
 		$out['default_submit_label']    = isset( $input['default_submit_label'] ) ? sanitize_text_field( (string) $input['default_submit_label'] ) : '';
 		$out['default_success_message'] = isset( $input['default_success_message'] ) ? sanitize_textarea_field( (string) $input['default_success_message'] ) : '';
 
-		return $out;
+		return self::finish_settings( $out );
 	}
 
 	/**
@@ -1155,7 +1203,7 @@ class Thimbleform_Settings {
 						<?php endif; ?>
 
 					<?php elseif ( 'privacy' === $section ) : ?>
-						<form method="post" action="options.php" class="thimbleform-settings__form">
+						<form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" class="thimbleform-settings__form">
 							<?php settings_fields( 'thimbleform_settings' ); ?>
 							<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[_section]" value="privacy" />
 							<div class="thimbleform-admin__surface thimbleform-settings__card">
@@ -1254,16 +1302,9 @@ class Thimbleform_Settings {
 										</td>
 									</tr>
 								</table>
-								<button type="submit" class="thimbleform-btn thimbleform-btn--primary" name="submit" value="1">
-									<?php thimbleform_admin_icon( 'save' ); ?>
-									<?php esc_html_e( 'Save', 'thimbleform' ); ?>
-								</button>
 							</div>
-						</form>
-						<?php if ( class_exists( 'Thimbleform_Capabilities' ) ) : ?>
-						<form method="post" action="options.php" class="thimbleform-settings__form">
-							<?php settings_fields( 'thimbleform_settings' ); ?>
-							<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[_section]" value="access" />
+
+							<?php if ( class_exists( 'Thimbleform_Capabilities' ) ) : ?>
 							<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[role_caps][_submitted]" value="1" />
 							<div class="thimbleform-admin__surface thimbleform-settings__card">
 								<div class="thimbleform-admin__panel-head">
@@ -1328,13 +1369,16 @@ class Thimbleform_Settings {
 									</table>
 								</div>
 								<p class="description"><?php esc_html_e( 'Managing forms includes viewing entries. Role editors such as Members also see these capabilities.', 'thimbleform' ); ?></p>
+							</div>
+							<?php endif; ?>
+
+							<p class="submit thimbleform-settings__submit">
 								<button type="submit" class="thimbleform-btn thimbleform-btn--primary" name="submit" value="1">
 									<?php thimbleform_admin_icon( 'save' ); ?>
-									<?php esc_html_e( 'Save access', 'thimbleform' ); ?>
+									<?php esc_html_e( 'Save', 'thimbleform' ); ?>
 								</button>
-							</div>
+							</p>
 						</form>
-						<?php endif; ?>
 						<?php
 						if ( class_exists( 'Thimbleform_Backup' ) ) {
 							Thimbleform_Backup::render_card();

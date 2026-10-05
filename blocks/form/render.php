@@ -32,4 +32,4 @@ if ( $thimbleform_html === '' ) {
 	return;
 }
 
-echo '<div ' . $thimbleform_wrapper . '>' . $thimbleform_html . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- renderer returns escaped HTML.
+echo wp_kses( '<div ' . $thimbleform_wrapper . '>' . $thimbleform_html . '</div>', thimbleform_form_allowed_html() );

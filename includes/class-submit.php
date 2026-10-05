@@ -1298,10 +1298,6 @@ class Thimbleform_Submit {
 			return new WP_Error( 'invalid_file', $messages['invalid_file'] ?? $messages['error_generic'] );
 		}
 
-		if ( ! function_exists( 'wp_insert_attachment' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/image.php';
-			require_once ABSPATH . 'wp-admin/includes/media.php';
-		}
 		$filetype   = wp_check_filetype( basename( $upload['file'] ), null );
 		$attachment = array(
 			'post_mime_type' => $filetype['type'] ?? $upload['type'],
@@ -1311,6 +1307,9 @@ class Thimbleform_Submit {
 		);
 		$attach_id = wp_insert_attachment( $attachment, $upload['file'] );
 		if ( ! is_wp_error( $attach_id ) && $attach_id ) {
+			if ( ! function_exists( 'wp_generate_attachment_metadata' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/image.php';
+			}
 			$metadata = wp_generate_attachment_metadata( (int) $attach_id, $upload['file'] );
 			wp_update_attachment_metadata( (int) $attach_id, $metadata );
 		} else {

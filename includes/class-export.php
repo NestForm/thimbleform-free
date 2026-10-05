@@ -89,7 +89,7 @@ class Thimbleform_Export {
 				aria-expanded="false"
 				aria-haspopup="true"
 			>
-				<?php echo $icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG ?>
+				<?php echo wp_kses( $icon, thimbleform_svg_allowed_html() ); ?>
 				<?php esc_html_e( 'Export', 'thimbleform' ); ?>
 			</button>
 			<div class="thimbleform-export-menu__panel" hidden>

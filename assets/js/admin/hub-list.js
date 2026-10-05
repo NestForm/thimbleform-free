@@ -440,6 +440,16 @@
 		bootImportMenus();
 	}
 
+	document.addEventListener('change', function (event) {
+		var target = event.target;
+		if (!target || !target.classList || !target.classList.contains('thimbleform-hub__import-file')) {
+			return;
+		}
+		if (target.form) {
+			target.form.submit();
+		}
+	});
+
 	if (document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', boot);
 	} else {

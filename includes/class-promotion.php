@@ -187,7 +187,7 @@ class Thimbleform_Promotion {
 			<div class="thimbleform-upgrade__shell">
 				<header class="thimbleform-upgrade__head">
 					<span class="thimbleform-upgrade__badge">
-						<?php echo thimbleform_admin_icon_html( 'pro' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						<?php echo wp_kses( thimbleform_admin_icon_html( 'pro' ), thimbleform_svg_allowed_html() ); ?>
 						<?php esc_html_e( 'Thimbleform Pro', 'thimbleform' ); ?>
 					</span>
 					<h2 class="thimbleform-upgrade__title"><?php esc_html_e( 'Forms, quizzes & surveys that convert', 'thimbleform' ); ?></h2>
@@ -263,7 +263,7 @@ class Thimbleform_Promotion {
 		?>
 		<div class="thimbleform-admin__surface thimbleform-settings__pro-card" aria-label="<?php esc_attr_e( 'Thimbleform Pro', 'thimbleform' ); ?>">
 			<p class="thimbleform-settings__pro-kicker">
-				<?php echo thimbleform_admin_icon_html( 'pro' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php echo wp_kses( thimbleform_admin_icon_html( 'pro' ), thimbleform_svg_allowed_html() ); ?>
 				<?php esc_html_e( 'Thimbleform Pro', 'thimbleform' ); ?>
 			</p>
 			<p class="thimbleform-settings__pro-copy"><?php echo esc_html( self::summary() ); ?></p>
@@ -296,7 +296,7 @@ class Thimbleform_Promotion {
 		<div class="<?php echo esc_attr( $class ); ?>" aria-label="<?php echo esc_attr( $title ); ?>">
 			<div class="thimbleform-pro-teaser__body">
 				<p class="thimbleform-app__pro-kicker">
-					<?php echo thimbleform_admin_icon_html( 'pro' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php echo wp_kses( thimbleform_admin_icon_html( 'pro' ), thimbleform_svg_allowed_html() ); ?>
 					<?php esc_html_e( 'Thimbleform Pro', 'thimbleform' ); ?>
 				</p>
 				<p class="thimbleform-pro-teaser__title"><?php echo esc_html( $title ); ?></p>
