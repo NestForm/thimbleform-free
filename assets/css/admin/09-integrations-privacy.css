@@ -211,6 +211,29 @@ body.thimbleform-settings-screen .thimbleform-settings__form {
     margin-bottom: var(--thimbleform-space-6);
 }
 
+body.thimbleform-settings-screen .thimbleform-settings__stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--thimbleform-space-4);
+}
+
+body.thimbleform-settings-screen .thimbleform-settings__stack > .thimbleform-settings__card {
+    margin-top: 0;
+}
+
+body.thimbleform-settings-screen .thimbleform-settings__form:has(.thimbleform-settings__stack) {
+    margin-bottom: 0;
+}
+
+body.thimbleform-settings-screen .thimbleform-settings__form + .thimbleform-settings__card {
+    margin-top: var(--thimbleform-space-4);
+}
+
+body.wp-core-ui.thimbleform-settings-screen p.submit.thimbleform-settings__submit {
+    margin: var(--thimbleform-space-4) 0 0;
+    padding: 0;
+}
+
 body.thimbleform-settings-screen .thimbleform-settings__form:last-child {
     margin-bottom: 0;
 }

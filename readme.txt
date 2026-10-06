@@ -160,6 +160,8 @@ The phone country picker uses self-hosted SVG flags from [flag-icons](https://gi
 * Escape form and admin markup when it is printed, including shortcode output and filtered HTML.
 * Marking an entry as read now requires a nonce. Opening the entry screen no longer changes status from a bare GET request.
 * File uploads no longer load wp-admin/includes/media.php.
+* The dashboard chart library ships in the plugin package.
+* Privacy settings: Save is below the section cards, with the usual space between them.
 
 = 2.3.2 =
 * Public name is Thimbleform. The plugin directory slug is `thimbleform`.

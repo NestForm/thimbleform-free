@@ -45,8 +45,8 @@ assets/js/build.mjs
 blocks/form/editor.js
 assets/**/*.map
 **/*.log
-vendor/
-vendor/freemius/
+# Composer dependencies at the plugin root. assets/vendor/ (Chart.js) must ship.
+/vendor/
 # WordPress.org directory assets (SVN /assets only — not in plugin zip)
 .wordpress-org
 assets/banner-*.png

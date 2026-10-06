@@ -1320,6 +1320,11 @@ body.thimbleform-import-screen .thimbleform-import .thimbleform-settings__card{p
 .thimbleform-import__notes{margin:var(--thimbleform-space-2) 0 0;padding-left:1.25em;color:var(--thimbleform-muted)}
 .thimbleform-import__notes li{margin:0 0 var(--thimbleform-space-1)}
 body.thimbleform-settings-screen .thimbleform-settings__form{margin-bottom:var(--thimbleform-space-6)}
+body.thimbleform-settings-screen .thimbleform-settings__stack{display:flex;flex-direction:column;gap:var(--thimbleform-space-4)}
+body.thimbleform-settings-screen .thimbleform-settings__stack>.thimbleform-settings__card{margin-top:0}
+body.thimbleform-settings-screen .thimbleform-settings__form:has(.thimbleform-settings__stack){margin-bottom:0}
+body.thimbleform-settings-screen .thimbleform-settings__form+.thimbleform-settings__card{margin-top:var(--thimbleform-space-4)}
+body.wp-core-ui.thimbleform-settings-screen p.submit.thimbleform-settings__submit{margin:var(--thimbleform-space-4) 0 0;padding:0}
 body.thimbleform-settings-screen .thimbleform-settings__form:last-child{margin-bottom:0}
 body.thimbleform-settings-screen .thimbleform-settings__card{padding:var(--thimbleform-space-4) var(--thimbleform-space-4)}
 body.thimbleform-settings-screen .thimbleform-settings__card .description+.thimbleform-btn{margin-top:var(--thimbleform-space-6)}

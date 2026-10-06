@@ -1203,9 +1203,10 @@ class Thimbleform_Settings {
 						<?php endif; ?>
 
 					<?php elseif ( 'privacy' === $section ) : ?>
-						<form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" class="thimbleform-settings__form">
+						<form id="thimbleform-settings-privacy" method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" class="thimbleform-settings__form">
 							<?php settings_fields( 'thimbleform_settings' ); ?>
 							<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[_section]" value="privacy" />
+							<div class="thimbleform-settings__stack">
 							<div class="thimbleform-admin__surface thimbleform-settings__card">
 								<div class="thimbleform-admin__panel-head">
 									<div>
@@ -1305,8 +1306,8 @@ class Thimbleform_Settings {
 							</div>
 
 							<?php if ( class_exists( 'Thimbleform_Capabilities' ) ) : ?>
-							<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[role_caps][_submitted]" value="1" />
 							<div class="thimbleform-admin__surface thimbleform-settings__card">
+								<input type="hidden" name="<?php echo esc_attr( $opt ); ?>[role_caps][_submitted]" value="1" />
 								<div class="thimbleform-admin__panel-head">
 									<div>
 										<h3 class="thimbleform-admin__panel-title"><?php esc_html_e( 'Access', 'thimbleform' ); ?></h3>
@@ -1371,19 +1372,19 @@ class Thimbleform_Settings {
 								<p class="description"><?php esc_html_e( 'Managing forms includes viewing entries. Role editors such as Members also see these capabilities.', 'thimbleform' ); ?></p>
 							</div>
 							<?php endif; ?>
-
-							<p class="submit thimbleform-settings__submit">
-								<button type="submit" class="thimbleform-btn thimbleform-btn--primary" name="submit" value="1">
-									<?php thimbleform_admin_icon( 'save' ); ?>
-									<?php esc_html_e( 'Save', 'thimbleform' ); ?>
-								</button>
-							</p>
+							</div>
 						</form>
 						<?php
 						if ( class_exists( 'Thimbleform_Backup' ) ) {
 							Thimbleform_Backup::render_card();
 						}
 						?>
+						<p class="submit thimbleform-settings__submit">
+							<button type="submit" class="thimbleform-btn thimbleform-btn--primary" name="submit" value="1" form="thimbleform-settings-privacy">
+								<?php thimbleform_admin_icon( 'save' ); ?>
+								<?php esc_html_e( 'Save', 'thimbleform' ); ?>
+							</button>
+						</p>
 					<?php endif; ?>
 				</div>
 
